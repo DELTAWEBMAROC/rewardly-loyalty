@@ -533,8 +533,64 @@
 }
 
 /* =========================================================
-   Correctifs d'affichage - Mon compte WooCommerce
+   Correctifs de lisibilité WooCommerce
    ========================================================= */
+
+/* Produit */
+.single-product .product_title,
+.single-product .price,
+.single-product .stock,
+.single-product .woocommerce-product-details__short-description,
+.single-product .woocommerce-product-details__short-description p,
+.single-product form.cart,
+.single-product form.cart label,
+.single-product form.cart span,
+.single-product form.cart p,
+.single-product form.cart li,
+.single-product .variations label,
+.single-product .reset_variations {
+	color: #111 !important;
+}
+
+/* Panier */
+.woocommerce-cart .wc-block-cart,
+.woocommerce-cart .wc-block-cart *,
+.woocommerce-cart .wc-block-components-sidebar,
+.woocommerce-cart .wc-block-components-sidebar *,
+.woocommerce-cart .wc-block-components-totals-wrapper,
+.woocommerce-cart .wc-block-components-totals-wrapper *,
+.woocommerce-cart .wc-block-components-order-summary,
+.woocommerce-cart .wc-block-components-order-summary *,
+.woocommerce-cart .wc-block-components-product-name,
+.woocommerce-cart .wc-block-components-formatted-money-amount,
+.woocommerce-cart .wc-block-components-totals-item__label,
+.woocommerce-cart .wc-block-components-totals-item__value,
+.woocommerce-cart .wc-block-components-button,
+.woocommerce-cart .wc-block-components-checkout-return-to-cart-button {
+	color: #111 !important;
+}
+
+/* Checkout */
+.woocommerce-checkout .woocommerce,
+.woocommerce-checkout .woocommerce *,
+.woocommerce-checkout form.checkout,
+.woocommerce-checkout form.checkout *,
+.woocommerce-checkout .shop_table,
+.woocommerce-checkout .shop_table *,
+.woocommerce-checkout .woocommerce-checkout-review-order,
+.woocommerce-checkout .woocommerce-checkout-review-order *,
+.woocommerce-checkout #payment,
+.woocommerce-checkout #payment *,
+.woocommerce-checkout .form-row label,
+.woocommerce-checkout .form-row span,
+.woocommerce-checkout .form-row p,
+.woocommerce-checkout .woocommerce-info,
+.woocommerce-checkout .woocommerce-error,
+.woocommerce-checkout .woocommerce-message {
+	color: #111 !important;
+}
+
+/* Mon compte */
 .woocommerce-account .woocommerce-MyAccount-navigation a,
 .woocommerce-account .woocommerce-MyAccount-navigation li a,
 .woocommerce-account .woocommerce-MyAccount-content,
@@ -553,10 +609,7 @@
 
 .woocommerce-account .woocommerce-MyAccount-navigation a:hover,
 .woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
-.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a:hover {
-	color: var(--rewardly-orange) !important;
-}
-
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a:hover,
 .woocommerce-account .woocommerce-MyAccount-content a {
 	color: var(--rewardly-orange) !important;
 }

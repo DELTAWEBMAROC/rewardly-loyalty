@@ -23,10 +23,7 @@ class Rewardly_Loyalty_Helpers {
 			'email_notifications'    => 'yes',
 		);
 
-		$saved = get_option( 'rewardly_loyalty_settings', false );
-		if ( false === $saved ) {
-			$saved = get_option( 'lavap_loyalty_settings', array() );
-		}
+		$saved = get_option( 'rewardly_loyalty_settings', array() );
 
 		return wp_parse_args( is_array( $saved ) ? $saved : array(), $defaults );
 	}
@@ -39,40 +36,23 @@ class Rewardly_Loyalty_Helpers {
 	private static function get_log_table_name() {
 		global $wpdb;
 
-		$new_table    = $wpdb->prefix . 'rewardly_loyalty_log';
-		$legacy_table = $wpdb->prefix . 'lavap_loyalty_log';
-
-		$found_new = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $new_table ) );
-		if ( $found_new === $new_table ) {
-			return $new_table;
-		}
-
-		$found_legacy = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $legacy_table ) );
-		if ( $found_legacy === $legacy_table ) {
-			return $legacy_table;
-		}
-
-		return $new_table;
+		return $wpdb->prefix . 'rewardly_loyalty_log';
 	}
 
 	/**
-	 * Lire une méta utilisateur avec fallback legacy.
+	 * Lire une méta utilisateur sans fallback legacy.
 	 *
 	 * @param int    $user_id    ID utilisateur.
 	 * @param string $new_key    Clé actuelle.
 	 * @param string $legacy_key Clé historique.
 	 * @return mixed
 	 */
-	private static function get_user_meta_value( $user_id, $new_key, $legacy_key ) {
-		$value = get_user_meta( $user_id, $new_key, true );
-		if ( '' === $value || null === $value ) {
-			$value = get_user_meta( $user_id, $legacy_key, true );
-		}
-		return $value;
+	private static function get_user_meta_value( $user_id, $key ) {
+		return get_user_meta( $user_id, $key, true );
 	}
 
 	/**
-	 * Écrire une méta utilisateur sur les clés actuelle et legacy.
+	 * Écrire une méta utilisateur sur la clé actuelle.
 	 *
 	 * @param int    $user_id    ID utilisateur.
 	 * @param string $new_key    Clé actuelle.
@@ -80,9 +60,8 @@ class Rewardly_Loyalty_Helpers {
 	 * @param mixed  $value      Valeur.
 	 * @return void
 	 */
-	private static function update_user_meta_value( $user_id, $new_key, $legacy_key, $value ) {
-		update_user_meta( $user_id, $new_key, $value );
-		update_user_meta( $user_id, $legacy_key, $value );
+	private static function update_user_meta_value( $user_id, $key, $value ) {
+		update_user_meta( $user_id, $key, $value );
 	}
 
 	public static function is_enabled() {
@@ -96,19 +75,19 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_points( $user_id ) {
-		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_balance', 'lavap_loyalty_points_balance' );
+		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_balance' );
 	}
 
 	public static function set_user_points( $user_id, $points ) {
-		self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_balance', 'lavap_loyalty_points_balance', max( 0, (int) $points ) );
+		self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_balance', max( 0, (int) $points ) );
 	}
 
 	public static function get_total_earned( $user_id ) {
-		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total', 'lavap_loyalty_points_earned_total' );
+		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total' );
 	}
 
 	public static function get_total_spent( $user_id ) {
-		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total', 'lavap_loyalty_points_spent_total' );
+		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total' );
 	}
 
 	public static function get_user_logs( $user_id, $limit = 20 ) {
@@ -154,7 +133,7 @@ class Rewardly_Loyalty_Helpers {
 	 * @return array
 	 */
 	public static function get_user_point_lots( $user_id ) {
-		$lots = self::get_user_meta_value( $user_id, 'rewardly_loyalty_point_lots', 'lavap_loyalty_point_lots' );
+		$lots = self::get_user_meta_value( $user_id, 'rewardly_loyalty_point_lots' );
 		if ( ! is_array( $lots ) ) {
 			$lots = array();
 		}
@@ -162,7 +141,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function set_user_point_lots( $user_id, $lots ) {
-		self::update_user_meta_value( $user_id, 'rewardly_loyalty_point_lots', 'lavap_loyalty_point_lots', array_values( $lots ) );
+		self::update_user_meta_value( $user_id, 'rewardly_loyalty_point_lots', array_values( $lots ) );
 	}
 
 	/**
@@ -236,7 +215,7 @@ class Rewardly_Loyalty_Helpers {
 
 		if ( self::should_count_as_earned_total( $type ) ) {
 			$total_earned = self::get_total_earned( $user_id );
-			self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total', 'lavap_loyalty_points_earned_total', $total_earned + $points );
+			self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total', $total_earned + $points );
 		}
 
 		$lots   = self::get_user_point_lots( $user_id );
@@ -299,7 +278,7 @@ class Rewardly_Loyalty_Helpers {
 
 		if ( self::should_count_as_spent_total( $type ) ) {
 			$total_spent = self::get_total_spent( $user_id );
-			self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total', 'lavap_loyalty_points_spent_total', $total_spent + $actual );
+			self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total', $total_spent + $actual );
 		}
 
 		$amount = self::convert_points_to_amount( $actual );
@@ -356,20 +335,7 @@ class Rewardly_Loyalty_Helpers {
 			)
 		);
 
-		if ( empty( $users ) ) {
-			$users = get_users(
-				array(
-					'meta_key'     => 'lavap_loyalty_points_balance',
-					'meta_compare' => 'EXISTS',
-					'fields'       => array( 'ID' ),
-					'number'       => 500,
-				)
-			);
-		}
 
-		if ( empty( $users ) ) {
-			return;
-		}
 
 		$cutoff_ts = current_time( 'timestamp' ) - ( $days * DAY_IN_SECONDS );
 

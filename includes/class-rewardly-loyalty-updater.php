@@ -100,7 +100,7 @@ class Rewardly_Loyalty_Updater {
 		}
 
 		$response = wp_remote_get(
-			'https://api.github.com/repos/ahmedxy/lavap-loyalty-points/releases/latest',
+			'https://api.github.com/repos/DELTAWEBMAROC/rewardly-loyalty/releases/latest',
 			array(
 				'timeout' => 20,
 				'headers' => array(

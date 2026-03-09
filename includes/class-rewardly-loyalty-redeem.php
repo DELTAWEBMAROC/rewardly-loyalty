@@ -263,7 +263,7 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		$order->update_meta_data( '_lavap_loyalty_points_spent', $points_to_spend );
+		$order->update_meta_data( '_rewardly_loyalty_points_spent', $points_to_spend );
 		$order->update_meta_data( '_rewardly_loyalty_discount_amount', $discount );
 	}
 
@@ -273,11 +273,11 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		if ( 'yes' === $order->get_meta( '_lavap_loyalty_spent_processed' ) ) {
+		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_spent_processed' ) ) {
 			return;
 		}
 
-		$points_to_spend = (int) $order->get_meta( '_lavap_loyalty_points_spent' );
+		$points_to_spend = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
 		if ( $points_to_spend <= 0 ) {
 			return;
 		}
@@ -295,7 +295,7 @@ class Rewardly_Loyalty_Redeem {
 			'Points utilisés pour obtenir une réduction sur la commande.'
 		);
 
-		$order->update_meta_data( '_lavap_loyalty_spent_processed', 'yes' );
+		$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'yes' );
 		$order->save();
 
 		if ( function_exists( 'WC' ) && WC()->session ) {

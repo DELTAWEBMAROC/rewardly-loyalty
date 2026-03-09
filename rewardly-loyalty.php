@@ -18,21 +18,6 @@ define( 'REWARDLY_LOYALTY_FILE', __FILE__ );
 define( 'REWARDLY_LOYALTY_BASENAME', plugin_basename( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_CRON_HOOK', 'rewardly_loyalty_daily_expiration' );
 define( 'REWARDLY_LOYALTY_REPO_URL', 'https://github.com/DELTAWEBMAROC/rewardly-loyalty/' );
-define( 'REWARDLY_LOYALTY_LEGACY_CRON_HOOK', 'lavap_loyalty_daily_expiration' );
-
-/* Compatibilité transitoire avec les anciennes constantes. */
-if ( ! defined( 'LAVAP_LOYALTY_VERSION' ) ) {
-	define( 'LAVAP_LOYALTY_VERSION', REWARDLY_LOYALTY_VERSION );
-}
-if ( ! defined( 'LAVAP_LOYALTY_PATH' ) ) {
-	define( 'LAVAP_LOYALTY_PATH', REWARDLY_LOYALTY_PATH );
-}
-if ( ! defined( 'LAVAP_LOYALTY_URL' ) ) {
-	define( 'LAVAP_LOYALTY_URL', REWARDLY_LOYALTY_URL );
-}
-if ( ! defined( 'LAVAP_LOYALTY_CRON_HOOK' ) ) {
-	define( 'LAVAP_LOYALTY_CRON_HOOK', REWARDLY_LOYALTY_CRON_HOOK );
-}
 
 require_once REWARDLY_LOYALTY_PATH . 'includes/class-rewardly-loyalty-updater.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/class-rewardly-loyalty-helpers.php';
@@ -75,12 +60,7 @@ function rewardly_loyalty_activate() {
 	dbDelta( $sql );
 
 	if ( false === get_option( 'rewardly_loyalty_settings', false ) ) {
-		$legacy_settings = get_option( 'lavap_loyalty_settings', false );
-		if ( false !== $legacy_settings ) {
-			add_option( 'rewardly_loyalty_settings', $legacy_settings );
-		} else {
-			add_option( 'rewardly_loyalty_settings', Rewardly_Loyalty_Helpers::get_settings() );
-		}
+		add_option( 'rewardly_loyalty_settings', Rewardly_Loyalty_Helpers::get_settings() );
 	}
 
 	if ( class_exists( 'Rewardly_Loyalty_Account' ) ) {
@@ -102,7 +82,6 @@ register_activation_hook( __FILE__, 'rewardly_loyalty_activate' );
  */
 function rewardly_loyalty_deactivate() {
 	wp_clear_scheduled_hook( REWARDLY_LOYALTY_CRON_HOOK );
-	wp_clear_scheduled_hook( REWARDLY_LOYALTY_LEGACY_CRON_HOOK );
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'rewardly_loyalty_deactivate' );
@@ -130,18 +109,10 @@ function rewardly_loyalty_maybe_upgrade() {
 		return;
 	}
 
-	if ( false === get_option( 'rewardly_loyalty_settings', false ) ) {
-		$legacy_settings = get_option( 'lavap_loyalty_settings', false );
-		if ( false !== $legacy_settings ) {
-			update_option( 'rewardly_loyalty_settings', $legacy_settings );
-		}
-	}
-
 	if ( ! wp_next_scheduled( REWARDLY_LOYALTY_CRON_HOOK ) ) {
 		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', REWARDLY_LOYALTY_CRON_HOOK );
 	}
 
-	wp_clear_scheduled_hook( REWARDLY_LOYALTY_LEGACY_CRON_HOOK );
 	flush_rewrite_rules( false );
 	update_option( 'rewardly_loyalty_installed_version', REWARDLY_LOYALTY_VERSION );
 }
