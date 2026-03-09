@@ -73,12 +73,12 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	private static function handle_apply_request() {
-		$user_id    = get_current_user_id();
-		$settings   = Rewardly_Loyalty_Helpers::get_settings();
+		$user_id     = get_current_user_id();
+		$settings    = Rewardly_Loyalty_Helpers::get_settings();
 		$user_points = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
-		$min_points = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
-		$max_usable = self::get_max_redeemable_points_for_cart( $user_id, WC()->cart );
-		$raw_value  = isset( $_POST['rewardly_points_to_use'] ) ? wp_unslash( $_POST['rewardly_points_to_use'] ) : '';
+		$min_points  = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
+		$max_usable  = self::get_max_redeemable_points_for_cart( $user_id, WC()->cart );
+		$raw_value   = isset( $_POST['rewardly_points_to_use'] ) ? wp_unslash( $_POST['rewardly_points_to_use'] ) : '';
 
 		if ( $user_points < $min_points ) {
 			wc_add_notice( 'Vous ne pouvez pas encore utiliser vos points de fidélité.', 'error' );
@@ -144,7 +144,7 @@ class Rewardly_Loyalty_Redeem {
 	/**
 	 * Calculer le maximum réel de points utilisables sur la commande.
 	 *
-	 * @param int      $user_id Identifiant utilisateur.
+	 * @param int          $user_id Identifiant utilisateur.
 	 * @param WC_Cart|null $cart Panier courant.
 	 * @return int
 	 */
@@ -355,8 +355,33 @@ class Rewardly_Loyalty_Redeem {
 			'rewardly_loyalty_toggle',
 			'_rewardly_nonce'
 		);
+
+		/* Version simple si le client ne peut pas encore utiliser ses points. */
+		if ( ! $can_redeem && $min_points > 0 ) {
+			?>
+			<div class="rewardly-loyalty-box rewardly-loyalty-box--connected">
+				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--top">
+					<span class="rewardly-loyalty-box__icon">🏆</span>
+					<div class="rewardly-loyalty-box__top-text">
+						Cette commande peut vous faire gagner
+						<strong><?php echo esc_html( $potential_points ); ?> points</strong>.
+					</div>
+				</div>
+
+				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--bottom">
+					<div class="rewardly-loyalty-box__bottom-text">
+						Vous avez actuellement <strong><?php echo esc_html( $points ); ?> points</strong>.
+						Vous pourrez utiliser vos points dès <strong><?php echo esc_html( $min_points ); ?></strong> points cumulés.
+					</div>
+				</div>
+			</div>
+			<?php
+			return;
+		}
+
+		/* Desktop : bloc ouvert normal. */
 		?>
-		<div class="rewardly-loyalty-box rewardly-loyalty-box--connected">
+		<div class="rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop">
 			<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--top">
 				<span class="rewardly-loyalty-box__icon">🏆</span>
 				<div class="rewardly-loyalty-box__top-text">
@@ -365,64 +390,133 @@ class Rewardly_Loyalty_Redeem {
 				</div>
 			</div>
 
-			<?php if ( $can_redeem ) : ?>
+			<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--bottom">
+				<?php
+				self::render_loyalty_box_content(
+					array(
+						'points'              => $points,
+						'total_amount'        => $total_amount,
+						'is_active'           => $is_active,
+						'max_usable_points'   => $max_usable_points,
+						'max_usable_amount'   => $max_usable_amount,
+						'applied_points'      => $applied_points,
+						'applied_discount'    => $applied_discount,
+						'display_input_value' => $display_input_value,
+						'remove_url'          => $remove_url,
+						'input_suffix'        => 'desktop',
+					)
+				);
+				?>
+			</div>
+		</div>
+
+		<?php
+		/* Mobile : bloc repliable. */
+		?>
+		<details class="rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible">
+			<summary class="rewardly-loyalty-box__summary">
+				<span class="rewardly-loyalty-box__summary-main">
+					<span class="rewardly-loyalty-box__icon">🏆</span>
+					<span class="rewardly-loyalty-box__summary-text">
+						Cette commande peut vous faire gagner
+						<strong><?php echo esc_html( $potential_points ); ?> points</strong>.
+					</span>
+				</span>
+
+				<span class="rewardly-loyalty-box__summary-hint">
+					Utiliser mes points
+				</span>
+			</summary>
+
+			<div class="rewardly-loyalty-box__mobile-content">
 				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--bottom">
-					<div class="rewardly-loyalty-box__bottom-text">
-						Vous avez <strong><?php echo esc_html( $points ); ?> points</strong>,
-						soit <strong><?php echo wp_kses_post( wc_price( $total_amount ) ); ?></strong> de réduction disponible.
-						<br>
-						Vous pouvez utiliser jusqu’à <strong><?php echo esc_html( $max_usable_points ); ?> points</strong> sur cette commande,
-						soit <strong><?php echo wp_kses_post( wc_price( $max_usable_amount ) ); ?></strong>.
-						<?php if ( $is_active && $applied_points > 0 && $applied_discount > 0 ) : ?>
-							<br>
-							Points actuellement appliqués :
-							<strong><?php echo esc_html( $applied_points ); ?></strong>
-							(<?php echo wp_kses_post( wc_price( $applied_discount ) ); ?>).
-						<?php endif; ?>
-					</div>
-
-					<div class="rewardly-loyalty-box__actions">
-						<form class="rewardly-loyalty-box__form" method="post" action="<?php echo esc_url( self::get_current_page_url() ); ?>">
-							<input type="hidden" name="rewardly_loyalty_action" value="apply">
-							<?php wp_nonce_field( 'rewardly_loyalty_apply', '_rewardly_nonce' ); ?>
-
-							<label class="rewardly-loyalty-box__label" for="rewardly_points_to_use">
-								Nombre de points à utiliser
-							</label>
-
-							<input
-								type="number"
-								id="rewardly_points_to_use"
-								name="rewardly_points_to_use"
-								class="rewardly-loyalty-box__input"
-								min="1"
-								max="<?php echo esc_attr( $max_usable_points ); ?>"
-								step="1"
-								value="<?php echo esc_attr( $display_input_value ); ?>"
-							>
-
-							<div class="rewardly-loyalty-box__buttons">
-								<button type="submit" class="button rewardly-loyalty-btn rewardly-loyalty-btn--primary">
-									Appliquer mes points
-								</button>
-
-								<?php if ( $is_active ) : ?>
-									<a class="button rewardly-loyalty-btn" href="<?php echo esc_url( $remove_url ); ?>">
-										Retirer mes points
-									</a>
-								<?php endif; ?>
-							</div>
-						</form>
-					</div>
+					<?php
+					self::render_loyalty_box_content(
+						array(
+							'points'              => $points,
+							'total_amount'        => $total_amount,
+							'is_active'           => $is_active,
+							'max_usable_points'   => $max_usable_points,
+							'max_usable_amount'   => $max_usable_amount,
+							'applied_points'      => $applied_points,
+							'applied_discount'    => $applied_discount,
+							'display_input_value' => $display_input_value,
+							'remove_url'          => $remove_url,
+							'input_suffix'        => 'mobile',
+						)
+					);
+					?>
 				</div>
-			<?php elseif ( $min_points > 0 ) : ?>
-				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--bottom">
-					<div class="rewardly-loyalty-box__bottom-text">
-						Vous avez actuellement <strong><?php echo esc_html( $points ); ?> points</strong>.
-						Vous pourrez utiliser vos points dès <strong><?php echo esc_html( $min_points ); ?></strong> points cumulés.
-					</div>
-				</div>
+			</div>
+		</details>
+		<?php
+	}
+
+	/**
+	 * Afficher le contenu interne du bloc fidélité.
+	 *
+	 * @param array $args Données d'affichage.
+	 * @return void
+	 */
+	private static function render_loyalty_box_content( $args ) {
+		$points              = isset( $args['points'] ) ? (int) $args['points'] : 0;
+		$total_amount        = isset( $args['total_amount'] ) ? (float) $args['total_amount'] : 0;
+		$is_active           = ! empty( $args['is_active'] );
+		$max_usable_points   = isset( $args['max_usable_points'] ) ? (int) $args['max_usable_points'] : 0;
+		$max_usable_amount   = isset( $args['max_usable_amount'] ) ? (float) $args['max_usable_amount'] : 0;
+		$applied_points      = isset( $args['applied_points'] ) ? (int) $args['applied_points'] : 0;
+		$applied_discount    = isset( $args['applied_discount'] ) ? (float) $args['applied_discount'] : 0;
+		$display_input_value = isset( $args['display_input_value'] ) ? (int) $args['display_input_value'] : 0;
+		$remove_url          = isset( $args['remove_url'] ) ? (string) $args['remove_url'] : '';
+		$input_suffix        = isset( $args['input_suffix'] ) ? sanitize_key( $args['input_suffix'] ) : 'default';
+		$input_id            = 'rewardly_points_to_use_' . $input_suffix;
+		?>
+		<div class="rewardly-loyalty-box__bottom-text">
+			Vous avez <strong><?php echo esc_html( $points ); ?> points</strong>,
+			soit <strong><?php echo wp_kses_post( wc_price( $total_amount ) ); ?></strong> de réduction disponible.
+			<br>
+			Vous pouvez utiliser jusqu’à <strong><?php echo esc_html( $max_usable_points ); ?> points</strong> sur cette commande,
+			soit <strong><?php echo wp_kses_post( wc_price( $max_usable_amount ) ); ?></strong>.
+			<?php if ( $is_active && $applied_points > 0 && $applied_discount > 0 ) : ?>
+				<br>
+				Points actuellement appliqués :
+				<strong><?php echo esc_html( $applied_points ); ?></strong>
+				(<?php echo wp_kses_post( wc_price( $applied_discount ) ); ?>).
 			<?php endif; ?>
+		</div>
+
+		<div class="rewardly-loyalty-box__actions">
+			<form class="rewardly-loyalty-box__form" method="post" action="<?php echo esc_url( self::get_current_page_url() ); ?>">
+				<input type="hidden" name="rewardly_loyalty_action" value="apply">
+				<?php wp_nonce_field( 'rewardly_loyalty_apply', '_rewardly_nonce' ); ?>
+
+				<label class="rewardly-loyalty-box__label" for="<?php echo esc_attr( $input_id ); ?>">
+					Nombre de points à utiliser
+				</label>
+
+				<input
+					type="number"
+					id="<?php echo esc_attr( $input_id ); ?>"
+					name="rewardly_points_to_use"
+					class="rewardly-loyalty-box__input"
+					min="1"
+					max="<?php echo esc_attr( $max_usable_points ); ?>"
+					step="1"
+					value="<?php echo esc_attr( $display_input_value ); ?>"
+				>
+
+				<div class="rewardly-loyalty-box__buttons">
+					<button type="submit" class="button rewardly-loyalty-btn rewardly-loyalty-btn--primary">
+						Appliquer mes points
+					</button>
+
+					<?php if ( $is_active ) : ?>
+						<a class="button rewardly-loyalty-btn" href="<?php echo esc_url( $remove_url ); ?>">
+							Retirer mes points
+						</a>
+					<?php endif; ?>
+				</div>
+			</form>
 		</div>
 		<?php
 	}
@@ -453,11 +547,11 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		$user_id         = get_current_user_id();
-		$user_points     = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
-		$settings        = Rewardly_Loyalty_Helpers::get_settings();
+		$user_id          = get_current_user_id();
+		$user_points      = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
+		$settings         = Rewardly_Loyalty_Helpers::get_settings();
 		$requested_points = (int) WC()->session->get( 'rewardly_requested_points' );
-		$min_points      = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
+		$min_points       = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
 
 		if ( $user_points < $min_points ) {
 			self::clear_usage_session();
