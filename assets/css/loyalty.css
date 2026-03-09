@@ -1,5 +1,16 @@
 /* =========================================================
-   Rewardly - Loyalty Program v2.0
+   Rewardly - Final Safe CSS
+   Architecture:
+   - Tokens
+   - Notices
+   - Checkout loyalty box
+   - Manual redeem form
+   - My account
+   - Targeted WooCommerce compatibility fixes
+   Notes:
+   - Scoped as much as possible to .rewardly-* selectors
+   - No global WooCommerce wildcard overrides
+   - Compatibility fixes are intentionally narrow
    ========================================================= */
 
 :root{
@@ -7,10 +18,17 @@
   --rewardly-black: #111;
   --rewardly-soft: #fffaf4;
   --rewardly-border: #ece7e1;
+  --rewardly-muted: #666;
+  --rewardly-success: #15803d;
+  --rewardly-danger: #b91c1c;
+  --rewardly-radius-sm: 10px;
+  --rewardly-radius-md: 12px;
+  --rewardly-radius-lg: 14px;
+  --rewardly-shadow-soft: 0 4px 14px rgba(0, 0, 0, .03);
 }
 
 /* =========================================================
-   Notices : cart / checkout guest / produit
+   Notices Rewardly
    ========================================================= */
 .rewardly-cart-points-notice,
 .rewardly-checkout-guest-notice,
@@ -25,7 +43,7 @@
   background: var(--rewardly-soft) !important;
   border: 1px solid rgba(255, 123, 25, .16) !important;
   border-left: 4px solid var(--rewardly-orange) !important;
-  border-radius: 10px !important;
+  border-radius: var(--rewardly-radius-sm) !important;
   box-sizing: border-box !important;
   clear: both !important;
 }
@@ -55,15 +73,19 @@
 }
 
 /* =========================================================
-   Bloc fidélité connecté - checkout
+   Checkout loyalty box
    ========================================================= */
+.rewardly-loyalty-box{
+  margin: 0 0 18px;
+}
+
 .rewardly-loyalty-box--connected{
   padding: 0;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--rewardly-border);
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .03);
+  border-radius: var(--rewardly-radius-lg);
+  box-shadow: var(--rewardly-shadow-soft);
 }
 
 .rewardly-loyalty-box__row{
@@ -105,38 +127,113 @@
 
 .rewardly-loyalty-box__actions{
   flex: 0 0 auto;
+  width: 100%;
+  max-width: 610px;
 }
 
-.rewardly-loyalty-btn{
-  display: inline-block;
+.rewardly-loyalty-btn,
+.button.rewardly-loyalty-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 46px;
   padding: 12px 22px;
+  border: none !important;
   border-radius: 999px;
   background: var(--rewardly-black) !important;
   color: #fff !important;
   font-weight: 800;
-  text-decoration: none;
-  border: none !important;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none !important;
   box-shadow: none !important;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
 }
 
-.rewardly-loyalty-btn:hover{
+.rewardly-loyalty-btn:hover,
+.button.rewardly-loyalty-btn:hover,
+.rewardly-loyalty-btn--primary:hover,
+.button.rewardly-loyalty-btn--primary:hover{
   background: var(--rewardly-orange) !important;
   color: #fff !important;
+  transform: translateY(-1px);
 }
 
-.rewardly-loyalty-btn--primary{
-  background: var(--rewardly-black) !important;
-  color: #fff !important;
-}
-
-.rewardly-loyalty-btn--primary:hover{
-  background: var(--rewardly-orange) !important;
-  color: #fff !important;
+.rewardly-loyalty-btn:focus,
+.button.rewardly-loyalty-btn:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 123, 25, .14) !important;
 }
 
 /* =========================================================
-   Mon compte
+   Manual redeem form
+   ========================================================= */
+.rewardly-loyalty-box__form{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.rewardly-loyalty-box__label{
+  display: block;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--rewardly-black);
+}
+
+.rewardly-loyalty-box__input,
+.woocommerce-checkout .rewardly-loyalty-box__input{
+  display: block;
+  width: 100%;
+  height: 56px;
+  padding: 0 18px;
+  border: 1px solid #d9d9d9;
+  border-radius: var(--rewardly-radius-md);
+  background: #f6f7f8;
+  color: var(--rewardly-black) !important;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: none;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.rewardly-loyalty-box__input:focus,
+.woocommerce-checkout .rewardly-loyalty-box__input:focus{
+  border-color: var(--rewardly-orange);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 123, 25, .12);
+}
+
+.rewardly-loyalty-box__input::placeholder{
+  color: #8a8a8a;
+}
+
+.rewardly-loyalty-box__buttons{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rewardly-loyalty-box__buttons .rewardly-loyalty-btn,
+.rewardly-loyalty-box__buttons .button.rewardly-loyalty-btn,
+.woocommerce-checkout .rewardly-loyalty-box__buttons .rewardly-loyalty-btn,
+.woocommerce-checkout .rewardly-loyalty-box__buttons .button.rewardly-loyalty-btn{
+  min-width: 220px;
+  min-height: 54px;
+  padding: 0 22px;
+  border-radius: var(--rewardly-radius-md);
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* =========================================================
+   My account - Rewardly only
    ========================================================= */
 .rewardly-loyalty-account{
   margin-top: 8px;
@@ -146,12 +243,14 @@
   margin: 0 0 16px;
   font-size: 28px;
   line-height: 1.2;
+  color: var(--rewardly-black);
 }
 
 .rewardly-loyalty-account h4{
   margin: 0;
   font-size: 20px;
   line-height: 1.3;
+  color: var(--rewardly-black);
 }
 
 .rewardly-loyalty-account__summary{
@@ -165,14 +264,14 @@
   padding: 18px;
   background: var(--rewardly-soft);
   border: 1px solid #eee;
-  border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .03);
+  border-radius: var(--rewardly-radius-lg);
+  box-shadow: var(--rewardly-shadow-soft);
 }
 
 .rewardly-loyalty-card__label{
   display: block;
   margin-bottom: 8px;
-  color: #666;
+  color: var(--rewardly-muted);
   font-size: 14px;
   line-height: 1.4;
 }
@@ -195,7 +294,7 @@
 }
 
 /* =========================================================
-   Badges types + montants
+   Badges and amounts
    ========================================================= */
 .rewardly-log-type{
   display: inline-flex;
@@ -211,7 +310,7 @@
 
 .rewardly-log-type--earn{
   background: rgba(34, 197, 94, .10);
-  color: #15803d;
+  color: var(--rewardly-success);
 }
 
 .rewardly-log-type--spend,
@@ -219,7 +318,7 @@
 .rewardly-log-type--expire,
 .rewardly-log-type--adjust_remove{
   background: rgba(220, 38, 38, .10);
-  color: #b91c1c;
+  color: var(--rewardly-danger);
 }
 
 .rewardly-log-type--adjust,
@@ -243,14 +342,14 @@
 }
 
 .rewardly-log-amount--earn{
-  color: #15803d !important;
+  color: var(--rewardly-success) !important;
 }
 
 .rewardly-log-amount--spend,
 .rewardly-log-amount--revoke,
 .rewardly-log-amount--expire,
 .rewardly-log-amount--adjust_remove{
-  color: #b91c1c !important;
+  color: var(--rewardly-danger) !important;
 }
 
 .rewardly-log-amount--adjust,
@@ -259,7 +358,7 @@
 }
 
 /* =========================================================
-   Tableau / cards historique
+   History table/cards
    ========================================================= */
 .rewardly-loyalty-account .shop_table{
   width: 100%;
@@ -300,9 +399,9 @@
     margin-bottom: 14px;
     padding: 16px 18px;
     border: 1px solid #eee;
-    border-radius: 14px;
+    border-radius: var(--rewardly-radius-lg);
     background: var(--rewardly-soft);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, .03);
+    box-shadow: var(--rewardly-shadow-soft);
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td{
@@ -316,6 +415,7 @@
     white-space: normal !important;
     word-break: break-word;
     overflow-wrap: anywhere;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td::before{
@@ -338,7 +438,7 @@
 }
 
 /* =========================================================
-   Actions historique
+   History actions
    ========================================================= */
 .rewardly-loyalty-history-actions{
   margin-top: 14px;
@@ -349,8 +449,8 @@
   display: inline-block;
   min-height: 42px;
   padding: 10px 18px;
-  border-radius: 10px;
-  background: #111;
+  border-radius: var(--rewardly-radius-sm);
+  background: var(--rewardly-black);
   color: #fff;
   font-weight: 800;
   line-height: 1.4;
@@ -364,7 +464,85 @@
 }
 
 /* =========================================================
-   Tablette
+   Targeted WooCommerce compatibility fixes
+   - Narrow selectors only
+   - No global wildcard overrides
+   ========================================================= */
+
+/* My account navigation and content readability */
+.woocommerce-account .woocommerce-MyAccount-navigation a,
+.woocommerce-account .woocommerce-MyAccount-navigation li a{
+  color: var(--rewardly-black) !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation a:hover,
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a:hover{
+  color: var(--rewardly-orange) !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content,
+.woocommerce-account .woocommerce-MyAccount-content p,
+.woocommerce-account .woocommerce-MyAccount-content li,
+.woocommerce-account .woocommerce-MyAccount-content td,
+.woocommerce-account .woocommerce-MyAccount-content th{
+  color: var(--rewardly-black);
+}
+
+.woocommerce-account .woocommerce-MyAccount-content a{
+  color: var(--rewardly-orange) !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content a:hover{
+  color: var(--rewardly-black) !important;
+}
+
+/* Product text readability for common theme conflicts */
+.single-product .product_title,
+.single-product .price,
+.single-product .stock,
+.single-product .woocommerce-product-details__short-description,
+.single-product .woocommerce-product-details__short-description p,
+.single-product form.cart label,
+.single-product .variations label,
+.single-product .reset_variations{
+  color: var(--rewardly-black) !important;
+}
+
+/* Cart blocks: only targeted text elements */
+.woocommerce-cart .wc-block-components-product-name,
+.woocommerce-cart .wc-block-components-product-name a,
+.woocommerce-cart .wc-block-components-formatted-money-amount,
+.woocommerce-cart .wc-block-components-totals-item__label,
+.woocommerce-cart .wc-block-components-totals-item__value,
+.woocommerce-cart .wc-block-components-order-summary-item__description,
+.woocommerce-cart .wc-block-components-order-summary-item__quantity,
+.woocommerce-cart .wc-block-components-order-summary-item__individual-prices,
+.woocommerce-cart .wc-block-cart__totals-title,
+.woocommerce-cart .wc-block-components-panel__button,
+.woocommerce-cart .wc-block-components-text-input label,
+.woocommerce-cart .wc-block-components-text-input input{
+  color: var(--rewardly-black) !important;
+}
+
+/* Checkout text readability without overriding all buttons */
+.woocommerce-checkout .woocommerce form.checkout .form-row label,
+.woocommerce-checkout .woocommerce form.checkout .form-row span,
+.woocommerce-checkout .woocommerce form.checkout .form-row p,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-checkout-review-order-table th,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-checkout-review-order-table td,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-checkout-review-order-table strong,
+.woocommerce-checkout .woocommerce form.checkout .shop_table th,
+.woocommerce-checkout .woocommerce form.checkout .shop_table td,
+.woocommerce-checkout .woocommerce form.checkout .shop_table strong,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-info,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-error,
+.woocommerce-checkout .woocommerce form.checkout .woocommerce-message{
+  color: var(--rewardly-black) !important;
+}
+
+/* =========================================================
+   Responsive
    ========================================================= */
 @media (max-width: 1024px){
   .rewardly-loyalty-account__summary{
@@ -372,9 +550,6 @@
   }
 }
 
-/* =========================================================
-   Mobile
-   ========================================================= */
 @media (max-width: 767px){
   .rewardly-cart-points-notice,
   .rewardly-checkout-guest-notice,
@@ -403,7 +578,7 @@
   .rewardly-loyalty-box__row{
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 14px;
+    padding: 14px;
     gap: 10px;
   }
 
@@ -417,13 +592,34 @@
   }
 
   .rewardly-loyalty-box__actions,
-  .rewardly-loyalty-btn{
+  .rewardly-loyalty-btn,
+  .button.rewardly-loyalty-btn{
     width: 100%;
   }
 
-  .rewardly-loyalty-btn{
-    display: block;
+  .rewardly-loyalty-btn,
+  .button.rewardly-loyalty-btn{
+    display: flex;
     text-align: center;
+  }
+
+  .rewardly-loyalty-box__input,
+  .woocommerce-checkout .rewardly-loyalty-box__input{
+    height: 52px;
+    font-size: 24px;
+    padding: 0 16px;
+  }
+
+  .rewardly-loyalty-box__buttons{
+    flex-direction: column;
+  }
+
+  .rewardly-loyalty-box__buttons .rewardly-loyalty-btn,
+  .rewardly-loyalty-box__buttons .button.rewardly-loyalty-btn,
+  .woocommerce-checkout .rewardly-loyalty-box__buttons .rewardly-loyalty-btn,
+  .woocommerce-checkout .rewardly-loyalty-box__buttons .button.rewardly-loyalty-btn{
+    width: 100%;
+    min-width: 0;
   }
 
   .rewardly-loyalty-account h3{
@@ -443,7 +639,7 @@
 
   .rewardly-loyalty-card{
     padding: 14px;
-    border-radius: 12px;
+    border-radius: var(--rewardly-radius-md);
   }
 
   .rewardly-loyalty-card__label{
@@ -466,9 +662,9 @@
     margin-bottom: 12px;
     padding: 12px 14px;
     border: 1px solid #eee;
-    border-radius: 12px;
+    border-radius: var(--rewardly-radius-md);
     background: var(--rewardly-soft);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, .03);
+    box-shadow: var(--rewardly-shadow-soft);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td{
@@ -479,30 +675,31 @@
     white-space: normal !important;
     word-break: break-word;
     overflow-wrap: anywhere;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(1)::before{
     content: "Date : ";
     font-weight: 800;
-    color: #111;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(2)::before{
     content: "Type : ";
     font-weight: 800;
-    color: #111;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(3)::before{
     content: "Points : ";
     font-weight: 800;
-    color: #111;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(5)::before{
     content: "Note : ";
     font-weight: 800;
-    color: #111;
+    color: var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(4){
@@ -530,90 +727,4 @@
     width: 100%;
     text-align: center;
   }
-}
-
-/* =========================================================
-   Correctifs de lisibilité WooCommerce
-   ========================================================= */
-
-/* Produit */
-.single-product .product_title,
-.single-product .price,
-.single-product .stock,
-.single-product .woocommerce-product-details__short-description,
-.single-product .woocommerce-product-details__short-description p,
-.single-product form.cart,
-.single-product form.cart label,
-.single-product form.cart span,
-.single-product form.cart p,
-.single-product form.cart li,
-.single-product .variations label,
-.single-product .reset_variations {
-	color: #111 !important;
-}
-
-/* Panier */
-.woocommerce-cart .wc-block-cart,
-.woocommerce-cart .wc-block-cart *,
-.woocommerce-cart .wc-block-components-sidebar,
-.woocommerce-cart .wc-block-components-sidebar *,
-.woocommerce-cart .wc-block-components-totals-wrapper,
-.woocommerce-cart .wc-block-components-totals-wrapper *,
-.woocommerce-cart .wc-block-components-order-summary,
-.woocommerce-cart .wc-block-components-order-summary *,
-.woocommerce-cart .wc-block-components-product-name,
-.woocommerce-cart .wc-block-components-formatted-money-amount,
-.woocommerce-cart .wc-block-components-totals-item__label,
-.woocommerce-cart .wc-block-components-totals-item__value,
-.woocommerce-cart .wc-block-components-button,
-.woocommerce-cart .wc-block-components-checkout-return-to-cart-button {
-	color: #111 !important;
-}
-
-/* Checkout */
-.woocommerce-checkout .woocommerce,
-.woocommerce-checkout .woocommerce *,
-.woocommerce-checkout form.checkout,
-.woocommerce-checkout form.checkout *,
-.woocommerce-checkout .shop_table,
-.woocommerce-checkout .shop_table *,
-.woocommerce-checkout .woocommerce-checkout-review-order,
-.woocommerce-checkout .woocommerce-checkout-review-order *,
-.woocommerce-checkout #payment,
-.woocommerce-checkout #payment *,
-.woocommerce-checkout .form-row label,
-.woocommerce-checkout .form-row span,
-.woocommerce-checkout .form-row p,
-.woocommerce-checkout .woocommerce-info,
-.woocommerce-checkout .woocommerce-error,
-.woocommerce-checkout .woocommerce-message {
-	color: #111 !important;
-}
-
-/* Mon compte */
-.woocommerce-account .woocommerce-MyAccount-navigation a,
-.woocommerce-account .woocommerce-MyAccount-navigation li a,
-.woocommerce-account .woocommerce-MyAccount-content,
-.woocommerce-account .woocommerce-MyAccount-content p,
-.woocommerce-account .woocommerce-MyAccount-content li,
-.woocommerce-account .woocommerce-MyAccount-content span,
-.woocommerce-account .woocommerce-MyAccount-content strong,
-.woocommerce-account .woocommerce-MyAccount-content td,
-.woocommerce-account .woocommerce-MyAccount-content th,
-.woocommerce-account .woocommerce-MyAccount-content h1,
-.woocommerce-account .woocommerce-MyAccount-content h2,
-.woocommerce-account .woocommerce-MyAccount-content h3,
-.woocommerce-account .woocommerce-MyAccount-content h4 {
-	color: #111 !important;
-}
-
-.woocommerce-account .woocommerce-MyAccount-navigation a:hover,
-.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
-.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a:hover,
-.woocommerce-account .woocommerce-MyAccount-content a {
-	color: var(--rewardly-orange) !important;
-}
-
-.woocommerce-account .woocommerce-MyAccount-content a:hover {
-	color: #111 !important;
 }
