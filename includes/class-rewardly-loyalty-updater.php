@@ -26,7 +26,11 @@ class Rewardly_Loyalty_Updater {
 	 * @return object
 	 */
 	public static function inject_update( $transient ) {
-		if ( empty( $transient->checked ) || ! is_object( $transient ) ) {
+		if ( ! is_object( $transient ) ) {
+			return $transient;
+		}
+
+		if ( empty( $transient->checked ) || ! is_array( $transient->checked ) ) {
 			return $transient;
 		}
 
@@ -35,11 +39,9 @@ class Rewardly_Loyalty_Updater {
 			return $transient;
 		}
 
-		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '<=' ) ) {
-			return $transient;
-		}
-
+		/* Préparer l'objet standard attendu par WordPress. */
 		$plugin_data = (object) array(
+			'id'          => REWARDLY_LOYALTY_REPO_URL,
 			'slug'        => dirname( REWARDLY_LOYALTY_BASENAME ),
 			'plugin'      => REWARDLY_LOYALTY_BASENAME,
 			'new_version' => $release['version'],
@@ -49,7 +51,25 @@ class Rewardly_Loyalty_Updater {
 			'requires'    => '',
 		);
 
-		$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
+		/* Nettoyer les anciennes entrées éventuelles avant réinjection. */
+		if ( isset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] ) ) {
+			unset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] );
+		}
+
+		if ( ! isset( $transient->no_update ) || ! is_array( $transient->no_update ) ) {
+			$transient->no_update = array();
+		} elseif ( isset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] ) ) {
+			unset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] );
+		}
+
+		/* Déclarer une mise à jour disponible si la release GitHub est plus récente. */
+		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '>' ) ) {
+			$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
+			return $transient;
+		}
+
+		/* Sinon, déclarer explicitement le plugin comme déjà à jour. */
+		$transient->no_update[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
 
 		return $transient;
 	}
