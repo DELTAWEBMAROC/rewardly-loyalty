@@ -531,3 +531,36 @@
     text-align: center;
   }
 }
+
+/* =========================================================
+   Correctifs d'affichage - Mon compte WooCommerce
+   ========================================================= */
+.woocommerce-account .woocommerce-MyAccount-navigation a,
+.woocommerce-account .woocommerce-MyAccount-navigation li a,
+.woocommerce-account .woocommerce-MyAccount-content,
+.woocommerce-account .woocommerce-MyAccount-content p,
+.woocommerce-account .woocommerce-MyAccount-content li,
+.woocommerce-account .woocommerce-MyAccount-content span,
+.woocommerce-account .woocommerce-MyAccount-content strong,
+.woocommerce-account .woocommerce-MyAccount-content td,
+.woocommerce-account .woocommerce-MyAccount-content th,
+.woocommerce-account .woocommerce-MyAccount-content h1,
+.woocommerce-account .woocommerce-MyAccount-content h2,
+.woocommerce-account .woocommerce-MyAccount-content h3,
+.woocommerce-account .woocommerce-MyAccount-content h4 {
+	color: #111 !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation a:hover,
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a:hover {
+	color: var(--rewardly-orange) !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content a {
+	color: var(--rewardly-orange) !important;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content a:hover {
+	color: #111 !important;
+}
