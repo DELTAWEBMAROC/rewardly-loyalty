@@ -32,7 +32,7 @@ class Rewardly_Loyalty_Points {
 			return;
 		}
 
-		if ( 'yes' === $order->get_meta( '_lavap_loyalty_processed' ) ) {
+		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_processed' ) ) {
 			return;
 		}
 
@@ -56,10 +56,10 @@ class Rewardly_Loyalty_Points {
 			'Points gagnés après validation de la commande.'
 		);
 
-		$order->update_meta_data( '_lavap_loyalty_points_earned', $points );
-		$order->update_meta_data( '_lavap_loyalty_processed', 'yes' );
-		$order->update_meta_data( '_lavap_loyalty_revoked', 'no' );
-		$order->update_meta_data( '_lavap_loyalty_spent_restored', 'no' );
+		$order->update_meta_data( '_rewardly_loyalty_points_earned', $points );
+		$order->update_meta_data( '_rewardly_loyalty_processed', 'yes' );
+		$order->update_meta_data( '_rewardly_loyalty_revoked', 'no' );
+		$order->update_meta_data( '_rewardly_loyalty_spent_restored', 'no' );
 		$order->save();
 	}
 
@@ -80,21 +80,32 @@ class Rewardly_Loyalty_Points {
 
 		$status = $order->get_status();
 
-		if ( 'yes' === $order->get_meta( '_lavap_loyalty_processed' ) && 'yes' !== $order->get_meta( '_lavap_loyalty_revoked' ) ) {
-			$earned_points = (int) $order->get_meta( '_lavap_loyalty_points_earned' );
+		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_processed' ) && 'yes' !== $order->get_meta( '_rewardly_loyalty_revoked' ) ) {
+			$earned_points = (int) $order->get_meta( '_rewardly_loyalty_points_earned' );
 			if ( $earned_points > 0 ) {
-				$note = 'cancelled' === $status ? 'Points retirés après annulation de la commande.' : 'Points retirés après remboursement de la commande.';
-				Rewardly_Loyalty_Helpers::subtract_points( $user_id, $earned_points, $order_id, 'revoke', $note );
-				$order->update_meta_data( '_lavap_loyalty_revoked', 'yes' );
+				$note           = 'cancelled' === $status ? 'Points retirés après annulation de la commande.' : 'Points retirés après remboursement de la commande.';
+				$actual_revoked = Rewardly_Loyalty_Helpers::subtract_points_exact( $user_id, $earned_points, $order_id, 'revoke', $note );
+
+				if ( $actual_revoked === $earned_points ) {
+					$order->update_meta_data( '_rewardly_loyalty_revoked', 'yes' );
+					$order->delete_meta_data( '_rewardly_loyalty_revoke_pending_points' );
+				} else {
+					/* (FR) Conserver la révocation en attente si le retrait exact échoue. */
+					$order->update_meta_data( '_rewardly_loyalty_revoked', 'no' );
+					$order->update_meta_data( '_rewardly_loyalty_revoke_pending_points', $earned_points );
+					$order->add_order_note( 'Rewardly : révocation partielle bloquée car le solde actuel ne permet pas de retirer tous les points gagnés.' );
+				}
 			}
 		}
 
-		if ( 'yes' !== $order->get_meta( '_lavap_loyalty_spent_restored' ) ) {
-			$spent_points = (int) $order->get_meta( '_lavap_loyalty_points_spent' );
+		$spent_processed = $order->get_meta( '_rewardly_loyalty_spent_processed' );
+
+		if ( 'yes' === $spent_processed && 'yes' !== $order->get_meta( '_rewardly_loyalty_spent_restored' ) ) {
+			$spent_points = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
 			if ( $spent_points > 0 ) {
 				$note = 'cancelled' === $status ? 'Points recrédités après annulation de la commande.' : 'Points recrédités après remboursement de la commande.';
 				Rewardly_Loyalty_Helpers::add_points( $user_id, $spent_points, $order_id, 'adjust', $note );
-				$order->update_meta_data( '_lavap_loyalty_spent_restored', 'yes' );
+				$order->update_meta_data( '_rewardly_loyalty_spent_restored', 'yes' );
 			}
 		}
 
@@ -102,14 +113,14 @@ class Rewardly_Loyalty_Points {
 	}
 
 	public static function render_admin_order_info( $order ) {
-		$earned         = (int) $order->get_meta( '_lavap_loyalty_points_earned' );
-		$spent          = (int) $order->get_meta( '_lavap_loyalty_points_spent' );
-		$discount       = (float) $order->get_meta( '_lavap_loyalty_discount_amount' );
-		$revoked        = $order->get_meta( '_lavap_loyalty_revoked' );
-		$spent_restored = $order->get_meta( '_lavap_loyalty_spent_restored' );
+		$earned         = (int) $order->get_meta( '_rewardly_loyalty_points_earned' );
+		$spent          = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
+		$discount       = (float) $order->get_meta( '_rewardly_loyalty_discount_amount' );
+		$revoked        = $order->get_meta( '_rewardly_loyalty_revoked' );
+		$spent_restored = $order->get_meta( '_rewardly_loyalty_spent_restored' );
 		?>
 		<div class="order_data_column">
-			<h4>Fidélité LAVAP</h4>
+			<h4>Fidélité Rewardly</h4>
 			<p><strong>Points gagnés :</strong> <?php echo esc_html( $earned ); ?></p>
 			<p><strong>Points utilisés :</strong> <?php echo esc_html( $spent ); ?></p>
 			<p><strong>Réduction fidélité :</strong> <?php echo wp_kses_post( wc_price( $discount ) ); ?></p>

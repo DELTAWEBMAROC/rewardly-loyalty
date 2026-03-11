@@ -17,6 +17,8 @@ class Rewardly_Loyalty_Updater {
 	public static function init() {
 		add_filter( 'pre_set_site_transient_update_plugins', array( __CLASS__, 'inject_update' ) );
 		add_filter( 'plugins_api', array( __CLASS__, 'inject_plugin_information' ), 20, 3 );
+		add_filter( 'upgrader_source_selection', array( __CLASS__, 'ensure_stable_plugin_folder' ), 10, 4 );
+		add_action( 'upgrader_process_complete', array( __CLASS__, 'clear_update_cache_after_upgrade' ), 10, 2 );
 	}
 
 	/**
@@ -26,7 +28,11 @@ class Rewardly_Loyalty_Updater {
 	 * @return object
 	 */
 	public static function inject_update( $transient ) {
-		if ( empty( $transient->checked ) || ! is_object( $transient ) ) {
+		if ( ! is_object( $transient ) ) {
+			return $transient;
+		}
+
+		if ( empty( $transient->checked ) || ! is_array( $transient->checked ) ) {
 			return $transient;
 		}
 
@@ -35,11 +41,9 @@ class Rewardly_Loyalty_Updater {
 			return $transient;
 		}
 
-		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '<=' ) ) {
-			return $transient;
-		}
-
+		/* Préparer l'objet standard attendu par WordPress. */
 		$plugin_data = (object) array(
+			'id'          => REWARDLY_LOYALTY_REPO_URL,
 			'slug'        => dirname( REWARDLY_LOYALTY_BASENAME ),
 			'plugin'      => REWARDLY_LOYALTY_BASENAME,
 			'new_version' => $release['version'],
@@ -49,7 +53,25 @@ class Rewardly_Loyalty_Updater {
 			'requires'    => '',
 		);
 
-		$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
+		/* Nettoyer les anciennes entrées éventuelles avant réinjection. */
+		if ( isset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] ) ) {
+			unset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] );
+		}
+
+		if ( ! isset( $transient->no_update ) || ! is_array( $transient->no_update ) ) {
+			$transient->no_update = array();
+		} elseif ( isset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] ) ) {
+			unset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] );
+		}
+
+		/* Déclarer une mise à jour disponible si la release GitHub est plus récente. */
+		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '>' ) ) {
+			$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
+			return $transient;
+		}
+
+		/* Sinon, déclarer explicitement le plugin comme déjà à jour. */
+		$transient->no_update[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
 
 		return $transient;
 	}
@@ -100,7 +122,7 @@ class Rewardly_Loyalty_Updater {
 		}
 
 		$response = wp_remote_get(
-			'https://api.github.com/repos/ahmedxy/lavap-loyalty-points/releases/latest',
+			'https://api.github.com/repos/DELTAWEBMAROC/rewardly-loyalty/releases/latest',
 			array(
 				'timeout' => 20,
 				'headers' => array(
@@ -126,15 +148,14 @@ class Rewardly_Loyalty_Updater {
 					continue;
 				}
 
-				if ( '.zip' === strtolower( substr( $asset['name'], -4 ) ) ) {
+				$asset_name = strtolower( (string) $asset['name'] );
+
+				// (FR) Utiliser uniquement l’archive ZIP officielle du plugin.
+				if ( false !== strpos( $asset_name, 'rewardly-loyalty' ) && '.zip' === substr( $asset_name, -4 ) ) {
 					$download_url = $asset['browser_download_url'];
 					break;
 				}
 			}
-		}
-
-		if ( empty( $download_url ) && ! empty( $body['zipball_url'] ) ) {
-			$download_url = $body['zipball_url'];
 		}
 
 		$data = array(
@@ -147,4 +168,95 @@ class Rewardly_Loyalty_Updater {
 
 		return $data;
 	}
+
+	/**
+	 * Forcer un nom de dossier stable pendant la mise à jour du plugin.
+	 *
+	 * @param string|WP_Error $source        Chemin source extrait.
+	 * @param string          $remote_source Chemin parent temporaire.
+	 * @param object          $upgrader      Instance de l’upgrader.
+	 * @param array           $hook_extra    Contexte de l’opération.
+	 * @return string|WP_Error
+	 */
+	public static function ensure_stable_plugin_folder( $source, $remote_source, $upgrader, $hook_extra ) {
+		if ( is_wp_error( $source ) || empty( $hook_extra['type'] ) || 'plugin' !== $hook_extra['type'] ) {
+			return $source;
+		}
+
+		$target_plugins = array();
+
+		if ( ! empty( $hook_extra['plugin'] ) && is_string( $hook_extra['plugin'] ) ) {
+			$target_plugins[] = $hook_extra['plugin'];
+		}
+
+		if ( ! empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+			$target_plugins = array_merge( $target_plugins, $hook_extra['plugins'] );
+		}
+
+		if ( empty( $target_plugins ) || ! in_array( REWARDLY_LOYALTY_BASENAME, $target_plugins, true ) ) {
+			return $source;
+		}
+
+		$expected_dir = trailingslashit( $remote_source ) . 'rewardly-loyalty';
+
+		if ( wp_normalize_path( $source ) === wp_normalize_path( $expected_dir ) ) {
+			return $source;
+		}
+
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
+		if ( ! $wp_filesystem ) {
+			return new WP_Error( 'rewardly_loyalty_fs_unavailable', __( 'Unable to prepare the plugin update folder.', 'rewardly-loyalty' ) );
+		}
+
+		if ( $wp_filesystem->exists( $expected_dir ) ) {
+			$wp_filesystem->delete( $expected_dir, true );
+		}
+
+		if ( ! $wp_filesystem->move( $source, $expected_dir, true ) ) {
+			return new WP_Error( 'rewardly_loyalty_folder_rename_failed', __( 'Unable to normalize the plugin update folder.', 'rewardly-loyalty' ) );
+		}
+
+		return $expected_dir;
+	}
+
+	/**
+	 * Nettoyer le cache d’update après une mise à jour du plugin.
+	 *
+	 * @param object $upgrader   Instance de l’upgrader.
+	 * @param array  $hook_extra Contexte de l’opération.
+	 * @return void
+	 */
+	public static function clear_update_cache_after_upgrade( $upgrader, $hook_extra ) {
+		if ( empty( $hook_extra['type'] ) || 'plugin' !== $hook_extra['type'] ) {
+			return;
+		}
+
+		$target_plugins = array();
+
+		if ( ! empty( $hook_extra['plugin'] ) && is_string( $hook_extra['plugin'] ) ) {
+			$target_plugins[] = $hook_extra['plugin'];
+		}
+
+		if ( ! empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+			$target_plugins = array_merge( $target_plugins, $hook_extra['plugins'] );
+		}
+
+		if ( empty( $target_plugins ) || ! in_array( REWARDLY_LOYALTY_BASENAME, $target_plugins, true ) ) {
+			return;
+		}
+
+		delete_site_transient( 'rewardly_loyalty_latest_release' );
+		delete_site_transient( 'update_plugins' );
+
+		if ( function_exists( 'wp_clean_plugins_cache' ) ) {
+			wp_clean_plugins_cache( true );
+		}
+	}
+
 }

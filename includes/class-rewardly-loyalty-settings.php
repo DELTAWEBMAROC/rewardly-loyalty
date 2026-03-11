@@ -48,6 +48,11 @@ class Rewardly_Loyalty_Settings {
 	}
 
 	public static function render_page() {
+		// (FR) Autoriser les administrateurs WordPress et les gestionnaires WooCommerce.
+		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Accès refusé.', 'rewardly-loyalty' ) );
+		}
+
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
 		?>
 		<div class="wrap">

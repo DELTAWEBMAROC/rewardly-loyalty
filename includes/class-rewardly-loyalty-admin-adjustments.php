@@ -23,6 +23,11 @@ class Rewardly_Loyalty_Admin_Adjustments {
 	}
 
 	public static function render_page() {
+		// (FR) Autoriser les administrateurs WordPress et les gestionnaires WooCommerce.
+		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Accès refusé.', 'rewardly-loyalty' ) );
+		}
+
 		$current_user = null;
 		$query        = isset( $_GET['rewardly_user'] ) ? sanitize_text_field( wp_unslash( $_GET['rewardly_user'] ) ) : '';
 
@@ -95,8 +100,9 @@ class Rewardly_Loyalty_Admin_Adjustments {
 	}
 
 	public static function handle_form() {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( 'Accès refusé.' );
+		// (FR) Autoriser les administrateurs WordPress et les gestionnaires WooCommerce.
+		if ( ! current_user_can( 'manage_woocommerce' ) && ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Accès refusé.', 'rewardly-loyalty' ) );
 		}
 
 		check_admin_referer( 'rewardly_loyalty_adjust_points' );
