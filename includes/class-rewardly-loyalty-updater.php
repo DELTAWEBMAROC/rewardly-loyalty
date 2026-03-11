@@ -18,6 +18,7 @@ class Rewardly_Loyalty_Updater {
 		add_filter( 'pre_set_site_transient_update_plugins', array( __CLASS__, 'inject_update' ) );
 		add_filter( 'plugins_api', array( __CLASS__, 'inject_plugin_information' ), 20, 3 );
 		add_filter( 'upgrader_source_selection', array( __CLASS__, 'ensure_stable_plugin_folder' ), 10, 4 );
+		add_filter( 'upgrader_post_install', array( __CLASS__, 'ensure_post_install_plugin_location' ), 10, 3 );
 		add_action( 'upgrader_process_complete', array( __CLASS__, 'clear_update_cache_after_upgrade' ), 10, 2 );
 	}
 
@@ -117,9 +118,11 @@ class Rewardly_Loyalty_Updater {
 		$cache_key = 'rewardly_loyalty_latest_release';
 		$cached    = get_site_transient( $cache_key );
 
-		if ( is_array( $cached ) && ! empty( $cached['version'] ) ) {
+		if ( is_array( $cached ) && ! empty( $cached['version'] ) && self::is_valid_release_package_url( $cached ) ) {
 			return $cached;
 		}
+
+		delete_site_transient( $cache_key );
 
 		$response = wp_remote_get(
 			'https://api.github.com/repos/DELTAWEBMAROC/rewardly-loyalty/releases/latest',
@@ -163,6 +166,10 @@ class Rewardly_Loyalty_Updater {
 			'download_url' => esc_url_raw( $download_url ),
 			'body'         => isset( $body['body'] ) ? (string) $body['body'] : '',
 		);
+
+		if ( ! self::is_valid_release_package_url( $data ) ) {
+			return array();
+		}
 
 		set_site_transient( $cache_key, $data, 12 * HOUR_IN_SECONDS );
 
@@ -223,6 +230,95 @@ class Rewardly_Loyalty_Updater {
 		}
 
 		return $expected_dir;
+	}
+
+
+	/**
+	 * Vérifier qu’une URL de package correspond bien à l’archive officielle.
+	 *
+	 * @param array $release Données de release.
+	 * @return bool
+	 */
+	private static function is_valid_release_package_url( $release ) {
+		if ( empty( $release['download_url'] ) || ! is_string( $release['download_url'] ) ) {
+			return false;
+		}
+
+		$download_url = strtolower( (string) $release['download_url'] );
+
+		if ( false === strpos( $download_url, '.zip' ) ) {
+			return false;
+		}
+
+		if ( false === strpos( $download_url, 'rewardly-loyalty' ) ) {
+			return false;
+		}
+
+		if ( false !== strpos( $download_url, '/zipball/' ) || false !== strpos( $download_url, '/tarball/' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Garantir le dossier canonique après l’installation de la mise à jour.
+	 *
+	 * @param bool|WP_Error $response   Résultat actuel.
+	 * @param array         $hook_extra Contexte de l’opération.
+	 * @param array         $result     Résultat détaillé de l’installation.
+	 * @return bool|WP_Error
+	 */
+	public static function ensure_post_install_plugin_location( $response, $hook_extra, $result ) {
+		if ( is_wp_error( $response ) || empty( $hook_extra['type'] ) || 'plugin' !== $hook_extra['type'] ) {
+			return $response;
+		}
+
+		$target_plugins = array();
+
+		if ( ! empty( $hook_extra['plugin'] ) && is_string( $hook_extra['plugin'] ) ) {
+			$target_plugins[] = $hook_extra['plugin'];
+		}
+
+		if ( ! empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+			$target_plugins = array_merge( $target_plugins, $hook_extra['plugins'] );
+		}
+
+		if ( empty( $target_plugins ) || ! in_array( REWARDLY_LOYALTY_BASENAME, $target_plugins, true ) ) {
+			return $response;
+		}
+
+		if ( empty( $result['destination'] ) || ! is_string( $result['destination'] ) ) {
+			return $response;
+		}
+
+		$expected_dir = trailingslashit( WP_PLUGIN_DIR ) . 'rewardly-loyalty';
+		$current_dir  = untrailingslashit( $result['destination'] );
+
+		if ( wp_normalize_path( $current_dir ) === wp_normalize_path( $expected_dir ) ) {
+			return $response;
+		}
+
+		global $wp_filesystem;
+
+		if ( ! $wp_filesystem ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
+		if ( ! $wp_filesystem ) {
+			return new WP_Error( 'rewardly_loyalty_post_install_fs_unavailable', __( 'Unable to finalize the plugin install path.', 'rewardly-loyalty' ) );
+		}
+
+		if ( $wp_filesystem->exists( $expected_dir ) ) {
+			$wp_filesystem->delete( $expected_dir, true );
+		}
+
+		if ( ! $wp_filesystem->move( $current_dir, $expected_dir, true ) ) {
+			return new WP_Error( 'rewardly_loyalty_post_install_move_failed', __( 'Unable to normalize the installed plugin folder.', 'rewardly-loyalty' ) );
+		}
+
+		return $response;
 	}
 
 	/**
