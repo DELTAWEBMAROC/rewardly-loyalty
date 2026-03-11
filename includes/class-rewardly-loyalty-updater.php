@@ -26,11 +26,7 @@ class Rewardly_Loyalty_Updater {
 	 * @return object
 	 */
 	public static function inject_update( $transient ) {
-		if ( ! is_object( $transient ) ) {
-			return $transient;
-		}
-
-		if ( empty( $transient->checked ) || ! is_array( $transient->checked ) ) {
+		if ( empty( $transient->checked ) || ! is_object( $transient ) ) {
 			return $transient;
 		}
 
@@ -39,9 +35,11 @@ class Rewardly_Loyalty_Updater {
 			return $transient;
 		}
 
-		/* Préparer l'objet standard attendu par WordPress. */
+		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '<=' ) ) {
+			return $transient;
+		}
+
 		$plugin_data = (object) array(
-			'id'          => REWARDLY_LOYALTY_REPO_URL,
 			'slug'        => dirname( REWARDLY_LOYALTY_BASENAME ),
 			'plugin'      => REWARDLY_LOYALTY_BASENAME,
 			'new_version' => $release['version'],
@@ -51,25 +49,7 @@ class Rewardly_Loyalty_Updater {
 			'requires'    => '',
 		);
 
-		/* Nettoyer les anciennes entrées éventuelles avant réinjection. */
-		if ( isset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] ) ) {
-			unset( $transient->response[ REWARDLY_LOYALTY_BASENAME ] );
-		}
-
-		if ( ! isset( $transient->no_update ) || ! is_array( $transient->no_update ) ) {
-			$transient->no_update = array();
-		} elseif ( isset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] ) ) {
-			unset( $transient->no_update[ REWARDLY_LOYALTY_BASENAME ] );
-		}
-
-		/* Déclarer une mise à jour disponible si la release GitHub est plus récente. */
-		if ( version_compare( $release['version'], REWARDLY_LOYALTY_VERSION, '>' ) ) {
-			$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
-			return $transient;
-		}
-
-		/* Sinon, déclarer explicitement le plugin comme déjà à jour. */
-		$transient->no_update[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
+		$transient->response[ REWARDLY_LOYALTY_BASENAME ] = $plugin_data;
 
 		return $transient;
 	}
@@ -120,7 +100,7 @@ class Rewardly_Loyalty_Updater {
 		}
 
 		$response = wp_remote_get(
-			'https://api.github.com/repos/DELTAWEBMAROC/rewardly-loyalty/releases/latest',
+			'https://api.github.com/repos/ahmedxy/lavap-loyalty-points/releases/latest',
 			array(
 				'timeout' => 20,
 				'headers' => array(
