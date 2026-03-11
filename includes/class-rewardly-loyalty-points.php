@@ -83,13 +83,24 @@ class Rewardly_Loyalty_Points {
 		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_processed' ) && 'yes' !== $order->get_meta( '_rewardly_loyalty_revoked' ) ) {
 			$earned_points = (int) $order->get_meta( '_rewardly_loyalty_points_earned' );
 			if ( $earned_points > 0 ) {
-				$note = 'cancelled' === $status ? 'Points retirés après annulation de la commande.' : 'Points retirés après remboursement de la commande.';
-				Rewardly_Loyalty_Helpers::subtract_points( $user_id, $earned_points, $order_id, 'revoke', $note );
-				$order->update_meta_data( '_rewardly_loyalty_revoked', 'yes' );
+				$note           = 'cancelled' === $status ? 'Points retirés après annulation de la commande.' : 'Points retirés après remboursement de la commande.';
+				$actual_revoked = Rewardly_Loyalty_Helpers::subtract_points_exact( $user_id, $earned_points, $order_id, 'revoke', $note );
+
+				if ( $actual_revoked === $earned_points ) {
+					$order->update_meta_data( '_rewardly_loyalty_revoked', 'yes' );
+					$order->delete_meta_data( '_rewardly_loyalty_revoke_pending_points' );
+				} else {
+					/* (FR) Conserver la révocation en attente si le retrait exact échoue. */
+					$order->update_meta_data( '_rewardly_loyalty_revoked', 'no' );
+					$order->update_meta_data( '_rewardly_loyalty_revoke_pending_points', $earned_points );
+					$order->add_order_note( 'Rewardly : révocation partielle bloquée car le solde actuel ne permet pas de retirer tous les points gagnés.' );
+				}
 			}
 		}
 
-		if ( 'yes' !== $order->get_meta( '_rewardly_loyalty_spent_restored' ) ) {
+		$spent_processed = $order->get_meta( '_rewardly_loyalty_spent_processed' );
+
+		if ( 'yes' === $spent_processed && 'yes' !== $order->get_meta( '_rewardly_loyalty_spent_restored' ) ) {
 			$spent_points = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
 			if ( $spent_points > 0 ) {
 				$note = 'cancelled' === $status ? 'Points recrédités après annulation de la commande.' : 'Points recrédités après remboursement de la commande.';

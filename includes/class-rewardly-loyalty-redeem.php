@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Rewardly_Loyalty_Redeem {
 
 	public static function init() {
-		add_action( 'wp', array( __CLASS__, 'handle_toggle_request' ) );
+		add_action( 'wp', array( __CLASS__, 'handle_form_requests' ) );
 		add_filter( 'the_content', array( __CLASS__, 'inject_cart_notice_into_content' ), 20 );
 		add_action( 'woocommerce_before_checkout_form', array( __CLASS__, 'render_checkout_box' ) );
 		add_action( 'woocommerce_cart_calculate_fees', array( __CLASS__, 'apply_discount' ), 20, 1 );
@@ -20,7 +20,7 @@ class Rewardly_Loyalty_Redeem {
 	 *
 	 * @return void
 	 */
-	public static function handle_toggle_request() {
+	public static function handle_form_requests() {
 		if ( ! is_user_logged_in() || ! Rewardly_Loyalty_Helpers::is_enabled() ) {
 			return;
 		}
@@ -45,19 +45,18 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		/* Retrait via lien GET. */
-		if ( empty( $_GET['rewardly_loyalty_action'] ) ) {
-			return;
-		}
+		/* Retrait via formulaire POST pour éviter une mutation d'état via GET. */
+		if (
+			'POST' === strtoupper( isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '' )
+			&& isset( $_POST['rewardly_loyalty_action'] )
+			&& 'remove' === sanitize_text_field( wp_unslash( $_POST['rewardly_loyalty_action'] ) )
+		) {
+			$nonce = isset( $_POST['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_rewardly_nonce'] ) ) : '';
 
-		$action = sanitize_text_field( wp_unslash( $_GET['rewardly_loyalty_action'] ) );
-		$nonce  = isset( $_GET['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_rewardly_nonce'] ) ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'rewardly_loyalty_remove' ) && ! wp_verify_nonce( $nonce, 'rewardly_loyalty_apply' ) ) {
+				return;
+			}
 
-		if ( ! wp_verify_nonce( $nonce, 'rewardly_loyalty_toggle' ) ) {
-			return;
-		}
-
-		if ( 'remove' === $action ) {
 			self::clear_usage_session();
 			wc_add_notice( 'Les points de fidélité ont été retirés de cette commande.', 'success' );
 
@@ -345,16 +344,6 @@ class Rewardly_Loyalty_Redeem {
 		$can_redeem          = $points >= $min_points && $max_usable_points > 0;
 		$display_input_value = $requested_points > 0 ? $requested_points : min( $points, $max_usable_points );
 
-		$remove_url = wp_nonce_url(
-			add_query_arg(
-				array(
-					'rewardly_loyalty_action' => 'remove',
-				),
-				self::get_current_page_url()
-			),
-			'rewardly_loyalty_toggle',
-			'_rewardly_nonce'
-		);
 
 		/* Version simple si le client ne peut pas encore utiliser ses points. */
 		if ( ! $can_redeem && $min_points > 0 ) {
@@ -402,7 +391,6 @@ class Rewardly_Loyalty_Redeem {
 						'applied_points'      => $applied_points,
 						'applied_discount'    => $applied_discount,
 						'display_input_value' => $display_input_value,
-						'remove_url'          => $remove_url,
 						'input_suffix'        => 'desktop',
 					)
 				);
@@ -441,7 +429,6 @@ class Rewardly_Loyalty_Redeem {
 							'applied_points'      => $applied_points,
 							'applied_discount'    => $applied_discount,
 							'display_input_value' => $display_input_value,
-							'remove_url'          => $remove_url,
 							'input_suffix'        => 'mobile',
 						)
 					);
@@ -467,7 +454,6 @@ class Rewardly_Loyalty_Redeem {
 		$applied_points      = isset( $args['applied_points'] ) ? (int) $args['applied_points'] : 0;
 		$applied_discount    = isset( $args['applied_discount'] ) ? (float) $args['applied_discount'] : 0;
 		$display_input_value = isset( $args['display_input_value'] ) ? (int) $args['display_input_value'] : 0;
-		$remove_url          = isset( $args['remove_url'] ) ? (string) $args['remove_url'] : '';
 		$input_suffix        = isset( $args['input_suffix'] ) ? sanitize_key( $args['input_suffix'] ) : 'default';
 		$input_id            = 'rewardly_points_to_use_' . $input_suffix;
 		?>
@@ -487,7 +473,6 @@ class Rewardly_Loyalty_Redeem {
 
 		<div class="rewardly-loyalty-box__actions">
 			<form class="rewardly-loyalty-box__form" method="post" action="<?php echo esc_url( self::get_current_page_url() ); ?>">
-				<input type="hidden" name="rewardly_loyalty_action" value="apply">
 				<?php wp_nonce_field( 'rewardly_loyalty_apply', '_rewardly_nonce' ); ?>
 
 				<label class="rewardly-loyalty-box__label" for="<?php echo esc_attr( $input_id ); ?>">
@@ -506,14 +491,14 @@ class Rewardly_Loyalty_Redeem {
 				>
 
 				<div class="rewardly-loyalty-box__buttons">
-					<button type="submit" class="button rewardly-loyalty-btn rewardly-loyalty-btn--primary">
+					<button type="submit" name="rewardly_loyalty_action" value="apply" class="button rewardly-loyalty-btn rewardly-loyalty-btn--primary">
 						Appliquer mes points
 					</button>
 
 					<?php if ( $is_active ) : ?>
-						<a class="button rewardly-loyalty-btn" href="<?php echo esc_url( $remove_url ); ?>">
+						<button type="submit" name="rewardly_loyalty_action" value="remove" class="button rewardly-loyalty-btn">
 							Retirer mes points
-						</a>
+						</button>
 					<?php endif; ?>
 				</div>
 			</form>
@@ -650,7 +635,7 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		Rewardly_Loyalty_Helpers::subtract_points(
+		$actual_spent = Rewardly_Loyalty_Helpers::subtract_points_exact(
 			$user_id,
 			$points_to_spend,
 			$order_id,
@@ -658,7 +643,22 @@ class Rewardly_Loyalty_Redeem {
 			'Points utilisés pour obtenir une réduction sur la commande.'
 		);
 
+		if ( $actual_spent !== $points_to_spend ) {
+			/* (FR) Signaler l'anomalie sans marquer la dépense comme traitée. */
+			$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'failed' );
+			$order->update_meta_data( '_rewardly_loyalty_spent_failed_points', $points_to_spend );
+			$order->add_order_note( 'Rewardly : anomalie détectée lors du débit des points de fidélité. Vérification manuelle requise.' );
+			$order->save();
+
+			if ( function_exists( 'WC' ) && WC()->session ) {
+				self::clear_usage_session();
+			}
+
+			return;
+		}
+
 		$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'yes' );
+		$order->delete_meta_data( '_rewardly_loyalty_spent_failed_points' );
 		$order->save();
 
 		if ( function_exists( 'WC' ) && WC()->session ) {

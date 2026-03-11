@@ -255,6 +255,63 @@ class Rewardly_Loyalty_Helpers {
 			return 0;
 		}
 
+		return self::subtract_points_internal( $user_id, $actual, $order_id, $type, $note );
+	}
+
+	/**
+	 * Retirer exactement un nombre de points ou échouer sans retrait partiel.
+	 *
+	 * @param int    $user_id ID utilisateur.
+	 * @param int    $points Nombre exact de points à retirer.
+	 * @param int    $order_id ID de commande lié.
+	 * @param string $type Type du mouvement.
+	 * @param string $note Note du mouvement.
+	 * @return int
+	 */
+	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+		$requested = (int) $points;
+		if ( $requested <= 0 ) {
+			return 0;
+		}
+
+		self::maybe_bootstrap_legacy_lots( $user_id );
+
+		$current = self::get_user_points( $user_id );
+		if ( $current < $requested ) {
+			return 0;
+		}
+
+		$available_in_lots = 0;
+		$lots              = self::get_user_point_lots( $user_id );
+
+		foreach ( $lots as $lot ) {
+			$available_in_lots += isset( $lot['points_remaining'] ) ? max( 0, (int) $lot['points_remaining'] ) : 0;
+		}
+
+		if ( $available_in_lots < $requested ) {
+			return 0;
+		}
+
+		return self::subtract_points_internal( $user_id, $requested, $order_id, $type, $note );
+	}
+
+	/**
+	 * Exécuter le retrait réel des points et journaliser le mouvement.
+	 *
+	 * @param int    $user_id ID utilisateur.
+	 * @param int    $actual Nombre réel de points à retirer.
+	 * @param int    $order_id ID de commande lié.
+	 * @param string $type Type du mouvement.
+	 * @param string $note Note du mouvement.
+	 * @return int
+	 */
+	private static function subtract_points_internal( $user_id, $actual, $order_id = 0, $type = 'spend', $note = '' ) {
+		$actual = (int) $actual;
+		if ( $actual <= 0 ) {
+			return 0;
+		}
+
+		$current   = self::get_user_points( $user_id );
 		$lots      = self::get_user_point_lots( $user_id );
 		$remaining = $actual;
 
@@ -274,7 +331,7 @@ class Rewardly_Loyalty_Helpers {
 		}
 
 		self::set_user_point_lots( $user_id, $lots );
-		self::set_user_points( $user_id, $current - $actual );
+		self::set_user_points( $user_id, max( 0, $current - $actual ) );
 
 		if ( self::should_count_as_spent_total( $type ) ) {
 			$total_spent = self::get_total_spent( $user_id );
@@ -326,55 +383,61 @@ class Rewardly_Loyalty_Helpers {
 			return;
 		}
 
-		$users = get_users(
-			array(
-				'meta_key'     => 'rewardly_loyalty_points_balance',
-				'meta_compare' => 'EXISTS',
-				'fields'       => array( 'ID' ),
-				'number'       => 500,
-			)
-		);
-
-
-
 		$cutoff_ts = current_time( 'timestamp' ) - ( $days * DAY_IN_SECONDS );
+		$offset    = 0;
+		$limit     = 200;
 
-		foreach ( $users as $user ) {
-			$user_id        = (int) $user->ID;
-			$expired_points = 0;
+		do {
+			$users = get_users(
+				array(
+					'meta_key'     => 'rewardly_loyalty_points_balance',
+					'meta_compare' => 'EXISTS',
+					'fields'       => array( 'ID' ),
+					'number'       => $limit,
+					'offset'       => $offset,
+				)
+			);
 
-			self::maybe_bootstrap_legacy_lots( $user_id );
-			$lots = self::get_user_point_lots( $user_id );
+			foreach ( $users as $user ) {
+				$user_id        = (int) $user->ID;
+				$expired_points = 0;
 
-			foreach ( $lots as $index => $lot ) {
-				$remaining = isset( $lot['points_remaining'] ) ? (int) $lot['points_remaining'] : 0;
-				$earned_at = isset( $lot['earned_at'] ) ? strtotime( $lot['earned_at'] ) : false;
+				self::maybe_bootstrap_legacy_lots( $user_id );
+				$lots = self::get_user_point_lots( $user_id );
 
-				if ( $remaining <= 0 || ! $earned_at ) {
+				foreach ( $lots as $index => $lot ) {
+					$remaining = isset( $lot['points_remaining'] ) ? (int) $lot['points_remaining'] : 0;
+					$earned_at = isset( $lot['earned_at'] ) ? strtotime( $lot['earned_at'] ) : false;
+
+					if ( $remaining <= 0 || ! $earned_at ) {
+						continue;
+					}
+
+					if ( $earned_at <= $cutoff_ts ) {
+						$expired_points += $remaining;
+						$lots[ $index ]['points_remaining'] = 0;
+					}
+				}
+
+				if ( $expired_points <= 0 ) {
 					continue;
 				}
 
-				if ( $earned_at <= $cutoff_ts ) {
-					$expired_points += $remaining;
-					$lots[ $index ]['points_remaining'] = 0;
-				}
+				self::set_user_point_lots( $user_id, $lots );
+
+				$current     = self::get_user_points( $user_id );
+				$new_balance = max( 0, $current - $expired_points );
+				self::set_user_points( $user_id, $new_balance );
+
+				$amount = self::convert_points_to_amount( $expired_points );
+				$note   = sprintf( 'Points expirés automatiquement après %d jours.', $days );
+
+				self::insert_log( $user_id, 0, 'expire', $expired_points, $amount, $note );
+				Rewardly_Loyalty_Emails::maybe_send_points_notification( $user_id, 'expire', $expired_points, $amount, $note );
 			}
 
-			if ( $expired_points <= 0 ) {
-				continue;
-			}
-
-			self::set_user_point_lots( $user_id, $lots );
-
-			$current     = self::get_user_points( $user_id );
-			$new_balance = max( 0, $current - $expired_points );
-			self::set_user_points( $user_id, $new_balance );
-
-			$amount = self::convert_points_to_amount( $expired_points );
-			$note   = sprintf( 'Points expirés automatiquement après %d jours.', $days );
-
-			self::insert_log( $user_id, 0, 'expire', $expired_points, $amount, $note );
-			Rewardly_Loyalty_Emails::maybe_send_points_notification( $user_id, 'expire', $expired_points, $amount, $note );
-		}
+			$offset += $limit;
+		} while ( count( $users ) === $limit );
 	}
+
 }

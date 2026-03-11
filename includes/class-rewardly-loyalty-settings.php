@@ -48,6 +48,10 @@ class Rewardly_Loyalty_Settings {
 	}
 
 	public static function render_page() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( 'Accès refusé.' );
+		}
+
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
 		?>
 		<div class="wrap">

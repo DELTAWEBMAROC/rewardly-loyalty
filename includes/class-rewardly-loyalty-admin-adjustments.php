@@ -23,6 +23,10 @@ class Rewardly_Loyalty_Admin_Adjustments {
 	}
 
 	public static function render_page() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( 'Accès refusé.' );
+		}
+
 		$current_user = null;
 		$query        = isset( $_GET['rewardly_user'] ) ? sanitize_text_field( wp_unslash( $_GET['rewardly_user'] ) ) : '';
 
