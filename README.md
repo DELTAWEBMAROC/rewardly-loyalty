@@ -64,7 +64,7 @@ Expected image filenames:
 
 ## Version
 
-Current version: **4.8.3**
+Current version: **4.8.4**
 
 ## Notes
 

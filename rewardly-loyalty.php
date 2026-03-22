@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Rewardly – WooCommerce Loyalty Program
  * Description: Advanced WooCommerce loyalty points system with point expiration, admin adjustments, shortcodes and email notifications.
- * Version: 4.8.3
+ * Version: 4.8.4
  * Author: Ahmed Ghanem
  * Text Domain: rewardly-loyalty
  * Domain Path: /languages
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'REWARDLY_LOYALTY_VERSION', '4.8.3' );
+define( 'REWARDLY_LOYALTY_VERSION', '4.8.4' );
 define( 'REWARDLY_LOYALTY_DEV_PRO_MODE', false );
 define( 'REWARDLY_LOYALTY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_URL', plugin_dir_url( __FILE__ ) );
