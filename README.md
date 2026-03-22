@@ -1,43 +1,71 @@
-# Rewardly – WooCommerce Loyalty Program
+# Rewardly - WooCommerce Loyalty Program
 
-Advanced **WooCommerce loyalty points system** for rewarding customers with points they can redeem on future purchases.
+Rewardly is a free WooCommerce loyalty points plugin that helps store owners reward customers with points, redeem discounts, and a cleaner loyalty experience across cart, checkout, and My Account.
 
-Designed to be **lightweight, scalable, and flexible**, Rewardly adds a complete loyalty program to WooCommerce stores.
+## What the plugin includes
 
----
+- Earn points based on customer purchases
+- Redeem points for discounts
+- Manual points adjustments from the admin area
+- Points history in My Account
+- Points expiration support
+- Loyalty card and notice display options
+- Shortcodes for manual placement
+- WooCommerce classic and blocks support
+- Design options for the loyalty box
 
-## 🚀 Features
+## Main admin sections
 
-- ⭐ Earn points on completed orders
-- 💰 Redeem points for discounts at checkout
-- ⏳ Automatic points expiration system
-- 🛠 Admin manual adjustments (add / remove points)
-- 📧 Email notifications for loyalty activity
-- 📊 Detailed loyalty points history
-- 🔄 GitHub-based update workflow
+- General
+- Points Adjustments
+- Shortcodes
+- Pro Features
+- Help
 
----
+## Shortcodes
 
-## 📦 Installation
+- `[rewardly_loyalty_card]`
+- `[rewardly_loyalty_card context="cart"]`
+- `[rewardly_loyalty_card context="checkout"]`
+- `[rewardly_loyalty_notice]`
+- `[rewardly_loyalty_notice context="cart"]`
+- `[rewardly_loyalty_notice context="checkout"]`
 
-1. Upload the plugin folder to `/wp-content/plugins/`.
-2. Activate the plugin in **WordPress → Plugins**.
-3. Configure the plugin in **WooCommerce → Rewardly Loyalty**.
+## Installation
 
----
+1. Upload the `rewardly-loyalty` folder to `/wp-content/plugins/`.
+2. Activate the plugin from the WordPress admin area.
+3. Go to **Rewardly** and configure your loyalty settings.
+4. Test earn points, redeem points, and your preferred display mode.
 
-## 🧑‍💻 Development
+## Recommended screenshots for the repository
 
-Workflow:
+Use these screenshots in your repository or plugin page:
 
-1. Update plugin code
-2. Increase the plugin version in the main file
-3. Commit and push changes to GitHub
-4. Create a GitHub release
-5. Trigger update checks from WordPress
+1. General settings screen
+2. Loyalty box on cart or checkout
+3. Customer points history in My Account
 
----
+## Repository assets
 
-## 🪪 Author
+This package includes a dedicated folder for repository and marketplace images:
 
-**Ahmed Ghanem**
+`wordpress-org-assets/`
+
+Expected image filenames:
+
+- `icon-128x128.png`
+- `icon-256x256.png`
+- `banner-772x250.png`
+- `banner-1544x500.png`
+- `screenshot-1.png`
+- `screenshot-2.png`
+- `screenshot-3.png`
+
+## Version
+
+Current version: **4.8.3**
+
+## Notes
+
+This release is prepared as a fully free version.

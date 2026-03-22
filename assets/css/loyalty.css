@@ -34,8 +34,8 @@
   margin:12px 0 14px !important;
   padding:10px 12px !important;
   background:var(--rewardly-soft) !important;
-  border:1px solid rgba(255,123,25,.16) !important;
-  border-left:4px solid var(--rewardly-orange) !important;
+  border:1px solid var(--rewardly-border) !important;
+  border-left:4px solid var(--rewardly-accent) !important;
   border-radius:var(--rewardly-radius-sm) !important;
   box-sizing:border-box !important;
   clear:both !important;
@@ -48,7 +48,7 @@
   flex:0 0 auto !important;
   font-size:15px !important;
   line-height:1 !important;
-  color:var(--rewardly-orange) !important;
+  color:var(--rewardly-accent) !important;
 }
 
 .rewardly-cart-points-notice__text,
@@ -162,7 +162,7 @@
 .button.rewardly-loyalty-btn:hover,
 .rewardly-loyalty-btn--primary:hover,
 .button.rewardly-loyalty-btn--primary:hover{
-  background:var(--rewardly-orange) !important;
+  background:var(--rewardly-accent) !important;
   color:#fff !important;
   transform:translateY(-1px);
 }
@@ -170,7 +170,7 @@
 .rewardly-loyalty-btn:focus,
 .button.rewardly-loyalty-btn:focus{
   outline:none;
-  box-shadow:0 0 0 3px rgba(255,123,25,.14) !important;
+  box-shadow:0 0 0 3px rgba(245,166,35,.14) !important;
 }
 
 /* =========================================================
@@ -210,8 +210,8 @@
 }
 
 .rewardly-loyalty-box__input:focus{
-  border-color:var(--rewardly-orange);
-  box-shadow:0 0 0 3px rgba(255,123,25,.12);
+  border-color:var(--rewardly-accent);
+  box-shadow:0 0 0 3px rgba(245,166,35,.12);
 }
 
 .rewardly-loyalty-box__input::placeholder{
@@ -337,7 +337,7 @@
 .rewardly-log-type--adjust,
 .rewardly-log-type--adjust_add{
   background:rgba(255,123,25,.12);
-  color:var(--rewardly-orange) !important;
+  color:var(--rewardly-accent) !important;
 }
 
 .rewardly-log-label{
@@ -367,7 +367,7 @@
 
 .rewardly-log-amount--adjust,
 .rewardly-log-amount--adjust_add{
-  color:var(--rewardly-orange) !important;
+  color:var(--rewardly-accent) !important;
 }
 
 /* =========================================================
@@ -836,4 +836,67 @@
 	.rewardly-loyalty-box__buttons .button.rewardly-loyalty-btn {
 		width: 100%;
 	}
+}
+
+/* =========================================================
+   Finitions v4.1.1
+   ========================================================= */
+.rewardly-loyalty-card,
+.rewardly-shortcode-account,
+.rewardly-shortcode-history{
+  box-shadow:var(--rewardly-shadow-soft);
+}
+
+.rewardly-loyalty-account .rewardly-loyalty-card{
+  background:#fff;
+  border:1px solid var(--rewardly-border);
+  border-radius:var(--rewardly-radius-lg);
+}
+
+.rewardly-shortcode-account,
+.rewardly-shortcode-history{
+  background:#fff;
+  border:1px solid var(--rewardly-border);
+  padding:18px;
+}
+
+.rewardly-loyalty-box__row--top strong,
+.rewardly-product-points-notice__points,
+.rewardly-product-points-notice__amount{
+  font-weight:800;
+}
+
+.rewardly-loyalty-account table{
+  border-collapse:separate;
+  border-spacing:0;
+}
+
+.rewardly-loyalty-account thead th{
+  background:#fffaf4;
+}
+
+/* (FR) Intégration des messages fidélité dans les blocs WooCommerce */
+.rewardly-block-slot{margin:0 0 16px 0;width:100%}
+.rewardly-block-slot--cart,.rewardly-block-slot--checkout{display:block;max-width:100%}
+.rewardly-block-slot .rewardly-cart-points-notice,
+.rewardly-block-slot .rewardly-block-checkout-slot,
+.rewardly-block-slot .rewardly-loyalty-box,
+.rewardly-block-slot .rewardly-checkout-guest-notice{margin:0!important;width:100%;max-width:100%}
+.wc-block-cart__sidebar .rewardly-block-slot,
+.wc-block-checkout__sidebar .rewardly-block-slot,
+.wc-block-components-sidebar-layout__sidebar .rewardly-block-slot{box-sizing:border-box}
+
+.wc-block-components-main .rewardly-block-slot--checkout,
+.wp-block-woocommerce-checkout .rewardly-block-slot--checkout,
+.wc-block-checkout .rewardly-block-slot--checkout{margin:0 0 18px 0;box-sizing:border-box}
+
+
+/* (FR) Compatibilité Woo Blocks : carte largeur complète au-dessus du layout */
+.wp-block-woocommerce-cart > .rewardly-block-slot--cart,
+.wp-block-woocommerce-checkout > .rewardly-block-slot--checkout,
+.wc-block-cart > .rewardly-block-slot--cart,
+.wc-block-checkout > .rewardly-block-slot--checkout{
+  width:100%;
+  box-sizing:border-box;
+  margin:0 0 18px 0;
 }

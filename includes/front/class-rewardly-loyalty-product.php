@@ -23,6 +23,15 @@ class Rewardly_Loyalty_Product {
 			filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/loyalty-product.js' ),
 			true
 		);
+
+		wp_localize_script(
+			'rewardly-loyalty-product',
+			'rewardlyProductData',
+			array(
+				'locale'   => str_replace( '_', '-', determine_locale() ),
+				'currency' => Rewardly_Loyalty_Helpers::get_store_currency_code(),
+			)
+		);
 	}
 
 	public static function render_product_notice() {
@@ -47,7 +56,8 @@ class Rewardly_Loyalty_Product {
 			return;
 		}
 
-		$points = Rewardly_Loyalty_Helpers::calculate_earned_points( $price );
+		$points_rate = Rewardly_Loyalty_Helpers::get_effective_product_earning_rate( $product );
+		$points      = Rewardly_Loyalty_Helpers::calculate_product_earned_points( $product, $price );
 		if ( $points <= 0 ) {
 			return;
 		}
@@ -57,14 +67,14 @@ class Rewardly_Loyalty_Product {
 		<div
 			class="rewardly-product-points-notice"
 			data-default-price="<?php echo esc_attr( wc_format_decimal( $price ) ); ?>"
-			data-points-per-dh="<?php echo esc_attr( (int) Rewardly_Loyalty_Helpers::get_settings()['earn_points_per_dh'] ); ?>"
+			data-points-rate="<?php echo esc_attr( (int) $points_rate ); ?>"
 			data-redeem-points-per-dh="<?php echo esc_attr( (int) Rewardly_Loyalty_Helpers::get_settings()['redeem_points_per_dh'] ); ?>"
 		>
 			<span class="rewardly-product-points-notice__icon">🏆</span>
 			<div class="rewardly-product-points-notice__text">
-				Achetez ce produit et gagnez jusqu’à
+				<?php esc_html_e( 'Buy this product and earn up to', 'rewardly-loyalty' ); ?>
 				<strong class="rewardly-product-points-notice__points"><?php echo esc_html( $points ); ?></strong>
-				points de fidélité
+				<?php esc_html_e( 'loyalty points', 'rewardly-loyalty' ); ?>
 				<strong class="rewardly-product-points-notice__amount">(<?php echo wp_kses_post( wc_price( $amount ) ); ?>)</strong>
 			</div>
 		</div>

@@ -6,22 +6,24 @@ jQuery(function ($) {
 		return;
 	}
 
-	const pointsPerDh = parseInt($notice.data('points-per-dh'), 10) || 1;
+	const pointsPerDh = parseInt($notice.data('points-rate'), 10) || 1;
 	const redeemPointsPerDh = parseInt($notice.data('redeem-points-per-dh'), 10) || 20;
 	const defaultPrice = parseFloat($notice.data('default-price')) || 0;
 	const $pointsNode = $notice.find('.rewardly-product-points-notice__points');
 	const $amountNode = $notice.find('.rewardly-product-points-notice__amount');
+	const rewardlyLocale = window.rewardlyProductData && window.rewardlyProductData.locale ? window.rewardlyProductData.locale : 'en-US';
+	const rewardlyCurrency = window.rewardlyProductData && window.rewardlyProductData.currency ? window.rewardlyProductData.currency : 'USD';
 
 	function formatMoney(amount) {
 		try {
-			return new Intl.NumberFormat('fr-FR', {
+			return new Intl.NumberFormat(rewardlyLocale, {
 				style: 'currency',
-				currency: 'MAD',
+				currency: rewardlyCurrency,
 				minimumFractionDigits: 0,
 				maximumFractionDigits: 2
 			}).format(amount);
 		} catch (e) {
-			return amount + ' MAD';
+			return amount + ' ' + rewardlyCurrency;
 		}
 	}
 
