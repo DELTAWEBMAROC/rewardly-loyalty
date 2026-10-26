@@ -1,28 +1,46 @@
 <?php
 /**
- * Plugin Name: Rewardly – WooCommerce Loyalty Program
- * Description: Advanced WooCommerce loyalty points system with point expiration, admin adjustments, shortcodes and email notifications.
- * Version: 4.8.4
+ * Plugin Name: Nodevora Customer Rewards for WooCommerce
+ * Description: WooCommerce loyalty points with discounts, expiration, customer history, emails, shortcodes, and Cart & Checkout Blocks support.
+ * Version: 4.8.5
  * Author: Ahmed Ghanem
- * Text Domain: rewardly-loyalty
+ * Author URI: https://profiles.wordpress.org/ahmedxy/
+ * Requires at least: 6.4
+ * Requires PHP: 7.4
+ * Requires Plugins: woocommerce
+ * WC requires at least: 8.2
+ * WC tested up to: 11.0
+ * Text Domain: nodevora-customer-rewards-for-woocommerce
  * Domain Path: /languages
- * Update URI: https://github.com/DELTAWEBMAROC/rewardly-loyalty/
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'REWARDLY_LOYALTY_VERSION', '4.8.4' );
+define( 'NODEVORA_CUSTOMER_REWARDS_VERSION', '4.8.5' );
 define( 'REWARDLY_LOYALTY_DEV_PRO_MODE', false );
 define( 'REWARDLY_LOYALTY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_URL', plugin_dir_url( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_FILE', __FILE__ );
 define( 'REWARDLY_LOYALTY_BASENAME', plugin_basename( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_CRON_HOOK', 'rewardly_loyalty_daily_expiration' );
-define( 'REWARDLY_LOYALTY_REPO_URL', 'https://github.com/DELTAWEBMAROC/rewardly-loyalty/' );
 
-require_once REWARDLY_LOYALTY_PATH . 'includes/updater/class-rewardly-loyalty-updater.php';
+/**
+ * Declare compatibility with modern WooCommerce order storage and Cart/Checkout Blocks.
+ */
+add_action(
+	'before_woocommerce_init',
+	static function() {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+		}
+	}
+);
+
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-helpers.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-emails.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-points.php';
@@ -36,9 +54,6 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-sett
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin-adjustments.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin.php';
 
-function rewardly_loyalty_load_textdomain() {
-	load_plugin_textdomain( 'rewardly-loyalty', false, dirname( REWARDLY_LOYALTY_BASENAME ) . '/languages' );
-}
 
 function rewardly_loyalty_activate() {
 	global $wpdb;
@@ -87,14 +102,29 @@ function rewardly_loyalty_maybe_schedule_cron() {
 
 function rewardly_loyalty_maybe_upgrade() {
 	$installed_version = get_option( 'rewardly_loyalty_installed_version', '' );
-	if ( REWARDLY_LOYALTY_VERSION === $installed_version ) {
+	if ( NODEVORA_CUSTOMER_REWARDS_VERSION === $installed_version ) {
 		return;
 	}
+
+	/* Migrate only untouched legacy default colors to the Nodevora palette. */
+	if ( '' === $installed_version || version_compare( $installed_version, '4.8.5', '<' ) ) {
+		$settings = get_option( 'rewardly_loyalty_settings', array() );
+		if ( is_array( $settings ) ) {
+			$legacy_primary = isset( $settings['primary_color'] ) ? strtolower( (string) $settings['primary_color'] ) : '';
+			$legacy_accent  = isset( $settings['accent_color'] ) ? strtolower( (string) $settings['accent_color'] ) : '';
+			if ( '#111111' === $legacy_primary && '#f5a623' === $legacy_accent ) {
+				$settings['primary_color'] = '#0b1638';
+				$settings['accent_color']  = '#12b8a6';
+				update_option( 'rewardly_loyalty_settings', $settings );
+			}
+		}
+	}
+
 	if ( ! wp_next_scheduled( REWARDLY_LOYALTY_CRON_HOOK ) ) {
 		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', REWARDLY_LOYALTY_CRON_HOOK );
 	}
 	flush_rewrite_rules( false );
-	update_option( 'rewardly_loyalty_installed_version', REWARDLY_LOYALTY_VERSION );
+	update_option( 'rewardly_loyalty_installed_version', NODEVORA_CUSTOMER_REWARDS_VERSION );
 }
 
 function rewardly_loyalty_should_enqueue_front_assets() {
@@ -138,9 +168,9 @@ function rewardly_loyalty_render_woocommerce_notice() {
 	}
 	$link = rewardly_loyalty_get_woocommerce_admin_url();
 	echo '<div class="notice notice-error"><p>';
-	echo esc_html__( 'Rewardly Loyalty Program requires WooCommerce to work correctly.', 'rewardly-loyalty' ) . ' ';
+	echo esc_html__( 'Nodevora Customer Rewards for WooCommerce requires WooCommerce to work correctly.', 'nodevora-customer-rewards-for-woocommerce' ) . ' ';
 	if ( ! empty( $link ) ) {
-		echo '<a class="button button-secondary" href="' . esc_url( $link ) . '">' . esc_html__( 'Install or activate WooCommerce', 'rewardly-loyalty' ) . '</a>';
+		echo '<a class="button button-secondary" href="' . esc_url( $link ) . '">' . esc_html__( 'Install or activate WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ) . '</a>';
 	}
 	echo '</p></div>';
 }
@@ -151,7 +181,7 @@ function rewardly_loyalty_plugin_action_links( $links ) {
 	}
 	$link = rewardly_loyalty_get_woocommerce_admin_url();
 	if ( ! empty( $link ) ) {
-		array_unshift( $links, '<a href="' . esc_url( $link ) . '">' . esc_html__( 'Install or activate WooCommerce', 'rewardly-loyalty' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( $link ) . '">' . esc_html__( 'Install or activate WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ) . '</a>' );
 	}
 	return $links;
 }
@@ -160,8 +190,6 @@ add_action( 'admin_notices', 'rewardly_loyalty_render_woocommerce_notice' );
 add_action( 'network_admin_notices', 'rewardly_loyalty_render_woocommerce_notice' );
 
 function rewardly_loyalty_init() {
-	rewardly_loyalty_load_textdomain();
-	Rewardly_Loyalty_Updater::init();
 	rewardly_loyalty_maybe_schedule_cron();
 	rewardly_loyalty_maybe_upgrade();
 	if ( ! rewardly_loyalty_is_woocommerce_active() ) {
@@ -186,16 +214,16 @@ function rewardly_loyalty_enqueue_assets() {
 		return;
 	}
 
-	wp_enqueue_style( 'rewardly-loyalty', REWARDLY_LOYALTY_URL . 'assets/css/loyalty.css', array(), filemtime( REWARDLY_LOYALTY_PATH . 'assets/css/loyalty.css' ) );
+	wp_enqueue_style( 'nodevora-customer-rewards-for-woocommerce', REWARDLY_LOYALTY_URL . 'assets/css/loyalty.css', array(), filemtime( REWARDLY_LOYALTY_PATH . 'assets/css/loyalty.css' ) );
 
 	$design_css = Rewardly_Loyalty_Design::get_front_inline_css();
 	if ( ! empty( $design_css ) ) {
-		wp_add_inline_style( 'rewardly-loyalty', $design_css );
+		wp_add_inline_style( 'nodevora-customer-rewards-for-woocommerce', $design_css );
 	}
 
 	if ( class_exists( 'Rewardly_Loyalty_Redeem' ) && Rewardly_Loyalty_Redeem::should_enqueue_blocks_script() ) {
 		wp_enqueue_script(
-			'rewardly-loyalty-blocks',
+			'nodevora-customer-rewards-for-woocommerce-blocks',
 			REWARDLY_LOYALTY_URL . 'assets/js/loyalty-blocks.js',
 			array(),
 			filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/loyalty-blocks.js' ),
@@ -203,7 +231,7 @@ function rewardly_loyalty_enqueue_assets() {
 		);
 
 		wp_localize_script(
-			'rewardly-loyalty-blocks',
+			'nodevora-customer-rewards-for-woocommerce-blocks',
 			'rewardlyBlocksData',
 			array(
 				'cartHtml'     => Rewardly_Loyalty_Redeem::get_block_cart_notice_html(),

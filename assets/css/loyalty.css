@@ -1,17 +1,17 @@
 /* =========================================================
-   Rewardly - Clean CSS v3
+   Nodevora Customer Rewards - Clean CSS v3
    Objectif :
-   - Garder le design Rewardly léger et scoped
+   - Garder le design du module léger et scoped
    - Ne plus toucher aux textes natifs du thème / WooCommerce
    - Laisser le thème gérer la typographie globale
    - Conserver les boutons actuels sans modification visuelle
    ========================================================= */
 
 :root{
-  --rewardly-orange:#ff7b19;
-  --rewardly-black:#111;
-  --rewardly-soft:#fffaf4;
-  --rewardly-border:#ece7e1;
+  --rewardly-orange:#f4b93f;
+  --rewardly-black:#0b1638;
+  --rewardly-soft:#e9faf7;
+  --rewardly-border:#beede6;
   --rewardly-muted:#666;
   --rewardly-success:#15803d;
   --rewardly-danger:#b91c1c;
@@ -22,7 +22,7 @@
 }
 
 /* =========================================================
-   Notices Rewardly uniquement
+   Notices du module uniquement
    ========================================================= */
 .rewardly-cart-points-notice,
 .rewardly-checkout-guest-notice,
@@ -135,7 +135,7 @@
 }
 
 /* =========================================================
-   Boutons Rewardly
+   Boutons du module
    - Conservés comme validés par les tests
    ========================================================= */
 .rewardly-loyalty-btn,
@@ -170,7 +170,7 @@
 .rewardly-loyalty-btn:focus,
 .button.rewardly-loyalty-btn:focus{
   outline:none;
-  box-shadow:0 0 0 3px rgba(245,166,35,.14) !important;
+  box-shadow:0 0 0 3px rgba(18,184,166,.16) !important;
 }
 
 /* =========================================================
@@ -211,7 +211,7 @@
 
 .rewardly-loyalty-box__input:focus{
   border-color:var(--rewardly-accent);
-  box-shadow:0 0 0 3px rgba(245,166,35,.12);
+  box-shadow:0 0 0 3px rgba(18,184,166,.14);
 }
 
 .rewardly-loyalty-box__input::placeholder{
@@ -235,7 +235,7 @@
 }
 
 /* =========================================================
-   Mon compte - Rewardly uniquement
+   Mon compte - module uniquement
    ========================================================= */
 .rewardly-loyalty-account{
   margin-top:8px;
@@ -371,7 +371,7 @@
 }
 
 /* =========================================================
-   Tableau / cartes d'historique Rewardly uniquement
+   Tableau / cartes d'historique du module uniquement
    ========================================================= */
 .rewardly-loyalty-account .shop_table{
   width:100%;

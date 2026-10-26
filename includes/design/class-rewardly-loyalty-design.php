@@ -26,7 +26,7 @@ class Rewardly_Loyalty_Design {
 		$button_color = 'outline' === $button_style ? 'var(--rewardly-primary)' : '#fff';
 		$button_border = 'outline' === $button_style ? '1px solid var(--rewardly-primary)' : 'none';
 		$icon_radius = 'circle' === $icon_style ? '999px' : ( 'minimal' === $icon_style ? '0' : '8px' );
-		$icon_bg = 'minimal' === $icon_style ? 'transparent' : 'rgba(245,166,35,.12)';
+		$icon_bg = 'minimal' === $icon_style ? 'transparent' : 'rgba(244,185,63,.16)';
 		$card_background = 'filled' === $card_style ? 'var(--rewardly-soft)' : '#fff';
 		$card_shadow = 'outline' === $card_style ? 'none' : '0 4px 14px rgba(0,0,0,.03)';
 
@@ -36,11 +36,11 @@ class Rewardly_Loyalty_Design {
 	private static function get_template_values( $template ) {
 		$templates = array(
 			'default' => array(
-				'primary_color' => '#111111',
-				'accent_color'  => '#f5a623',
+				'primary_color' => '#0b1638',
+				'accent_color'  => '#12b8a6',
 				'radius'        => 12,
-				'soft'          => '#fffaf4',
-				'border'        => 'rgba(245,166,35,.20)',
+				'soft'          => '#e9faf7',
+				'border'        => 'rgba(18,184,166,.22)',
 			),
 			'minimal' => array(
 				'primary_color' => '#111111',

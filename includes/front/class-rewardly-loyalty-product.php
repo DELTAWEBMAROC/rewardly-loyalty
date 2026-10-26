@@ -72,9 +72,9 @@ class Rewardly_Loyalty_Product {
 		>
 			<span class="rewardly-product-points-notice__icon">🏆</span>
 			<div class="rewardly-product-points-notice__text">
-				<?php esc_html_e( 'Buy this product and earn up to', 'rewardly-loyalty' ); ?>
+				<?php esc_html_e( 'Buy this product and earn up to', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 				<strong class="rewardly-product-points-notice__points"><?php echo esc_html( $points ); ?></strong>
-				<?php esc_html_e( 'loyalty points', 'rewardly-loyalty' ); ?>
+				<?php esc_html_e( 'loyalty points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 				<strong class="rewardly-product-points-notice__amount">(<?php echo wp_kses_post( wc_price( $amount ) ); ?>)</strong>
 			</div>
 		</div>

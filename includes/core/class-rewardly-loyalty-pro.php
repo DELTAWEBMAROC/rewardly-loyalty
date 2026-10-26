@@ -60,7 +60,7 @@ class Rewardly_Loyalty_Pro {
 	}
 
 	public static function get_license_status_label() {
-		return __( 'Not required', 'rewardly-loyalty' );
+		return __( 'Not required', 'nodevora-customer-rewards-for-woocommerce' );
 	}
 
 	public static function render_product_data_panel() {
@@ -73,8 +73,8 @@ class Rewardly_Loyalty_Pro {
 		woocommerce_wp_text_input(
 			array(
 				'id'                => '_rewardly_loyalty_product_points_rate',
-				'label'             => __( 'Rewardly points per currency unit', 'rewardly-loyalty' ),
-				'description'       => __( 'Override the global earn rate for this product only. Leave empty to use the global rule.', 'rewardly-loyalty' ),
+				'label'             => __( 'Nodevora points per currency unit', 'nodevora-customer-rewards-for-woocommerce' ),
+				'description'       => __( 'Override the global earn rate for this product only. Leave empty to use the global rule.', 'nodevora-customer-rewards-for-woocommerce' ),
 				'desc_tip'          => true,
 				'type'              => 'number',
 				'custom_attributes' => array(
@@ -91,7 +91,14 @@ class Rewardly_Loyalty_Pro {
 			return;
 		}
 
-		$raw_value = isset( $_POST['_rewardly_loyalty_product_points_rate'] ) ? wp_unslash( $_POST['_rewardly_loyalty_product_points_rate'] ) : '';
+		$nonce = filter_input( INPUT_POST, 'woocommerce_meta_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$nonce = is_string( $nonce ) ? sanitize_text_field( wp_unslash( $nonce ) ) : '';
+		if ( '' === $nonce || ! wp_verify_nonce( $nonce, 'woocommerce_save_data' ) ) {
+			return;
+		}
+
+		$raw_value = filter_input( INPUT_POST, '_rewardly_loyalty_product_points_rate', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$raw_value = is_string( $raw_value ) ? wp_unslash( $raw_value ) : '';
 		$value     = is_scalar( $raw_value ) ? trim( (string) $raw_value ) : '';
 
 		if ( '' === $value ) {
