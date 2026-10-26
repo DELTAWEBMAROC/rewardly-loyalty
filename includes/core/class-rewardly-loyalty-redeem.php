@@ -119,11 +119,10 @@ class Rewardly_Loyalty_Redeem {
 
 		/* Application manuelle via formulaire POST. */
 		if (
-			'POST' === strtoupper( isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '' )
-			&& isset( $_POST['rewardly_loyalty_action'] )
-			&& 'apply' === sanitize_text_field( wp_unslash( $_POST['rewardly_loyalty_action'] ) )
+			'POST' === self::get_request_method()
+			&& 'apply' === self::get_posted_action()
 		) {
-			$nonce = isset( $_POST['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_rewardly_nonce'] ) ) : '';
+			$nonce = self::get_posted_nonce();
 
 			if ( ! wp_verify_nonce( $nonce, 'rewardly_loyalty_apply' ) ) {
 				return;
@@ -135,18 +134,17 @@ class Rewardly_Loyalty_Redeem {
 
 		/* Retrait via formulaire POST pour éviter une mutation d'état via GET. */
 		if (
-			'POST' === strtoupper( isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '' )
-			&& isset( $_POST['rewardly_loyalty_action'] )
-			&& 'remove' === sanitize_text_field( wp_unslash( $_POST['rewardly_loyalty_action'] ) )
+			'POST' === self::get_request_method()
+			&& 'remove' === self::get_posted_action()
 		) {
-			$nonce = isset( $_POST['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_rewardly_nonce'] ) ) : '';
+			$nonce = self::get_posted_nonce();
 
 			if ( ! wp_verify_nonce( $nonce, 'rewardly_loyalty_remove' ) && ! wp_verify_nonce( $nonce, 'rewardly_loyalty_apply' ) ) {
 				return;
 			}
 
 			self::clear_usage_session();
-			wc_add_notice( __( 'Loyalty points were removed from this order.', 'rewardly-loyalty' ), 'success' );
+			wc_add_notice( __( 'Loyalty points were removed from this order.', 'nodevora-customer-rewards-for-woocommerce' ), 'success' );
 
 			WC()->cart->calculate_totals();
 			wp_safe_redirect( self::get_current_page_url() );
@@ -159,16 +157,60 @@ class Rewardly_Loyalty_Redeem {
 	 *
 	 * @return void
 	 */
+
+	/**
+	 * Retourner la méthode HTTP courante.
+	 *
+	 * @return string
+	 */
+	private static function get_request_method() {
+		$method = filter_input( INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$method = is_string( $method ) ? wp_unslash( $method ) : '';
+
+		return strtoupper( sanitize_text_field( $method ) );
+	}
+
+
+	/**
+	 * Retourner l'action postée pour la fidélité.
+	 *
+	 * @return string
+	 */
+	private static function get_posted_action() {
+		$action = filter_input( INPUT_POST, 'rewardly_loyalty_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		return is_string( $action ) ? sanitize_text_field( wp_unslash( $action ) ) : '';
+	}
+
+	/**
+	 * Retourner le nonce posté pour les formulaires fidélité.
+	 *
+	 * @return string
+	 */
+	private static function get_posted_nonce() {
+		$nonce = filter_input( INPUT_POST, '_rewardly_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		return is_string( $nonce ) ? sanitize_text_field( wp_unslash( $nonce ) ) : '';
+	}
+
+	/**
+	 * Retourner la valeur brute des points saisis.
+	 *
+	 * @return string
+	 */
+	private static function get_posted_points_value() {
+		$value = filter_input( INPUT_POST, 'rewardly_points_to_use', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		return is_string( $value ) ? wp_unslash( $value ) : '';
+	}
+
 	private static function handle_apply_request() {
 		$user_id     = get_current_user_id();
 		$settings    = Rewardly_Loyalty_Helpers::get_settings();
 		$user_points = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
 		$min_points  = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
 		$max_usable  = self::get_max_redeemable_points_for_cart( $user_id, WC()->cart );
-		$raw_value   = isset( $_POST['rewardly_points_to_use'] ) ? wp_unslash( $_POST['rewardly_points_to_use'] ) : '';
+		$raw_value   = self::get_posted_points_value();
 
 		if ( $user_points < $min_points ) {
-			wc_add_notice( __( 'You cannot use your loyalty points yet.', 'rewardly-loyalty' ), 'error' );
+			wc_add_notice( __( 'You cannot use your loyalty points yet.', 'nodevora-customer-rewards-for-woocommerce' ), 'error' );
 			wp_safe_redirect( self::get_current_page_url() );
 			exit;
 		}
@@ -190,7 +232,7 @@ class Rewardly_Loyalty_Redeem {
 
 		WC()->cart->calculate_totals();
 
-		wc_add_notice( __( 'Loyalty points were applied to your order.', 'rewardly-loyalty' ), 'success' );
+		wc_add_notice( __( 'Loyalty points were applied to your order.', 'nodevora-customer-rewards-for-woocommerce' ), 'success' );
 
 		wp_safe_redirect( self::get_current_page_url() );
 		exit;
@@ -208,21 +250,21 @@ class Rewardly_Loyalty_Redeem {
 		$value = is_scalar( $raw_value ) ? trim( (string) $raw_value ) : '';
 
 		if ( '' === $value || ! preg_match( '/^\d+$/', $value ) ) {
-			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'rewardly-loyalty' ) );
+			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
 		$requested_points = (int) $value;
 
 		if ( $requested_points <= 0 ) {
-			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'rewardly-loyalty' ) );
+			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
 		if ( $requested_points > (int) $user_points ) {
-			return new WP_Error( 'rewardly_points_exceed_balance', __( 'You cannot use more points than your available balance.', 'rewardly-loyalty' ) );
+			return new WP_Error( 'rewardly_points_exceed_balance', __( 'You cannot use more points than your available balance.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
 		if ( $requested_points > (int) $max_usable ) {
-			return new WP_Error( 'rewardly_points_exceed_order_max', __( 'The number of points entered exceeds the maximum allowed for this order.', 'rewardly-loyalty' ) );
+			return new WP_Error( 'rewardly_points_exceed_order_max', __( 'The number of points entered exceeds the maximum allowed for this order.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
 		return $requested_points;
@@ -331,8 +373,8 @@ class Rewardly_Loyalty_Redeem {
 		<div class="rewardly-cart-points-notice">
 			<span class="rewardly-cart-points-notice__icon">🏆</span>
 			<div class="rewardly-cart-points-notice__text">
-				<?php esc_html_e( 'Complete your order and earn up to', 'rewardly-loyalty' ); ?>
-				<strong><?php echo esc_html( $potential_points ); ?></strong> <?php esc_html_e( 'loyalty points!', 'rewardly-loyalty' ); ?>
+				<?php esc_html_e( 'Complete your order and earn up to', 'nodevora-customer-rewards-for-woocommerce' ); ?>
+				<strong><?php echo esc_html( $potential_points ); ?></strong> <?php esc_html_e( 'loyalty points!', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 			</div>
 		</div>
 		<?php
@@ -446,12 +488,15 @@ class Rewardly_Loyalty_Redeem {
 	 */
 	private static function render_guest_loyalty_card( $potential_points, $context = 'checkout' ) {
 		$context = sanitize_key( $context );
-		$context_label = 'cart' === $context ? __( 'your cart', 'rewardly-loyalty' ) : __( 'this order', 'rewardly-loyalty' );
+		$context_label = 'cart' === $context ? __( 'your cart', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'this order', 'nodevora-customer-rewards-for-woocommerce' );
 		?>
 		<div class="rewardly-checkout-guest-notice rewardly-checkout-guest-notice--<?php echo esc_attr( $context ); ?>">
 			<span class="rewardly-checkout-guest-notice__icon">🏆</span>
 			<div class="rewardly-checkout-guest-notice__text">
-				<?php echo esc_html( sprintf( __( 'Log in to use loyalty points and earn up to %1$s points with %2$s.', 'rewardly-loyalty' ), (int) $potential_points, $context_label ) ); ?>
+				<?php
+				/* translators: 1: potential loyalty points, 2: cart or order context label. */
+				echo esc_html( sprintf( __( 'Log in to use loyalty points and earn up to %1$s points with %2$s.', 'nodevora-customer-rewards-for-woocommerce' ), (int) $potential_points, $context_label ) );
+				?>
 			</div>
 		</div>
 		<?php
@@ -491,15 +536,15 @@ class Rewardly_Loyalty_Redeem {
 				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--top">
 					<span class="rewardly-loyalty-box__icon">🏆</span>
 					<div class="rewardly-loyalty-box__top-text">
-						<?php esc_html_e( 'This order can earn you', 'rewardly-loyalty' ); ?>
-						<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>.
+						<?php esc_html_e( 'This order can earn you', 'nodevora-customer-rewards-for-woocommerce' ); ?>
+						<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>.
 					</div>
 				</div>
 
 				<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--bottom">
 					<div class="rewardly-loyalty-box__bottom-text">
-						<?php esc_html_e( 'You currently have', 'rewardly-loyalty' ); ?> <strong><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>.
-						<?php esc_html_e( 'You can start using your points once you reach', 'rewardly-loyalty' ); ?> <strong><?php echo esc_html( $min_points ); ?></strong> <?php esc_html_e( 'total points.', 'rewardly-loyalty' ); ?>
+						<?php esc_html_e( 'You currently have', 'nodevora-customer-rewards-for-woocommerce' ); ?> <strong><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>.
+						<?php esc_html_e( 'You can start using your points once you reach', 'nodevora-customer-rewards-for-woocommerce' ); ?> <strong><?php echo esc_html( $min_points ); ?></strong> <?php esc_html_e( 'total points.', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 					</div>
 				</div>
 			</div>
@@ -513,8 +558,8 @@ class Rewardly_Loyalty_Redeem {
 			<div class="rewardly-loyalty-box__row rewardly-loyalty-box__row--top">
 				<span class="rewardly-loyalty-box__icon">🏆</span>
 				<div class="rewardly-loyalty-box__top-text">
-					<?php esc_html_e( 'This order can earn you', 'rewardly-loyalty' ); ?>
-					<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>.
+					<?php esc_html_e( 'This order can earn you', 'nodevora-customer-rewards-for-woocommerce' ); ?>
+					<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>.
 				</div>
 			</div>
 
@@ -545,13 +590,13 @@ class Rewardly_Loyalty_Redeem {
 				<span class="rewardly-loyalty-box__summary-main">
 					<span class="rewardly-loyalty-box__icon">🏆</span>
 					<span class="rewardly-loyalty-box__summary-text">
-						<?php esc_html_e( 'This order can earn you', 'rewardly-loyalty' ); ?>
-						<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>.
+						<?php esc_html_e( 'This order can earn you', 'nodevora-customer-rewards-for-woocommerce' ); ?>
+						<strong><?php echo esc_html( $potential_points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>.
 					</span>
 				</span>
 
 				<span class="rewardly-loyalty-box__summary-hint">
-					<?php esc_html_e( 'Use My Points', 'rewardly-loyalty' ); ?>
+					<?php esc_html_e( 'Use My Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 				</span>
 			</summary>
 
@@ -597,14 +642,14 @@ class Rewardly_Loyalty_Redeem {
 		$input_id            = 'rewardly_points_to_use_' . $input_suffix;
 		?>
 		<div class="rewardly-loyalty-box__bottom-text">
-			<?php esc_html_e( 'You have', 'rewardly-loyalty' ); ?> <strong><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>,
-			<?php esc_html_e( 'which equals', 'rewardly-loyalty' ); ?> <strong><?php echo wp_kses_post( wc_price( $total_amount ) ); ?></strong> <?php esc_html_e( 'available discount.', 'rewardly-loyalty' ); ?>
+			<?php esc_html_e( 'You have', 'nodevora-customer-rewards-for-woocommerce' ); ?> <strong><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>,
+			<?php esc_html_e( 'which equals', 'nodevora-customer-rewards-for-woocommerce' ); ?> <strong><?php echo wp_kses_post( wc_price( $total_amount ) ); ?></strong> <?php esc_html_e( 'available discount.', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 			<br>
-			<?php esc_html_e( 'You can use up to', 'rewardly-loyalty' ); ?> <strong><?php echo esc_html( $max_usable_points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong> <?php esc_html_e( 'on this order, which equals', 'rewardly-loyalty' ); ?>
+			<?php esc_html_e( 'You can use up to', 'nodevora-customer-rewards-for-woocommerce' ); ?> <strong><?php echo esc_html( $max_usable_points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php esc_html_e( 'on this order, which equals', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 			<strong><?php echo wp_kses_post( wc_price( $max_usable_amount ) ); ?></strong>.
 			<?php if ( $is_active && $applied_points > 0 && $applied_discount > 0 ) : ?>
 				<br>
-				<?php esc_html_e( 'Currently applied points:', 'rewardly-loyalty' ); ?>
+				<?php esc_html_e( 'Currently applied points:', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 				<strong><?php echo esc_html( $applied_points ); ?></strong>
 				(<?php echo wp_kses_post( wc_price( $applied_discount ) ); ?>).
 			<?php endif; ?>
@@ -615,7 +660,7 @@ class Rewardly_Loyalty_Redeem {
 				<?php wp_nonce_field( 'rewardly_loyalty_apply', '_rewardly_nonce' ); ?>
 
 				<label class="rewardly-loyalty-box__label" for="<?php echo esc_attr( $input_id ); ?>">
-					<?php esc_html_e( 'Number of points to use', 'rewardly-loyalty' ); ?>
+					<?php esc_html_e( 'Number of points to use', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 				</label>
 
 				<input
@@ -631,12 +676,12 @@ class Rewardly_Loyalty_Redeem {
 
 				<div class="rewardly-loyalty-box__buttons">
 					<button type="submit" name="rewardly_loyalty_action" value="apply" class="button rewardly-loyalty-btn rewardly-loyalty-btn--primary">
-						<?php esc_html_e( 'Apply My Points', 'rewardly-loyalty' ); ?>
+						<?php esc_html_e( 'Apply My Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 					</button>
 
 					<?php if ( $is_active ) : ?>
 						<button type="submit" name="rewardly_loyalty_action" value="remove" class="button rewardly-loyalty-btn">
-							<?php esc_html_e( 'Remove My Points', 'rewardly-loyalty' ); ?>
+							<?php esc_html_e( 'Remove My Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 						</button>
 					<?php endif; ?>
 				</div>
@@ -718,7 +763,7 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
-		$cart->add_fee( __( 'Loyalty Discount', 'rewardly-loyalty' ), -$amount, false );
+		$cart->add_fee( __( 'Loyalty Discount', 'nodevora-customer-rewards-for-woocommerce' ), -$amount, false );
 
 		WC()->session->set( 'rewardly_applied_points', $requested_points );
 		WC()->session->set( 'rewardly_loyalty_discount_amount', $amount );
@@ -794,14 +839,14 @@ class Rewardly_Loyalty_Redeem {
 			$points_to_spend,
 			$order_id,
 			'spend',
-			__( 'Points used to get a discount on the order.', 'rewardly-loyalty' )
+			__( 'Points used to get a discount on the order.', 'nodevora-customer-rewards-for-woocommerce' )
 		);
 
 		if ( $actual_spent !== $points_to_spend ) {
 			/* (FR) Signaler l'anomalie sans marquer la dépense comme traitée. */
 			$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'failed' );
 			$order->update_meta_data( '_rewardly_loyalty_spent_failed_points', $points_to_spend );
-			$order->add_order_note( __( 'Rewardly: an issue was detected while debiting loyalty points. Manual verification is required.', 'rewardly-loyalty' ) );
+			$order->add_order_note( __( 'Nodevora: an issue was detected while debiting loyalty points. Manual verification is required.', 'nodevora-customer-rewards-for-woocommerce' ) );
 			$order->save();
 
 			if ( function_exists( 'WC' ) && WC()->session ) {
@@ -944,7 +989,7 @@ class Rewardly_Loyalty_Redeem {
 		if ( $potential_points <= 0 ) {
 			return '';
 		}
-		return '<div class="rewardly-checkout-guest-notice rewardly-notice-only"><span class="rewardly-checkout-guest-notice__icon">🏆</span><div class="rewardly-checkout-guest-notice__text">' . esc_html__( 'This order can earn you up to', 'rewardly-loyalty' ) . ' <strong>' . esc_html( $potential_points ) . '</strong> ' . esc_html__( 'loyalty points.', 'rewardly-loyalty' ) . '</div></div>';
+		return '<div class="rewardly-checkout-guest-notice rewardly-notice-only"><span class="rewardly-checkout-guest-notice__icon">🏆</span><div class="rewardly-checkout-guest-notice__text">' . esc_html__( 'This order can earn you up to', 'nodevora-customer-rewards-for-woocommerce' ) . ' <strong>' . esc_html( $potential_points ) . '</strong> ' . esc_html__( 'loyalty points.', 'nodevora-customer-rewards-for-woocommerce' ) . '</div></div>';
 	}
 
 }

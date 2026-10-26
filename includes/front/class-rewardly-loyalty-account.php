@@ -32,12 +32,12 @@ class Rewardly_Loyalty_Account {
 			$new_items[ $key ] = $label;
 
 			if ( 'dashboard' === $key ) {
-				$new_items['rewardly-points'] = __( 'My Points', 'rewardly-loyalty' );
+				$new_items['rewardly-points'] = __( 'My Points', 'nodevora-customer-rewards-for-woocommerce' );
 			}
 		}
 
 		if ( ! isset( $new_items['rewardly-points'] ) ) {
-			$new_items['rewardly-points'] = __( 'My Points', 'rewardly-loyalty' );
+			$new_items['rewardly-points'] = __( 'My Points', 'nodevora-customer-rewards-for-woocommerce' );
 		}
 
 		return $new_items;
@@ -45,16 +45,16 @@ class Rewardly_Loyalty_Account {
 
 	private static function get_log_type_label( $type ) {
 		$labels = array(
-			'earn'               => __( 'Earned', 'rewardly-loyalty' ),
-			'spend'              => __( 'Redeemed', 'rewardly-loyalty' ),
-			'revoke'             => __( 'Cancelled / Refunded', 'rewardly-loyalty' ),
-			'adjust'             => __( 'Adjustment', 'rewardly-loyalty' ),
-			'adjust_add'         => __( 'Adjustment', 'rewardly-loyalty' ),
-			'adjust_remove'      => __( 'Manual Removal', 'rewardly-loyalty' ),
-			'expire'             => __( 'Expired', 'rewardly-loyalty' ),
-			'bonus_registration' => __( 'Registration Bonus', 'rewardly-loyalty' ),
-			'bonus_first_order'  => __( 'First Order Bonus', 'rewardly-loyalty' ),
-			'bonus_review'       => __( 'Review Bonus', 'rewardly-loyalty' ),
+			'earn'               => __( 'Earned', 'nodevora-customer-rewards-for-woocommerce' ),
+			'spend'              => __( 'Redeemed', 'nodevora-customer-rewards-for-woocommerce' ),
+			'revoke'             => __( 'Cancelled / Refunded', 'nodevora-customer-rewards-for-woocommerce' ),
+			'adjust'             => __( 'Adjustment', 'nodevora-customer-rewards-for-woocommerce' ),
+			'adjust_add'         => __( 'Adjustment', 'nodevora-customer-rewards-for-woocommerce' ),
+			'adjust_remove'      => __( 'Manual Removal', 'nodevora-customer-rewards-for-woocommerce' ),
+			'expire'             => __( 'Expired', 'nodevora-customer-rewards-for-woocommerce' ),
+			'bonus_registration' => __( 'Registration Bonus', 'nodevora-customer-rewards-for-woocommerce' ),
+			'bonus_first_order'  => __( 'First Order Bonus', 'nodevora-customer-rewards-for-woocommerce' ),
+			'bonus_review'       => __( 'Review Bonus', 'nodevora-customer-rewards-for-woocommerce' ),
 		);
 
 		return isset( $labels[ $type ] ) ? $labels[ $type ] : ucfirst( $type );
@@ -129,7 +129,11 @@ class Rewardly_Loyalty_Account {
 				'product_name'  => $product_summary['name'],
 				'product_url'   => $product_summary['url'],
 				'product_link'  => $product_summary['link'],
-				'order_link'    => sprintf( '<a href="%1$s">%2$s</a>', esc_url( wc_get_endpoint_url( 'view-order', $order->get_id(), wc_get_page_permalink( 'myaccount' ) ) ), esc_html( sprintf( __( 'Order #%s', 'rewardly-loyalty' ), $order->get_order_number() ) ) ),
+				'order_link'    => sprintf( '<a href="%1$s">%2$s</a>', esc_url( wc_get_endpoint_url( 'view-order', $order->get_id(), wc_get_page_permalink( 'myaccount' ) ) ), esc_html( sprintf(
+					/* translators: %s: order number. */
+					__( 'Order #%s', 'nodevora-customer-rewards-for-woocommerce' ),
+					$order->get_order_number()
+				) ) ),
 				'order_summary' => $product_summary['summary'],
 			);
 		}
@@ -147,15 +151,31 @@ class Rewardly_Loyalty_Account {
 		$items = $order->get_items( 'line_item' );
 		if ( empty( $items ) ) {
 			return array(
-				'name'    => sprintf( __( 'Order #%s', 'rewardly-loyalty' ), $order->get_order_number() ),
+				'name'    => sprintf(
+				/* translators: %s: order number. */
+				__( 'Order #%s', 'nodevora-customer-rewards-for-woocommerce' ),
+				$order->get_order_number()
+			),
 				'url'     => '',
-				'link'    => sprintf( __( 'Order #%s', 'rewardly-loyalty' ), $order->get_order_number() ),
-				'summary' => sprintf( __( 'Order #%s', 'rewardly-loyalty' ), $order->get_order_number() ),
+				'link'    => sprintf(
+				/* translators: %s: order number. */
+				__( 'Order #%s', 'nodevora-customer-rewards-for-woocommerce' ),
+				$order->get_order_number()
+			),
+				'summary' => sprintf(
+				/* translators: %s: order number. */
+				__( 'Order #%s', 'nodevora-customer-rewards-for-woocommerce' ),
+				$order->get_order_number()
+			),
 			);
 		}
 
 		$first_item = reset( $items );
-		$name       = $first_item ? $first_item->get_name() : sprintf( __( 'Order #%s', 'rewardly-loyalty' ), $order->get_order_number() );
+		$name       = $first_item ? $first_item->get_name() : sprintf(
+			/* translators: %s: order number. */
+			__( 'Order #%s', 'nodevora-customer-rewards-for-woocommerce' ),
+			$order->get_order_number()
+		);
 		$product    = $first_item && is_callable( array( $first_item, 'get_product' ) ) ? $first_item->get_product() : null;
 		$url        = $product instanceof WC_Product ? get_permalink( $product->get_id() ) : '';
 		$item_count = count( $items );
@@ -163,7 +183,7 @@ class Rewardly_Loyalty_Account {
 		if ( $item_count > 1 ) {
 			$summary = sprintf(
 				/* translators: 1: first product name, 2: number of items */
-				__( '%1$s and %2$d more item(s)', 'rewardly-loyalty' ),
+				__( '%1$s and %2$d more item(s)', 'nodevora-customer-rewards-for-woocommerce' ),
 				$name,
 				$item_count - 1
 			);
@@ -191,7 +211,7 @@ class Rewardly_Loyalty_Account {
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
 		$template = (string) ( $settings['pro_pending_points_notice_text'] ?? '' );
 		if ( '' === $template ) {
-			$template = __( 'You will earn {points} point(s) from your order for {product_name} once {order_link} is completed.', 'rewardly-loyalty' );
+			$template = __( 'You will earn {points} point(s) from your order for {product_name} once {order_link} is completed.', 'nodevora-customer-rewards-for-woocommerce' );
 		}
 
 		$replacements = array(
@@ -236,7 +256,8 @@ class Rewardly_Loyalty_Account {
 		return array(
 			'label' => sprintf(
 				/* translators: 1: product summary, 2: order number */
-				__( '%1$s (Order #%2$s)', 'rewardly-loyalty' ),
+				/* translators: 1: item label, 2: order number. */
+				__( '%1$s (Order #%2$s)', 'nodevora-customer-rewards-for-woocommerce' ),
 				$product_summary['summary'],
 				$order->get_order_number()
 			),
@@ -256,79 +277,82 @@ class Rewardly_Loyalty_Account {
 		$spent          = Rewardly_Loyalty_Helpers::get_total_spent( $user_id );
 		$level_data     = Rewardly_Loyalty_Helpers::get_user_level_data( $user_id );
 		$pending_notice = self::get_pending_points_notice_data( $user_id );
-		$show_all       = isset( $_GET['history'] ) && 'all' === sanitize_text_field( wp_unslash( $_GET['history'] ) );
+		$history_view   = filter_input( INPUT_GET, 'history', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$history_view   = is_string( $history_view ) ? sanitize_text_field( wp_unslash( $history_view ) ) : '';
+		$show_all       = 'all' === $history_view;
 		$logs_limit     = $show_all ? 200 : 10;
 		$logs           = Rewardly_Loyalty_Helpers::get_user_logs( $user_id, $logs_limit );
 		$all_logs_count = count( Rewardly_Loyalty_Helpers::get_user_logs( $user_id, 1000 ) );
 		?>
 		<div class="rewardly-loyalty-account">
-			<h3><?php esc_html_e( 'My Loyalty Points', 'rewardly-loyalty' ); ?></h3>
+			<h3><?php esc_html_e( 'My Loyalty Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></h3>
 
 			<div class="rewardly-loyalty-account__summary">
 				<div class="rewardly-loyalty-card">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Current Balance', 'rewardly-loyalty' ); ?></span>
-					<strong class="rewardly-loyalty-card__value"><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'rewardly-loyalty' ); ?></strong>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Current Balance', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
+					<strong class="rewardly-loyalty-card__value"><?php echo esc_html( $points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong>
 				</div>
 
 				<div class="rewardly-loyalty-card">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Available Value', 'rewardly-loyalty' ); ?></span>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Available Value', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
 					<strong class="rewardly-loyalty-card__value"><?php echo wp_kses_post( wc_price( $amount ) ); ?></strong>
 				</div>
 
 				<div class="rewardly-loyalty-card">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Points Earned', 'rewardly-loyalty' ); ?></span>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Points Earned', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
 					<strong class="rewardly-loyalty-card__value"><?php echo esc_html( $earned ); ?></strong>
 				</div>
 
 				<div class="rewardly-loyalty-card">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Points Redeemed', 'rewardly-loyalty' ); ?></span>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Points Redeemed', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
 					<strong class="rewardly-loyalty-card__value"><?php echo esc_html( $spent ); ?></strong>
 				</div>
 			</div>
 
 			<?php if ( ! empty( $level_data['enabled'] ) ) : ?>
 				<div class="rewardly-loyalty-card rewardly-loyalty-card--level" style="margin:0 0 18px;">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Current Level', 'rewardly-loyalty' ); ?></span>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Current Level', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
 					<strong class="rewardly-loyalty-card__value"><?php echo esc_html( $level_data['current_level']['label'] ); ?></strong>
 					<div class="rewardly-level-progress" style="height:10px;background:#eceff3;border-radius:999px;overflow:hidden;margin-top:10px;">
-						<div class="rewardly-level-progress__bar" style="width:<?php echo esc_attr( (int) $level_data['progress'] ); ?>%;height:100%;background:var(--rewardly-accent, #f5a623);"></div>
+						<div class="rewardly-level-progress__bar" style="width:<?php echo esc_attr( (int) $level_data['progress'] ); ?>%;height:100%;background:var(--rewardly-accent, #12b8a6);"></div>
 					</div>
 					<?php if ( ! empty( $level_data['next_level'] ) ) : ?>
-						<p style="margin-top:10px;"><?php echo esc_html( sprintf( __( 'You need %d more point(s) to reach %s.', 'rewardly-loyalty' ), (int) $level_data['remaining'], $level_data['next_level']['label'] ) ); ?></p>
+						<p style="margin-top:10px;"><?php /* translators: 1: remaining points, 2: next level label. */
+						echo esc_html( sprintf( __( 'You need %1$d more point(s) to reach %2$s.', 'nodevora-customer-rewards-for-woocommerce' ), (int) $level_data['remaining'], $level_data['next_level']['label'] ) ); ?></p>
 					<?php else : ?>
-						<p style="margin-top:10px;"><?php esc_html_e( 'You already reached the highest available level.', 'rewardly-loyalty' ); ?></p>
+						<p style="margin-top:10px;"><?php esc_html_e( 'You already reached the highest available level.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $pending_notice ) ) : ?>
 				<div class="rewardly-loyalty-card rewardly-loyalty-card--pending" style="margin:0 0 18px;">
-					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Pending Loyalty Reward', 'rewardly-loyalty' ); ?></span>
+					<span class="rewardly-loyalty-card__label"><?php esc_html_e( 'Pending Loyalty Reward', 'nodevora-customer-rewards-for-woocommerce' ); ?></span>
 					<p style="margin:8px 0 0;"><?php echo wp_kses_post( self::get_pending_points_notice_text( $pending_notice ) ); ?></p>
 				</div>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $logs ) ) : ?>
 				<div class="rewardly-loyalty-history-head">
-					<h4><?php esc_html_e( 'Recent History', 'rewardly-loyalty' ); ?></h4>
+					<h4><?php esc_html_e( 'Recent History', 'nodevora-customer-rewards-for-woocommerce' ); ?></h4>
 				</div>
 
 				<div class="rewardly-log-table-head" aria-hidden="true">
-					<div><?php esc_html_e( 'Date', 'rewardly-loyalty' ); ?></div>
-					<div><?php esc_html_e( 'Type', 'rewardly-loyalty' ); ?></div>
-					<div><?php esc_html_e( 'Points', 'rewardly-loyalty' ); ?></div>
-					<div><?php esc_html_e( 'Amount', 'rewardly-loyalty' ); ?></div>
-					<div><?php esc_html_e( 'Note', 'rewardly-loyalty' ); ?></div>
+					<div><?php esc_html_e( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?></div>
+					<div><?php esc_html_e( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?></div>
+					<div><?php esc_html_e( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></div>
+					<div><?php esc_html_e( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?></div>
+					<div><?php esc_html_e( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?></div>
 				</div>
 
 				<table class="shop_table shop_table_responsive my_account_orders">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Date', 'rewardly-loyalty' ); ?></th>
-							<th><?php esc_html_e( 'Type', 'rewardly-loyalty' ); ?></th>
-							<th><?php esc_html_e( 'Points', 'rewardly-loyalty' ); ?></th>
-							<th><?php esc_html_e( 'Amount', 'rewardly-loyalty' ); ?></th>
-							<th><?php esc_html_e( 'Note', 'rewardly-loyalty' ); ?></th>
+							<th><?php esc_html_e( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th><?php esc_html_e( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th><?php esc_html_e( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th><?php esc_html_e( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th><?php esc_html_e( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -345,11 +369,11 @@ class Rewardly_Loyalty_Account {
 							$type_class   = 'rewardly-log-type rewardly-log-type--' . sanitize_html_class( $log->type );
 							?>
 							<tr class="<?php echo esc_attr( $row_class ); ?>">
-								<td data-label="<?php echo esc_attr__( 'Date', 'rewardly-loyalty' ); ?>"><?php echo esc_html( wp_date( 'd/m/Y H:i', strtotime( $log->created_at ) ) ); ?></td>
-								<td data-label="<?php echo esc_attr__( 'Type', 'rewardly-loyalty' ); ?>"><span class="<?php echo esc_attr( $type_class ); ?>"><?php echo esc_html( $type_label ); ?></span></td>
-								<td data-label="<?php echo esc_attr__( 'Points', 'rewardly-loyalty' ); ?>"><?php echo esc_html( $points_prefix . abs( (int) $log->points ) ); ?></td>
-								<td data-label="<?php echo esc_attr__( 'Amount', 'rewardly-loyalty' ); ?>"><span class="rewardly-log-label"><?php esc_html_e( 'Amount:', 'rewardly-loyalty' ); ?> </span><span class="<?php echo esc_attr( $amount_class ); ?>"><?php echo esc_html( $amount_prefix ) . ' ' . wp_kses_post( wc_price( abs( (float) $log->amount_dh ) ) ); ?></span></td>
-								<td data-label="<?php echo esc_attr__( 'Note', 'rewardly-loyalty' ); ?>">
+								<td data-label="<?php echo esc_attr__( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( wp_date( 'd/m/Y H:i', strtotime( $log->created_at ) ) ); ?></td>
+								<td data-label="<?php echo esc_attr__( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><span class="<?php echo esc_attr( $type_class ); ?>"><?php echo esc_html( $type_label ); ?></span></td>
+								<td data-label="<?php echo esc_attr__( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( $points_prefix . abs( (int) $log->points ) ); ?></td>
+								<td data-label="<?php echo esc_attr__( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><span class="rewardly-log-label"><?php esc_html_e( 'Amount:', 'nodevora-customer-rewards-for-woocommerce' ); ?> </span><span class="<?php echo esc_attr( $amount_class ); ?>"><?php echo esc_html( $amount_prefix ) . ' ' . wp_kses_post( wc_price( abs( (float) $log->amount_dh ) ) ); ?></span></td>
+								<td data-label="<?php echo esc_attr__( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?>">
 									<div><?php echo esc_html( $log->note ); ?></div>
 									<?php if ( ! empty( $order_link_data ) ) : ?>
 										<div style="margin-top:6px;"><a href="<?php echo esc_url( $order_link_data['url'] ); ?>"><?php echo esc_html( $order_link_data['label'] ); ?></a></div>
@@ -363,15 +387,15 @@ class Rewardly_Loyalty_Account {
 				<?php if ( $all_logs_count > 10 ) : ?>
 					<div class="rewardly-loyalty-history-actions rewardly-loyalty-history-actions--bottom">
 						<?php if ( $show_all ) : ?>
-							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( false ) ); ?>"><?php esc_html_e( 'Show Less', 'rewardly-loyalty' ); ?></a>
+							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( false ) ); ?>"><?php esc_html_e( 'Show Less', 'nodevora-customer-rewards-for-woocommerce' ); ?></a>
 						<?php else : ?>
-							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( true ) ); ?>"><?php esc_html_e( 'Show More', 'rewardly-loyalty' ); ?></a>
+							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( true ) ); ?>"><?php esc_html_e( 'Show More', 'nodevora-customer-rewards-for-woocommerce' ); ?></a>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 
 			<?php else : ?>
-				<p><?php esc_html_e( 'No loyalty activity yet.', 'rewardly-loyalty' ); ?></p>
+				<p><?php esc_html_e( 'No loyalty activity yet.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 			<?php endif; ?>
 		</div>
 		<?php

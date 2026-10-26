@@ -17,8 +17,8 @@ class Rewardly_Loyalty_Helpers {
 			'points_expiration_days'       => 365,
 			'email_notifications'          => 'yes',
 			'notice_display_mode'          => 'both',
-			'primary_color'                => '#111111',
-			'accent_color'                 => '#f5a623',
+			'primary_color'                => '#0b1638',
+			'accent_color'                 => '#12b8a6',
 			'border_radius'                => 12,
 			'enable_front_styles'          => 'yes',
 			'delete_data_on_uninstall'     => 'no',
@@ -343,14 +343,26 @@ class Rewardly_Loyalty_Helpers {
 
 		$table_name = self::get_log_table_name();
 		$limit      = max( 1, (int) $limit );
+		$cache_key  = 'rewardly_user_logs_' . (int) $user_id . '_' . $limit;
+		$cached     = wp_cache_get( $cache_key, 'rewardly_loyalty' );
 
-		return $wpdb->get_results(
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Prepared query against the plugin's custom log table; results are cached below.
+		$logs = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$table_name} WHERE user_id = %d ORDER BY id DESC LIMIT %d",
+				'SELECT * FROM %i WHERE user_id = %d ORDER BY id DESC LIMIT %d',
+				$table_name,
 				$user_id,
 				$limit
 			)
 		);
+
+		wp_cache_set( $cache_key, $logs, 'rewardly_loyalty', MINUTE_IN_SECONDS );
+
+		return $logs;
 	}
 
 	/**
@@ -417,11 +429,19 @@ class Rewardly_Loyalty_Helpers {
 		}
 
 		if ( class_exists( 'Rewardly_Loyalty_Pro' ) && Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) {
-			$product_id   = $product->get_id();
-			$override_on  = 'yes' === get_post_meta( $product_id, '_rewardly_pro_enable_product_rule', true );
-			$override_raw = absint( get_post_meta( $product_id, '_rewardly_pro_product_rate', true ) );
-			if ( $override_on && $override_raw > 0 ) {
-				return $override_raw;
+			$product_id       = $product->get_id();
+			$product_override = get_post_meta( $product_id, '_rewardly_loyalty_product_points_rate', true );
+
+			/* An explicit product value, including zero, overrides the global rate. */
+			if ( '' !== $product_override ) {
+				return max( 0, absint( $product_override ) );
+			}
+
+			/* Backward compatibility for early internal product-rule metadata. */
+			$legacy_override_on  = 'yes' === get_post_meta( $product_id, '_rewardly_pro_enable_product_rule', true );
+			$legacy_override_raw = absint( get_post_meta( $product_id, '_rewardly_pro_product_rate', true ) );
+			if ( $legacy_override_on && $legacy_override_raw > 0 ) {
+				return $legacy_override_raw;
 			}
 
 			$product_categories = wc_get_product_term_ids( $product_id, 'product_cat' );
@@ -539,24 +559,24 @@ class Rewardly_Loyalty_Helpers {
 		$levels = array(
 			array(
 				'slug'      => 'bronze',
-				'label'     => __( 'Bronze', 'rewardly-loyalty' ),
+				'label'     => __( 'Bronze', 'nodevora-customer-rewards-for-woocommerce' ),
 				'threshold' => max( 0, absint( $settings['pro_level_bronze_threshold'] ?? 100 ) ),
 			),
 			array(
 				'slug'      => 'silver',
-				'label'     => __( 'Silver', 'rewardly-loyalty' ),
+				'label'     => __( 'Silver', 'nodevora-customer-rewards-for-woocommerce' ),
 				'threshold' => max( 0, absint( $settings['pro_level_silver_threshold'] ?? 500 ) ),
 			),
 			array(
 				'slug'      => 'gold',
-				'label'     => __( 'Gold', 'rewardly-loyalty' ),
+				'label'     => __( 'Gold', 'nodevora-customer-rewards-for-woocommerce' ),
 				'threshold' => max( 0, absint( $settings['pro_level_gold_threshold'] ?? 1000 ) ),
 			),
 		);
 
 		$current_level = array(
 			'slug'      => 'starter',
-			'label'     => __( 'Starter', 'rewardly-loyalty' ),
+			'label'     => __( 'Starter', 'nodevora-customer-rewards-for-woocommerce' ),
 			'threshold' => 0,
 		);
 		$next_level    = null;
@@ -750,7 +770,7 @@ class Rewardly_Loyalty_Helpers {
 	private static function insert_log( $user_id, $order_id, $type, $points, $amount, $note ) {
 		global $wpdb;
 
-		$wpdb->insert(
+		$inserted = $wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 			self::get_log_table_name(),
 			array(
 				'user_id'   => (int) $user_id,
@@ -763,6 +783,18 @@ class Rewardly_Loyalty_Helpers {
 			),
 			array( '%d', '%d', '%s', '%d', '%f', '%s', '%s' )
 		);
+
+		if ( false === $inserted ) {
+			return;
+		}
+
+		if ( function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_group' ) ) {
+			wp_cache_flush_group( 'rewardly_loyalty' );
+		}
+
+		if ( class_exists( 'Rewardly_Loyalty_Emails' ) ) {
+			Rewardly_Loyalty_Emails::maybe_send_points_notification( $user_id, $type, $points, $amount, $note );
+		}
 	}
 
 	public static function run_daily_points_expiration() {
@@ -773,11 +805,17 @@ class Rewardly_Loyalty_Helpers {
 			return;
 		}
 
+		// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_key,WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Daily scheduled lookup limited to users with a positive loyalty balance.
 		$users = get_users(
 			array(
-				'fields' => 'ids',
+				'fields'       => 'ids',
+				'meta_key'     => 'rewardly_loyalty_points_balance',
+				'meta_value'   => 0,
+				'meta_compare' => '>',
+				'meta_type'    => 'NUMERIC',
 			)
 		);
+		// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_key,WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 
 		if ( empty( $users ) ) {
 			return;
@@ -828,7 +866,7 @@ class Rewardly_Loyalty_Helpers {
 				'expire',
 				$expired_sum,
 				self::convert_points_to_amount( $expired_sum ),
-				__( 'Points expired automatically.', 'rewardly-loyalty' )
+				__( 'Points expired automatically.', 'nodevora-customer-rewards-for-woocommerce' )
 			);
 		}
 	}

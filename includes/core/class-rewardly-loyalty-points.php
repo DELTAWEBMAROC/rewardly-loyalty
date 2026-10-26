@@ -53,7 +53,7 @@ class Rewardly_Loyalty_Points {
 				$points,
 				$order_id,
 				'earn',
-				__( 'Points earned after order validation.', 'rewardly-loyalty' )
+				__( 'Points earned after order validation.', 'nodevora-customer-rewards-for-woocommerce' )
 			);
 
 			$order->update_meta_data( '_rewardly_loyalty_points_earned', $points );
@@ -94,7 +94,7 @@ class Rewardly_Loyalty_Points {
 			return;
 		}
 
-		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, 0, 'bonus_registration', __( 'Registration bonus.', 'rewardly-loyalty' ) );
+		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, 0, 'bonus_registration', __( 'Registration bonus.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		update_user_meta( $user_id, '_rewardly_bonus_registration_awarded', 'yes' );
 	}
 
@@ -141,7 +141,7 @@ class Rewardly_Loyalty_Points {
 			return;
 		}
 
-		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, $order->get_id(), 'bonus_first_order', __( 'First order bonus.', 'rewardly-loyalty' ) );
+		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, $order->get_id(), 'bonus_first_order', __( 'First order bonus.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		update_user_meta( $user_id, '_rewardly_bonus_first_order_awarded', 'yes' );
 		update_user_meta( $user_id, '_rewardly_bonus_first_order_order_id', (int) $order->get_id() );
 		$order->update_meta_data( '_rewardly_bonus_first_order_points', $points );
@@ -181,7 +181,7 @@ class Rewardly_Loyalty_Points {
 			return;
 		}
 
-		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, 0, 'bonus_review', __( 'Approved product review bonus.', 'rewardly-loyalty' ) );
+		Rewardly_Loyalty_Helpers::add_points( $user_id, $points, 0, 'bonus_review', __( 'Approved product review bonus.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		update_comment_meta( $comment_id, '_rewardly_bonus_review_awarded', 'yes' );
 	}
 
@@ -205,7 +205,7 @@ class Rewardly_Loyalty_Points {
 		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_processed' ) && 'yes' !== $order->get_meta( '_rewardly_loyalty_revoked' ) ) {
 			$earned_points = (int) $order->get_meta( '_rewardly_loyalty_points_earned' );
 			if ( $earned_points > 0 ) {
-				$note           = 'cancelled' === $status ? __( 'Points removed after order cancellation.', 'rewardly-loyalty' ) : __( 'Points removed after order refund.', 'rewardly-loyalty' );
+				$note           = 'cancelled' === $status ? __( 'Points removed after order cancellation.', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'Points removed after order refund.', 'nodevora-customer-rewards-for-woocommerce' );
 				$actual_revoked = Rewardly_Loyalty_Helpers::subtract_points_exact( $user_id, $earned_points, $order_id, 'revoke', $note );
 
 				if ( $actual_revoked === $earned_points ) {
@@ -215,7 +215,7 @@ class Rewardly_Loyalty_Points {
 					/* (FR) Conserver la révocation en attente si le retrait exact échoue. */
 					$order->update_meta_data( '_rewardly_loyalty_revoked', 'no' );
 					$order->update_meta_data( '_rewardly_loyalty_revoke_pending_points', $earned_points );
-					$order->add_order_note( __( 'Rewardly: partial reversal was blocked because the current balance does not allow all earned points to be removed.', 'rewardly-loyalty' ) );
+					$order->add_order_note( __( 'Nodevora: partial reversal was blocked because the current balance does not allow all earned points to be removed.', 'nodevora-customer-rewards-for-woocommerce' ) );
 				}
 			}
 		}
@@ -224,7 +224,7 @@ class Rewardly_Loyalty_Points {
 		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_processed' ) && 'yes' !== $order->get_meta( '_rewardly_bonus_first_order_revoked' ) ) {
 			$bonus_first_points = (int) $order->get_meta( '_rewardly_bonus_first_order_points' );
 			if ( $bonus_first_points > 0 ) {
-				$note                = 'cancelled' === $status ? __( 'First order bonus removed after order cancellation.', 'rewardly-loyalty' ) : __( 'First order bonus removed after order refund.', 'rewardly-loyalty' );
+				$note                = 'cancelled' === $status ? __( 'First order bonus removed after order cancellation.', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'First order bonus removed after order refund.', 'nodevora-customer-rewards-for-woocommerce' );
 				$actual_bonus_revoked = Rewardly_Loyalty_Helpers::subtract_points_exact( $user_id, $bonus_first_points, $order_id, 'revoke', $note );
 
 				if ( $actual_bonus_revoked === $bonus_first_points ) {
@@ -237,7 +237,7 @@ class Rewardly_Loyalty_Points {
 				} else {
 					/* (FR) Conserver l'état en attente si le solde actuel ne permet pas un retrait exact. */
 					$order->update_meta_data( '_rewardly_bonus_first_order_revoked', 'no' );
-					$order->add_order_note( __( 'Rewardly: first order bonus reversal was blocked because the current balance does not allow all bonus points to be removed.', 'rewardly-loyalty' ) );
+					$order->add_order_note( __( 'Nodevora: first order bonus reversal was blocked because the current balance does not allow all bonus points to be removed.', 'nodevora-customer-rewards-for-woocommerce' ) );
 				}
 			}
 		}
@@ -247,8 +247,8 @@ class Rewardly_Loyalty_Points {
 		if ( 'yes' === $spent_processed && 'yes' !== $order->get_meta( '_rewardly_loyalty_spent_restored' ) ) {
 			$spent_points = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
 			if ( $spent_points > 0 ) {
-				$note = 'cancelled' === $status ? __( 'Points restored after order cancellation.', 'rewardly-loyalty' ) : __( 'Points restored after order refund.', 'rewardly-loyalty' );
-				Rewardly_Loyalty_Helpers::add_points( $user_id, $spent_points, $order_id, 'adjust', $note );
+				$note = 'cancelled' === $status ? __( 'Points restored after order cancellation.', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'Points restored after order refund.', 'nodevora-customer-rewards-for-woocommerce' );
+				Rewardly_Loyalty_Helpers::add_points( $user_id, $spent_points, $order_id, 'restore', $note );
 				$order->update_meta_data( '_rewardly_loyalty_spent_restored', 'yes' );
 			}
 		}
@@ -265,13 +265,13 @@ class Rewardly_Loyalty_Points {
 		$spent_restored = $order->get_meta( '_rewardly_loyalty_spent_restored' );
 		?>
 		<div class="order_data_column">
-			<h4><?php esc_html_e( 'Rewardly Loyalty', 'rewardly-loyalty' ); ?></h4>
-			<p><strong><?php esc_html_e( 'Points earned:', 'rewardly-loyalty' ); ?></strong> <?php echo esc_html( $earned ); ?></p>
-			<p><strong><?php esc_html_e( 'Points redeemed:', 'rewardly-loyalty' ); ?></strong> <?php echo esc_html( $spent ); ?></p>
-			<p><strong><?php esc_html_e( 'Loyalty discount:', 'rewardly-loyalty' ); ?></strong> <?php echo wp_kses_post( wc_price( $discount ) ); ?></p>
-			<p><strong><?php esc_html_e( 'First order bonus:', 'rewardly-loyalty' ); ?></strong> <?php echo esc_html( $bonus_first ); ?></p>
-			<p><strong><?php esc_html_e( 'Earned points removed:', 'rewardly-loyalty' ); ?></strong> <?php echo esc_html( 'yes' === $revoked ? __( 'Yes', 'rewardly-loyalty' ) : __( 'No', 'rewardly-loyalty' ) ); ?></p>
-			<p><strong><?php esc_html_e( 'Redeemed points restored:', 'rewardly-loyalty' ); ?></strong> <?php echo esc_html( 'yes' === $spent_restored ? __( 'Yes', 'rewardly-loyalty' ) : __( 'No', 'rewardly-loyalty' ) ); ?></p>
+			<h4><?php esc_html_e( 'Nodevora Customer Rewards', 'nodevora-customer-rewards-for-woocommerce' ); ?></h4>
+			<p><strong><?php esc_html_e( 'Points earned:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo esc_html( $earned ); ?></p>
+			<p><strong><?php esc_html_e( 'Points redeemed:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo esc_html( $spent ); ?></p>
+			<p><strong><?php esc_html_e( 'Loyalty discount:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo wp_kses_post( wc_price( $discount ) ); ?></p>
+			<p><strong><?php esc_html_e( 'First order bonus:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo esc_html( $bonus_first ); ?></p>
+			<p><strong><?php esc_html_e( 'Earned points removed:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo esc_html( 'yes' === $revoked ? __( 'Yes', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'No', 'nodevora-customer-rewards-for-woocommerce' ) ); ?></p>
+			<p><strong><?php esc_html_e( 'Redeemed points restored:', 'nodevora-customer-rewards-for-woocommerce' ); ?></strong> <?php echo esc_html( 'yes' === $spent_restored ? __( 'Yes', 'nodevora-customer-rewards-for-woocommerce' ) : __( 'No', 'nodevora-customer-rewards-for-woocommerce' ) ); ?></p>
 		</div>
 		<?php
 	}

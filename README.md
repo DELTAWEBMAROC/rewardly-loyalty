@@ -1,6 +1,6 @@
-# Rewardly - WooCommerce Loyalty Program
+# Nodevora Customer Rewards for WooCommerce
 
-Rewardly is a free WooCommerce loyalty points plugin that helps store owners reward customers with points, redeem discounts, and a cleaner loyalty experience across cart, checkout, and My Account.
+Nodevora Customer Rewards is a free WooCommerce loyalty points plugin that helps store owners reward customers with points, redeem discounts, and a cleaner loyalty experience across cart, checkout, and My Account.
 
 ## What the plugin includes
 
@@ -33,9 +33,9 @@ Rewardly is a free WooCommerce loyalty points plugin that helps store owners rew
 
 ## Installation
 
-1. Upload the `rewardly-loyalty` folder to `/wp-content/plugins/`.
+1. Upload the `nodevora-customer-rewards-for-woocommerce` folder to `/wp-content/plugins/`.
 2. Activate the plugin from the WordPress admin area.
-3. Go to **Rewardly** and configure your loyalty settings.
+3. Go to **Nodevora Customer Rewards** and configure your loyalty settings.
 4. Test earn points, redeem points, and your preferred display mode.
 
 ## Recommended screenshots for the repository
@@ -64,7 +64,7 @@ Expected image filenames:
 
 ## Version
 
-Current version: **4.8.4**
+Current version: **4.8.5**
 
 ## Notes
 
