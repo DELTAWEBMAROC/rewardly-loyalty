@@ -333,14 +333,17 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_total_earned( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::total($user_id, 'earned'); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total' );
 	}
 
 	public static function get_total_spent( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::total($user_id, 'spent'); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total' );
 	}
 
 	public static function get_user_logs( $user_id, $limit = 20 ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::logs($user_id, $limit); }
 		global $wpdb;
 
 		$table_name = self::get_log_table_name();
@@ -608,6 +611,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_point_lots( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::lots($user_id); }
 		$lots = self::get_user_meta_value( $user_id, 'rewardly_loyalty_point_lots' );
 		if ( ! is_array( $lots ) ) {
 			$lots = array();

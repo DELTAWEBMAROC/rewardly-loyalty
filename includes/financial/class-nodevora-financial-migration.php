@@ -20,6 +20,7 @@ class Nodevora_Financial_Migration {
 		foreach($rows as $row){$meta[$row['meta_key']][]=$row['meta_value'];}
 		foreach($meta as $key=>$values){if(count($values)!==1){$reasons[]='duplicate_meta:'.$key;}}
 		try{$balance=self::integer(isset($meta['rewardly_loyalty_points_balance'][0])?$meta['rewardly_loyalty_points_balance'][0]:'0');}catch(Nodevora_Financial_Error $e){$reasons[]='invalid_balance';}
+		foreach(array('rewardly_loyalty_points_earned_total','rewardly_loyalty_points_spent_total') as $key){try{if(isset($meta[$key][0])){self::integer($meta[$key][0]);}}catch(Nodevora_Financial_Error $e){$reasons[]='invalid_reporting_total:'.$key;}}
 		$raw=isset($meta['rewardly_loyalty_point_lots'][0])?$meta['rewardly_loyalty_point_lots'][0]:'';
 		$decoded=''===$raw?array():@unserialize($raw,array('allowed_classes'=>false));
 		if(!is_array($decoded)){$reasons[]='invalid_lot_serialization';$decoded=array();}
@@ -62,6 +63,13 @@ class Nodevora_Financial_Migration {
 			$prior=$db->one('SELECT checksum FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array($user));
 			if($prior&&!hash_equals($prior['checksum'],$hash)){throw new Nodevora_Financial_Error('Legacy snapshot changed; reviewed reconciliation is required.');}
 			if(!$prior){$this->write($db,'INSERT INTO '.$db->table('snapshot').' (user_id,version,checksum,payload,created_at) VALUES (?,1,?,?,UTC_TIMESTAMP())',array($user,$hash,$payload));}
+			// Snapshot unresolved order evidence without asserting that legacy flags prove funding.
+			foreach($orders['orders'] as $order){
+				$old=$db->one('SELECT * FROM '.$db->table('order_state').' WHERE order_id=? FOR UPDATE',array($order['order_id']));
+				$baseline=json_encode(array('legacy_baseline'=>$order,'reason'=>'Historical entitlement/funding requires reviewed reconciliation.'),JSON_THROW_ON_ERROR);
+				if($old){if((int)$old['user_id']!==$user||'legacy_review'!==$old['state']||$old['data']!==$baseline){throw new Nodevora_Financial_Error('Legacy order baseline conflict.');}}
+				else{$this->write($db,'INSERT INTO '.$db->table('order_state').' (order_id,user_id,intent,state,fingerprint,currency,data,updated_at) VALUES (?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($order['order_id'],$user,'legacy:v1','legacy_review',hash('sha256',$baseline),$order['currency'],$baseline));}
+			}
 			if('ready'!==$data['state']){$db->query('UPDATE '.$db->table('wallet').' SET state=?,checksum=? WHERE user_id=?',array('needs_review',$hash,$user));$db->commit();$db->close();return array('state'=>'needs_review','legacy_data_preserved'=>true,'parsed_balance'=>$data['balance'],'reasons'=>$data['reasons'],'checksum'=>$hash);}
 			$result=array('status'=>'committed','balance'=>$data['balance'],'reserved'=>0,'debt'=>0,'migration_version'=>1,'checksum'=>$hash);
 			$this->write($db,'INSERT INTO '.$db->table('event').' (user_id,operation_key,kind,payload_hash,gross_points,delta_balance,result,created_at) VALUES (?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($user,'migration:v1:user:'.$user,'opening',$hash,$data['balance'],$data['balance'],json_encode($result,JSON_THROW_ON_ERROR)));$event=$db->id();$leg=0;
