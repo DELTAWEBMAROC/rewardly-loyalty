@@ -23,6 +23,7 @@ class Nodevora_Financial_Schema {
 		self::verify( $db );
 	}
 	public static function verify( Nodevora_Financial_DB $db ) {
+		$capability=$db->one('SELECT JSON_UNQUOTE(JSON_EXTRACT(?,?)) AS token',array('{"version":2}','$.version'));if(!$capability||'2'!==(string)$capability['token']){throw new Nodevora_Financial_Error('Financial database JSON capability is unavailable.');}
 		foreach ( self::definitions() as $name => $definition ) {
 			$info = $db->one( 'SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $db->prefix . $name ) );
 			if ( ! $info || 'InnoDB' !== $info['ENGINE'] ) { throw new Nodevora_Financial_Error( 'Financial schema is not ready.' ); }

@@ -27,10 +27,11 @@ class Nodevora_Financial_Recovery {
 				if($state&&$order&&(int)$order->get_user_id()===$user){
 					if(!$order->get_meta('_nodevora_financial_quote')){$quote=json_decode($state['data'],true,512,JSON_THROW_ON_ERROR);unset($quote['order_id'],$quote['fingerprint']);$order->update_meta_data('_nodevora_financial_quote',$quote);}
 					$order->update_meta_data('_nodevora_financial_state',$state['state']);$order->update_meta_data('_nodevora_financial_debit_event',(int)$state['debit_event_id']);
-					$order->update_meta_data('_rewardly_loyalty_spent_processed',$state['debit_event_id']?'yes':'no');$order->update_meta_data('_rewardly_loyalty_spent_restored','closed'===$state['state']&&$state['debit_event_id']?'yes':'no');$order->save();
+					$order->update_meta_data('_rewardly_loyalty_spent_processed',$state['debit_event_id']?'yes':'no');$order->update_meta_data('_rewardly_loyalty_spent_restored','closed'===$state['state']&&$state['debit_event_id']?'yes':'no');if(!$order->save()){throw new Nodevora_Financial_Error('Order projection was not persisted.');}
 					$current=Nodevora_Financial_Order::read($result['order_id']);if($current['revision']!==$state['revision']){throw new Nodevora_Financial_Error('Order projection revision changed; retry.');}
 				}
 			}
+			if((string)get_user_meta($user,'rewardly_loyalty_points_balance',true)!==(string)$wallet['balance']||(int)get_user_meta($user,'rewardly_loyalty_points_earned_total',true)!==Nodevora_Financial_Compatibility::total($user,'earned')||(int)get_user_meta($user,'rewardly_loyalty_points_spent_total',true)!==Nodevora_Financial_Compatibility::total($user,'spent')||get_user_meta($user,'rewardly_loyalty_point_lots',true)!==Nodevora_Financial_Compatibility::lots($user)){throw new Nodevora_Financial_Error('Metadata projection was not persisted.');}
 			clean_user_cache($user);
 			$after=(new Nodevora_Financial_Wallet())->read($user);if($after['revision']!==$wallet['revision']){throw new Nodevora_Financial_Error('Projection revision changed; retry.');}
 			return;
@@ -43,22 +44,28 @@ class Nodevora_Financial_Recovery {
 		if(false===Rewardly_Loyalty_Emails::maybe_send_points_notification($user,$type,(int)$event['gross_points'],$amount,isset($d['note'])?$d['note']:'','nodevora-event-'.$event['id'])){throw new Nodevora_Financial_Error('Notification delivery failed.');}
 	}
 	public static function outbox($limit=20,$user=0) {
-		Nodevora_Financial_Checkout::require_enabled();$done=0;$failed=0;
+		Nodevora_Financial_Checkout::require_enabled(true);$done=0;$failed=0;
 		for($i=0;$i<min(100,max(1,(int)$limit));$i++){$row=self::take((int)$user);if(!$row){break;}try{self::effect($row);self::finish($row,true);$done++;}catch(Throwable $e){self::finish($row,false);$failed++;}}
 		return array('delivered'=>$done,'failed'=>$failed);
 	}
+	public static function holds($user=0) {
+		Nodevora_Financial_Checkout::require_enabled(true);$db=new Nodevora_Financial_DB();try{
+			$holds=$db->query('SELECT e.id,e.user_id,e.operation_key,e.result,SUM(a.delta_reserved) AS held FROM '.$db->table('event').' e JOIN '.$db->table('allocation').' a ON a.reservation_key=e.operation_key WHERE e.kind=?'.($user?' AND e.user_id='.(int)$user:'').' GROUP BY e.id,e.user_id,e.operation_key,e.result HAVING held>0 ORDER BY e.id LIMIT 50',array('reserve'));
+		}finally{$db->close();}
+		foreach($holds as $hold){$r=json_decode($hold['result'],true,512,JSON_THROW_ON_ERROR);if(isset($r['deadline'])&&$r['deadline']<=gmdate('Y-m-d H:i:s')){(new Nodevora_Financial_Wallet())->apply((int)$hold['user_id'],'hold:'.$hold['id'].':release','release',(int)$hold['held'],array('reservation'=>$hold['operation_key']));}}
+	}
 	public static function run() {
-		Nodevora_Financial_Checkout::require_enabled();$db=new Nodevora_Financial_DB();try{
+		Nodevora_Financial_Checkout::require_enabled(true);$db=new Nodevora_Financial_DB();try{
 			$orders=$db->query('SELECT order_id,state FROM '.$db->table('order_state').' WHERE state IN (?,?,?,?,?) ORDER BY updated_at LIMIT 50',array('bound','funded','dispatched','paid','reversing'));
-			$holds=$db->query('SELECT e.id,e.user_id,e.operation_key,e.result,SUM(a.delta_reserved) AS held FROM '.$db->table('event').' e JOIN '.$db->table('allocation').' a ON a.reservation_key=e.operation_key WHERE e.kind=? GROUP BY e.id,e.user_id,e.operation_key,e.result HAVING held>0 ORDER BY e.id LIMIT 50',array('reserve'));
+
 			$users=$db->query('SELECT DISTINCT l.user_id FROM '.$db->table('lot').' l JOIN '.$db->table('wallet').' w ON w.user_id=l.user_id WHERE w.state=? AND l.remaining>l.reserved AND l.expires_at<=UTC_TIMESTAMP() ORDER BY l.user_id LIMIT 50',array('ready'));
 		}finally{$db->close();}
 		foreach($orders as $row){$order=wc_get_order($row['order_id']);if(!$order){continue; /* Orphaned state is retained for operator reconciliation. */}
 			if(in_array($order->get_status(),array('cancelled','refunded','failed'),true)){Nodevora_Financial_Lifecycle::reverse($order->get_id());}
-			elseif(in_array($order->get_status(),array('completed','processing'),true)){Nodevora_Financial_Lifecycle::payment_complete($order->get_id());Nodevora_Financial_Lifecycle::earn($order->get_id());}
+			elseif(in_array($order->get_status(),array('completed','processing'),true)){Nodevora_Financial_Lifecycle::payment_complete($order->get_id());if(!defined('NODEVORA_FINANCIAL_WRITES_PAUSED')||!NODEVORA_FINANCIAL_WRITES_PAUSED){Nodevora_Financial_Lifecycle::earn($order->get_id());}}
 			elseif('dispatched'===$row['state']){$order->update_meta_data('_nodevora_financial_recovery','Payment outcome unknown; retain funding. Do not redispatch automatically.');$order->save();}
 		}
-		foreach($holds as $hold){$r=json_decode($hold['result'],true,512,JSON_THROW_ON_ERROR);if(isset($r['deadline'])&&$r['deadline']<=gmdate('Y-m-d H:i:s')){(new Nodevora_Financial_Wallet())->apply((int)$hold['user_id'],'hold:'.$hold['id'].':release','release',(int)$hold['held'],array('reservation'=>$hold['operation_key']));}}
+		self::holds();
 		foreach($users as $row){$uid=(int)$row['user_id'];$wallet=(new Nodevora_Financial_Wallet())->read($uid);(new Nodevora_Financial_Wallet())->apply($uid,'user:'.$uid.':expire:'.$wallet['revision'],'expire',0);}
 		return self::outbox();
 	}

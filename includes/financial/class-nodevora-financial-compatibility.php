@@ -2,8 +2,12 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** Compatibility views never use mutable legacy projections as financial authority. */
 class Nodevora_Financial_Compatibility {
-	public static function selected() { return defined('NODEVORA_FINANCIAL_MODE') && 'wallet' === NODEVORA_FINANCIAL_MODE; }
+	public static function selected() { return (defined('NODEVORA_FINANCIAL_MODE') && 'wallet' === NODEVORA_FINANCIAL_MODE)||'wallet'===get_option('nodevora_financial_authority','legacy'); }
 	public static function balance($user_id) { $wallet = new Nodevora_Financial_Wallet(); $state = $wallet->read((int)$user_id); return $state['available']; }
+	public static function cutover() {
+		if(!defined('WP_CLI')||!WP_CLI||'local'!==wp_get_environment_type()||!defined('NODEVORA_FINANCIAL_WRITERS_DRAINED')||true!==NODEVORA_FINANCIAL_WRITERS_DRAINED){throw new Nodevora_Financial_Error('Explicit isolated local cutover required.');}
+		Nodevora_Financial_Checkout::require_enabled();Nodevora_Financial_Schema::verify(new Nodevora_Financial_DB());update_option('nodevora_financial_authority','wallet',false);
+	}
 	/** Read-only customer views show unavailable funds explicitly; financial callers use balance/apply. */
 	public static function view($user,$kind,$limit=20) {
 		try{if('balance'===$kind){return self::balance($user);}if('lots'===$kind){return self::lots($user);}if('logs'===$kind){return self::logs($user,$limit);}return self::total($user,$kind);}

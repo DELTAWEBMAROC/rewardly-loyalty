@@ -323,6 +323,7 @@ class Rewardly_Loyalty_Redeem {
 			return;
 		}
 
+		WC()->session->__unset('nodevora_financial_quote_error');
 		WC()->session->set( 'rewardly_use_points', 'no' );
 		WC()->session->__unset( 'rewardly_requested_points' );
 		WC()->session->__unset( 'rewardly_applied_points' );
@@ -697,7 +698,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function apply_discount( $cart ) {
-		if (Nodevora_Financial_Compatibility::selected()) { return Nodevora_Financial_Checkout::cart($cart); }
+		if (Nodevora_Financial_Compatibility::selected()) { try{return Nodevora_Financial_Checkout::cart($cart);}catch(Nodevora_Financial_Error $e){if(function_exists('WC')&&WC()->session){WC()->session->set('rewardly_applied_points',0);WC()->session->set('rewardly_loyalty_discount_amount',0);WC()->session->set('nodevora_financial_quote_error','yes');}wc_add_notice(__('Loyalty spending is unavailable. Remove the points selection or contact the store before payment.','nodevora-customer-rewards-for-woocommerce'),'error');return;} }
 		if ( ! $cart instanceof WC_Cart ) {
 			return;
 		}

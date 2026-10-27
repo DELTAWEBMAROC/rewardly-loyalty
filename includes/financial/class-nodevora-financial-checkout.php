@@ -8,7 +8,8 @@ class Nodevora_Financial_Checkout {
 		add_action('woocommerce_checkout_order_processed',array(__CLASS__,'classic'),PHP_INT_MAX,3);
 		add_action('woocommerce_store_api_checkout_order_processed',array(__CLASS__,'blocks'),PHP_INT_MAX);
 	}
-	public static function require_enabled() {
+	public static function require_enabled($recovery=false) {
+		if (!$recovery&&defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&true===NODEVORA_FINANCIAL_WRITES_PAUSED){throw new Nodevora_Financial_Error('New financial writes are paused; recovery remains available.');}
 		if ('local'!==wp_get_environment_type()||is_multisite()||!defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) { throw new Nodevora_Financial_Error('Financial integration is disabled pending local validation.'); }
 	}
 	public static function policy() {
@@ -21,7 +22,7 @@ class Nodevora_Financial_Checkout {
 		if(!is_user_logged_in()||!Rewardly_Loyalty_Helpers::is_enabled()||'yes'!==WC()->session->get('rewardly_use_points')){return;}
 		self::require_enabled();$s=Rewardly_Loyalty_Helpers::get_settings();$available=Nodevora_Financial_Compatibility::balance(get_current_user_id());$requested=(int)WC()->session->get('rewardly_requested_points');
 		if($requested<1||$available<(int)$s['min_points_to_redeem']||$requested>$available){throw new Nodevora_Financial_Error('Requested points are no longer available.');}
-		$p=self::policy();$minor=Nodevora_Financial_Money::discount($requested,$p['ratio'],$p['scale']);
+		$p=self::policy();WC()->session->__unset('nodevora_financial_quote_error');$minor=Nodevora_Financial_Money::discount($requested,$p['ratio'],$p['scale']);
 		$cap=Nodevora_Financial_Money::minor(wc_format_decimal($cart->get_cart_contents_total(),$p['decimals']),$p['decimals']);
 		if((float)$s['max_discount_per_order']>0){$cap=min($cap,Nodevora_Financial_Money::minor(wc_format_decimal($s['max_discount_per_order'],$p['decimals']),$p['decimals']));}
 		$minor=min($minor,max(0,$cap));$points=Nodevora_Financial_Money::charge($minor,$p['ratio'],$p['scale']);if(!$minor||!$points){return;}
@@ -58,6 +59,7 @@ class Nodevora_Financial_Checkout {
 		$q['order_id']=(int)$order->get_id();$q['fingerprint']=self::fingerprint($order,$q);return $q;
 	}
 	public static function operation($order,$action,$details=array()) {
+		self::require_enabled(in_array($action,array('compensate','paid','close'),true));
 		$q=self::quote($order);$kind='control';$amount=0;
 		if('fund'===$action){$kind='debit';$amount=$q['points'];}
 		if('compensate'===$action){$kind='restore';$amount=$q['points'];}
@@ -72,6 +74,7 @@ class Nodevora_Financial_Checkout {
 	}
 	public static function gate($order,$retry=false) {
 		if(!$order instanceof WC_Order){throw new Nodevora_Financial_Error('Order unavailable.');}
+		if(!$retry&&function_exists('WC')&&WC()->session&&'yes'===WC()->session->get('nodevora_financial_quote_error')){throw new Nodevora_Financial_Error('Loyalty quote changed; remove or reconfirm the points selection before payment.');}
 		$has=(int)$order->get_meta('_rewardly_loyalty_points_spent')>0||is_array($order->get_meta('_nodevora_financial_quote'));
 		foreach($order->get_items('fee') as $fee){$has=$has||'v1'===$fee->get_meta('_nodevora_wallet_fee');}if(!$has){return;}self::require_enabled();
 		if(!self::supported_payment($order->get_payment_method(),$order)){throw new Nodevora_Financial_Error('This gateway requires a verified funding/outcome adapter.');}

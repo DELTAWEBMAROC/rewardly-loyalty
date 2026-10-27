@@ -1,6 +1,6 @@
 <?php
 if(!defined('WP_CLI')||!WP_CLI||home_url()!=='http://localhost:10004'){throw new RuntimeException('Dedicated test site required.');}
-require_once getenv('NODEVORA_TEST_SOURCE').'/includes/financial/bootstrap.php';
+if(!class_exists('Rewardly_Loyalty_Helpers')){require_once getenv('NODEVORA_TEST_SOURCE').'/nodevora-customer-rewards-for-woocommerce.php';}
 $tests=array();$check=function($id,$ok,$actual=null)use(&$tests){$tests[]=array('test'=>$id,'status'=>$ok?'PASS':'FAIL','actual'=>$actual);};
 $m=new Nodevora_Financial_Migration();$db=new Nodevora_Financial_DB();$run=bin2hex(random_bytes(6));
 $fixture=function($name,$balance,$lot_balance)use($run){$uid=wp_insert_user(array('user_login'=>'qa_mig_'.$run.'_'.$name,'user_pass'=>wp_generate_password(32),'user_email'=>'qa_mig_'.$run.'_'.$name.'@example.invalid','role'=>'customer'));if(is_wp_error($uid)){throw new RuntimeException('Fixture failed.');}update_user_meta($uid,'rewardly_loyalty_points_balance',$balance);update_user_meta($uid,'rewardly_loyalty_point_lots',array(array('id'=>'preserve-original','points_total'=>$lot_balance,'points_remaining'=>$lot_balance,'earned_at'=>current_time('mysql'),'source_type'=>'earn','order_id'=>0)));return $uid;};

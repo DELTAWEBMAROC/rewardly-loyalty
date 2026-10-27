@@ -125,6 +125,7 @@ class Rewardly_Loyalty_Points {
 			return 0;
 		}
 
+		if(Nodevora_Financial_Compatibility::selected()&&Nodevora_Financial_Lifecycle::event('user:'.$user_id.':first_order:v1')){return 0;}
 		if ( 'yes' === get_user_meta( $user_id, '_rewardly_bonus_first_order_awarded', true ) ) {
 			return 0;
 		}

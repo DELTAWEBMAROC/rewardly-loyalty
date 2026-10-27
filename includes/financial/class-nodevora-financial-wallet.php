@@ -39,6 +39,7 @@ class Nodevora_Financial_Wallet {
 				if(isset($details['order'],$details['order_action'])){$coordinator=new Nodevora_Financial_Order();$coordinator->prepare($this->db,$user_id,$kind,$amount,$details);}
 				$prior=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE operation_key=?',array($key));
 				if($prior){if(!hash_equals($prior['payload_hash'],$hash)){throw new Nodevora_Financial_Error('Operation identity conflict.');}$this->db->rollback();$this->db->close();return json_decode($prior['result'],true,512,JSON_THROW_ON_ERROR);}
+				if(defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&true===NODEVORA_FINANCIAL_WRITES_PAUSED&&(in_array($kind,array('credit','debit','reserve','commit'),true)||(isset($details['order_action'])&&'dispatch'===$details['order_action']))){throw new Nodevora_Financial_Error('New financial writes are paused.');}
 				$before=$this->wallet;
 				$this->write('INSERT INTO '.$this->db->table('event').' (user_id,operation_key,kind,payload_hash,payload,original_event_id,gross_points,result,created_at) VALUES (?,?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($user_id,$key,$kind,$hash,$payload,isset($details['original_event_id'])?$details['original_event_id']:null,$amount,'{}'));
 				$this->event=$this->db->id(); $result=array('status'=>'committed','event_id'=>$this->event,'operation_key'=>$key,'amount'=>$amount);
@@ -47,13 +48,13 @@ class Nodevora_Financial_Wallet {
 				elseif('debit'===$kind||'reserve'===$kind){
 					if($amount<1 || (int)$this->wallet['balance']-(int)$this->wallet['reserved']-(int)$this->wallet['debt']<$amount){throw new Nodevora_Financial_Error('Insufficient available points.');}
 					$this->consume($amount,'reserve'===$kind?'reserve':'spend','reserve'===$kind?$key:null);
-					if('reserve'===$kind){$result['reservation']=$key;$result['deadline']=gmdate('Y-m-d H:i:s',time()+300);}
+					if('reserve'===$kind){$result['reservation']=$key;$lease=isset($details['lease_seconds'])?self::points($details['lease_seconds']):300;if($lease<1||$lease>300){throw new Nodevora_Financial_Error('Invalid pre-dispatch lease.');}$result['deadline']=gmdate('Y-m-d H:i:s',time()+$lease);}
 				}
 				elseif('commit'===$kind||'release'===$kind){$this->held($kind,$amount,$details);}
 				elseif('reverse'===$kind){$collect=$this->validate_reversal($amount,$details);$result['expired_offset']=$amount-$collect;$take=min($collect,(int)$this->wallet['balance']-(int)$this->wallet['reserved']);$this->consume($take,'reverse');$this->wallet['debt']+=( $collect-$take );}
 				elseif('restore'===$kind){$this->restore($amount,$details);}
 				$this->expire(); $this->settle(); $this->assert_invariants();
-				$result['balance']=(int)$this->wallet['balance'];$result['reserved']=(int)$this->wallet['reserved'];$result['debt']=(int)$this->wallet['debt'];
+				$result['revision']=(int)$before['revision']+1;$result['balance']=(int)$this->wallet['balance'];$result['reserved']=(int)$this->wallet['reserved'];$result['debt']=(int)$this->wallet['debt'];
 				$result['available']=max(0,$result['balance']-$result['reserved']-$result['debt']);
 				$n=$this->write('UPDATE '.$this->db->table('wallet').' SET balance=?,reserved=?,debt=?,revision=revision+1 WHERE user_id=? AND revision=?',array($result['balance'],$result['reserved'],$result['debt'],$user_id,(int)$before['revision']));if(1!==$n){throw new Nodevora_Financial_Error('Wallet revision conflict.');}
 				if($coordinator){$coordinator->finish($this->db,$this->event,$result);}
@@ -71,7 +72,7 @@ class Nodevora_Financial_Wallet {
 	}
 	private function validate_reversal($amount,$details){
 		$id=isset($details['original_event_id'])?$details['original_event_id']:0;$origin=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE id=? AND user_id=? AND kind=?',array($id,(int)$this->wallet['user_id'],'credit'));if(!$origin){throw new Nodevora_Financial_Error('Original credit required.');}$prior=$this->db->one('SELECT COALESCE(SUM(gross_points),0) AS amount FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'reverse',$this->event));if((int)$prior['amount']+$amount>(int)$origin['gross_points']){throw new Nodevora_Financial_Error('Reversal exceeds original credit.');}
-		$expired=$this->db->one('SELECT COALESCE(SUM(-a.delta_remaining),0) AS amount FROM '.$this->db->table('allocation').' a JOIN '.$this->db->table('lot').' l ON l.id=a.lot_id WHERE l.source_event_id=? AND a.reason=?',array($id,'expire'));$offset=0;foreach($this->db->query('SELECT result FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'reverse',$this->event)) as $row){$old=json_decode($row['result'],true,512,JSON_THROW_ON_ERROR);$offset+=isset($old['expired_offset'])?(int)$old['expired_offset']:0;}return $amount-min($amount,max(0,(int)$expired['amount']-$offset));
+		$expired=$this->db->one('SELECT COALESCE(SUM(-a.delta_remaining),0) AS amount FROM '.$this->db->table('allocation').' a JOIN '.$this->db->table('lot').' l ON l.id=a.lot_id WHERE (l.source_event_id=? OR JSON_UNQUOTE(JSON_EXTRACT(l.provenance,?))=?) AND a.reason=?',array($id,'$.entitlement_event_id',(string)$id,'expire'));$offset=0;foreach($this->db->query('SELECT result FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'reverse',$this->event)) as $row){$old=json_decode($row['result'],true,512,JSON_THROW_ON_ERROR);$offset+=isset($old['expired_offset'])?(int)$old['expired_offset']:0;}return $amount-min($amount,max(0,(int)$expired['amount']-$offset));
 	}
 	private function write($sql,$params){if(1!==$this->db->query($sql,$params)){throw new Nodevora_Financial_Error('Financial write was not persisted.');}return 1;}
 	private function lots() { return $this->db->query('SELECT * FROM '.$this->db->table('lot').' WHERE user_id=? ORDER BY expires_at IS NULL,expires_at,id FOR UPDATE',array((int)$this->wallet['user_id'])); }
@@ -85,6 +86,7 @@ class Nodevora_Financial_Wallet {
 	private function credit($amount,$details,$reason='credit',$original=null,$original_lot=null){
 		if(!$amount){return;}self::points((int)$this->wallet['balance']+$amount);
 		$earned=isset($details['earned_at'])?$details['earned_at']:gmdate('Y-m-d H:i:s');$expires=isset($details['expires_at'])?$details['expires_at']:null;
+		if('credit'===$reason){$details['entitlement_event_id']=$this->event;}
 		foreach(array($earned,$expires) as $date){if(null!==$date&&(!is_string($date)||!preg_match('/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/D',$date))){throw new Nodevora_Financial_Error('Invalid lot date.');}}
 		$this->write('INSERT INTO '.$this->db->table('lot').' (user_id,source_event_id,remaining,earned_at,expires_at,provenance) VALUES (?,?,0,?,?,?)',array((int)$this->wallet['user_id'],$this->event,$earned,$expires,json_encode($details,JSON_THROW_ON_ERROR)));$id=$this->db->id();$this->move(array('id'=>$id),$amount,0,$reason,null,$original,$original_lot);
 	}
@@ -98,8 +100,8 @@ class Nodevora_Financial_Wallet {
 	private function restore($amount,$details){
 		$id=isset($details['original_event_id'])?$details['original_event_id']:0;$origin=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE id=? AND user_id=?',array($id,(int)$this->wallet['user_id']));if(!$origin||!in_array($origin['kind'],array('debit','commit'),true)){throw new Nodevora_Financial_Error('Original debit required.');}
 		$prior=$this->db->one('SELECT COALESCE(SUM(gross_points),0) AS amount FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'restore',$this->event));if((int)$prior['amount']+$amount>(int)$origin['gross_points']){throw new Nodevora_Financial_Error('Restoration exceeds original debit.');}
-		$spent=$this->db->query('SELECT a.lot_id,SUM(-a.delta_remaining) AS spent,l.earned_at,l.expires_at FROM '.$this->db->table('allocation').' a JOIN '.$this->db->table('lot').' l ON l.id=a.lot_id WHERE a.event_id=? AND a.reason=? GROUP BY a.lot_id,l.earned_at,l.expires_at ORDER BY a.lot_id',array($id,'spend'));
-		foreach($spent as $lot){$restored=$this->db->one('SELECT COALESCE(SUM(delta_remaining),0) AS amount FROM '.$this->db->table('allocation').' WHERE original_event_id=? AND original_lot_id=? AND reason=?',array($id,(int)$lot['lot_id'],'restore'));$take=min($amount,(int)$lot['spent']-(int)$restored['amount']);if($take){$this->credit($take,array('earned_at'=>$lot['earned_at'],'expires_at'=>$lot['expires_at'],'original_event_id'=>$id),'restore',$id,(int)$lot['lot_id']);$amount-=$take;}}
+		$spent=$this->db->query('SELECT a.lot_id,SUM(-a.delta_remaining) AS spent,l.earned_at,l.expires_at,l.source_event_id,l.provenance FROM '.$this->db->table('allocation').' a JOIN '.$this->db->table('lot').' l ON l.id=a.lot_id WHERE a.event_id=? AND a.reason=? GROUP BY a.lot_id,l.earned_at,l.expires_at,l.source_event_id,l.provenance ORDER BY a.lot_id',array($id,'spend'));
+		foreach($spent as $lot){$restored=$this->db->one('SELECT COALESCE(SUM(delta_remaining),0) AS amount FROM '.$this->db->table('allocation').' WHERE original_event_id=? AND original_lot_id=? AND reason=?',array($id,(int)$lot['lot_id'],'restore'));$take=min($amount,(int)$lot['spent']-(int)$restored['amount']);if($take){$provenance=json_decode($lot['provenance'],true,512,JSON_THROW_ON_ERROR);$root=isset($provenance['entitlement_event_id'])?(int)$provenance['entitlement_event_id']:(int)$lot['source_event_id'];$this->credit($take,array('earned_at'=>$lot['earned_at'],'expires_at'=>$lot['expires_at'],'original_event_id'=>$id,'entitlement_event_id'=>$root),'restore',$id,(int)$lot['lot_id']);$amount-=$take;}}
 		if($amount){throw new Nodevora_Financial_Error('Restoration provenance is incomplete.');}
 	}
 	private function assert_invariants(){
