@@ -323,10 +323,12 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_points( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::balance( $user_id ); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_balance' );
 	}
 
 	public static function set_user_points( $user_id, $points ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_balance', max( 0, (int) $points ) );
 	}
 
@@ -614,6 +616,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function set_user_point_lots( $user_id, $lots ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		self::update_user_meta_value( $user_id, 'rewardly_loyalty_point_lots', array_values( $lots ) );
 	}
 
@@ -658,6 +661,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function add_points( $user_id, $points, $order_id = 0, $type = 'earn', $note = '' ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -695,6 +699,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function subtract_points( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -720,6 +725,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -798,6 +804,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function run_daily_points_expiration() {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$settings        = self::get_settings();
 		$expiration_days = isset( $settings['points_expiration_days'] ) ? (int) $settings['points_expiration_days'] : 0;
 

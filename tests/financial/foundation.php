@@ -2,6 +2,7 @@
 /** Development-only integration test. Requires LocalWP + private backup; no shipped frontend route. */
 if(!defined('WP_CLI')||!WP_CLI||home_url()!=='http://localhost:10004'){throw new RuntimeException('Dedicated test site required.');}
 require_once getenv('NODEVORA_TEST_SOURCE').'/includes/financial/bootstrap.php';
+define('NODEVORA_FINANCIAL_SCHEMA_ALLOWED',true);
 Nodevora_Financial_Schema::install(new Nodevora_Financial_DB());
 $results=array();$run=bin2hex(random_bytes(6));$db=new Nodevora_Financial_DB();$uid=wp_insert_user(array('user_login'=>'qa_fin_'.$run,'user_pass'=>wp_generate_password(32),'user_email'=>'qa_fin_'.$run.'@example.invalid','role'=>'customer'));
 if(is_wp_error($uid)){throw new RuntimeException('Fixture failed.');}

@@ -1,11 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Nodevora_Financial_Schema {
-	const VERSION = 1;
+	const VERSION = 2;
 	public static function definitions() {
 		return array(
 			'wallet' => 'user_id BIGINT UNSIGNED PRIMARY KEY,balance BIGINT NOT NULL DEFAULT 0,reserved BIGINT NOT NULL DEFAULT 0,debt BIGINT NOT NULL DEFAULT 0,revision BIGINT NOT NULL DEFAULT 0,state VARCHAR(24) NOT NULL,migration_version INT NOT NULL DEFAULT 0,checksum CHAR(64) NULL',
-			'event' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,operation_key VARBINARY(191) NOT NULL,kind VARCHAR(24) NOT NULL,payload_hash CHAR(64) NOT NULL,original_event_id BIGINT UNSIGNED NULL,gross_points BIGINT NOT NULL,delta_balance BIGINT NOT NULL DEFAULT 0,delta_reserved BIGINT NOT NULL DEFAULT 0,delta_debt BIGINT NOT NULL DEFAULT 0,result LONGTEXT NOT NULL,created_at DATETIME NOT NULL,UNIQUE KEY operation_key(operation_key),KEY user_history(user_id,id),KEY original_event(original_event_id,kind)',
+			'event' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,operation_key VARBINARY(191) NOT NULL,kind VARCHAR(24) NOT NULL,payload_hash CHAR(64) NOT NULL,payload LONGTEXT NULL,original_event_id BIGINT UNSIGNED NULL,gross_points BIGINT NOT NULL,delta_balance BIGINT NOT NULL DEFAULT 0,delta_reserved BIGINT NOT NULL DEFAULT 0,delta_debt BIGINT NOT NULL DEFAULT 0,result LONGTEXT NOT NULL,created_at DATETIME NOT NULL,UNIQUE KEY operation_key(operation_key),KEY user_history(user_id,id),KEY original_event(original_event_id,kind)',
 			'lot' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,source_event_id BIGINT UNSIGNED NOT NULL,remaining BIGINT NOT NULL,reserved BIGINT NOT NULL DEFAULT 0,earned_at DATETIME NULL,expires_at DATETIME NULL,provenance LONGTEXT NOT NULL,KEY eligible(user_id,expires_at,id)',
 			'allocation' => 'event_id BIGINT UNSIGNED NOT NULL,lot_id BIGINT UNSIGNED NOT NULL,leg INT NOT NULL,reservation_key VARBINARY(191) NULL,original_event_id BIGINT UNSIGNED NULL,original_lot_id BIGINT UNSIGNED NULL,reason VARCHAR(24) NOT NULL,delta_remaining BIGINT NOT NULL,delta_reserved BIGINT NOT NULL,PRIMARY KEY(event_id,lot_id,leg),KEY reservation(reservation_key,lot_id),KEY restoration(original_event_id,original_lot_id,reason)',
 			'order_state' => 'order_id BIGINT UNSIGNED PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,intent VARBINARY(96) NOT NULL,state VARCHAR(32) NOT NULL,fingerprint CHAR(64) NOT NULL,points BIGINT NOT NULL DEFAULT 0,discount_minor BIGINT NOT NULL DEFAULT 0,currency CHAR(3) NOT NULL,debit_event_id BIGINT UNSIGNED NULL,generation BIGINT NOT NULL DEFAULT 0,revision BIGINT NOT NULL DEFAULT 0,data LONGTEXT NOT NULL,updated_at DATETIME NOT NULL,KEY recovery(state,updated_at)',
@@ -15,7 +15,11 @@ class Nodevora_Financial_Schema {
 	}
 	/** Explicit installer only: no activation/production migration side effects. */
 	public static function install( Nodevora_Financial_DB $db ) {
+		if ( ! defined('WP_CLI') || ! WP_CLI || 'local' !== wp_get_environment_type() || is_multisite() || ! defined('NODEVORA_FINANCIAL_SCHEMA_ALLOWED') || true !== NODEVORA_FINANCIAL_SCHEMA_ALLOWED ) { throw new Nodevora_Financial_Error('Schema installation requires explicit isolated local CLI approval.'); }
 		foreach ( self::definitions() as $name => $definition ) { $db->query( 'CREATE TABLE IF NOT EXISTS ' . $db->table( $name ) . ' (' . $definition . ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' ); }
+		$columns = array_column( $db->query('SHOW COLUMNS FROM '.$db->table('event')), 'Field' );
+		// Preserve pre-existing prototype events; unknown original payloads remain NULL.
+		if ( ! in_array('payload', $columns, true) ) { $db->query('ALTER TABLE '.$db->table('event').' ADD COLUMN payload LONGTEXT NULL'); }
 		self::verify( $db );
 	}
 	public static function verify( Nodevora_Financial_DB $db ) {

@@ -37,7 +37,7 @@ class Nodevora_Financial_Wallet {
 				$prior=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE operation_key=?',array($key));
 				if($prior){if(!hash_equals($prior['payload_hash'],$hash)){throw new Nodevora_Financial_Error('Operation identity conflict.');}$this->db->rollback();$this->db->close();return json_decode($prior['result'],true,512,JSON_THROW_ON_ERROR);}
 				$before=$this->wallet;
-				$this->write('INSERT INTO '.$this->db->table('event').' (user_id,operation_key,kind,payload_hash,original_event_id,gross_points,result,created_at) VALUES (?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($user_id,$key,$kind,$hash,isset($details['original_event_id'])?$details['original_event_id']:null,$amount,'{}'));
+				$this->write('INSERT INTO '.$this->db->table('event').' (user_id,operation_key,kind,payload_hash,payload,original_event_id,gross_points,result,created_at) VALUES (?,?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($user_id,$key,$kind,$hash,$payload,isset($details['original_event_id'])?$details['original_event_id']:null,$amount,'{}'));
 				$this->event=$this->db->id(); $result=array('status'=>'committed','event_id'=>$this->event,'operation_key'=>$key,'amount'=>$amount);
 				$this->expire();
 				if('credit'===$kind){$this->credit($amount,$details);}
