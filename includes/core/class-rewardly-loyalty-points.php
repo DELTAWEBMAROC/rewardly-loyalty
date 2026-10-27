@@ -20,6 +20,7 @@ class Rewardly_Loyalty_Points {
 	}
 
 	public static function maybe_reward_points( $order_id ) {
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::earn($order_id);}
 		if ( ! Rewardly_Loyalty_Helpers::is_enabled() ) {
 			return;
 		}
@@ -84,6 +85,7 @@ class Rewardly_Loyalty_Points {
 	 * @return void
 	 */
 	public static function maybe_award_registration_bonus( $user_id ) {
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::registration($user_id);}
 		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'extra_points' ) ) {
 			return;
 		}
@@ -157,6 +159,7 @@ class Rewardly_Loyalty_Points {
 	 * @return void
 	 */
 	public static function maybe_award_review_bonus( $comment_id, $comment_approved, $commentdata ) {
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::review($comment_id,$comment_approved,$commentdata);}
 		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'extra_points' ) ) {
 			return;
 		}
@@ -186,6 +189,7 @@ class Rewardly_Loyalty_Points {
 	}
 
 	public static function maybe_handle_order_reversal( $order_id ) {
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::reverse($order_id);}
 		if ( ! Rewardly_Loyalty_Helpers::is_enabled() ) {
 			return;
 		}

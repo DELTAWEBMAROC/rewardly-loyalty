@@ -31,6 +31,7 @@ class Nodevora_Financial_Wallet {
 		for($attempt=0;$attempt<3;$attempt++) {
 			$this->db=$this->connect(); $this->leg=0; $committing=false;
 			try {
+				Nodevora_Financial_Schema::verify($this->db);
 				$this->db->begin();
 				$this->wallet=$this->db->one('SELECT * FROM '.$this->db->table('wallet').' WHERE user_id=? FOR UPDATE',array($user_id));
 				if(!$this->wallet || 'ready'!==$this->wallet['state']){throw new Nodevora_Financial_Error('Account requires migration or reconciliation.');}
@@ -49,7 +50,7 @@ class Nodevora_Financial_Wallet {
 					if('reserve'===$kind){$result['reservation']=$key;$result['deadline']=gmdate('Y-m-d H:i:s',time()+300);}
 				}
 				elseif('commit'===$kind||'release'===$kind){$this->held($kind,$amount,$details);}
-				elseif('reverse'===$kind){$this->validate_reversal($amount,$details);$take=min($amount,(int)$this->wallet['balance']-(int)$this->wallet['reserved']);$this->consume($take,'reverse');$this->wallet['debt']+=( $amount-$take );}
+				elseif('reverse'===$kind){$collect=$this->validate_reversal($amount,$details);$result['expired_offset']=$amount-$collect;$take=min($collect,(int)$this->wallet['balance']-(int)$this->wallet['reserved']);$this->consume($take,'reverse');$this->wallet['debt']+=( $collect-$take );}
 				elseif('restore'===$kind){$this->restore($amount,$details);}
 				$this->expire(); $this->settle(); $this->assert_invariants();
 				$result['balance']=(int)$this->wallet['balance'];$result['reserved']=(int)$this->wallet['reserved'];$result['debt']=(int)$this->wallet['debt'];
@@ -58,6 +59,7 @@ class Nodevora_Financial_Wallet {
 				if($coordinator){$coordinator->finish($this->db,$this->event,$result);}
 				$this->write('UPDATE '.$this->db->table('event').' SET delta_balance=?,delta_reserved=?,delta_debt=?,result=? WHERE id=?',array($result['balance']-(int)$before['balance'],$result['reserved']-(int)$before['reserved'],$result['debt']-(int)$before['debt'],json_encode($result,JSON_THROW_ON_ERROR),$this->event));
 				$this->write('INSERT INTO '.$this->db->table('outbox').' (event_id,user_id,effect,payload) VALUES (?,?,?,?)',array($this->event,$user_id,'project',json_encode($result,JSON_THROW_ON_ERROR)));
+				if($amount && in_array($kind,array('credit','debit','commit','reverse','restore'),true)){$this->write('INSERT INTO '.$this->db->table('outbox').' (event_id,user_id,effect,payload) VALUES (?,?,?,?)',array($this->event,$user_id,'notify',json_encode($result,JSON_THROW_ON_ERROR)));}
 				$committing=true;$this->db->commit();$this->db->close();return $result;
 			} catch(Nodevora_Financial_Unknown $e){
 				if(!$committing){$this->db->rollback();$this->db->close();throw $e;}
@@ -69,6 +71,7 @@ class Nodevora_Financial_Wallet {
 	}
 	private function validate_reversal($amount,$details){
 		$id=isset($details['original_event_id'])?$details['original_event_id']:0;$origin=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE id=? AND user_id=? AND kind=?',array($id,(int)$this->wallet['user_id'],'credit'));if(!$origin){throw new Nodevora_Financial_Error('Original credit required.');}$prior=$this->db->one('SELECT COALESCE(SUM(gross_points),0) AS amount FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'reverse',$this->event));if((int)$prior['amount']+$amount>(int)$origin['gross_points']){throw new Nodevora_Financial_Error('Reversal exceeds original credit.');}
+		$expired=$this->db->one('SELECT COALESCE(SUM(-a.delta_remaining),0) AS amount FROM '.$this->db->table('allocation').' a JOIN '.$this->db->table('lot').' l ON l.id=a.lot_id WHERE l.source_event_id=? AND a.reason=?',array($id,'expire'));$offset=0;foreach($this->db->query('SELECT result FROM '.$this->db->table('event').' WHERE original_event_id=? AND kind=? AND id<>?',array($id,'reverse',$this->event)) as $row){$old=json_decode($row['result'],true,512,JSON_THROW_ON_ERROR);$offset+=isset($old['expired_offset'])?(int)$old['expired_offset']:0;}return $amount-min($amount,max(0,(int)$expired['amount']-$offset));
 	}
 	private function write($sql,$params){if(1!==$this->db->query($sql,$params)){throw new Nodevora_Financial_Error('Financial write was not persisted.');}return 1;}
 	private function lots() { return $this->db->query('SELECT * FROM '.$this->db->table('lot').' WHERE user_id=? ORDER BY expires_at IS NULL,expires_at,id FOR UPDATE',array((int)$this->wallet['user_id'])); }

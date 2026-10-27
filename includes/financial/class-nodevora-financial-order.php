@@ -26,7 +26,12 @@ class Nodevora_Financial_Order {
 		} elseif ('paid' === $this->action) {
 			if (!in_array($r['state'],array('funded','dispatched','paid'),true)) { throw new Nodevora_Financial_Error('Paid order has no current funding.'); } $this->funding($db);
 		} elseif ('compensate' === $this->action) {
-			if ('restore' !== $kind || $amount !== $q['points'] || (int)$r['debit_event_id'] !== (int)$details['original_event_id'] || !in_array($r['state'],array('funded','dispatched','paid','closed'),true)) { throw new Nodevora_Financial_Error('Compensation binding is invalid.'); }
+			if ('restore' !== $kind || $amount !== $q['points'] || (int)$r['debit_event_id'] !== (int)$details['original_event_id'] || !in_array($r['state'],array('funded','dispatched','paid','reversing','closed'),true)) { throw new Nodevora_Financial_Error('Compensation binding is invalid.'); }
+		} elseif (in_array($this->action,array('earn','bonus'),true)) {
+			if ('credit'!==$kind || in_array($r['state'],array('closed','reversing'),true)) { throw new Nodevora_Financial_Error('Closed order entitlement cannot be re-awarded.'); }
+			if ($q['points']) { $this->funding($db); }
+		} elseif (in_array($this->action,array('reverse_earn','reverse_bonus','close'),true)) {
+			if ('close'!==$this->action && 'reverse'!==$kind) { throw new Nodevora_Financial_Error('Invalid entitlement reversal.'); }
 		} else { throw new Nodevora_Financial_Error('Unsupported order operation.'); }
 	}
 	private function funding($db) {
@@ -36,7 +41,7 @@ class Nodevora_Financial_Order {
 		if (!$e || (int)$e['gross_points'] !== (int)$r['points'] || (int)$restored['amount'] !== 0) { throw new Nodevora_Financial_Error('Current order debit is absent or compensated.'); }
 	}
 	public function finish($db, $event, &$result) {
-		$states=array('fund'=>'funded','dispatch'=>'dispatched','paid'=>'paid','compensate'=>'closed'); $state=$states[$this->action];
+		$states=array('fund'=>'funded','dispatch'=>'dispatched','paid'=>'paid','compensate'=>'closed','reverse_earn'=>'reversing','reverse_bonus'=>'reversing','close'=>'closed'); $state=isset($states[$this->action])?$states[$this->action]:$this->row['state'];
 		$debit='fund'===$this->action?$event:$this->row['debit_event_id'];
 		$this->write($db,'UPDATE '.$db->table('order_state').' SET state=?,debit_event_id=?,revision=revision+1,updated_at=UTC_TIMESTAMP() WHERE order_id=?',array($state,$debit,$this->quote['order_id']));
 		$result['order_id']=$this->quote['order_id']; $result['order_state']=$state; $result['intent']=$this->quote['intent'];

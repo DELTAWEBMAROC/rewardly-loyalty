@@ -538,6 +538,7 @@ class Rewardly_Loyalty_Helpers {
 	public static function convert_points_to_amount( $points ) {
 		$settings = self::get_settings();
 		$ratio    = max( 1, (int) $settings['redeem_points_per_dh'] );
+		if(Nodevora_Financial_Compatibility::selected()){ $d=(int)wc_get_price_decimals();return (float)Nodevora_Financial_Money::decimal(Nodevora_Financial_Money::discount((int)$points,$ratio,Nodevora_Financial_Money::scale($d)),$d); }
 
 		return (float) floor( (int) $points / $ratio );
 	}
@@ -664,7 +665,8 @@ class Rewardly_Loyalty_Helpers {
 		return in_array( $type, $allowed, true ) ? $type : 'earn';
 	}
 
-	public static function add_points( $user_id, $points, $order_id = 0, $type = 'earn', $note = '' ) {
+	public static function add_points( $user_id, $points, $order_id = 0, $type = 'earn', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$old=Nodevora_Financial_Lifecycle::event($operation_key);$d=$old&&$old['payload']?json_decode($old['payload'],true,512,JSON_THROW_ON_ERROR)['details']:Nodevora_Financial_Lifecycle::credit_details($type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'credit',(int)$points,$d);return $r['amount'];}
 		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
@@ -702,7 +704,8 @@ class Rewardly_Loyalty_Helpers {
 		return $points;
 	}
 
-	public static function subtract_points( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+	public static function subtract_points( $user_id, $points, $order_id = 0, $type = 'spend', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$d=array('type'=>$type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'debit',(int)$points,$d);return $r['amount'];}
 		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
@@ -728,7 +731,8 @@ class Rewardly_Loyalty_Helpers {
 		return $removed;
 	}
 
-	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$d=array('type'=>$type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'debit',(int)$points,$d);return $r['amount'];}
 		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
@@ -808,7 +812,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function run_daily_points_expiration() {
-		Nodevora_Financial_Compatibility::legacy_write_guard();
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Recovery::run();}
 		$settings        = self::get_settings();
 		$expiration_days = isset( $settings['points_expiration_days'] ) ? (int) $settings['points_expiration_days'] : 0;
 

@@ -8,3 +8,5 @@ require_once __DIR__ . '/class-nodevora-financial-migration.php';
 require_once __DIR__ . '/class-nodevora-financial-compatibility.php';
 require_once __DIR__ . '/class-nodevora-financial-money.php';
 require_once __DIR__ . '/class-nodevora-financial-checkout.php';
+require_once __DIR__ . '/class-nodevora-financial-lifecycle.php';
+require_once __DIR__ . '/class-nodevora-financial-recovery.php';
