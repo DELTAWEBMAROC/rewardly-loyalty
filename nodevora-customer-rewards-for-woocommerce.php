@@ -204,6 +204,7 @@ function rewardly_loyalty_init() {
 	Nodevora_Financial_Checkout::init();
 	Nodevora_Financial_Lifecycle::init();
 	Nodevora_Financial_Recovery::init();
+	Nodevora_Financial_Readiness::init();
 	Rewardly_Loyalty_Pro::init();
 	Rewardly_Loyalty_Account::init();
 	Rewardly_Loyalty_Product::init();

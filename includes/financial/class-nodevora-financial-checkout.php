@@ -10,6 +10,7 @@ class Nodevora_Financial_Checkout {
 	}
 	public static function require_enabled($recovery=false) {
 		if (!$recovery&&defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&true===NODEVORA_FINANCIAL_WRITES_PAUSED){throw new Nodevora_Financial_Error('New financial writes are paused; recovery remains available.');}
+		if(!Nodevora_Financial_Compatibility::selected()){throw new Nodevora_Financial_Error('Verified financial setup is required.');}
 		if ('local'!==wp_get_environment_type()||is_multisite()||!defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) { throw new Nodevora_Financial_Error('Financial integration is disabled pending local validation.'); }
 	}
 	public static function policy() {
@@ -76,13 +77,13 @@ class Nodevora_Financial_Checkout {
 		if(!$order instanceof WC_Order){throw new Nodevora_Financial_Error('Order unavailable.');}
 		if(!$retry&&function_exists('WC')&&WC()->session&&'yes'===WC()->session->get('nodevora_financial_quote_error')){throw new Nodevora_Financial_Error('Loyalty quote changed; remove or reconfirm the points selection before payment.');}
 		$has=(int)$order->get_meta('_rewardly_loyalty_points_spent')>0||is_array($order->get_meta('_nodevora_financial_quote'));
-		foreach($order->get_items('fee') as $fee){$has=$has||'v1'===$fee->get_meta('_nodevora_wallet_fee');}if(!$has){return;}self::require_enabled();
-		if(!self::supported_payment($order->get_payment_method(),$order)){throw new Nodevora_Financial_Error('This gateway requires a verified funding/outcome adapter.');}
+		foreach($order->get_items('fee') as $fee){$has=$has||'v1'===$fee->get_meta('_nodevora_wallet_fee')||((float)$fee->get_total()<0&&in_array($fee->get_name(),array('Loyalty discount',__('Loyalty discount','nodevora-customer-rewards-for-woocommerce')),true));}if(!$has){return;}self::require_enabled();
+		if(!self::supported_payment($retry&&isset($_POST['payment_method'])?sanitize_key(wp_unslash($_POST['payment_method'])):$order->get_payment_method(),$order)){throw new Nodevora_Financial_Error('This gateway requires a verified funding/outcome adapter.');}
 		if((int)$order->get_user_id()!==get_current_user_id()){throw new Nodevora_Financial_Error('Order customer mismatch.');}
 		if($retry){$state=Nodevora_Financial_Order::read($order->get_id());if($state&&'closed'===$state['state']){$q=$order->get_meta('_nodevora_financial_quote');$q['intent']=bin2hex(random_bytes(16));$order->update_meta_data('_nodevora_financial_quote',$q);$order->save();}}
 		self::operation($order,'fund');self::operation($order,'dispatch');
 	}
-	public static function classic($id,$posted,$order) { if(Nodevora_Financial_Compatibility::selected()){try{self::gate(wc_get_order($id));}catch(Throwable $e){throw new Exception(__('Nodevora could not verify order funding. Please retry or contact the store.','nodevora-customer-rewards-for-woocommerce'));}} }
-	public static function blocks($order) { if(Nodevora_Financial_Compatibility::selected()){try{self::gate(wc_get_order($order->get_id()));}catch(Throwable $e){throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException('nodevora_funding_failed',__('Nodevora could not verify order funding.','nodevora-customer-rewards-for-woocommerce'),409);}} }
-	public static function pay($order) { if(Nodevora_Financial_Compatibility::selected()){try{if(!self::supported_payment(isset($_POST['payment_method'])?sanitize_key(wp_unslash($_POST['payment_method'])):'',$order)){throw new Nodevora_Financial_Error('Unsupported payment gateway.');}self::gate($order,true);}catch(Throwable $e){wc_add_notice(__('Nodevora could not verify order funding. Contact the store before retrying.','nodevora-customer-rewards-for-woocommerce'),'error');wp_safe_redirect($order->get_checkout_payment_url());exit;}} }
+	public static function classic($id,$posted,$order) {try{self::gate(wc_get_order($id));}catch(Throwable $e){throw new Exception(__('Nodevora could not verify order funding. Please retry or contact the store.','nodevora-customer-rewards-for-woocommerce'));}}
+	public static function blocks($order) {try{self::gate(wc_get_order($order->get_id()));}catch(Throwable $e){throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException('nodevora_funding_failed',__('Nodevora could not verify order funding.','nodevora-customer-rewards-for-woocommerce'),409);}}
+	public static function pay($order) {try{self::gate($order,true);}catch(Throwable $e){wc_add_notice(__('Nodevora could not verify order funding. Contact the store before retrying.','nodevora-customer-rewards-for-woocommerce'),'error');wp_safe_redirect($order->get_checkout_payment_url());exit;}}
 }

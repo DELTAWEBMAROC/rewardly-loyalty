@@ -21,7 +21,8 @@ class Nodevora_Financial_Compatibility {
 		}
 	}
 	public static function legacy_write_guard() {
-		if (self::selected()) { throw new Nodevora_Financial_Error('An operation identity is required; legacy financial write refused.'); }
+		// L’ancien stockage reste consultable, mais ne constitue plus une autorité d’écriture.
+		throw new Nodevora_Financial_Error('Verified financial setup and an operation identity are required.');
 	}
 	/** Immutable opening reporting totals, followed by gross journal semantics. */
 	public static function total($user_id, $type) {
