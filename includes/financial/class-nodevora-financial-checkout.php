@@ -1,0 +1,74 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+class Nodevora_Financial_Checkout {
+	const FEE_ID='nodevora-wallet-discount';
+	public static function init() {
+		add_action('woocommerce_checkout_create_order_fee_item',array(__CLASS__,'tag_fee'),10,4);
+		add_action('woocommerce_before_pay_action',array(__CLASS__,'pay'),PHP_INT_MAX);
+		add_action('woocommerce_checkout_order_processed',array(__CLASS__,'classic'),PHP_INT_MAX,3);
+		add_action('woocommerce_store_api_checkout_order_processed',array(__CLASS__,'blocks'),PHP_INT_MAX);
+	}
+	public static function require_enabled() {
+		if ('local'!==wp_get_environment_type()||is_multisite()||!defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) { throw new Nodevora_Financial_Error('Financial integration is disabled pending local validation.'); }
+	}
+	public static function policy() {
+		$s=Rewardly_Loyalty_Helpers::get_settings();$p=array('ratio'=>max(1,(int)$s['redeem_points_per_dh']),'decimals'=>(int)wc_get_price_decimals(),'currency'=>strtoupper(get_woocommerce_currency()));
+		$p['scale']=Nodevora_Financial_Money::scale($p['decimals']);$p['version']=hash('sha256',json_encode($p,JSON_THROW_ON_ERROR));return $p;
+	}
+	public static function cart($cart) {
+		self::require_enabled(); if(!$cart instanceof WC_Cart||!WC()->session){return;}
+		WC()->session->set('rewardly_loyalty_discount_amount',0);WC()->session->set('rewardly_applied_points',0);
+		if(!is_user_logged_in()||!Rewardly_Loyalty_Helpers::is_enabled()||'yes'!==WC()->session->get('rewardly_use_points')){return;}
+		$s=Rewardly_Loyalty_Helpers::get_settings();$available=Nodevora_Financial_Compatibility::balance(get_current_user_id());$requested=(int)WC()->session->get('rewardly_requested_points');
+		if($requested<1||$available<(int)$s['min_points_to_redeem']||$requested>$available){throw new Nodevora_Financial_Error('Requested points are no longer available.');}
+		$p=self::policy();$minor=Nodevora_Financial_Money::discount($requested,$p['ratio'],$p['scale']);
+		$cap=Nodevora_Financial_Money::minor(wc_format_decimal($cart->get_cart_contents_total(),$p['decimals']),$p['decimals']);
+		if((float)$s['max_discount_per_order']>0){$cap=min($cap,Nodevora_Financial_Money::minor(wc_format_decimal($s['max_discount_per_order'],$p['decimals']),$p['decimals']));}
+		$minor=min($minor,max(0,$cap));$points=Nodevora_Financial_Money::charge($minor,$p['ratio'],$p['scale']);if(!$minor||!$points){return;}
+		$amount=Nodevora_Financial_Money::decimal(-$minor,$p['decimals']);
+		$cart->fees_api()->add_fee(array('id'=>self::FEE_ID,'name'=>__('Loyalty discount','nodevora-customer-rewards-for-woocommerce'),'amount'=>$amount,'taxable'=>false));
+		WC()->session->set('nodevora_quote_policy',$p);WC()->session->set('rewardly_applied_points',$points);WC()->session->set('rewardly_loyalty_discount_amount',Nodevora_Financial_Money::decimal($minor,$p['decimals']));
+	}
+	public static function tag_fee($item,$fee_key,$fee,$order) { if(Nodevora_Financial_Compatibility::selected()&&self::FEE_ID===$fee_key){$item->add_meta_data('_nodevora_wallet_fee','v1',true);} }
+	private static function fingerprint($order,$q) {
+		$items=array();foreach($order->get_items(array('line_item','fee','shipping','coupon','tax')) as $id=>$item){$items[]=array('id'=>(int)$id,'type'=>$item->get_type(),'data'=>$item->get_data());}
+		// CRUD item data contains metadata objects: convert at the boundary, never in a transaction.
+		return hash('sha256',wp_json_encode(array('user'=>(int)$order->get_user_id(),'currency'=>$order->get_currency(),'total'=>$order->get_total(),'tax'=>$order->get_total_tax(),'discount'=>$q['discount_minor'],'points'=>$q['points'],'policy'=>$q['policy'],'items'=>$items)));
+	}
+	private static function fee_minor($order,$decimals) {
+		$minor=0;foreach($order->get_items('fee') as $fee){if('v1'===$fee->get_meta('_nodevora_wallet_fee')){$amount=Nodevora_Financial_Money::minor((string)$fee->get_total(),$decimals);if($amount>=0){throw new Nodevora_Financial_Error('Invalid loyalty fee.');}$minor-=$amount;}}
+		return $minor;
+	}
+	public static function project($order) {
+		self::require_enabled();$p=WC()->session?WC()->session->get('nodevora_quote_policy'):null;
+		if(!$p){if((int)$order->get_meta('_rewardly_loyalty_points_spent')>0){throw new Nodevora_Financial_Error('Missing financial quote.');}return;}
+		$minor=self::fee_minor($order,$p['decimals']);if(!$minor){return;}
+		$user=(int)$order->get_user_id();if(!$user||$user!==get_current_user_id()||$order->get_currency()!==$p['currency']){throw new Nodevora_Financial_Error('Quote customer or currency mismatch.');}
+		$points=Nodevora_Financial_Money::charge($minor,$p['ratio'],$p['scale']);if(!$points){throw new Nodevora_Financial_Error('Discount has no integral point backing.');}
+		$q=array('intent'=>bin2hex(random_bytes(16)),'points'=>$points,'discount_minor'=>$minor,'currency'=>$p['currency'],'scale'=>$p['scale'],'policy'=>$p);
+		$order->update_meta_data('_nodevora_financial_quote',$q);$order->update_meta_data('_rewardly_loyalty_points_spent',$points);$order->update_meta_data('_rewardly_loyalty_discount_amount',Nodevora_Financial_Money::decimal($minor,$p['decimals']));
+	}
+	public static function quote($order) {
+		$q=$order->get_meta('_nodevora_financial_quote');if(!is_array($q)||!isset($q['policy'])){throw new Nodevora_Financial_Error('Order requires a current financial quote.');}
+		$p=$q['policy'];if($p['currency']!==$order->get_currency()||self::fee_minor($order,$p['decimals'])!==$q['discount_minor']||Nodevora_Financial_Money::charge($q['discount_minor'],$p['ratio'],$p['scale'])!==$q['points']){throw new Nodevora_Financial_Error('Order discount changed; confirmation required.');}
+		$q['order_id']=(int)$order->get_id();$q['fingerprint']=self::fingerprint($order,$q);return $q;
+	}
+	public static function operation($order,$action,$details=array()) {
+		$q=self::quote($order);$kind='control';$amount=0;
+		if('fund'===$action){$kind='debit';$amount=$q['points'];}
+		if('compensate'===$action){$kind='restore';$amount=$q['points'];}
+		$d=array_merge($details,array('order'=>$q,'order_action'=>$action,'order_id'=>$q['order_id'],'discount_minor'=>$q['discount_minor'],'scale'=>$q['scale'],'type'=>'fund'===$action?'spend':$action));
+		return (new Nodevora_Financial_Wallet())->apply((int)$order->get_user_id(),'order:'.$q['order_id'].':'.$q['intent'].':'.$action,$kind,$amount,$d);
+	}
+	public static function gate($order,$retry=false) {
+		self::require_enabled();if(!$order instanceof WC_Order){throw new Nodevora_Financial_Error('Order unavailable.');}
+		$has=(int)$order->get_meta('_rewardly_loyalty_points_spent')>0||is_array($order->get_meta('_nodevora_financial_quote'));
+		foreach($order->get_items('fee') as $fee){$has=$has||'v1'===$fee->get_meta('_nodevora_wallet_fee');}if(!$has){return;}
+		if((int)$order->get_user_id()!==get_current_user_id()){throw new Nodevora_Financial_Error('Order customer mismatch.');}
+		if($retry){$state=Nodevora_Financial_Order::read($order->get_id());if($state&&'closed'===$state['state']){$q=$order->get_meta('_nodevora_financial_quote');$q['intent']=bin2hex(random_bytes(16));$order->update_meta_data('_nodevora_financial_quote',$q);$order->save();}}
+		self::operation($order,'fund');self::operation($order,'dispatch');
+	}
+	public static function classic($id,$posted,$order) { if(Nodevora_Financial_Compatibility::selected()){try{self::gate(wc_get_order($id));}catch(Throwable $e){throw new Exception(__('Nodevora could not verify order funding. Please retry or contact the store.','nodevora-customer-rewards-for-woocommerce'));}} }
+	public static function blocks($order) { if(Nodevora_Financial_Compatibility::selected()){try{self::gate(wc_get_order($order->get_id()));}catch(Throwable $e){throw new \Automattic\WooCommerce\StoreApi\Exceptions\RouteException('nodevora_funding_failed',__('Nodevora could not verify order funding.','nodevora-customer-rewards-for-woocommerce'),409);}} }
+	public static function pay($order) { if(Nodevora_Financial_Compatibility::selected()){try{self::gate($order,true);}catch(Throwable $e){wc_add_notice(__('Nodevora could not verify order funding. Contact the store before retrying.','nodevora-customer-rewards-for-woocommerce'),'error');wp_safe_redirect($order->get_checkout_payment_url());exit;}} }
+}

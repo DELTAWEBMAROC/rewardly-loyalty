@@ -26,14 +26,16 @@ class Nodevora_Financial_Wallet {
 	}
 	public function apply( $user_id, $key, $kind, $amount, $details = array() ) {
 		self::points($user_id); self::points($amount);
-		if ( $user_id < 1 || ! is_string($key) || strlen($key)>191 || ! preg_match('/^[A-Za-z0-9:_\-.]+$/D',$key) || ! in_array($kind,array('credit','debit','reserve','commit','release','reverse','restore','expire'),true) ) { throw new Nodevora_Financial_Error('Invalid operation identity.'); }
+		if ( $user_id < 1 || ! is_string($key) || strlen($key)>191 || ! preg_match('/^[A-Za-z0-9:_\-.]+$/D',$key) || ! in_array($kind,array('credit','debit','reserve','commit','release','reverse','restore','expire','control'),true) ) { throw new Nodevora_Financial_Error('Invalid operation identity.'); }
 		$payload = json_encode(self::canonical(array('user'=>$user_id,'kind'=>$kind,'amount'=>$amount,'details'=>$details)),JSON_THROW_ON_ERROR); $hash=hash('sha256',$payload);
 		for($attempt=0;$attempt<3;$attempt++) {
-			$this->db=$this->connect(); $this->leg=0;
+			$this->db=$this->connect(); $this->leg=0; $committing=false;
 			try {
 				$this->db->begin();
 				$this->wallet=$this->db->one('SELECT * FROM '.$this->db->table('wallet').' WHERE user_id=? FOR UPDATE',array($user_id));
 				if(!$this->wallet || 'ready'!==$this->wallet['state']){throw new Nodevora_Financial_Error('Account requires migration or reconciliation.');}
+				$coordinator=null;
+				if(isset($details['order'],$details['order_action'])){$coordinator=new Nodevora_Financial_Order();$coordinator->prepare($this->db,$user_id,$kind,$amount,$details);}
 				$prior=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE operation_key=?',array($key));
 				if($prior){if(!hash_equals($prior['payload_hash'],$hash)){throw new Nodevora_Financial_Error('Operation identity conflict.');}$this->db->rollback();$this->db->close();return json_decode($prior['result'],true,512,JSON_THROW_ON_ERROR);}
 				$before=$this->wallet;
@@ -53,10 +55,12 @@ class Nodevora_Financial_Wallet {
 				$result['balance']=(int)$this->wallet['balance'];$result['reserved']=(int)$this->wallet['reserved'];$result['debt']=(int)$this->wallet['debt'];
 				$result['available']=max(0,$result['balance']-$result['reserved']-$result['debt']);
 				$n=$this->write('UPDATE '.$this->db->table('wallet').' SET balance=?,reserved=?,debt=?,revision=revision+1 WHERE user_id=? AND revision=?',array($result['balance'],$result['reserved'],$result['debt'],$user_id,(int)$before['revision']));if(1!==$n){throw new Nodevora_Financial_Error('Wallet revision conflict.');}
+				if($coordinator){$coordinator->finish($this->db,$this->event,$result);}
 				$this->write('UPDATE '.$this->db->table('event').' SET delta_balance=?,delta_reserved=?,delta_debt=?,result=? WHERE id=?',array($result['balance']-(int)$before['balance'],$result['reserved']-(int)$before['reserved'],$result['debt']-(int)$before['debt'],json_encode($result,JSON_THROW_ON_ERROR),$this->event));
 				$this->write('INSERT INTO '.$this->db->table('outbox').' (event_id,user_id,effect,payload) VALUES (?,?,?,?)',array($this->event,$user_id,'project',json_encode($result,JSON_THROW_ON_ERROR)));
-				$this->db->commit();$this->db->close();return $result;
+				$committing=true;$this->db->commit();$this->db->close();return $result;
 			} catch(Nodevora_Financial_Unknown $e){
+				if(!$committing){$this->db->rollback();$this->db->close();throw $e;}
 				$this->db->close();$check=$this->connect();$row=$check->one('SELECT payload_hash,result FROM '.$check->table('event').' WHERE operation_key=?',array($key));$check->close();
 				if($row&&hash_equals($row['payload_hash'],$hash)){return json_decode($row['result'],true,512,JSON_THROW_ON_ERROR);}throw $e;
 			} catch(Throwable $e){$this->db->rollback();$this->db->close();if(in_array($e->getCode(),array(1205,1213),true)&&$attempt<2){usleep(10000*($attempt+1));continue;}throw $e;}

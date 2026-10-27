@@ -697,6 +697,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function apply_discount( $cart ) {
+		if (Nodevora_Financial_Compatibility::selected()) { return Nodevora_Financial_Checkout::cart($cart); }
 		if ( ! $cart instanceof WC_Cart ) {
 			return;
 		}
@@ -777,6 +778,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function save_order_usage( $order, $data ) {
+		if (Nodevora_Financial_Compatibility::selected()) { return Nodevora_Financial_Checkout::project($order); }
 		if ( ! function_exists( 'WC' ) || ! WC()->session ) {
 			return;
 		}
@@ -816,6 +818,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function consume_points_after_order( $order_id, $posted_data, $order ) {
+		if (Nodevora_Financial_Compatibility::selected()) { return; }
 		if ( ! $order instanceof WC_Order ) {
 			return;
 		}
