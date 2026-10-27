@@ -4,6 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Nodevora_Financial_Compatibility {
 	public static function selected() { return defined('NODEVORA_FINANCIAL_MODE') && 'wallet' === NODEVORA_FINANCIAL_MODE; }
 	public static function balance($user_id) { $wallet = new Nodevora_Financial_Wallet(); $state = $wallet->read((int)$user_id); return $state['available']; }
+	/** Read-only customer views show unavailable funds explicitly; financial callers use balance/apply. */
+	public static function view($user,$kind,$limit=20) {
+		try{if('balance'===$kind){return self::balance($user);}if('lots'===$kind){return self::lots($user);}if('logs'===$kind){return self::logs($user,$limit);}return self::total($user,$kind);}
+		catch(Nodevora_Financial_Error $e){
+			if(defined('WP_CLI')&&WP_CLI){throw $e;}
+			static $shown=array();if(!isset($shown[$user])){$shown[$user]=true;$message=__('Loyalty spending is unavailable while this account is reconciled. Existing points are preserved.','nodevora-customer-rewards-for-woocommerce');
+				$db=null;try{$db=new Nodevora_Financial_DB();$row=$db->one('SELECT payload FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array((int)$user));if($row){$p=json_decode($row['payload'],true,512,JSON_THROW_ON_ERROR);foreach($p['rows'] as $meta){if('rewardly_loyalty_points_balance'===$meta['meta_key']&&preg_match('/^[0-9]{1,19}$/D',$meta['meta_value'])){$message.=' '.sprintf(__('Preserved opening balance: %s points.','nodevora-customer-rewards-for-woocommerce'),$meta['meta_value']);break;}}}}catch(Throwable $ignored){}finally{if($db){$db->close();}}
+				add_action('wp_footer',static function()use($message){echo '<div class="woocommerce-info" role="status">'.esc_html($message).'</div>';});
+			}
+			return in_array($kind,array('lots','logs'),true)?array():0;
+		}
+	}
 	public static function legacy_write_guard() {
 		if (self::selected()) { throw new Nodevora_Financial_Error('An operation identity is required; legacy financial write refused.'); }
 	}

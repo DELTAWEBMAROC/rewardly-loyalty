@@ -41,6 +41,12 @@ class Nodevora_Financial_Schema {
 			$unique = array(); foreach ( $indexes as $index ) { if ( '0' === (string) $index['Non_unique'] ) { $unique[$index['Key_name']][] = $index['Column_name']; } }
 			$required = array( 'wallet'=>array('user_id'), 'event'=>array('operation_key'), 'lot'=>array('id'), 'allocation'=>array('event_id','lot_id','leg'), 'order_state'=>array('order_id'), 'outbox'=>array('event_id','effect'), 'snapshot'=>array('user_id','version') );
 			if ( ! in_array( $required[$name], $unique, true ) ) { throw new Nodevora_Financial_Error( 'Financial uniqueness is missing.' ); }
+			$shapes=array();foreach($indexes as $index){$shapes[$index['Key_name']][(int)$index['Seq_in_index']]=$index['Column_name'];}
+			foreach($shapes as &$shape){ksort($shape);$shape=array_values($shape);}unset($shape);
+			preg_match_all('/(?:UNIQUE )?KEY ([a-z_]+)\(([^)]+)\)/',$definition,$keys,PREG_SET_ORDER);
+			foreach($keys as $key){if(!isset($shapes[$key[1]])||$shapes[$key[1]]!==explode(',',$key[2])){throw new Nodevora_Financial_Error('Financial index shape mismatch.');}}
+			if(!isset($shapes['PRIMARY'])||($name==='event'&&$shapes['PRIMARY']!==array('id'))){throw new Nodevora_Financial_Error('Financial primary key is missing.');}
+
 		}
 	}
 }

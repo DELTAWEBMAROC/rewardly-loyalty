@@ -2,7 +2,8 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** Leased at-least-once effects; WordPress, mail and gateways are outside financial transactions. */
 class Nodevora_Financial_Recovery {
-	public static function init() { add_action('nodevora_financial_recover',array(__CLASS__,'run')); }
+	public static function init() { add_action('nodevora_financial_recover',array(__CLASS__,'run'));add_action('init',array(__CLASS__,'schedule')); }
+	public static function schedule(){if(Nodevora_Financial_Compatibility::selected()&&'local'===wp_get_environment_type()&&defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&NODEVORA_FINANCIAL_INTEGRATION_ALLOWED&&!wp_next_scheduled('nodevora_financial_recover')){wp_schedule_event(time()+60,'hourly','nodevora_financial_recover');}}
 	private static function take($user=0) {
 		$db=new Nodevora_Financial_DB();try{$db->begin();$row=$db->one('SELECT * FROM '.$db->table('outbox').' WHERE state IN (?,?) AND (lease_until IS NULL OR lease_until<=UTC_TIMESTAMP())'.($user?' AND user_id='.(int)$user:'').' ORDER BY id LIMIT 1 FOR UPDATE',array('pending','processing'));if(!$row){$db->rollback();return null;}
 			if(1!==$db->query('UPDATE '.$db->table('outbox').' SET state=?,attempts=attempts+1,lease_until=DATE_ADD(UTC_TIMESTAMP(),INTERVAL 60 SECOND) WHERE id=?',array('processing',(int)$row['id']))){throw new Nodevora_Financial_Error('Outbox lease failed.');}$row['attempts']=(int)$row['attempts']+1;$db->commit();return $row;

@@ -1,7 +1,35 @@
-# Financial service integration tests
+# Financial integration tests and rollout boundary
 
-Development-only tests use the dedicated Nodevora LocalWP installation, a private restorable database backup and the bundled Local PHP/WP-CLI. They refuse another site URL. No test route, schema installation or migration runs on plugin activation.
+The shipped version remains **4.8.5**. This development branch implements a gated financial backend; it is not a production migration or release. SVN is excluded.
 
-Set `NODEVORA_TEST_SOURCE` to this checkout, then execute `foundation.php` through WP-CLI. `concurrency.py --driver-dir <mission-03/evidence> --output <outside-repo.json>` launches two independent PHP/MySQL processes per case. Do not put real credentials or SQL dumps in the repository.
+Run only on the backed-up `nodevora-plugin` LocalWP target (`http://localhost:10004`). Never copy QA login routes or fault gateways into shipped plugin files. Keep mail and external HTTP blocked. Store SQL backups privately outside Git.
 
-Current scope: wallet transactions, lots, holds, referenced restoration caps/debt, SQL rollback, lost COMMIT acknowledgment and three database races. Tests bootstrap synthetic ready wallets directly; they do not establish migration or checkout readiness. Customer-facing integration is not enabled. PHP 8.3 syntax/runtime tested; PHP 7.4 runtime still requires validation.
+## Explicit local gates
+
+Normal activation only loads classes. It never installs financial tables, migrates customers or selects wallet mode. Installation requires local, single-site WP-CLI and `NODEVORA_FINANCIAL_SCHEMA_ALLOWED=true`. Migration additionally requires `NODEVORA_FINANCIAL_MIGRATION_ALLOWED=true` and `NODEVORA_FINANCIAL_WRITERS_DRAINED=true`; the latter is an operator assertion requiring maintenance and drained old requests/workers, not a mutex.
+
+Migration API: `inspect($user_id)` performs a read-only dry run; `migrate($user_id, $dry_run['checksum'])` snapshots and imports once. A ready account has immutable opening lots/reporting totals and imported registration/first-order claims. Ambiguous balance/lot/date/duplicate metadata or historical financial orders are `needs_review`, with preserved raw evidence and explicit `legacy_review` order state. No automatic debt, invented debit, lot reduction or retroactive legacy expiration is allowed. Reviewed reconciliation of these accounts requires an operator decision; they remain blocked meanwhile.
+
+`NODEVORA_FINANCIAL_MODE='wallet'` selects the new authority. Local integration also requires `NODEVORA_FINANCIAL_INTEGRATION_ALLOWED=true`. New customer mutations must not fall back to legacy helpers when either account/schema or integration is unready. Legacy helper writes without a stable identity throw. Explicit administrative add/remove helpers accept an operation key as their final argument; order/bonus writes must use the coordinated controllers. Absolute balance/lot setters are refused in wallet mode.
+
+After committed cutover writes, never turn wallet mode off to resume old writers or restore a pre-cutover database. Close the integration gate and retain wallet authority for read/reconciliation. Recovery remains a separately invoked, bounded operation; before opening the gate, review the journal, account/order states, outbox and unknown payments. A reverse migration/downgrade is a separate reviewed project.
+
+## Supported payment boundary
+
+Classic and Store API gates run at the final processed-order hook, before payment and zero-total completion. Order-pay uses the WooCommerce pre-pay action with a controlled redirect on rejection. Exact final fee, customer, currency, point amount, policy and normalized financial item fingerprint bind the current intent. A compensated debit cannot fund it again. A definitively failed offline attempt closes once; an explicit customer retry persists a fresh server intent and exact debit. Dispatch is durable; an uncertain attempt is never automatically dispatched or compensated by elapsed time.
+
+BACS, COD and zero-total payments are supported in this initial integration. Other gateways are **blocked** until a verified provider outcome/idempotency adapter exists. Temporary synthetic decline/timeout gateways can be explicitly allowed only on the isolated local test site using `NODEVORA_FINANCIAL_QA_GATEWAYS`; do not set this in production. Arbitrary extensions dispatching before/bypassing WooCommerce gates are unsupported. No claim of exactly-once provider settlement is made.
+
+Fee conversion uses integer currency minor units (0–6 decimals), retains fractional currency value, and rounds charged points down when the exact final fee cannot represent a fractional point. A positive fee with zero integral backing is refused. Actual coupon-clipped fees determine the charge. Restored lots retain original dates/expiry. Already expired original credit is recorded as an offset, not collected twice as reversal debt.
+
+Partial-refund allocations and ambiguous historical funding/expiry require reviewed business policy. They are quarantined, not proportionally invented. Revived discounted orders require fresh funding before payment; late paid but compensated orders are held for fulfillment review. Terminal orders without a new funded intent are conservatively held instead of creating a new entitlement from a status callback alone.
+
+## Recovery
+
+`Nodevora_Financial_Recovery::run()` resumes bounded order reconciliation, abandoned pre-dispatch holds, unheld expiration and outbox delivery. Hourly cron wakes the same service when explicitly enabled; invoke it through an isolated CLI if cron was missed. It never calls a gateway. Unknown/orphaned order evidence is retained for operator review. Outbox tasks use 60-second leases, attempt fences and bounded backoff; five failures become `dead`. No mail or WC save runs inside a financial transaction. Delivery is at-least-once; `X-Nodevora-Event` is stable but cannot prove exactly-once SMTP delivery. Review dead letters and repair the cause before a deliberate redrive.
+
+## Test execution
+
+Set `NODEVORA_TEST_SOURCE` to this checkout. Run PHP fixtures through Local PHP/WP-CLI. `compatibility.php`, `reporting.php`, `checkout.php` and `lifecycle.php` require `--skip-plugins=nodevora-customer-rewards-for-woocommerce`, then load the source explicitly. Tests defining wallet mode need any persisted mode constant removed only for their isolated run and restored afterward. Never load two physical copies of the same classes. The independent-process concurrency and SIGKILL runners accept `--driver-dir` and `--output`; crash additionally accepts a foundation results fixture. Keep evidence outside Git. Assertions must fail the runner when any status is not PASS.
+
+Coverage includes real InnoDB atomic faults, lost COMMIT acknowledgment, concurrency, process termination, migration, public adapters, WC CRUD/gates and actual status hooks. Real HTTP gateway-suppression tests and environment-specific results are kept in the workspace audit reports. PHP 8.3 runtime is exercised; PHP 7.4 compatibility must be checked separately before release. Synthetic tests alone do not establish every gateway, extension or production topology as safe.
