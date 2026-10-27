@@ -41,6 +41,8 @@ add_action(
 	}
 );
 
+// The financial service is inert until explicitly installed/integrated; no automatic migration.
+require_once REWARDLY_LOYALTY_PATH . 'includes/financial/bootstrap.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-helpers.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-emails.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-points.php';
