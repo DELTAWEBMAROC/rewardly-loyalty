@@ -65,7 +65,7 @@ class Nodevora_Financial_Compatibility {
 			$events = $db->query('SELECT * FROM '.$db->table('event').' WHERE user_id=? AND kind NOT IN (?,?) ORDER BY id DESC LIMIT '.$limit,array((int)$user_id,'opening','legacy_claim'));
 			foreach ($events as $event) {
 				$p = $event['payload'] ? json_decode($event['payload'],true,512,JSON_THROW_ON_ERROR) : array(); $d = isset($p['details'])?$p['details']:array();
-				$legacy[] = (object)array('id'=>'v2:'.$event['id'],'user_id'=>(int)$user_id,'order_id'=>isset($d['order_id'])?(int)$d['order_id']:0,'type'=>isset($d['type'])?$d['type']:$event['kind'],'points'=>(int)$event['gross_points'],'amount_dh'=>isset($d['discount_minor'],$d['scale'])?$d['discount_minor']/$d['scale']:0,'note'=>isset($d['note'])?$d['note']:'','created_at'=>get_date_from_gmt($event['created_at']));
+				$legacy[] = (object)array('id'=>'v2:'.$event['id'],'user_id'=>(int)$user_id,'order_id'=>isset($d['order_id'])?(int)$d['order_id']:0,'type'=>isset($d['type'])?$d['type']:$event['kind'],'points'=>'expire'===$event['kind']?abs((int)$event['delta_balance']):(int)$event['gross_points'],'amount_dh'=>isset($d['discount_minor'],$d['scale'])?$d['discount_minor']/$d['scale']:0,'note'=>isset($d['note'])?$d['note']:'','created_at'=>get_date_from_gmt($event['created_at']),'created_at_utc'=>$event['created_at']);
 			}
 			usort($legacy,function($a,$b){$date=strcmp($b->created_at,$a->created_at);return $date?:strcmp((string)$b->id,(string)$a->id);});
 			return array_slice($legacy,0,$limit);

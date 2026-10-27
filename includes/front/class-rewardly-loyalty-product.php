@@ -9,10 +9,11 @@ class Rewardly_Loyalty_Product {
 	public static function init() {
 		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'render_product_notice' ), 25 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_filter( 'woocommerce_available_variation', array( __CLASS__, 'variation_data' ), 10, 3 );
 	}
 
 	public static function enqueue_scripts() {
-		if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+		if ( ! Rewardly_Loyalty_Helpers::is_enabled() || ! function_exists( 'is_product' ) || ! is_product() ) {
 			return;
 		}
 
@@ -30,8 +31,17 @@ class Rewardly_Loyalty_Product {
 			array(
 				'locale'   => str_replace( '_', '-', determine_locale() ),
 				'currency' => Rewardly_Loyalty_Helpers::get_store_currency_code(),
+				'decimals' => wc_get_price_decimals(),
 			)
 		);
+	}
+
+	public static function variation_data( $data, $parent, $variation ) {
+		if ( Rewardly_Loyalty_Helpers::is_enabled() ) {
+			$data['nodevora_points_rate'] = Rewardly_Loyalty_Helpers::get_effective_product_earning_rate( $variation );
+			$data['nodevora_earning_price'] = (string) $variation->get_price();
+		}
+		return $data;
 	}
 
 	public static function render_product_notice() {
@@ -58,14 +68,14 @@ class Rewardly_Loyalty_Product {
 
 		$points_rate = Rewardly_Loyalty_Helpers::get_effective_product_earning_rate( $product );
 		$points      = Rewardly_Loyalty_Helpers::calculate_product_earned_points( $product, $price );
-		if ( $points <= 0 ) {
+		if ( $points <= 0 && ! $product->is_type( 'variable' ) ) {
 			return;
 		}
 
 		$amount = Rewardly_Loyalty_Helpers::convert_points_to_amount( $points );
 		?>
 		<div
-			class="rewardly-product-points-notice"
+			class="rewardly-product-points-notice" aria-live="polite" <?php if ( $points <= 0 ) { echo 'hidden'; } ?>
 			data-default-price="<?php echo esc_attr( wc_format_decimal( $price ) ); ?>"
 			data-points-rate="<?php echo esc_attr( (int) $points_rate ); ?>"
 			data-redeem-points-per-dh="<?php echo esc_attr( (int) Rewardly_Loyalty_Helpers::get_settings()['redeem_points_per_dh'] ); ?>"

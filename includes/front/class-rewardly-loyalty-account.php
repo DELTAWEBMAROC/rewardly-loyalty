@@ -282,7 +282,7 @@ class Rewardly_Loyalty_Account {
 		$show_all       = 'all' === $history_view;
 		$logs_limit     = $show_all ? 200 : 10;
 		$logs           = Rewardly_Loyalty_Helpers::get_user_logs( $user_id, $logs_limit );
-		$all_logs_count = count( Rewardly_Loyalty_Helpers::get_user_logs( $user_id, 1000 ) );
+		$all_logs_count = count( Rewardly_Loyalty_Helpers::get_user_logs( $user_id, 11 ) );
 		?>
 		<div class="rewardly-loyalty-account">
 			<h3><?php esc_html_e( 'My Loyalty Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></h3>
@@ -358,9 +358,8 @@ class Rewardly_Loyalty_Account {
 					<tbody>
 						<?php foreach ( $logs as $log ) : ?>
 							<?php
-							$minus_types   = array( 'spend', 'adjust_remove', 'expire' );
-							$points_prefix = in_array( $log->type, $minus_types, true ) ? '-' : '+';
-							$amount_prefix = in_array( $log->type, $minus_types, true ) ? '-' : '+';
+							$points_prefix = Rewardly_Loyalty_Helpers::log_sign( $log );
+							$amount_prefix = $points_prefix;
 							$type_label      = self::get_log_type_label( $log->type );
 							$order_link_data = self::get_log_order_link_data( $log, $user_id );
 
@@ -369,7 +368,7 @@ class Rewardly_Loyalty_Account {
 							$type_class   = 'rewardly-log-type rewardly-log-type--' . sanitize_html_class( $log->type );
 							?>
 							<tr class="<?php echo esc_attr( $row_class ); ?>">
-								<td data-label="<?php echo esc_attr__( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( wp_date( 'd/m/Y H:i', strtotime( $log->created_at ) ) ); ?></td>
+								<td data-label="<?php echo esc_attr__( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( Rewardly_Loyalty_Helpers::format_log_date( $log ) ); ?></td>
 								<td data-label="<?php echo esc_attr__( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><span class="<?php echo esc_attr( $type_class ); ?>"><?php echo esc_html( $type_label ); ?></span></td>
 								<td data-label="<?php echo esc_attr__( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( $points_prefix . abs( (int) $log->points ) ); ?></td>
 								<td data-label="<?php echo esc_attr__( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><span class="rewardly-log-label"><?php esc_html_e( 'Amount:', 'nodevora-customer-rewards-for-woocommerce' ); ?> </span><span class="<?php echo esc_attr( $amount_class ); ?>"><?php echo esc_html( $amount_prefix ) . ' ' . wp_kses_post( wc_price( abs( (float) $log->amount_dh ) ) ); ?></span></td>

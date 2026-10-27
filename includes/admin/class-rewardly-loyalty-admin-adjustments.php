@@ -24,39 +24,28 @@ class Rewardly_Loyalty_Admin_Adjustments {
 
 	public static function handle_form() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to manage loyalty points.', 'nodevora-customer-rewards-for-woocommerce' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to manage loyalty points.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) { wp_die( '', '', array( 'response' => 405 ) ); }
 		check_admin_referer( 'rewardly_loyalty_adjust_points' );
 
-		$user_id = absint( filter_input( INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT ) );
-		$action  = filter_input( INPUT_POST, 'adjustment_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$points  = absint( filter_input( INPUT_POST, 'points', FILTER_SANITIZE_NUMBER_INT ) );
-		$note    = filter_input( INPUT_POST, 'note', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-
-		$action = is_string( $action ) ? sanitize_key( wp_unslash( $action ) ) : '';
-		$note   = is_string( $note ) ? sanitize_text_field( wp_unslash( $note ) ) : '';
-
-		if ( $user_id <= 0 || $points <= 0 || ! in_array( $action, array( 'add', 'remove' ), true ) ) {
-			wp_safe_redirect( admin_url( 'admin.php?page=rewardly-loyalty-settings&tab=adjustments&rewardly_user=' . $user_id ) );
-			exit;
+		$raw_user = $_POST['user_id'] ?? ''; $raw_points = $_POST['points'] ?? '';
+		$action = isset( $_POST['adjustment_action'] ) && is_string( $_POST['adjustment_action'] ) ? sanitize_key( wp_unslash( $_POST['adjustment_action'] ) ) : '';
+		$note = isset( $_POST['note'] ) && is_string( $_POST['note'] ) ? sanitize_text_field( wp_unslash( $_POST['note'] ) ) : '';
+		if ( ! is_scalar( $raw_user ) || ! is_scalar( $raw_points ) || ! preg_match( '/^[1-9][0-9]{0,8}$/D', (string) $raw_user ) || ! preg_match( '/^[1-9][0-9]{0,8}$/D', (string) $raw_points ) || ! get_user_by( 'id', (int) $raw_user ) || ! in_array( $action, array( 'add', 'remove' ), true ) ) {
+			wp_die( esc_html__( 'Enter a valid customer and a positive whole number of points.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 400 ) );
 		}
+		$user_id = (int) $raw_user; $points = (int) $raw_points;
 
 		if(Nodevora_Financial_Compatibility::selected()){
-			$id=isset($_POST['nodevora_operation'])?sanitize_text_field(wp_unslash($_POST['nodevora_operation'])):'';
-			if(!preg_match('/^[a-f0-9-]{36}$/D',$id)){wp_die(esc_html__('Missing adjustment identity. Reload the form.','nodevora-customer-rewards-for-woocommerce'));}
+			$id=isset($_POST['nodevora_operation'])&&is_string($_POST['nodevora_operation'])?sanitize_text_field(wp_unslash($_POST['nodevora_operation'])):'';
+			if(!preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/D',$id)){wp_die(esc_html__('Missing adjustment identity. Reload the form.','nodevora-customer-rewards-for-woocommerce'), '', array('response'=>400));}
 			$key='adjust:'.get_current_user_id().':'.$id;
 			try{if('add'===$action){Rewardly_Loyalty_Helpers::add_points($user_id,$points,0,'adjust_add',$note,$key);}else{Rewardly_Loyalty_Helpers::subtract_points_exact($user_id,$points,0,'adjust_remove',$note,$key);}}
-			catch(Nodevora_Financial_Error $e){wp_die(esc_html__('Adjustment was not authorized. Check account readiness and retry with the same form.','nodevora-customer-rewards-for-woocommerce'));}
+			catch(Nodevora_Financial_Error $e){wp_die(esc_html__('Adjustment was not authorized. Check account readiness and retry with the same form.','nodevora-customer-rewards-for-woocommerce'), '', array('response'=>409));}
 			wp_safe_redirect(admin_url('admin.php?page=rewardly-loyalty-settings&tab=adjustments&rewardly_user='.$user_id));exit;
 		}
-		if ( 'add' === $action ) {
-			Rewardly_Loyalty_Helpers::add_points( $user_id, $points, 0, 'adjust_add', $note ? $note : __( 'Manual loyalty balance adjustment.', 'nodevora-customer-rewards-for-woocommerce' ) );
-		} else {
-			Rewardly_Loyalty_Helpers::subtract_points( $user_id, $points, 0, 'adjust_remove', $note ? $note : __( 'Manual loyalty balance removal.', 'nodevora-customer-rewards-for-woocommerce' ) );
-		}
-
-		wp_safe_redirect( admin_url( 'admin.php?page=rewardly-loyalty-settings&tab=adjustments&rewardly_user=' . $user_id ) );
-		exit;
+		wp_die( esc_html__( 'Points are preserved. Complete financial setup before adjusting balances.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 409 ) );
 	}
 }

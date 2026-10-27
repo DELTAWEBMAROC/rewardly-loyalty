@@ -164,10 +164,8 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_request_method() {
-		$method = filter_input( INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$method = is_string( $method ) ? wp_unslash( $method ) : '';
-
-		return strtoupper( sanitize_text_field( $method ) );
+		$method = isset( $_SERVER['REQUEST_METHOD'] ) && is_string( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : '';
+		return in_array( $method, array( 'GET', 'POST' ), true ) ? $method : '';
 	}
 
 
@@ -177,8 +175,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_action() {
-		$action = filter_input( INPUT_POST, 'rewardly_loyalty_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $action ) ? sanitize_text_field( wp_unslash( $action ) ) : '';
+		return isset( $_POST['rewardly_loyalty_action'] ) && is_string( $_POST['rewardly_loyalty_action'] ) ? sanitize_text_field( wp_unslash( $_POST['rewardly_loyalty_action'] ) ) : '';
 	}
 
 	/**
@@ -187,8 +184,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_nonce() {
-		$nonce = filter_input( INPUT_POST, '_rewardly_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $nonce ) ? sanitize_text_field( wp_unslash( $nonce ) ) : '';
+		return isset( $_POST['_rewardly_nonce'] ) && is_string( $_POST['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_rewardly_nonce'] ) ) : '';
 	}
 
 	/**
@@ -197,8 +193,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_points_value() {
-		$value = filter_input( INPUT_POST, 'rewardly_points_to_use', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $value ) ? wp_unslash( $value ) : '';
+		return isset( $_POST['rewardly_points_to_use'] ) && is_string( $_POST['rewardly_points_to_use'] ) ? wp_unslash( $_POST['rewardly_points_to_use'] ) : '';
 	}
 
 	private static function handle_apply_request() {
@@ -249,7 +244,7 @@ class Rewardly_Loyalty_Redeem {
 	private static function validate_requested_points( $raw_value, $user_points, $max_usable ) {
 		$value = is_scalar( $raw_value ) ? trim( (string) $raw_value ) : '';
 
-		if ( '' === $value || ! preg_match( '/^\d+$/', $value ) ) {
+		if ( '' === $value || ! preg_match( '/^[0-9]{1,18}$/D', $value ) || strlen( ltrim( $value, '0' ) ) > strlen( (string) PHP_INT_MAX ) || ( strlen( ltrim( $value, '0' ) ) === strlen( (string) PHP_INT_MAX ) && strcmp( ltrim( $value, '0' ), (string) PHP_INT_MAX ) > 0 ) ) {
 			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
@@ -465,7 +460,7 @@ class Rewardly_Loyalty_Redeem {
 		}
 
 		$potential_points = Rewardly_Loyalty_Helpers::calculate_cart_earned_points( WC()->cart );
-		if ( $potential_points <= 0 ) {
+		if ( $potential_points <= 0 && ! is_user_logged_in() ) {
 			return '';
 		}
 

@@ -20,6 +20,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* Une seule identité peut être chargée ; le changement de dossier reste une opération explicite. */
+$nodevora_legacy_active = in_array( 'rewardly-loyalty/rewardly-loyalty.php', (array) get_option( 'active_plugins', array() ), true );
+if ( $nodevora_legacy_active || defined( 'REWARDLY_LOYALTY_FILE' ) || class_exists( 'Rewardly_Loyalty_Helpers', false ) ) {
+	add_action( 'admin_notices', static function() {
+		if ( current_user_can( 'activate_plugins' ) ) { echo '<div class="notice notice-error"><p>' . esc_html__( 'Another Rewardly or Nodevora installation is active. Back up your data, deactivate the previous package, then activate the official Nodevora package. Financial data must be retained.', 'nodevora-customer-rewards-for-woocommerce' ) . '</p></div>'; }
+	} );
+	return;
+}
+/* Les déclarations conditionnelles empêchent les collisions avec une autre copie déjà chargée. */
+if ( ! function_exists( 'rewardly_loyalty_activate' ) ) {
 define( 'NODEVORA_CUSTOMER_REWARDS_VERSION', '4.8.5' );
 define( 'REWARDLY_LOYALTY_DEV_PRO_MODE', false );
 define( 'REWARDLY_LOYALTY_PATH', plugin_dir_path( __FILE__ ) );
@@ -58,6 +68,7 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admi
 
 
 function rewardly_loyalty_activate() {
+	if ( is_multisite() ) { wp_die( esc_html__( 'Nodevora financial operations currently support single-site WordPress only.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 409 ) ); }
 	global $wpdb;
 	$table_name      = $wpdb->prefix . 'rewardly_loyalty_log';
 	$charset_collate = $wpdb->get_charset_collate();
@@ -255,3 +266,5 @@ function rewardly_loyalty_run_daily_expiration() {
 	Rewardly_Loyalty_Helpers::run_daily_points_expiration();
 }
 add_action( REWARDLY_LOYALTY_CRON_HOOK, 'rewardly_loyalty_run_daily_expiration' );
+
+}

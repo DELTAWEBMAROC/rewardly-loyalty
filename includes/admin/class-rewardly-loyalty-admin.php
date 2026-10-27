@@ -127,6 +127,7 @@ class Rewardly_Loyalty_Admin {
 
 
 	public static function render_page() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) { wp_die( esc_html__( 'You are not allowed to manage rewards.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 403 ) ); }
 		$tabs        = self::get_tabs();
 		$current_tab = self::get_current_tab(); ?>
 		<div class="wrap">
@@ -163,7 +164,7 @@ class Rewardly_Loyalty_Admin {
 
 	private static function render_design_tab() {
 		$settings = Rewardly_Loyalty_Helpers::get_settings(); ?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?>
+		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="design">
 			<h2><?php esc_html_e( 'Design settings', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'These settings apply only to Nodevora reward interface elements and keep the plugin compatible with most WooCommerce themes.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p><div class="rewardly-admin-note"><p><strong><?php esc_html_e( 'Selected template', 'nodevora-customer-rewards-for-woocommerce' ); ?>:</strong> <?php echo esc_html( self::get_template_summary( $settings['design_template'] ?? 'default' ) ); ?></p></div>
 			<table class="form-table rewardly-pro-table">
@@ -245,7 +246,7 @@ class Rewardly_Loyalty_Admin {
 		$excluded_products = $settings['pro_excluded_product_ids'];
 		$excluded_cats     = $settings['pro_excluded_category_ids'];
 		?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?>
+		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="rules">
 			<h2><?php esc_html_e( 'Advanced Rules', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Build category rules and exclusions with search-assisted selectors. Product-level overrides are available directly inside the Product data panel.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 			<table class="form-table rewardly-pro-table">
@@ -312,7 +313,7 @@ class Rewardly_Loyalty_Admin {
 	private static function render_extra_points_tab() {
 
 		$settings = Rewardly_Loyalty_Helpers::get_settings(); ?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?>
+		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="bonuses">
 			<h2><?php esc_html_e( 'Extra Points Engine', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Set optional one-time bonuses for customer lifecycle events.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 			<table class="form-table rewardly-pro-table">
@@ -331,7 +332,7 @@ class Rewardly_Loyalty_Admin {
 
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
 		$selected_statuses = Rewardly_Loyalty_Helpers::sanitize_status_list( $settings['pro_pending_points_statuses'] ?? array() ); ?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?>
+		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="pending">
 			<h2><?php esc_html_e( 'Campaigns', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Configure customer-facing messages that make loyalty earnings easier to understand.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 			<table class="form-table rewardly-pro-table">
@@ -353,7 +354,7 @@ class Rewardly_Loyalty_Admin {
 	private static function render_levels_tab() {
 
 		$settings = Rewardly_Loyalty_Helpers::get_settings(); ?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?>
+		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="levels">
 			<h2><?php esc_html_e( 'Levels & Badges', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Define milestone thresholds based on the total earned points of each customer.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 			<table class="form-table rewardly-pro-table">

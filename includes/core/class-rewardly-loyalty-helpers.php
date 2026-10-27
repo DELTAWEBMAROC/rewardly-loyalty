@@ -247,7 +247,7 @@ class Rewardly_Loyalty_Helpers {
 
 		$statuses = array_values( array_intersect( array_map( 'sanitize_key', $statuses ), $allowed ) );
 
-		return ! empty( $statuses ) ? $statuses : array( 'pending', 'on-hold', 'processing' );
+		return $statuses;
 	}
 
 	/**
@@ -343,31 +343,23 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_logs( $user_id, $limit = 20 ) {
-		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view($user_id, 'logs', $limit); }
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view( $user_id, 'logs', $limit ); }
 		global $wpdb;
+		/* La lecture bornée évite toute dépendance à flush_group et aux anciens caches périmés. */
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE user_id=%d ORDER BY id DESC LIMIT %d', self::get_log_table_name(), $user_id, min( 1000, max( 1, (int) $limit ) ) ) );
+	}
 
-		$table_name = self::get_log_table_name();
-		$limit      = max( 1, (int) $limit );
-		$cache_key  = 'rewardly_user_logs_' . (int) $user_id . '_' . $limit;
-		$cached     = wp_cache_get( $cache_key, 'rewardly_loyalty' );
+	public static function format_log_date( $log ) {
+		try {
+			$utc = isset( $log->created_at_utc );
+			$date = new DateTimeImmutable( $utc ? $log->created_at_utc : $log->created_at, $utc ? new DateTimeZone( 'UTC' ) : wp_timezone() );
+			return wp_date( 'd/m/Y H:i', $date->getTimestamp(), wp_timezone() );
+		} catch ( Exception $e ) { return ''; }
+	}
 
-		if ( false !== $cached ) {
-			return $cached;
-		}
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Prepared query against the plugin's custom log table; results are cached below.
-		$logs = $wpdb->get_results(
-			$wpdb->prepare(
-				'SELECT * FROM %i WHERE user_id = %d ORDER BY id DESC LIMIT %d',
-				$table_name,
-				$user_id,
-				$limit
-			)
-		);
-
-		wp_cache_set( $cache_key, $logs, 'rewardly_loyalty', MINUTE_IN_SECONDS );
-
-		return $logs;
+	public static function log_sign( $log ) {
+		if ( 0 === (int) $log->points ) { return ''; }
+		return in_array( $log->type, array( 'spend', 'debit', 'commit', 'adjust_remove', 'expire', 'revoke', 'reverse' ), true ) ? '-' : '+';
 	}
 
 	/**
@@ -387,31 +379,14 @@ class Rewardly_Loyalty_Helpers {
 	 * @return bool
 	 */
 	public static function is_product_excluded_from_earning( $product ) {
-		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) {
-			return false;
-		}
-
+		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) { return false; }
 		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
-		if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-			return false;
-		}
-
-		$settings   = self::get_settings();
-		$product_id = $product->get_id();
-
-		if ( in_array( $product_id, $settings['pro_excluded_product_ids'], true ) ) {
-			return true;
-		}
-
-		if ( 'yes' === ( $settings['pro_exclude_sale_products'] ?? 'no' ) && $product->is_on_sale() ) {
-			return true;
-		}
-
-		$product_categories = wc_get_product_term_ids( $product_id, 'product_cat' );
-		if ( ! empty( $product_categories ) && array_intersect( $product_categories, $settings['pro_excluded_category_ids'] ) ) {
-			return true;
-		}
-
+		if ( ! $product instanceof WC_Product ) { return false; }
+		$s = self::get_settings(); $ids = array( $product->get_id() );
+		if ( $product->get_parent_id() ) { $ids[] = $product->get_parent_id(); }
+		if ( array_intersect( $ids, $s['pro_excluded_product_ids'] ) ) { return true; }
+		if ( 'yes' === $s['pro_exclude_sale_products'] && $product->is_on_sale() ) { return true; }
+		foreach ( $ids as $id ) { if ( array_intersect( wc_get_product_term_ids( $id, 'product_cat' ), $s['pro_excluded_category_ids'] ) ) { return true; } }
 		return false;
 	}
 
@@ -423,49 +398,24 @@ class Rewardly_Loyalty_Helpers {
 	 */
 	public static function get_effective_product_earning_rate( $product ) {
 		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
-		$rate    = self::get_global_earning_rate();
-
-		if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-			return $rate;
-		}
-
-		if ( self::is_product_excluded_from_earning( $product ) ) {
-			return 0;
-		}
-
-		if ( class_exists( 'Rewardly_Loyalty_Pro' ) && Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) {
-			$product_id       = $product->get_id();
-			$product_override = get_post_meta( $product_id, '_rewardly_loyalty_product_points_rate', true );
-
-			/* An explicit product value, including zero, overrides the global rate. */
-			if ( '' !== $product_override ) {
-				return max( 0, absint( $product_override ) );
-			}
-
-			/* Backward compatibility for early internal product-rule metadata. */
-			$legacy_override_on  = 'yes' === get_post_meta( $product_id, '_rewardly_pro_enable_product_rule', true );
-			$legacy_override_raw = absint( get_post_meta( $product_id, '_rewardly_pro_product_rate', true ) );
-			if ( $legacy_override_on && $legacy_override_raw > 0 ) {
-				return $legacy_override_raw;
-			}
-
-			$product_categories = wc_get_product_term_ids( $product_id, 'product_cat' );
-			$settings           = self::get_settings();
-			$category_rules     = $settings['pro_category_rules'];
-			$matched_rate       = 0;
-
-			foreach ( $category_rules as $rule ) {
-				if ( in_array( (int) $rule['term_id'], $product_categories, true ) ) {
-					$matched_rate = max( $matched_rate, (int) $rule['rate'] );
-				}
-			}
-
-			if ( $matched_rate > 0 ) {
-				return $matched_rate;
+		$rate = self::get_global_earning_rate();
+		if ( ! $product instanceof WC_Product ) { return $rate; }
+		if ( self::is_product_excluded_from_earning( $product ) ) { return 0; }
+		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) { return $rate; }
+		$ids = array( $product->get_id() ); if ( $product->get_parent_id() ) { $ids[] = $product->get_parent_id(); }
+		/* Une valeur explicite nulle reste prioritaire, y compris sur le parent. */
+		foreach ( $ids as $id ) {
+			$raw = get_post_meta( $id, '_rewardly_loyalty_product_points_rate', true );
+			if ( '' !== $raw && is_scalar( $raw ) && preg_match( '/^[0-9]{1,9}$/D', (string) $raw ) ) { return (int) $raw; }
+			if ( 'yes' === get_post_meta( $id, '_rewardly_pro_enable_product_rule', true ) ) {
+				$raw = get_post_meta( $id, '_rewardly_pro_product_rate', true );
+				if ( is_scalar( $raw ) && preg_match( '/^[0-9]{1,9}$/D', (string) $raw ) ) { return (int) $raw; }
 			}
 		}
-
-		return $rate;
+		$categories = array(); foreach ( $ids as $id ) { $categories = array_merge( $categories, wc_get_product_term_ids( $id, 'product_cat' ) ); }
+		$matched = null; $s = self::get_settings();
+		foreach ( $s['pro_category_rules'] as $rule ) { if ( in_array( (int) $rule['term_id'], $categories, true ) ) { $matched = max( $matched ?? 0, (int) $rule['rate'] ); } }
+		return null === $matched ? $rate : $matched;
 	}
 
 	/**
@@ -802,9 +752,7 @@ class Rewardly_Loyalty_Helpers {
 			return;
 		}
 
-		if ( function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_group' ) ) {
-			wp_cache_flush_group( 'rewardly_loyalty' );
-		}
+		wp_cache_delete( 'rewardly_user_logs_' . (int) $user_id . '_20', 'rewardly_loyalty' );
 
 		if ( class_exists( 'Rewardly_Loyalty_Emails' ) ) {
 			Rewardly_Loyalty_Emails::maybe_send_points_notification( $user_id, $type, $points, $amount, $note );

@@ -53,9 +53,9 @@ class Rewardly_Loyalty_Shortcodes {
 				<ul>
 					<?php foreach ( $logs as $log ) : ?>
 						<li>
-							<strong><?php echo esc_html( wp_date( 'd/m/Y H:i', strtotime( $log->created_at ) ) ); ?></strong>
+							<strong><?php echo esc_html( Rewardly_Loyalty_Helpers::format_log_date( $log ) ); ?></strong>
 							— <?php echo esc_html( self::get_history_type_label( $log->type ) ); ?>
-							— <?php echo esc_html( (int) $log->points ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
+							— <?php echo esc_html( Rewardly_Loyalty_Helpers::log_sign( $log ) . abs( (int) $log->points ) ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 							<?php if ( ! empty( $log->note ) ) : ?>
 								<br><span><?php echo esc_html( $log->note ); ?></span>
 							<?php endif; ?>

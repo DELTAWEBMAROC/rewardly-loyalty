@@ -20,7 +20,7 @@ class Rewardly_Loyalty_Points {
 	}
 
 	public static function maybe_reward_points( $order_id ) {
-		// Ne jamais reprendre les écritures historiques avant une bascule vérifiée.
+		if ( ! Rewardly_Loyalty_Helpers::is_enabled() ) { return; }
 		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::earn($order_id);}
 		$order=wc_get_order($order_id);if($order){$order->update_meta_data('_nodevora_earning_pending','yes');$order->save();}
 	}
@@ -34,7 +34,7 @@ class Rewardly_Loyalty_Points {
 	public static function maybe_award_registration_bonus( $user_id ) {
 		// Ne jamais reprendre les écritures historiques avant une bascule vérifiée.
 		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::registration($user_id);}
-		update_user_meta($user_id,'_nodevora_registration_pending','yes');
+		if ( Rewardly_Loyalty_Helpers::is_enabled() ) { update_user_meta($user_id,'_nodevora_registration_pending','yes'); }
 	}
 
 	/**
@@ -85,7 +85,7 @@ class Rewardly_Loyalty_Points {
 	public static function maybe_award_review_bonus( $comment_id, $comment_approved, $commentdata ) {
 		// Ne jamais reprendre les écritures historiques avant une bascule vérifiée.
 		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Lifecycle::review($comment_id,$comment_approved,$commentdata);}
-		update_comment_meta($comment_id,'_nodevora_review_pending','yes');
+		if ( Rewardly_Loyalty_Helpers::is_enabled() && 1 === (int) $comment_approved ) { update_comment_meta($comment_id,'_nodevora_review_pending','yes'); }
 	}
 
 	public static function maybe_handle_order_reversal( $order_id ) {
