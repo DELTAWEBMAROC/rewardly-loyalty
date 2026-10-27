@@ -41,7 +41,7 @@ class Rewardly_Loyalty_Settings {
 			if ( in_array( $key, $booleans, true ) && in_array( $value, array( 'yes', 'no' ), true ) ) { $d[$key] = $value; }
 			elseif ( isset( $enums[$key] ) && in_array( $value, $enums[$key], true ) ) { $d[$key] = $value; }
 			elseif ( in_array( $key, $integer, true ) && self::valid_integer( $value, in_array( $key, array( 'earn_points_per_dh', 'redeem_points_per_dh' ), true ) ? 1 : 0, 'border_radius' === $key ? 30 : ( 'points_expiration_days' === $key ? 36500 : 1000000000 ) ) ) { $d[$key] = (int) $value; }
-			elseif ( in_array( $key, $colors, true ) && is_string( $value ) && sanitize_hex_color( $value ) ) { $d[$key] = sanitize_hex_color( $value ); }
+			elseif ( in_array( $key, $colors, true ) && is_string( $value ) && ( sanitize_hex_color( $value ) || ( '' === $value && ! in_array( $key, array( 'primary_color', 'accent_color' ), true ) ) ) ) { $d[$key] = '' === $value ? '' : sanitize_hex_color( $value ); }
 			elseif ( 'max_discount_per_order' === $key && is_scalar( $value ) && preg_match( '/^[0-9]{1,9}(?:\.[0-9]{1,6})?$/D', (string) $value ) ) { $d[$key] = wc_format_decimal( $value, wc_get_price_decimals() ); }
 			elseif ( 'pro_pending_points_notice_text' === $key && is_string( $value ) ) { $d[$key] = sanitize_textarea_field( $value ); }
 			elseif ( in_array( $key, array( 'pro_excluded_product_ids', 'pro_excluded_category_ids' ), true ) && is_array( $value ) ) {

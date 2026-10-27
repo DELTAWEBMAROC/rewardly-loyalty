@@ -20,6 +20,8 @@ class Rewardly_Loyalty_Helpers {
 			'primary_color'                => '#0b1638',
 			'accent_color'                 => '#12b8a6',
 			'border_radius'                => 12,
+			'button_background' => '', 'button_text' => '', 'button_hover_background' => '', 'button_hover_text' => '',
+			'card_background' => '', 'card_border' => '', 'density' => 'comfortable',
 			'enable_front_styles'          => 'yes',
 			'delete_data_on_uninstall'     => 'no',
 			'design_template'              => 'default',
@@ -213,9 +215,11 @@ class Rewardly_Loyalty_Helpers {
 			}
 
 			$term_id = absint( $rule['term_id'] ?? 0 );
-			$rate    = max( 1, absint( $rule['rate'] ?? 0 ) );
+			$raw_rate = $rule['rate'] ?? '';
+			if ( ! is_scalar( $raw_rate ) || ! preg_match( '/^[0-9]{1,9}$/D', (string) $raw_rate ) ) { continue; }
+			$rate = (int) $raw_rate;
 
-			if ( $term_id <= 0 || $rate <= 0 ) {
+			if ( $term_id <= 0 ) {
 				continue;
 			}
 

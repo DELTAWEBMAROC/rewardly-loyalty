@@ -60,6 +60,8 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-redee
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-pro.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-rewardly-loyalty-account.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-rewardly-loyalty-product.php';
+require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-nodevora-loyalty-blocks.php';
+Nodevora_Loyalty_Blocks::init();
 require_once REWARDLY_LOYALTY_PATH . 'includes/design/class-rewardly-loyalty-design.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/shortcodes/class-rewardly-loyalty-shortcodes.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-settings.php';
@@ -119,20 +121,6 @@ function rewardly_loyalty_maybe_upgrade() {
 		return;
 	}
 
-	/* Migrate only untouched legacy default colors to the Nodevora palette. */
-	if ( '' === $installed_version || version_compare( $installed_version, '4.8.5', '<' ) ) {
-		$settings = get_option( 'rewardly_loyalty_settings', array() );
-		if ( is_array( $settings ) ) {
-			$legacy_primary = isset( $settings['primary_color'] ) ? strtolower( (string) $settings['primary_color'] ) : '';
-			$legacy_accent  = isset( $settings['accent_color'] ) ? strtolower( (string) $settings['accent_color'] ) : '';
-			if ( '#111111' === $legacy_primary && '#f5a623' === $legacy_accent ) {
-				$settings['primary_color'] = '#0b1638';
-				$settings['accent_color']  = '#12b8a6';
-				update_option( 'rewardly_loyalty_settings', $settings );
-			}
-		}
-	}
-
 	if ( ! wp_next_scheduled( REWARDLY_LOYALTY_CRON_HOOK ) ) {
 		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', REWARDLY_LOYALTY_CRON_HOOK );
 	}
@@ -151,7 +139,7 @@ function rewardly_loyalty_should_enqueue_front_assets() {
 		global $post;
 		if ( $post instanceof WP_Post ) {
 			$content = (string) $post->post_content;
-			foreach ( array( 'rewardly_points_balance', 'rewardly_points_value', 'rewardly_points_history', 'rewardly_account_block', 'rewardly_loyalty_notice' ) as $shortcode ) {
+			foreach ( array( 'rewardly_points_balance', 'rewardly_points_value', 'rewardly_points_history', 'rewardly_account_block', 'rewardly_loyalty_notice', 'rewardly_loyalty_card' ) as $shortcode ) {
 				if ( has_shortcode( $content, $shortcode ) ) {
 					return true;
 				}
@@ -242,19 +230,12 @@ function rewardly_loyalty_enqueue_assets() {
 		wp_enqueue_script(
 			'nodevora-customer-rewards-for-woocommerce-blocks',
 			REWARDLY_LOYALTY_URL . 'assets/js/loyalty-blocks.js',
-			array(),
+			array( 'wp-element', 'wp-plugins', 'wp-i18n', 'wc-blocks-checkout' ),
 			filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/loyalty-blocks.js' ),
 			true
 		);
 
-		wp_localize_script(
-			'nodevora-customer-rewards-for-woocommerce-blocks',
-			'rewardlyBlocksData',
-			array(
-				'cartHtml'     => Rewardly_Loyalty_Redeem::get_block_cart_notice_html(),
-				'checkoutHtml' => Rewardly_Loyalty_Redeem::get_block_checkout_box_html(),
-			)
-		);
+		wp_set_script_translations( 'nodevora-customer-rewards-for-woocommerce-blocks', 'nodevora-customer-rewards-for-woocommerce', REWARDLY_LOYALTY_PATH . 'languages' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'rewardly_loyalty_enqueue_assets' );

@@ -7,7 +7,7 @@
    - Conserver les boutons actuels sans modification visuelle
    ========================================================= */
 
-:root{
+:where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-card,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){
   --rewardly-orange:#f4b93f;
   --rewardly-black:#0b1638;
   --rewardly-soft:#e9faf7;
@@ -27,42 +27,42 @@
 .rewardly-cart-points-notice,
 .rewardly-checkout-guest-notice,
 .rewardly-product-points-notice{
-  display:flex !important;
-  align-items:center !important;
-  gap:8px !important;
-  width:100% !important;
-  margin:12px 0 14px !important;
-  padding:10px 12px !important;
-  background:var(--rewardly-soft) !important;
-  border:1px solid var(--rewardly-border) !important;
-  border-left:4px solid var(--rewardly-accent) !important;
-  border-radius:var(--rewardly-radius-sm) !important;
-  box-sizing:border-box !important;
-  clear:both !important;
-  color:var(--rewardly-black) !important;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  margin:12px 0 14px;
+  padding:10px 12px;
+  background:var(--rewardly-soft);
+  border:1px solid var(--rewardly-border);
+  border-left:4px solid var(--rewardly-accent);
+  border-radius:var(--rewardly-radius-sm);
+  box-sizing:border-box;
+  clear:both;
+  color:var(--rewardly-black);
 }
 
 .rewardly-cart-points-notice__icon,
 .rewardly-checkout-guest-notice__icon,
 .rewardly-product-points-notice__icon{
-  flex:0 0 auto !important;
-  font-size:15px !important;
-  line-height:1 !important;
-  color:var(--rewardly-accent) !important;
+  flex:0 0 auto;
+  font-size:15px;
+  line-height:1;
+  color:var(--rewardly-accent);
 }
 
 .rewardly-cart-points-notice__text,
 .rewardly-checkout-guest-notice__text,
 .rewardly-product-points-notice__text{
-  color:inherit !important;
+  color:inherit;
   font:inherit;
-  line-height:1.5 !important;
+  line-height:1.5;
 }
 
 .rewardly-cart-points-notice__text *,
 .rewardly-checkout-guest-notice__text *,
 .rewardly-product-points-notice__text *{
-  color:inherit !important;
+  color:inherit;
 }
 
 .rewardly-product-points-notice__amount{
@@ -145,15 +145,15 @@
   justify-content:center;
   min-height:46px;
   padding:12px 22px;
-  border:none !important;
+  border:none;
   border-radius:999px;
-  background:var(--rewardly-black) !important;
-  color:#fff !important;
+  background:var(--rewardly-black);
+  color:#fff;
   font-weight:800;
   line-height:1.2;
   text-align:center;
-  text-decoration:none !important;
-  box-shadow:none !important;
+  text-decoration:none;
+  box-shadow:none;
   cursor:pointer;
   transition:background-color .2s ease,color .2s ease,transform .2s ease;
 }
@@ -162,15 +162,15 @@
 .button.rewardly-loyalty-btn:hover,
 .rewardly-loyalty-btn--primary:hover,
 .button.rewardly-loyalty-btn--primary:hover{
-  background:var(--rewardly-accent) !important;
-  color:#fff !important;
+  background:var(--rewardly-accent);
+  color:#fff;
   transform:translateY(-1px);
 }
 
 .rewardly-loyalty-btn:focus,
 .button.rewardly-loyalty-btn:focus{
   outline:none;
-  box-shadow:0 0 0 3px rgba(18,184,166,.16) !important;
+  box-shadow:0 0 0 3px rgba(18,184,166,.16);
 }
 
 /* =========================================================
@@ -323,7 +323,7 @@
 
 .rewardly-log-type--earn{
   background:rgba(34,197,94,.10);
-  color:var(--rewardly-success) !important;
+  color:var(--rewardly-success);
 }
 
 .rewardly-log-type--spend,
@@ -331,13 +331,13 @@
 .rewardly-log-type--expire,
 .rewardly-log-type--adjust_remove{
   background:rgba(220,38,38,.10);
-  color:var(--rewardly-danger) !important;
+  color:var(--rewardly-danger);
 }
 
 .rewardly-log-type--adjust,
 .rewardly-log-type--adjust_add{
   background:rgba(255,123,25,.12);
-  color:var(--rewardly-accent) !important;
+  color:var(--rewardly-accent);
 }
 
 .rewardly-log-label{
@@ -351,23 +351,23 @@
 
 .rewardly-log-amount,
 .rewardly-log-amount *{
-  color:inherit !important;
+  color:inherit;
 }
 
 .rewardly-log-amount--earn{
-  color:var(--rewardly-success) !important;
+  color:var(--rewardly-success);
 }
 
 .rewardly-log-amount--spend,
 .rewardly-log-amount--revoke,
 .rewardly-log-amount--expire,
 .rewardly-log-amount--adjust_remove{
-  color:var(--rewardly-danger) !important;
+  color:var(--rewardly-danger);
 }
 
 .rewardly-log-amount--adjust,
 .rewardly-log-amount--adjust_add{
-  color:var(--rewardly-accent) !important;
+  color:var(--rewardly-accent);
 }
 
 /* =========================================================
@@ -375,9 +375,9 @@
    ========================================================= */
 .rewardly-loyalty-account .shop_table{
   width:100%;
-  border:none !important;
-  background:transparent !important;
-  box-shadow:none !important;
+  border:none;
+  background:transparent;
+  box-shadow:none;
   border-collapse:separate;
   border-spacing:0;
 }
@@ -422,18 +422,18 @@
     width:auto;
     min-width:0;
     padding:0;
-    border:none !important;
+    border:none;
     line-height:1.5;
     text-align:left;
-    white-space:normal !important;
+    white-space:normal;
     word-break:break-word;
     overflow-wrap:anywhere;
     color:var(--rewardly-black);
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td::before{
-    content:none !important;
-    display:none !important;
+    content:none;
+    display:none;
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td:nth-child(2){
@@ -442,11 +442,11 @@
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td:nth-child(4) .rewardly-log-label{
-    display:none !important;
+    display:none;
   }
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row td:nth-child(4) .rewardly-log-amount{
-    display:inline !important;
+    display:inline;
   }
 }
 
@@ -489,22 +489,22 @@
   .rewardly-cart-points-notice,
   .rewardly-checkout-guest-notice,
   .rewardly-product-points-notice{
-    gap:7px !important;
-    padding:9px 10px !important;
-    margin:10px 0 12px !important;
+    gap:7px;
+    padding:9px 10px;
+    margin:10px 0 12px;
   }
 
   .rewardly-cart-points-notice__icon,
   .rewardly-checkout-guest-notice__icon,
   .rewardly-product-points-notice__icon{
-    font-size:14px !important;
+    font-size:14px;
   }
 
   .rewardly-cart-points-notice__text,
   .rewardly-checkout-guest-notice__text,
   .rewardly-product-points-notice__text{
-    font-size:13px !important;
-    line-height:1.45 !important;
+    font-size:13px;
+    line-height:1.45;
   }
 
   .rewardly-loyalty-box__row{
@@ -592,10 +592,10 @@
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td{
     padding:5px 0;
-    border:none !important;
+    border:none;
     line-height:1.5;
     text-align:left;
-    white-space:normal !important;
+    white-space:normal;
     word-break:break-word;
     overflow-wrap:anywhere;
     color:var(--rewardly-black);
@@ -626,20 +626,20 @@
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(4){
-    display:flex !important;
+    display:flex;
     align-items:baseline;
     justify-content:space-between;
     gap:0;
-    text-align:left !important;
+    text-align:left;
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(4) .rewardly-log-label{
-    display:inline-block !important;
+    display:inline-block;
     flex:0 0 auto;
   }
 
   .rewardly-loyalty-account .shop_table tbody tr.rewardly-log-row td:nth-child(4) .rewardly-log-amount{
-    display:inline-block !important;
+    display:inline-block;
     flex:0 0 auto;
     margin-left:auto;
     text-align:right;
@@ -881,7 +881,7 @@
 .rewardly-block-slot .rewardly-cart-points-notice,
 .rewardly-block-slot .rewardly-block-checkout-slot,
 .rewardly-block-slot .rewardly-loyalty-box,
-.rewardly-block-slot .rewardly-checkout-guest-notice{margin:0!important;width:100%;max-width:100%}
+.rewardly-block-slot .rewardly-checkout-guest-notice{margin:0;width:100%;max-width:100%}
 .wc-block-cart__sidebar .rewardly-block-slot,
 .wc-block-checkout__sidebar .rewardly-block-slot,
 .wc-block-components-sidebar-layout__sidebar .rewardly-block-slot{box-sizing:border-box}
@@ -900,3 +900,24 @@
   box-sizing:border-box;
   margin:0 0 18px 0;
 }
+
+/* Harmonisation des cartes, contraintes mobiles et navigation au clavier. */
+:where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.6;color:var(--rewardly-primary,#243b53)}
+:where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box) *{box-sizing:border-box;min-width:0}
+.rewardly-loyalty-box,.rewardly-loyalty-card,.rewardly-shortcode-account,.rewardly-shortcode-history{padding:var(--rewardly-padding,20px);background:var(--rewardly-card-bg,#fff);border:1px solid var(--rewardly-border,#cbd5e1);border-radius:var(--rewardly-radius,12px);box-shadow:0 4px 20px rgb(15 23 42 / 4%)}
+.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice{background:var(--rewardly-card-bg,var(--rewardly-soft));border-radius:var(--rewardly-radius,12px)}
+.rewardly-loyalty-box h3,.rewardly-loyalty-account h3{font-size:1.25rem;margin:0 0 .75em;line-height:1.3;color:inherit}
+.rewardly-loyalty-box p{margin:.5em 0 1em}
+.rewardly-loyalty-box input.rewardly-loyalty-box__input,.nodevora-redeem-form input{box-sizing:border-box;width:100%;max-width:100%;min-width:0;padding:10px 12px;min-height:44px;border:1px solid var(--rewardly-border,#64748b);border-radius:8px;font:inherit;background:#fff;color:#172b4d}
+.rewardly-loyalty-box__actions,.rewardly-loyalty-box__form,.rewardly-loyalty-box__buttons,.nodevora-redeem-form{max-width:100%;min-width:0}
+.rewardly-loyalty-btn,.button.rewardly-loyalty-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:44px;max-width:100%;padding:10px 18px;border:1px solid var(--rewardly-button-bg,var(--rewardly-primary));border-radius:var(--rewardly-button-radius,8px);background:var(--rewardly-button-bg,var(--rewardly-primary,#243b53));color:var(--rewardly-button-color,#fff);font:inherit;font-weight:600;line-height:1.4;text-align:center;text-decoration:none;white-space:normal;cursor:pointer}
+.rewardly-loyalty-btn:hover,.button.rewardly-loyalty-btn:hover{background:var(--rewardly-button-hover-bg,#243b53);color:var(--rewardly-button-hover-color,#fff)}
+.rewardly-loyalty-btn:disabled{opacity:.65;cursor:wait}
+:where(.rewardly-loyalty-box,.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history) :is(a,button,input,summary):focus-visible{outline:3px solid var(--rewardly-primary,#243b53);outline-offset:3px}
+.nodevora-redeem-form{display:grid;gap:10px}.nodevora-redeem-form p{margin:0;font-size:.875em}.nodevora-redeem-form label{font-weight:600}.nodevora-applied{margin-top:16px}
+.rewardly-loyalty-box [role="alert"]{color:#991b1b;font-weight:600}.rewardly-product-points-notice[hidden]{display:none}
+@media(max-width:767px){.rewardly-loyalty-box__input,.rewardly-loyalty-box__form,.nodevora-block-card{width:100%;max-width:100%}.rewardly-loyalty-box__buttons{display:grid;grid-template-columns:minmax(0,1fr)}.rewardly-loyalty-account table{table-layout:fixed}.nodevora-block-card{padding:16px}}
+@media(prefers-reduced-motion:reduce){.rewardly-loyalty-btn{transition:none}}
+/* Le conteneur WooCommerce ne doit pas annuler l'espacement de la carte. */
+.wc-block-components-totals-wrapper .nodevora-block-card{padding:var(--rewardly-padding,20px);margin:16px 0}
+:where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){box-sizing:border-box}
