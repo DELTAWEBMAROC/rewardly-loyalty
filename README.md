@@ -1,71 +1,31 @@
 # Nodevora Customer Rewards for WooCommerce
 
-Nodevora Customer Rewards is a free WooCommerce loyalty points plugin that helps store owners reward customers with points, redeem discounts, and a cleaner loyalty experience across cart, checkout, and My Account.
+Development branch for the existing free WordPress.org plugin. Public metadata stays at 4.8.5; this branch is not a published release and does not authorize production cutover.
 
-## What the plugin includes
+The transactional InnoDB wallet and immutable journal preserve financial identities, lot provenance and reconciliation evidence. Unconfigured installs retain read-only historical data and refuse loyalty mutations/discounts. Verified integration currently supports isolated single-site local BACS, COD and zero-total flows. Unsupported gateways, uncertain historic accounts and partial-refund policy remain restricted. Ordinary cash checkout remains available.
 
-- Earn points based on customer purchases
-- Redeem points for discounts
-- Manual points adjustments from the admin area
-- Points history in My Account
-- Points expiration support
-- Loyalty card and notice display options
-- Shortcodes for manual placement
-- WooCommerce classic and blocks support
-- Design options for the loyalty box
+See [installation and readiness](docs/installation-and-financial-readiness.md) before activation, update or migration. A normal activation does not perform a production financial migration. The historical Rewardly folder requires the documented single-active-package staging procedure.
 
-## Main admin sections
+## Administration
 
-- General
-- Points Adjustments
-- Shortcodes
-- Pro Features
-- Help
+General holds earning/redemption rules; Design holds scoped appearance settings; Points Adjustments requires `manage_woocommerce` and an audited operation identity. Shortcodes, Advanced Features and Help retain their existing navigation identities. Birthday/referral settings remain stored for compatibility but have no supported workflow and no misleading active controls.
 
-## Shortcodes
+Design supports primary/accent, button and hover foreground/background, card background/border, corner radius, spacing and three existing presets. Empty optional color overrides follow the preset. Theme CSS can override the scoped styles. No custom CSS injection or new frontend framework is used. Blocks use Store API extension data and the documented experimental OrderMeta SlotFill; that interface requires compatibility verification for each supported WooCommerce release.
 
-- `[rewardly_loyalty_card]`
-- `[rewardly_loyalty_card context="cart"]`
-- `[rewardly_loyalty_card context="checkout"]`
-- `[rewardly_loyalty_notice]`
-- `[rewardly_loyalty_notice context="cart"]`
-- `[rewardly_loyalty_notice context="checkout"]`
+## Supported shortcodes
 
-## Installation
+`[rewardly_points_balance]`, `[rewardly_points_value]`, `[rewardly_points_history limit="10"]`, `[rewardly_account_block]`, `[rewardly_loyalty_card]`, `[rewardly_loyalty_notice]`.
 
-1. Upload the `nodevora-customer-rewards-for-woocommerce` folder to `/wp-content/plugins/`.
-2. Activate the plugin from the WordPress admin area.
-3. Go to **Nodevora Customer Rewards** and configure your loyalty settings.
-4. Test earn points, redeem points, and your preferred display mode.
+Card and notice accept `context="cart"` or `context="checkout"`. Existing account endpoint `rewardly-points` and persistent option/meta names are retained.
 
-## Recommended screenshots for the repository
+## Languages and verification
 
-Use these screenshots in your repository or plugin page:
+English source strings and a complete extracted French catalog are under `languages/`, including PO/MO and JavaScript JSON. Generate the POT using WP-CLI `i18n make-pot`, excluding development directories; compile with `msgfmt --check --check-format`, and generate JS catalogs using `wp i18n make-json --no-purge`. Merchant-authored text remains the merchant's content; the default campaign message is translated.
 
-1. General settings screen
-2. Loyalty box on cart or checkout
-3. Customer points history in My Account
+Financial regression tooling and operational gates: [tests/financial/README.md](tests/financial/README.md). Mission05 targeted regressions: `tests/remediation/`. Tests run only on the named isolated LocalWP site, never on production. PHP7.4 static compatibility does not replace unavailable minimum-runtime integration tests.
 
-## Repository assets
+## Distribution and artwork
 
-This package includes a dedicated folder for repository and marketplace images:
+Runtime consists of the official main PHP file, `includes/`, `assets/`, `languages/`, `uninstall.php`, `readme.txt` and licensing files. `.distignore` excludes tests, developer documentation, tooling and repository-only metadata. Do not ship temporary fixtures, credentials, debug adapters or macOS files. WordPress.org marketing artwork belongs in the SVN repository's separate assets area; do not assume a `wordpress-org-assets/` directory or image files exist in this development checkout. SVN remains read-only during development missions.
 
-`wordpress-org-assets/`
-
-Expected image filenames:
-
-- `icon-128x128.png`
-- `icon-256x256.png`
-- `banner-772x250.png`
-- `banner-1544x500.png`
-- `screenshot-1.png`
-- `screenshot-2.png`
-- `screenshot-3.png`
-
-## Version
-
-Current version: **4.8.5**
-
-## Notes
-
-This release is prepared as a fully free version.
+Uninstall retains customer and financial evidence. Optional single-site cleanup removes preferences only; network cleanup is refused.

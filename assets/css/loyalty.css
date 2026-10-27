@@ -875,32 +875,6 @@
   background:#fffaf4;
 }
 
-/* (FR) Intégration des messages fidélité dans les blocs WooCommerce */
-.rewardly-block-slot{margin:0 0 16px 0;width:100%}
-.rewardly-block-slot--cart,.rewardly-block-slot--checkout{display:block;max-width:100%}
-.rewardly-block-slot .rewardly-cart-points-notice,
-.rewardly-block-slot .rewardly-block-checkout-slot,
-.rewardly-block-slot .rewardly-loyalty-box,
-.rewardly-block-slot .rewardly-checkout-guest-notice{margin:0;width:100%;max-width:100%}
-.wc-block-cart__sidebar .rewardly-block-slot,
-.wc-block-checkout__sidebar .rewardly-block-slot,
-.wc-block-components-sidebar-layout__sidebar .rewardly-block-slot{box-sizing:border-box}
-
-.wc-block-components-main .rewardly-block-slot--checkout,
-.wp-block-woocommerce-checkout .rewardly-block-slot--checkout,
-.wc-block-checkout .rewardly-block-slot--checkout{margin:0 0 18px 0;box-sizing:border-box}
-
-
-/* (FR) Compatibilité Woo Blocks : carte largeur complète au-dessus du layout */
-.wp-block-woocommerce-cart > .rewardly-block-slot--cart,
-.wp-block-woocommerce-checkout > .rewardly-block-slot--checkout,
-.wc-block-cart > .rewardly-block-slot--cart,
-.wc-block-checkout > .rewardly-block-slot--checkout{
-  width:100%;
-  box-sizing:border-box;
-  margin:0 0 18px 0;
-}
-
 /* Harmonisation des cartes, contraintes mobiles et navigation au clavier. */
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.6;color:var(--rewardly-primary,#243b53)}
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box) *{box-sizing:border-box;min-width:0}
@@ -921,3 +895,6 @@
 /* Le conteneur WooCommerce ne doit pas annuler l'espacement de la carte. */
 .wc-block-components-totals-wrapper .nodevora-block-card{padding:var(--rewardly-padding,20px);margin:16px 0}
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){box-sizing:border-box}
+
+/* Adapter le tableau voisin uniquement lorsque notre carte est présente sur un écran étroit. */
+@media(max-width:359px){.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-items{table-layout:fixed;width:100%;min-width:0}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__image{width:18%;padding-right:8px}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__product{width:57%;overflow-wrap:anywhere}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__total{width:25%;overflow-wrap:anywhere}}

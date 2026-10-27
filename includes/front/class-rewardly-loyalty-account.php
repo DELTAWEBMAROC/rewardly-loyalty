@@ -183,7 +183,7 @@ class Rewardly_Loyalty_Account {
 		if ( $item_count > 1 ) {
 			$summary = sprintf(
 				/* translators: 1: first product name, 2: number of items */
-				__( '%1$s and %2$d more item(s)', 'nodevora-customer-rewards-for-woocommerce' ),
+				_n( '%1$s and %2$d more item', '%1$s and %2$d more items', $item_count - 1, 'nodevora-customer-rewards-for-woocommerce' ),
 				$name,
 				$item_count - 1
 			);
@@ -210,7 +210,7 @@ class Rewardly_Loyalty_Account {
 	private static function get_pending_points_notice_text( $notice_data ) {
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
 		$template = (string) ( $settings['pro_pending_points_notice_text'] ?? '' );
-		if ( '' === $template ) {
+		if ( '' === $template || Rewardly_Loyalty_Helpers::get_default_settings()['pro_pending_points_notice_text'] === $template ) {
 			$template = __( 'You will earn {points} point(s) from your order for {product_name} once {order_link} is completed.', 'nodevora-customer-rewards-for-woocommerce' );
 		}
 
@@ -318,7 +318,7 @@ class Rewardly_Loyalty_Account {
 					</div>
 					<?php if ( ! empty( $level_data['next_level'] ) ) : ?>
 						<p style="margin-top:10px;"><?php /* translators: 1: remaining points, 2: next level label. */
-						echo esc_html( sprintf( __( 'You need %1$d more point(s) to reach %2$s.', 'nodevora-customer-rewards-for-woocommerce' ), (int) $level_data['remaining'], $level_data['next_level']['label'] ) ); ?></p>
+						echo esc_html( sprintf( _n( 'You need %1$d more point to reach %2$s.', 'You need %1$d more points to reach %2$s.', (int) $level_data['remaining'], 'nodevora-customer-rewards-for-woocommerce' ), (int) $level_data['remaining'], $level_data['next_level']['label'] ) ); ?></p>
 					<?php else : ?>
 						<p style="margin-top:10px;"><?php esc_html_e( 'You already reached the highest available level.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
 					<?php endif; ?>
@@ -373,7 +373,7 @@ class Rewardly_Loyalty_Account {
 								<td data-label="<?php echo esc_attr__( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><?php echo esc_html( $points_prefix . abs( (int) $log->points ) ); ?></td>
 								<td data-label="<?php echo esc_attr__( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?>"><span class="rewardly-log-label"><?php esc_html_e( 'Amount:', 'nodevora-customer-rewards-for-woocommerce' ); ?> </span><span class="<?php echo esc_attr( $amount_class ); ?>"><?php echo esc_html( $amount_prefix ) . ' ' . wp_kses_post( wc_price( abs( (float) $log->amount_dh ) ) ); ?></span></td>
 								<td data-label="<?php echo esc_attr__( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?>">
-									<div><?php echo esc_html( $log->note ); ?></div>
+									<div><?php echo esc_html( Rewardly_Loyalty_Helpers::log_note( $log ) ); ?></div>
 									<?php if ( ! empty( $order_link_data ) ) : ?>
 										<div style="margin-top:6px;"><a href="<?php echo esc_url( $order_link_data['url'] ); ?>"><?php echo esc_html( $order_link_data['label'] ); ?></a></div>
 									<?php endif; ?>

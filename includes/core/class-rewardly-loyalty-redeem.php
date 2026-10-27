@@ -475,12 +475,19 @@ class Rewardly_Loyalty_Redeem {
 	 *
 	 * @return void
 	 */
+	private static function render_remove_selection() {
+		if ( 'yes' !== WC()->session->get( 'rewardly_use_points' ) ) { return; }
+		echo '<form method="post" class="rewardly-loyalty-box" action="' . esc_url( self::get_current_page_url() ) . '">';
+		wp_nonce_field( 'rewardly_loyalty_remove', '_rewardly_nonce' );
+		echo '<button type="submit" class="rewardly-loyalty-btn" name="rewardly_loyalty_action" value="remove">' . esc_html__( 'Remove My Points', 'nodevora-customer-rewards-for-woocommerce' ) . '</button></form>';
+	}
+
 	private static function render_loyalty_box() {
 		if ( ! is_user_logged_in() || ! Rewardly_Loyalty_Helpers::is_enabled() || ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
 			return;
 		}
 
-		try { Nodevora_Financial_Checkout::require_enabled(); } catch ( Nodevora_Financial_Error $error ) { echo '<div class="rewardly-loyalty-box" role="status">' . esc_html__( 'Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup.', 'nodevora-customer-rewards-for-woocommerce' ) . '</div>'; return; }
+		try { Nodevora_Financial_Checkout::require_enabled(); } catch ( Nodevora_Financial_Error $error ) { echo '<div class="rewardly-loyalty-box" role="status">' . esc_html__( 'Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup.', 'nodevora-customer-rewards-for-woocommerce' ) . '</div>'; self::render_remove_selection(); return; }
 
 		$user_id             = get_current_user_id();
 		$points              = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
@@ -667,6 +674,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function apply_discount( $cart ) {
+		if ( ! Rewardly_Loyalty_Helpers::is_enabled() ) { self::clear_usage_session(); return; }
 		if(!Nodevora_Financial_Compatibility::selected()){
 			if(function_exists('WC')&&WC()->session){WC()->session->set('rewardly_applied_points',0);WC()->session->set('rewardly_loyalty_discount_amount',0);if('yes'===WC()->session->get('rewardly_use_points')){WC()->session->set('nodevora_financial_quote_error','yes');wc_add_notice(__('Loyalty spending is unavailable until the store completes setup. Remove the points selection before payment.','nodevora-customer-rewards-for-woocommerce'),'error');}}
 			return;

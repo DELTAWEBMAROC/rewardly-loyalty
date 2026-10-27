@@ -57,7 +57,7 @@ class Rewardly_Loyalty_Shortcodes {
 							— <?php echo esc_html( self::get_history_type_label( $log->type ) ); ?>
 							— <?php echo esc_html( Rewardly_Loyalty_Helpers::log_sign( $log ) . abs( (int) $log->points ) ); ?> <?php esc_html_e( 'points', 'nodevora-customer-rewards-for-woocommerce' ); ?>
 							<?php if ( ! empty( $log->note ) ) : ?>
-								<br><span><?php echo esc_html( $log->note ); ?></span>
+								<br><span><?php echo esc_html( Rewardly_Loyalty_Helpers::log_note( $log ) ); ?></span>
 							<?php endif; ?>
 						</li>
 					<?php endforeach; ?>

@@ -213,6 +213,7 @@ function rewardly_loyalty_init() {
 	Rewardly_Loyalty_Admin_Adjustments::init();
 }
 add_action( 'plugins_loaded', 'rewardly_loyalty_init' );
+add_action( 'init', static function() { load_plugin_textdomain( 'nodevora-customer-rewards-for-woocommerce', false, dirname( REWARDLY_LOYALTY_BASENAME ) . '/languages' ); } );
 
 function rewardly_loyalty_enqueue_assets() {
 	if ( ! rewardly_loyalty_should_enqueue_front_assets() ) {

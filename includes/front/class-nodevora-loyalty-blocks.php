@@ -16,17 +16,18 @@ class Nodevora_Loyalty_Blocks {
 	}
 	public static function schema() {
 		$schema = array();
-		foreach ( array( 'enabled', 'logged_in', 'ready', 'balance_known' ) as $key ) { $schema[$key] = array( 'type' => 'boolean', 'readonly' => true ); }
+		foreach ( array( 'enabled', 'logged_in', 'ready', 'balance_known', 'selected' ) as $key ) { $schema[$key] = array( 'type' => 'boolean', 'readonly' => true ); }
 		foreach ( array( 'balance', 'potential', 'maximum', 'applied' ) as $key ) { $schema[$key] = array( 'type' => 'integer', 'readonly' => true ); }
 		foreach ( array( 'message', 'display', 'discount', 'login_url' ) as $key ) { $schema[$key] = array( 'type' => 'string', 'readonly' => true ); }
 		return $schema;
 	}
 	public static function data() {
 		$s = Rewardly_Loyalty_Helpers::get_settings();
-		$data = array( 'enabled' => Rewardly_Loyalty_Helpers::is_enabled(), 'logged_in' => is_user_logged_in(), 'ready' => false, 'balance_known' => false, 'balance' => 0, 'potential' => 0, 'maximum' => 0, 'applied' => 0, 'message' => '', 'display' => $s['notice_display_mode'], 'discount' => '', 'login_url' => wc_get_page_permalink( 'myaccount' ) );
+		$data = array( 'enabled' => Rewardly_Loyalty_Helpers::is_enabled(), 'logged_in' => is_user_logged_in(), 'ready' => false, 'selected' => false, 'balance_known' => false, 'balance' => 0, 'potential' => 0, 'maximum' => 0, 'applied' => 0, 'message' => '', 'display' => $s['notice_display_mode'], 'discount' => '', 'login_url' => wc_get_page_permalink( 'myaccount' ) );
 		if ( ! $data['enabled'] || ! WC()->cart || WC()->cart->is_empty() ) { $data['enabled'] = false; return $data; }
 		$data['potential'] = Rewardly_Loyalty_Helpers::calculate_cart_earned_points( WC()->cart );
 		if ( ! $data['logged_in'] ) { return $data; }
+		$data['selected'] = WC()->session && 'yes' === WC()->session->get( 'rewardly_use_points' );
 		try {
 			$data['balance'] = Nodevora_Financial_Compatibility::selected() ? Nodevora_Financial_Compatibility::balance( get_current_user_id() ) : Rewardly_Loyalty_Helpers::get_user_points( get_current_user_id() );
 			$data['balance_known'] = true;

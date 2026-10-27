@@ -1,1 +1,1308 @@
-# Placeholder POT file
+# Copyright (C) 2026 Ahmed Ghanem
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-27T23:17:27+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: nodevora-customer-rewards-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+#: nodevora-customer-rewards-for-woocommerce.php
+#: includes/admin/class-rewardly-loyalty-admin.php:10
+#: includes/admin/class-rewardly-loyalty-admin.php:139
+msgid "Nodevora Customer Rewards for WooCommerce"
+msgstr ""
+
+#. Description of the plugin
+#: nodevora-customer-rewards-for-woocommerce.php
+msgid "WooCommerce loyalty points with discounts, expiration, customer history, emails, shortcodes, and Cart & Checkout Blocks support."
+msgstr ""
+
+#. Author of the plugin
+#: nodevora-customer-rewards-for-woocommerce.php
+msgid "Ahmed Ghanem"
+msgstr ""
+
+#. Author URI of the plugin
+#: nodevora-customer-rewards-for-woocommerce.php
+msgid "https://profiles.wordpress.org/ahmedxy/"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "Manual points adjustments"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "User ID, email or username"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "Search"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "User:"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+#: includes/core/class-rewardly-loyalty-emails.php:61
+msgid "Current balance:"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+#: includes/core/class-rewardly-loyalty-emails.php:61
+#: includes/core/class-rewardly-loyalty-redeem.php:517
+#: includes/core/class-rewardly-loyalty-redeem.php:523
+#: includes/core/class-rewardly-loyalty-redeem.php:539
+#: includes/core/class-rewardly-loyalty-redeem.php:571
+#: includes/core/class-rewardly-loyalty-redeem.php:622
+#: includes/core/class-rewardly-loyalty-redeem.php:625
+#: includes/front/class-rewardly-loyalty-account.php:293
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:34
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:58
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
+msgid "points"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "Action"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "Add points"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+#: assets/js/loyalty-blocks.js:39
+msgid "Remove points"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+#: includes/front/class-rewardly-loyalty-account.php:343
+#: includes/front/class-rewardly-loyalty-account.php:353
+#: includes/front/class-rewardly-loyalty-account.php:373
+msgid "Points"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+#: includes/front/class-rewardly-loyalty-account.php:345
+#: includes/front/class-rewardly-loyalty-account.php:355
+#: includes/front/class-rewardly-loyalty-account.php:375
+msgid "Note"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "Save adjustment"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
+msgid "No user found."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:27
+msgid "Sorry, you are not allowed to manage loyalty points."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:37
+msgid "Enter a valid customer and a positive whole number of points."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:43
+msgid "Missing adjustment identity. Reload the form."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:46
+msgid "Adjustment was not authorized. Check account readiness and retry with the same form."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin-adjustments.php:49
+msgid "Points are preserved. Complete financial setup before adjusting balances."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:10
+msgid "Nodevora Rewards"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:32
+msgid "Remove"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:33
+#: includes/admin/class-rewardly-loyalty-admin.php:291
+msgid "Start typing a product name…"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:34
+#: includes/admin/class-rewardly-loyalty-admin.php:274
+#: includes/admin/class-rewardly-loyalty-admin.php:307
+msgid "Start typing a category name…"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:41
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:42
+msgid "Design"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:43
+msgid "Points Adjustments"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:44
+#: includes/admin/class-rewardly-loyalty-admin.php:202
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:45
+msgid "Advanced Features"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:46
+msgid "Help"
+msgstr ""
+
+#. translators: 1: product title, 2: product ID.
+#. translators: 1: category name, 2: category ID.
+#: includes/admin/class-rewardly-loyalty-admin.php:77
+#: includes/admin/class-rewardly-loyalty-admin.php:92
+#, php-format
+msgid "%1$s (#%2$d)"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:112
+msgid "Card in cart. Informational notice in checkout."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:114
+msgid "Card in checkout. Informational notice in cart."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:116
+msgid "Automatic card and notice are disabled. Use the provided shortcodes only."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:118
+msgid "Card is shown automatically in cart and checkout. Auto notice stays hidden."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:125
+msgid "Minimal template with a cleaner neutral look."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:127
+msgid "Soft template with a gentler card feel."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:129
+msgid "Default template with the Nodevora navy and teal visual identity."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:135
+msgid "You are not allowed to manage rewards."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:140
+msgid "Configure the loyalty program, adjust customer balances, place shortcodes and manage all loyalty tools from a single place."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:175
+msgid "Design settings"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:176
+msgid "These settings apply only to Nodevora reward interface elements and keep the plugin compatible with most WooCommerce themes."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:176
+#: includes/admin/class-rewardly-loyalty-admin.php:421
+msgid "Selected template"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:178
+msgid "Enable Nodevora front styles"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:178
+#: includes/admin/class-rewardly-loyalty-admin.php:266
+#: includes/admin/class-rewardly-loyalty-admin.php:348
+#: includes/admin/class-rewardly-loyalty-admin.php:370
+#: includes/admin/class-rewardly-loyalty-admin.php:418
+#: includes/admin/class-rewardly-loyalty-admin.php:420
+#: includes/admin/class-rewardly-loyalty-admin.php:425
+#: includes/admin/class-rewardly-loyalty-settings.php:83
+#: includes/admin/class-rewardly-loyalty-settings.php:105
+#: includes/admin/class-rewardly-loyalty-settings.php:107
+#: includes/core/class-rewardly-loyalty-points.php:111
+#: includes/core/class-rewardly-loyalty-points.php:112
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:178
+#: includes/admin/class-rewardly-loyalty-admin.php:266
+#: includes/admin/class-rewardly-loyalty-admin.php:348
+#: includes/admin/class-rewardly-loyalty-admin.php:370
+#: includes/admin/class-rewardly-loyalty-admin.php:418
+#: includes/admin/class-rewardly-loyalty-admin.php:420
+#: includes/admin/class-rewardly-loyalty-admin.php:425
+#: includes/admin/class-rewardly-loyalty-settings.php:83
+#: includes/admin/class-rewardly-loyalty-settings.php:105
+#: includes/admin/class-rewardly-loyalty-settings.php:107
+#: includes/core/class-rewardly-loyalty-points.php:111
+#: includes/core/class-rewardly-loyalty-points.php:112
+msgid "No"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:179
+msgid "Free template"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:179
+#: includes/admin/class-rewardly-loyalty-admin.php:183
+#: includes/admin/class-rewardly-loyalty-admin.php:186
+msgid "Default"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:179
+#: includes/admin/class-rewardly-loyalty-admin.php:183
+msgid "Minimal"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:179
+#: includes/admin/class-rewardly-loyalty-admin.php:185
+msgid "Soft"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:179
+msgid "Choose one of the three free visual presets."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:180
+msgid "Primary color"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:181
+msgid "Accent color"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:182
+msgid "Border radius"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:183
+msgid "Icon style"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:183
+msgid "Circle"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:184
+msgid "Button style"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:184
+msgid "Rounded"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:184
+msgid "Solid"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:184
+#: includes/admin/class-rewardly-loyalty-admin.php:185
+msgid "Outline"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:185
+msgid "Card style"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:185
+msgid "Filled"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:186
+msgid "Typography preset"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:186
+#: includes/admin/class-rewardly-loyalty-admin.php:190
+msgid "Compact"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:186
+msgid "Modern"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Button background"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Button text"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Button hover background"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Button hover text"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Card background"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:187
+msgid "Card border"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:188
+msgid "Optional hex color. Leave empty to follow the preset. Check text contrast after changing colors."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:190
+msgid "Spacing"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:190
+msgid "Comfortable"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:203
+msgid "Use these shortcodes to display Nodevora rewards data in any page, block or builder section."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:205
+msgid "Display the current customer points balance."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:206
+msgid "Display the current customer monetary points value."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:207
+msgid "Display recent loyalty history."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:208
+msgid "Display a loyalty summary block."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:209
+msgid "Display the informational loyalty notice anywhere. Supports context=\"cart\" or context=\"checkout\"."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:210
+msgid "Display the full loyalty redeem card anywhere. Supports context=\"cart\" or context=\"checkout\"."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:214
+msgid "Current display mode"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:217
+msgid "Quick reminder"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:217
+msgid "When the mode is set to Shortcode only, place both the loyalty card and the informational notice with shortcodes where you want them to appear."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:219
+msgid "Recommended snippets"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:238
+msgid "All advanced features are available in this free release."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:261
+msgid "Advanced Rules"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:262
+msgid "Build category rules and exclusions with search-assisted selectors. Product-level overrides are available directly inside the Product data panel."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:265
+msgid "Exclude sale products from earning"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:269
+msgid "Category earning rules"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:281
+msgid "Add category rule"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:282
+msgid "Each rule defines how many points are earned for each 1 unit of store currency spent in products from that category."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:286
+#: includes/admin/class-rewardly-loyalty-admin.php:423
+msgid "Excluded products"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:297
+msgid "Add excluded product"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:298
+msgid "You can also type raw product IDs manually inside the selector field if needed."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:302
+#: includes/admin/class-rewardly-loyalty-admin.php:424
+msgid "Excluded categories"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:313
+msgid "Add excluded category"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:328
+msgid "Extra Points Engine"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:329
+msgid "Set optional one-time bonuses for customer lifecycle events."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:331
+msgid "Registration bonus"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:331
+msgid "Awarded once when a new user account is created."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:332
+msgid "First order bonus"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:332
+msgid "Awarded once when the first eligible order is processed."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:333
+msgid "Approved product review bonus"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:333
+msgid "Awarded once per approved product review."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:345
+msgid "Campaigns"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:346
+msgid "Configure customer-facing messages that make loyalty earnings easier to understand."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:348
+msgid "Enable pending points notice"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:348
+msgid "Display a custom message in My Account when a customer has an eligible order that will earn points later."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:349
+msgid "Pending points notice text"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:349
+msgid "Available placeholders: {points}, {order_number}, {status}, {total}, {currency}, {product_name}, {product_link}, {order_link}, {order_summary}."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:350
+msgid "Statuses considered pending"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:351
+msgid "Pending"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:352
+msgid "On hold"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:353
+#: includes/admin/class-rewardly-loyalty-settings.php:103
+msgid "Processing"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:354
+msgid "Only the latest eligible order in one of these statuses will be used for the pending message."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:357
+msgid "Order-linked references in My Account history are enabled automatically when a history entry is tied to an order owned by the current customer."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:367
+msgid "Levels & Badges"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:368
+msgid "Define milestone thresholds based on the total earned points of each customer."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:370
+msgid "Enable levels system"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:373
+msgid "Bronze threshold"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:374
+msgid "Silver threshold"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:375
+msgid "Gold threshold"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:377
+msgid "Levels are displayed in My Account with a badge and a progress bar."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:387
+msgid "Help and quick notes"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:389
+msgid "Use the general tab for the core loyalty conversion settings."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:390
+msgid "Use General for loyalty rules and Design for appearance."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:391
+msgid "Use Advanced Features to manage advanced rules, bonuses, campaigns and levels."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:392
+msgid "Shortcodes can be inserted in builders, custom pages and account dashboards."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:394
+msgid "Display mode"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:397
+msgid "Launch checklist"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:399
+msgid "Confirm the earning and redeem conversion values in the main settings tab."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:400
+msgid "Choose where the loyalty card should appear automatically."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:401
+msgid "Select a free template and verify the store front result on desktop and mobile."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:402
+msgid "Review the advanced features tab and enable the options you need for your store."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:403
+msgid "Verify an isolated test order and refund or cancellation before release. Never use a real payment for testing."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:415
+msgid "Debug information"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:417
+msgid "Plugin version"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:418
+msgid "WooCommerce active"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:419
+msgid "Store currency"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:420
+msgid "Program enabled"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:422
+msgid "Category rules"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:425
+msgid "Levels enabled"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:426
+msgid "Display mode summary"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-admin.php:426
+msgid "Available shortcodes"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:83
+msgid "Enable program"
+msgstr ""
+
+#. translators: %s: store currency code.
+#: includes/admin/class-rewardly-loyalty-settings.php:86
+#, php-format
+msgid "1 %s = X point(s)"
+msgstr ""
+
+#. translators: %s: store currency code.
+#: includes/admin/class-rewardly-loyalty-settings.php:89
+#, php-format
+msgid "Define how many points are earned for each 1 %s spent."
+msgstr ""
+
+#. translators: %s: store currency code.
+#: includes/admin/class-rewardly-loyalty-settings.php:93
+#, php-format
+msgid "X point(s) = 1 %s"
+msgstr ""
+
+#. translators: %s: store currency code.
+#: includes/admin/class-rewardly-loyalty-settings.php:96
+#, php-format
+msgid "Define how many points are required to unlock 1 %s of discount."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:98
+msgid "Minimum points to redeem"
+msgstr ""
+
+#. translators: %s: store currency code.
+#: includes/admin/class-rewardly-loyalty-settings.php:101
+#, php-format
+msgid "Maximum discount per order (%s)"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:102
+msgid "Set 0 for no limit."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:103
+msgid "Trigger order status"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:103
+msgid "Completed"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:104
+msgid "Points expiration (days)"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:104
+msgid "Set 0 to disable automatic expiration."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:105
+msgid "Email notifications"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Loyalty card display"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Cart and checkout"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Cart only"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Checkout only"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Shortcode only"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Choose where the loyalty card should appear automatically. The informational notice will be shown on the opposite page when only one card location is selected."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Use this shortcode:"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:106
+msgid "Informational notice shortcodes:"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:107
+msgid "Delete plugin data on uninstall"
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:107
+msgid "If enabled, plugin preferences are removed on uninstall. Customer balances, history and financial evidence are always preserved."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:33
+msgid "You earned loyalty points"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:34
+msgid "You used loyalty points"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:35
+msgid "Points were removed from your balance"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:36
+msgid "Your loyalty balance was adjusted"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:37
+msgid "Points were added to your balance"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:38
+msgid "Points were manually removed from your balance"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:39
+msgid "Your points were restored"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:40
+msgid "Some of your points expired"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:43
+msgid "Update on your loyalty points"
+msgstr ""
+
+#. translators: %s: customer display name.
+#: includes/core/class-rewardly-loyalty-emails.php:56
+#, php-format
+msgid "Hello %s,"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:59
+msgid "Points affected:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:60
+msgid "Estimated value:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-emails.php:62
+msgid "Thank you for your trust."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:366
+msgid "Review reward withdrawn after moderation."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:367
+msgid "Partial refund requires reconciliation; no proportional points adjustment was applied."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:530
+msgid "Bronze"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:535
+msgid "Silver"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:540
+msgid "Gold"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-helpers.php:547
+msgid "Starter"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:106
+msgid "Nodevora Customer Rewards"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:107
+msgid "Points earned:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:108
+msgid "Points redeemed:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:109
+msgid "Loyalty discount:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:110
+msgid "First order bonus:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:111
+msgid "Earned points removed:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-points.php:112
+msgid "Redeemed points restored:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-pro.php:63
+msgid "Not required"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-pro.php:76
+msgid "Nodevora points per currency unit"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-pro.php:77
+msgid "Override the global earn rate for this product only. Leave empty to use the global rule."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:147
+msgid "Loyalty points were removed from this order."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:208
+#: includes/front/class-nodevora-loyalty-blocks.php:50
+msgid "You cannot use your loyalty points yet."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:230
+msgid "Loyalty points were applied to your order."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:248
+#: includes/core/class-rewardly-loyalty-redeem.php:254
+msgid "Please enter a valid number of points."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:258
+msgid "You cannot use more points than your available balance."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:262
+msgid "The number of points entered exceeds the maximum allowed for this order."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:344
+msgid "Complete your order and earn up to"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:345
+msgid "loyalty points!"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:459
+msgid "your cart"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:459
+msgid "this order"
+msgstr ""
+
+#. translators: 1: potential loyalty points, 2: cart or order context label.
+#: includes/core/class-rewardly-loyalty-redeem.php:466
+#, php-format
+msgid "Log in to use loyalty points and earn up to %1$s points with %2$s."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:482
+#: includes/core/class-rewardly-loyalty-redeem.php:661
+msgid "Remove My Points"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:490
+#: includes/front/class-nodevora-loyalty-blocks.php:39
+msgid "Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:516
+#: includes/core/class-rewardly-loyalty-redeem.php:538
+#: includes/core/class-rewardly-loyalty-redeem.php:570
+msgid "This order can earn you"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:523
+msgid "You currently have"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:524
+msgid "You can start using your points once you reach"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:524
+msgid "total points."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:576
+msgid "Use My Points"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:622
+msgid "You have"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:623
+msgid "which equals"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:623
+msgid "available discount."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:625
+msgid "You can use up to"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:625
+msgid "on this order, which equals"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:629
+msgid "Currently applied points:"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:640
+msgid "Number of points to use"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:656
+msgid "Apply My Points"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:679
+msgid "Loyalty spending is unavailable until the store completes setup. Remove the points selection before payment."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:684
+msgid "Loyalty spending is unavailable. Remove the points selection or contact the store before payment."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:697
+msgid "Loyalty setup is required before this discount can be accepted."
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:851
+msgid "This order can earn you up to"
+msgstr ""
+
+#: includes/core/class-rewardly-loyalty-redeem.php:851
+msgid "loyalty points."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-checkout.php:31
+#: includes/financial/class-nodevora-financial-checkout.php:80
+msgid "Loyalty discount"
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-checkout.php:86
+msgid "Nodevora could not verify order funding. Please retry or contact the store."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-checkout.php:87
+msgid "Nodevora could not verify order funding."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-checkout.php:88
+msgid "Nodevora could not verify order funding. Contact the store before retrying."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-compatibility.php:16
+msgid "Loyalty spending is unavailable while this account is reconciled. Existing points are preserved."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-compatibility.php:17
+#, php-format
+msgid "Preserved opening balance: %s points."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-readiness.php:21
+msgid "Nodevora financial operations support single-site stores only. Network data is retained and loyalty spending is unavailable."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-readiness.php:22
+msgid "Loyalty spending is paused or awaiting setup. Existing points are preserved. Review financial readiness before enabling new rewards."
+msgstr ""
+
+#: includes/front/class-nodevora-loyalty-blocks.php:44
+msgid "Log in before using loyalty points."
+msgstr ""
+
+#: includes/front/class-nodevora-loyalty-blocks.php:46
+msgid "Choose a valid loyalty action."
+msgstr ""
+
+#: includes/front/class-nodevora-loyalty-blocks.php:48
+msgid "Redemption is temporarily unavailable. Your points are preserved."
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:35
+#: includes/front/class-rewardly-loyalty-account.php:40
+msgid "My Points"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:48
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:18
+msgid "Earned"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:49
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:19
+msgid "Redeemed"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:50
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:20
+msgid "Cancelled / Refunded"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:51
+#: includes/front/class-rewardly-loyalty-account.php:52
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:21
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:22
+msgid "Adjustment"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:53
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:23
+msgid "Manual Removal"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:54
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:24
+msgid "Expired"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:55
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:25
+msgid "Registration Bonus"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:56
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:26
+msgid "First Order Bonus"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:57
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:27
+msgid "Review Bonus"
+msgstr ""
+
+#. translators: %s: order number.
+#: includes/front/class-rewardly-loyalty-account.php:134
+#: includes/front/class-rewardly-loyalty-account.php:156
+#: includes/front/class-rewardly-loyalty-account.php:162
+#: includes/front/class-rewardly-loyalty-account.php:167
+#: includes/front/class-rewardly-loyalty-account.php:176
+#, php-format
+msgid "Order #%s"
+msgstr ""
+
+#. translators: 1: first product name, 2: number of items
+#: includes/front/class-rewardly-loyalty-account.php:186
+#, php-format
+msgid "%1$s and %2$d more item"
+msgid_plural "%1$s and %2$d more items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/front/class-rewardly-loyalty-account.php:214
+msgid "You will earn {points} point(s) from your order for {product_name} once {order_link} is completed."
+msgstr ""
+
+#. translators: 1: item label, 2: order number.
+#: includes/front/class-rewardly-loyalty-account.php:260
+#, php-format
+msgid "%1$s (Order #%2$s)"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:288
+msgid "My Loyalty Points"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:292
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
+msgid "Current Balance"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:297
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:82
+msgid "Available Value"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:302
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:83
+msgid "Points Earned"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:307
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:84
+msgid "Points Redeemed"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:314
+msgid "Current Level"
+msgstr ""
+
+#. translators: 1: remaining points, 2: next level label.
+#: includes/front/class-rewardly-loyalty-account.php:321
+#, php-format
+msgid "You need %1$d more point to reach %2$s."
+msgid_plural "You need %1$d more points to reach %2$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/front/class-rewardly-loyalty-account.php:323
+msgid "You already reached the highest available level."
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:330
+msgid "Pending Loyalty Reward"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:337
+msgid "Recent History"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:341
+#: includes/front/class-rewardly-loyalty-account.php:351
+#: includes/front/class-rewardly-loyalty-account.php:371
+msgid "Date"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:342
+#: includes/front/class-rewardly-loyalty-account.php:352
+#: includes/front/class-rewardly-loyalty-account.php:372
+msgid "Type"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:344
+#: includes/front/class-rewardly-loyalty-account.php:354
+#: includes/front/class-rewardly-loyalty-account.php:374
+msgid "Amount"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:374
+msgid "Amount:"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:389
+msgid "Show Less"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:391
+msgid "Show More"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:397
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:51
+msgid "No loyalty activity yet."
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-product.php:85
+msgid "Buy this product and earn up to"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-product.php:87
+msgid "loyalty points"
+msgstr ""
+
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:14
+msgid "Please log in to view your loyalty information."
+msgstr ""
+
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:49
+msgid "My Points History"
+msgstr ""
+
+#: nodevora-customer-rewards-for-woocommerce.php:27
+msgid "Another Rewardly or Nodevora installation is active. Back up your data, deactivate the previous package, then activate the official Nodevora package. Financial data must be retained."
+msgstr ""
+
+#: nodevora-customer-rewards-for-woocommerce.php:73
+msgid "Nodevora financial operations currently support single-site WordPress only."
+msgstr ""
+
+#: nodevora-customer-rewards-for-woocommerce.php:172
+msgid "Nodevora Customer Rewards for WooCommerce requires WooCommerce to work correctly."
+msgstr ""
+
+#: nodevora-customer-rewards-for-woocommerce.php:174
+#: nodevora-customer-rewards-for-woocommerce.php:185
+msgid "Install or activate WooCommerce"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:23
+msgid "Unable to update points. Please try again."
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:27
+msgid "Your loyalty rewards"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:28
+#, js-format
+msgid "This order earns up to %s point."
+msgid_plural "This order earns up to %s points."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/loyalty-blocks.js:30
+#, js-format
+msgid "Available balance: %s points"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:33
+msgid "Points to use"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:34
+#, js-format
+msgid "You can use up to %s points on this order."
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:36
+msgid "Updating…"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:36
+msgid "Apply points"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:38
+#, js-format
+msgid "%1$s points applied · %2$s discount"
+msgstr ""
+
+#: assets/js/loyalty-blocks.js:41
+msgid "Log in to use your points"
+msgstr ""

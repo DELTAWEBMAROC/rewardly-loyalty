@@ -361,6 +361,14 @@ class Rewardly_Loyalty_Helpers {
 		} catch ( Exception $e ) { return ''; }
 	}
 
+	public static function log_note( $log ) {
+		$notes = array(
+			'Review reward withdrawn after moderation.' => __( 'Review reward withdrawn after moderation.', 'nodevora-customer-rewards-for-woocommerce' ),
+			'Partial refund requires reconciliation; no proportional points adjustment was applied.' => __( 'Partial refund requires reconciliation; no proportional points adjustment was applied.', 'nodevora-customer-rewards-for-woocommerce' ),
+		);
+		return $notes[$log->note] ?? $log->note;
+	}
+
 	public static function log_sign( $log ) {
 		if ( 0 === (int) $log->points ) { return ''; }
 		return in_array( $log->type, array( 'spend', 'debit', 'commit', 'adjust_remove', 'expire', 'revoke', 'reverse' ), true ) ? '-' : '+';
