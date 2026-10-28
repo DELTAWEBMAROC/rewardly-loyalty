@@ -14,6 +14,8 @@ class Rewardly_Loyalty_Shortcodes {
 		return '<div class="rewardly-shortcode-guest">' . esc_html__( 'Please log in to view your loyalty information.', 'nodevora-customer-rewards-for-woocommerce' ) . '</div>';
 	}
 	private static function get_history_type_label( $type ) {
+		$coordination = Rewardly_Loyalty_Helpers::coordination_label( $type );
+		if ( null !== $coordination ) { return $coordination; }
 		$labels = array(
 			'earn'          => __( 'Earned', 'nodevora-customer-rewards-for-woocommerce' ),
 			'spend'         => __( 'Redeemed', 'nodevora-customer-rewards-for-woocommerce' ),

@@ -15,7 +15,7 @@ class Nodevora_Financial_Schema {
 	}
 	/** Explicit installer only: no activation/production migration side effects. */
 	public static function install( Nodevora_Financial_DB $db ) {
-		if ( ! defined('WP_CLI') || ! WP_CLI || 'local' !== wp_get_environment_type() || is_multisite() || ! defined('NODEVORA_FINANCIAL_SCHEMA_ALLOWED') || true !== NODEVORA_FINANCIAL_SCHEMA_ALLOWED ) { throw new Nodevora_Financial_Error('Schema installation requires explicit isolated local CLI approval.'); }
+		if ( is_multisite() || ( ! Nodevora_Financial_Setup::permits('schema') && ( ! defined('WP_CLI') || ! WP_CLI || 'local' !== wp_get_environment_type() || ! defined('NODEVORA_FINANCIAL_SCHEMA_ALLOWED') || true !== NODEVORA_FINANCIAL_SCHEMA_ALLOWED ) ) ) { throw new Nodevora_Financial_Error('Schema installation requires the authorized backup/setup workflow.'); }
 		foreach ( self::definitions() as $name => $definition ) { $db->query( 'CREATE TABLE IF NOT EXISTS ' . $db->table( $name ) . ' (' . $definition . ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' ); }
 		$columns = array_column( $db->query('SHOW COLUMNS FROM '.$db->table('event')), 'Field' );
 		// Preserve pre-existing prototype events; unknown original payloads remain NULL.

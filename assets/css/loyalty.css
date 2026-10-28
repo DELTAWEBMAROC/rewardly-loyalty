@@ -906,3 +906,12 @@
 .rewardly-loyalty-account .shop_table thead{display:table-header-group;position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Préserver la largeur du produit avec des noms d'avis particulièrement longs. */
 .single-product:has(.rewardly-product-points-notice) .woocommerce-review__author{overflow-wrap:anywhere}
+
+/* Le libellé d’action reste intégralement lisible dans les résumés mobiles. */
+@media (max-width:767px) {
+ .rewardly-loyalty-box__summary { flex-wrap:wrap;align-items:flex-start;gap:10px; }
+ .rewardly-loyalty-box__summary-main { flex:1 1 100%;min-width:0; }
+ .rewardly-loyalty-box__summary-text { min-width:0;overflow-wrap:anywhere; }
+ .rewardly-loyalty-box__summary-hint { max-width:100%;white-space:normal;overflow-wrap:anywhere; }
+ .rewardly-loyalty-box__summary-hint::after { flex-shrink:0; }
+}

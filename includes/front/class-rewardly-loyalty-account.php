@@ -44,6 +44,8 @@ class Rewardly_Loyalty_Account {
 	}
 
 	private static function get_log_type_label( $type ) {
+		$coordination = Rewardly_Loyalty_Helpers::coordination_label( $type );
+		if ( null !== $coordination ) { return $coordination; }
 		$labels = array(
 			'earn'               => __( 'Earned', 'nodevora-customer-rewards-for-woocommerce' ),
 			'spend'              => __( 'Redeemed', 'nodevora-customer-rewards-for-woocommerce' ),

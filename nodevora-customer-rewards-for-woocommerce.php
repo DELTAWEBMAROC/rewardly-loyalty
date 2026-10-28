@@ -61,7 +61,6 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-pro.p
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-rewardly-loyalty-account.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-rewardly-loyalty-product.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-nodevora-loyalty-blocks.php';
-Nodevora_Loyalty_Blocks::init();
 require_once REWARDLY_LOYALTY_PATH . 'includes/design/class-rewardly-loyalty-design.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/shortcodes/class-rewardly-loyalty-shortcodes.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-settings.php';
@@ -129,7 +128,7 @@ function rewardly_loyalty_maybe_upgrade() {
 }
 
 function rewardly_loyalty_should_enqueue_front_assets() {
-	if ( is_admin() ) {
+	if ( is_admin() || ! rewardly_loyalty_is_woocommerce_active() || ! function_exists( 'is_cart' ) || ! function_exists( 'is_checkout' ) || ! function_exists( 'is_account_page' ) || ! function_exists( 'is_product' ) ) {
 		return false;
 	}
 	if ( is_cart() || is_checkout() || is_account_page() || is_product() ) {
@@ -196,6 +195,7 @@ function rewardly_loyalty_init() {
 	if ( ! rewardly_loyalty_is_woocommerce_active() ) {
 		return;
 	}
+	Nodevora_Loyalty_Blocks::init();
 	Rewardly_Loyalty_Settings::init();
 	Rewardly_Loyalty_Emails::init();
 	Rewardly_Loyalty_Points::init();
@@ -204,6 +204,7 @@ function rewardly_loyalty_init() {
 	Nodevora_Financial_Lifecycle::init();
 	Nodevora_Financial_Recovery::init();
 	Nodevora_Financial_Readiness::init();
+	Nodevora_Financial_Setup::init();
 	Rewardly_Loyalty_Pro::init();
 	Rewardly_Loyalty_Account::init();
 	Rewardly_Loyalty_Product::init();
@@ -242,7 +243,7 @@ function rewardly_loyalty_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'rewardly_loyalty_enqueue_assets' );
 
 function rewardly_loyalty_run_daily_expiration() {
-	if ( ! class_exists( 'Rewardly_Loyalty_Helpers' ) ) {
+	if ( ! rewardly_loyalty_is_woocommerce_active() || ! class_exists( 'Rewardly_Loyalty_Helpers' ) ) {
 		return;
 	}
 	Rewardly_Loyalty_Helpers::run_daily_points_expiration();

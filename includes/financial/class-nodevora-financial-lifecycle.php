@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** WC CRUD policy boundary. Financial transactions never invoke these callbacks. */
 class Nodevora_Financial_Lifecycle {
 	public static function init() {
+		add_action('woocommerce_before_order_object_save',array(__CLASS__,'enforce_hold'),1);
+		add_filter('woocommerce_payment_complete_order_status',static function($status,$id,$order){return self::hold_required($order)?'on-hold':$status;},PHP_INT_MAX,3);
 		add_action('woocommerce_order_status_failed',array(__CLASS__,'failed'));
 		add_action('woocommerce_order_refunded',array(__CLASS__,'refund'),20,2);
 		add_action('woocommerce_payment_complete',array(__CLASS__,'payment_complete'),5);
@@ -37,10 +39,10 @@ class Nodevora_Financial_Lifecycle {
 		return Nodevora_Financial_Checkout::quote($order);
 	}
 	public static function earn($id) {
-		$order=wc_get_order($id);if(!$order||!$order->get_user_id()||!Rewardly_Loyalty_Helpers::is_enabled()){return;}
+		$order=wc_get_order($id);if(!$order){return;}if(self::hold_required($order)){self::enforce_hold($order);$order->save();return;}if(!$order->get_user_id()||!Rewardly_Loyalty_Helpers::is_enabled()){return;}
 		try{Nodevora_Financial_Checkout::require_enabled();}catch(Nodevora_Financial_Error $e){$order->update_meta_data('_nodevora_earning_pending','yes');$order->save();return;}
 		$s=Rewardly_Loyalty_Helpers::get_settings();if($s['order_status_trigger']!==$order->get_status()){return;}
-		if($order->get_refunds()&&'refunded'!==$order->get_status()){self::exception($order,'Partial-refund earning policy requires reconciliation.');return;}
+		if($order->get_refunds()){return;}
 		try{
 			$q=self::bind($order);$key='order:'.$id.':'.$q['intent'].':earn';$old=self::event($key);
 			if(!$old){$details=self::credit_details('earn',$id);$details['order']=$q;$details['order_action']='earn';$old=self::claim((int)$order->get_user_id(),$key,Rewardly_Loyalty_Helpers::calculate_order_earned_points($order),$details);}
@@ -111,9 +113,40 @@ class Nodevora_Financial_Lifecycle {
 		} catch(Nodevora_Financial_Error $e) { $order->update_meta_data('_nodevora_refund_record_pending',(int)$refund_id);$order->save(); }
 	}
 	public static function payment_complete($id) {
-		if(!Nodevora_Financial_Compatibility::selected()){return;}$o=wc_get_order($id);if(!$o||!$o->get_meta('_rewardly_loyalty_points_spent')){return;}
+		if(!Nodevora_Financial_Compatibility::selected()){return;}$o=wc_get_order($id);if($o&&self::hold_required($o)){self::enforce_hold($o);$o->save();return;}if(!$o||!$o->get_meta('_rewardly_loyalty_points_spent')){return;}
 		try{Nodevora_Financial_Checkout::operation($o,'paid');}catch(Nodevora_Financial_Error $e){self::exception($o,'Payment received without current funding; fulfillment requires manual review.');}
 	}
+	/** Le registre immuable prévaut sur un objet WooCommerce ancien ou un indicateur effacé. */
+	public static function hold_required($order) {
+		if(!$order instanceof WC_Order || $order instanceof WC_Order_Refund || !$order->get_id() || !Nodevora_Financial_Compatibility::selected()){return false;}
+		$refunds=wc_get_orders(array('type'=>'shop_order_refund','parent'=>$order->get_id(),'limit'=>-1,'return'=>'ids'));
+		foreach($refunds as$id){
+			try{if(!self::event('refund:'.(int)$id.':resolution:v1')){return true;}}
+			catch(Nodevora_Financial_Error $e){return true;}
+		}
+		return false;
+	}
+	public static function enforce_hold($order) {
+		if(self::hold_required($order)&&in_array($order->get_status(),array('processing','completed'),true)){
+			$order->set_status('on-hold');
+			$order->update_meta_data('_nodevora_financial_exception','Partial refund requires an authorized reconciliation decision.');
+		}
+	}
+	public static function resolve_refund($order_id,$refund_id,$note) {
+		if(!current_user_can('manage_options')){throw new Nodevora_Financial_Error('Administrator financial review required.');}
+		if(!is_string($note)||strlen(trim($note))<10||strlen($note)>2000){throw new Nodevora_Financial_Error('Record the authorized review decision and reference (10–2000 characters).');}
+		$order=wc_get_order($order_id);$refund=wc_get_order($refund_id);
+		if(!$order||!$refund instanceof WC_Order_Refund||(int)$refund->get_parent_id()!==(int)$order_id||!$order->get_user_id()){throw new Nodevora_Financial_Error('A matching registered-customer refund is required.');}
+		Nodevora_Financial_Checkout::require_enabled(true);
+		$key='refund:'.$refund_id.':resolution:v1';$old=self::event($key);if($old){return $old;}
+		$review=self::event('refund:'.$refund_id.':review:v1');
+		if(!$review){self::refund($order_id,$refund_id);$review=self::event('refund:'.$refund_id.':review:v1');}
+		if(!$review){throw new Nodevora_Financial_Error('The immutable refund review must be recorded before resolution.');}
+		$result=(new Nodevora_Financial_Wallet())->apply((int)$order->get_user_id(),$key,'control',0,array('type'=>'refund_resolution','order_id'=>$order_id,'refund_id'=>$refund_id,'review_event_id'=>(int)$review['id'],'reviewer'=>get_current_user_id(),'note'=>$note));
+		$order->add_order_note(__('Authorized refund reconciliation recorded; no automatic points movement or status change.','nodevora-customer-rewards-for-woocommerce').' #'.$result['event_id']);
+		if(!self::hold_required($order)){$order->delete_meta_data('_nodevora_financial_exception');$order->delete_meta_data('_nodevora_refund_record_pending');}$order->save();return $result;
+	}
+
 	public static function exception($order,$reason) {
 		$order->update_meta_data('_nodevora_financial_exception',$reason);$order->save();
 		// Persist an explicit fulfillment hold outside financial transactions.

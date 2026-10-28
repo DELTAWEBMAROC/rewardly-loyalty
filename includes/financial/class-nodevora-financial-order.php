@@ -17,6 +17,11 @@ class Nodevora_Financial_Order {
 			$this->row=$db->one('SELECT * FROM '.$db->table('order_state').' WHERE order_id=?',array($q['order_id'])); $r=$this->row;
 		}
 		if ($r['intent'] !== $q['intent'] || $r['fingerprint'] !== $q['fingerprint'] || (int)$r['points'] !== $q['points'] || (int)$r['discount_minor'] !== $q['discount_minor'] || $r['currency'] !== $q['currency']) { throw new Nodevora_Financial_Error('Order financial binding changed; confirmation required.'); }
+		// Le contrôle du remboursement partage le verrou du portefeuille avec toute progression financière.
+		if(in_array($this->action,array('fund','dispatch','paid','earn','bonus'),true)){
+			$held=$db->one('SELECT e.id FROM '.$db->table('event').' e WHERE e.user_id=? AND e.kind=? AND JSON_UNQUOTE(JSON_EXTRACT(e.payload,?))=? AND JSON_UNQUOTE(JSON_EXTRACT(e.payload,?))=? AND NOT EXISTS (SELECT 1 FROM '.$db->table('event').' r WHERE r.operation_key=CONCAT(?,JSON_UNQUOTE(JSON_EXTRACT(e.payload,?)),?)) LIMIT 1',array($user,'control','$.details.type','refund_review','$.details.order_id',(string)$q['order_id'],'refund:','$.details.refund_id',':resolution:v1'));
+			if($held){throw new Nodevora_Financial_Error('Unresolved refund reconciliation prevents financial progression.');}
+		}
 		if ('fund' === $this->action) {
 			if ('debit' !== $kind || $amount !== $q['points'] || !in_array($r['state'],array('bound','funded'),true)) { throw new Nodevora_Financial_Error('Order cannot use this funding intent.'); }
 			if ('funded' === $r['state']) { $this->funding($db); }

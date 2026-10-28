@@ -9,9 +9,9 @@ class Nodevora_Financial_Checkout {
 		add_action('woocommerce_store_api_checkout_order_processed',array(__CLASS__,'blocks'),PHP_INT_MAX);
 	}
 	public static function require_enabled($recovery=false) {
-		if (!$recovery&&defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&true===NODEVORA_FINANCIAL_WRITES_PAUSED){throw new Nodevora_Financial_Error('New financial writes are paused; recovery remains available.');}
+		if (!$recovery&&Nodevora_Financial_Setup::paused()){throw new Nodevora_Financial_Error('New financial writes are paused; recovery remains available.');}
 		if(!Nodevora_Financial_Compatibility::selected()){throw new Nodevora_Financial_Error('Verified financial setup is required.');}
-		if ('local'!==wp_get_environment_type()||is_multisite()||!defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) { throw new Nodevora_Financial_Error('Financial integration is disabled pending local validation.'); }
+		if (is_multisite() || (defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) || (!Nodevora_Financial_Setup::integrated() && ('local'!==wp_get_environment_type()||!defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_INTEGRATION_ALLOWED))) { throw new Nodevora_Financial_Error('Financial integration is disabled pending local validation.'); }
 	}
 	public static function policy() {
 		$s=Rewardly_Loyalty_Helpers::get_settings();$p=array('ratio'=>max(1,(int)$s['redeem_points_per_dh']),'decimals'=>(int)wc_get_price_decimals(),'currency'=>strtoupper(get_woocommerce_currency()));
@@ -75,6 +75,7 @@ class Nodevora_Financial_Checkout {
 		return in_array($method,$allowed,true);
 	}
 	public static function gate($order,$retry=false) {
+		if(Nodevora_Financial_Lifecycle::hold_required($order)){throw new Nodevora_Financial_Error('Refund reconciliation is required before payment.');}
 		if(!$order instanceof WC_Order){throw new Nodevora_Financial_Error('Order unavailable.');}
 		if(!$retry&&function_exists('WC')&&WC()->session&&'yes'===WC()->session->get('nodevora_financial_quote_error')){throw new Nodevora_Financial_Error('Loyalty quote changed; remove or reconfirm the points selection before payment.');}
 		$has=(int)$order->get_meta('_rewardly_loyalty_points_spent')>0||is_array($order->get_meta('_nodevora_financial_quote'));

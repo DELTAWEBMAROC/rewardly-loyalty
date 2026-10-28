@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
-"POT-Creation-Date: 2026-10-28T11:32:39+00:00\n"
+"POT-Creation-Date: 2026-10-28T18:39:02+00:00\n"
 "PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "Last-Translator: Nodevora Project\n"
 "Language-Team: French\n"
@@ -72,10 +72,10 @@ msgstr "Solde actuel :"
 #: includes/core/class-rewardly-loyalty-redeem.php:571
 #: includes/core/class-rewardly-loyalty-redeem.php:622
 #: includes/core/class-rewardly-loyalty-redeem.php:625
-#: includes/front/class-rewardly-loyalty-account.php:306
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:34
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:58
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
+#: includes/front/class-rewardly-loyalty-account.php:308
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:36
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:60
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:83
 msgid "points"
 msgstr "points"
 
@@ -93,16 +93,16 @@ msgid "Remove points"
 msgstr "Retirer des points"
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
-#: includes/front/class-rewardly-loyalty-account.php:356
-#: includes/front/class-rewardly-loyalty-account.php:366
-#: includes/front/class-rewardly-loyalty-account.php:386
+#: includes/front/class-rewardly-loyalty-account.php:358
+#: includes/front/class-rewardly-loyalty-account.php:368
+#: includes/front/class-rewardly-loyalty-account.php:388
 msgid "Points"
 msgstr "Points"
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
-#: includes/front/class-rewardly-loyalty-account.php:358
-#: includes/front/class-rewardly-loyalty-account.php:368
-#: includes/front/class-rewardly-loyalty-account.php:388
+#: includes/front/class-rewardly-loyalty-account.php:360
+#: includes/front/class-rewardly-loyalty-account.php:370
+#: includes/front/class-rewardly-loyalty-account.php:390
 msgid "Note"
 msgstr "Note"
 
@@ -963,19 +963,43 @@ msgstr ""
 "Un remboursement partiel nécessite une vérification ; aucun ajustement "
 "proportionnel des points n’a été appliqué."
 
-#: includes/core/class-rewardly-loyalty-helpers.php:530
+#: includes/core/class-rewardly-loyalty-helpers.php:375
+msgid "Payment submitted"
+msgstr "Paiement transmis"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:376
+msgid "Payment confirmed"
+msgstr "Paiement confirmé"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:377
+msgid "Order closed"
+msgstr "Commande clôturée"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:378
+msgid "Financial review"
+msgstr "Vérification financière"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:379
+msgid "Refund under review"
+msgstr "Remboursement en cours de vérification"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:380
+msgid "Refund review completed"
+msgstr "Vérification du remboursement terminée"
+
+#: includes/core/class-rewardly-loyalty-helpers.php:543
 msgid "Bronze"
 msgstr "Bronze"
 
-#: includes/core/class-rewardly-loyalty-helpers.php:535
+#: includes/core/class-rewardly-loyalty-helpers.php:548
 msgid "Silver"
 msgstr "Argent"
 
-#: includes/core/class-rewardly-loyalty-helpers.php:540
+#: includes/core/class-rewardly-loyalty-helpers.php:553
 msgid "Gold"
 msgstr "Or"
 
-#: includes/core/class-rewardly-loyalty-helpers.php:547
+#: includes/core/class-rewardly-loyalty-helpers.php:560
 msgid "Starter"
 msgstr "Débutant"
 
@@ -1028,7 +1052,7 @@ msgid "Loyalty points were removed from this order."
 msgstr "Les points de fidélité ont été retirés de cette commande."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:208
-#: includes/front/class-nodevora-loyalty-blocks.php:62
+#: includes/front/class-nodevora-loyalty-blocks.php:64
 msgid "You cannot use your loyalty points yet."
 msgstr "Vous ne pouvez pas encore utiliser vos points de fidélité."
 
@@ -1081,7 +1105,7 @@ msgid "Remove My Points"
 msgstr "Retirer mes points"
 
 #: includes/core/class-rewardly-loyalty-redeem.php:490
-#: includes/front/class-nodevora-loyalty-blocks.php:51
+#: includes/front/class-nodevora-loyalty-blocks.php:53
 msgid ""
 "Your points are preserved. Redemption is temporarily unavailable while the "
 "store completes financial setup."
@@ -1174,22 +1198,22 @@ msgid "loyalty points."
 msgstr "points de fidélité."
 
 #: includes/financial/class-nodevora-financial-checkout.php:31
-#: includes/financial/class-nodevora-financial-checkout.php:81
+#: includes/financial/class-nodevora-financial-checkout.php:82
 msgid "Loyalty discount"
 msgstr "Remise de fidélité"
 
-#: includes/financial/class-nodevora-financial-checkout.php:87
+#: includes/financial/class-nodevora-financial-checkout.php:88
 msgid ""
 "Nodevora could not verify order funding. Please retry or contact the store."
 msgstr ""
 "Nodevora n’a pas pu vérifier le financement de la commande. Réessayez ou "
 "contactez la boutique."
 
-#: includes/financial/class-nodevora-financial-checkout.php:88
+#: includes/financial/class-nodevora-financial-checkout.php:89
 msgid "Nodevora could not verify order funding."
 msgstr "Nodevora n’a pas pu vérifier le financement de la commande."
 
-#: includes/financial/class-nodevora-financial-checkout.php:89
+#: includes/financial/class-nodevora-financial-checkout.php:90
 msgid ""
 "Nodevora could not verify order funding. Contact the store before retrying."
 msgstr ""
@@ -1209,6 +1233,14 @@ msgstr ""
 msgid "Preserved opening balance: %s points."
 msgstr "Solde initial conservé : %s points."
 
+#: includes/financial/class-nodevora-financial-lifecycle.php:146
+msgid ""
+"Authorized refund reconciliation recorded; no automatic points movement or "
+"status change."
+msgstr ""
+"Rapprochement autorisé du remboursement enregistré ; aucun mouvement "
+"automatique de points ni changement de statut."
+
 #: includes/financial/class-nodevora-financial-readiness.php:21
 msgid ""
 "Nodevora financial operations support single-site stores only. Network data "
@@ -1227,15 +1259,295 @@ msgstr ""
 "points existants sont conservés. Vérifiez la configuration financière avant "
 "d’activer de nouvelles récompenses."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:56
+#: includes/financial/class-nodevora-financial-readiness.php:23
+#: includes/financial/class-nodevora-financial-setup.php:16
+#: includes/financial/class-nodevora-financial-setup.php:73
+msgid "Financial setup"
+msgstr "Configuration financière"
+
+#: includes/financial/class-nodevora-financial-setup.php:14
+msgid "Setup state was not persisted. Retry without enabling writes."
+msgstr ""
+"L’état de configuration n’a pas été enregistré. Réessayez sans activer les "
+"écritures."
+
+#: includes/financial/class-nodevora-financial-setup.php:22
+msgid "Store checkout is paused for financial setup. Please try again later."
+msgstr ""
+"La validation des commandes est suspendue pendant la configuration "
+"financière. Veuillez réessayer plus tard."
+
+#: includes/financial/class-nodevora-financial-setup.php:30
+msgid "Another setup operation is running. Retry while paused."
+msgstr ""
+"Une autre opération de configuration est en cours. Réessayez en conservant "
+"les écritures suspendues."
+
+#: includes/financial/class-nodevora-financial-setup.php:31
+msgid ""
+"Setup failed. Writes remain paused. Check the backup and database "
+"permissions before retrying."
+msgstr ""
+"La configuration a échoué. Les écritures restent suspendues. Vérifiez la "
+"sauvegarde et les autorisations de la base avant de réessayer."
+
+#: includes/financial/class-nodevora-financial-setup.php:36
+msgid "Single-site WooCommerce is required."
+msgstr "Une installation WooCommerce sur un site unique est requise."
+
+#: includes/financial/class-nodevora-financial-setup.php:40
+msgid ""
+"Confirm a tested database/files backup and stopped/drained legacy writers."
+msgstr ""
+"Confirmez une sauvegarde testée de la base et des fichiers et l’arrêt "
+"complet des anciens traitements."
+
+#: includes/financial/class-nodevora-financial-setup.php:43
+msgid "No operator cutover exists."
+msgstr "Aucune bascule opérateur n’a été effectuée."
+
+#: includes/financial/class-nodevora-financial-setup.php:45
+msgid "Confirm the external financial review before resolving a hold."
+msgstr ""
+"Confirmez la vérification financière externe avant de lever un blocage."
+
+#: includes/financial/class-nodevora-financial-setup.php:48
+msgid "Start with the backup and maintenance step."
+msgstr "Commencez par la sauvegarde et la mise en maintenance."
+
+#: includes/financial/class-nodevora-financial-setup.php:52
+msgid "Account discovery failed; retry while paused."
+msgstr ""
+"La recherche des comptes a échoué ; réessayez en conservant les écritures "
+"suspendues."
+
+#: includes/financial/class-nodevora-financial-setup.php:56
+msgid "Inspect the next account batch first."
+msgstr "Inspectez d’abord le lot de comptes suivant."
+
+#: includes/financial/class-nodevora-financial-setup.php:61
+msgid "Confirm cutover and that unreconciled accounts must remain blocked."
+msgstr ""
+"Confirmez la bascule et le maintien du blocage des comptes non rapprochés."
+
+#: includes/financial/class-nodevora-financial-setup.php:62
+msgid ""
+"A server safety override prevents activation. Ask the operator to review it; "
+"this page never changes server configuration."
+msgstr ""
+"Une protection du serveur empêche l’activation. Demandez à l’opérateur de la "
+"vérifier ; cette page ne modifie jamais la configuration du serveur."
+
+#: includes/financial/class-nodevora-financial-setup.php:63
+msgid ""
+"Inspect and migrate every account batch, including newly created accounts, "
+"before cutover."
+msgstr ""
+"Inspectez et migrez tous les lots, y compris les nouveaux comptes, avant la "
+"bascule."
+
+#: includes/financial/class-nodevora-financial-setup.php:64
+msgid "Financial authority was not persisted."
+msgstr "L’autorité financière n’a pas été enregistrée."
+
+#: includes/financial/class-nodevora-financial-setup.php:67
+msgid "Unknown setup action."
+msgstr "Action de configuration inconnue."
+
+#: includes/financial/class-nodevora-financial-setup.php:75
+msgid ""
+"No account is migrated and no financial writes are enabled automatically. "
+"Keep checkout, payment callbacks and legacy workers stopped until setup is "
+"complete."
+msgstr ""
+"Aucun compte n’est migré et aucune écriture financière n’est activée "
+"automatiquement. Maintenez la validation des commandes, les rappels de "
+"paiement et les anciens traitements à l’arrêt jusqu’à la fin de la "
+"configuration."
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+msgid "Current state:"
+msgstr "État actuel :"
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+msgid "Not configured"
+msgstr "Non configuré"
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+msgid "Writes paused"
+msgstr "Écritures suspendues"
+
+#: includes/financial/class-nodevora-financial-setup.php:77
+msgid ""
+"Export the full database and plugin files outside the web root. Test "
+"restoring the backup on an isolated snapshot. Never enter credentials or "
+"backup contents here."
+msgstr ""
+"Exportez toute la base et les fichiers de l’extension hors du dossier web. "
+"Testez leur restauration sur une copie isolée. Ne saisissez ici ni "
+"identifiants ni contenu de sauvegarde."
+
+#: includes/financial/class-nodevora-financial-setup.php:77
+msgid ""
+"Enable store maintenance, stop external payment callbacks and all previous "
+"loyalty writers, then wait for in-flight work to finish. The confirmations "
+"below are operator attestations, not a mutex."
+msgstr ""
+"Activez la maintenance, arrêtez les rappels de paiement externes et tous les "
+"anciens traitements de fidélité, puis attendez la fin des opérations en "
+"cours. Les confirmations ci-dessous sont des attestations de l’opérateur, "
+"pas un verrou technique."
+
+#: includes/financial/class-nodevora-financial-setup.php:77
+msgid ""
+"Prepare setup, install/verify the schema, inspect each batch, then "
+"explicitly migrate that reviewed batch. Retry interrupted batches with the "
+"same evidence; opening balances cannot be imported twice."
+msgstr ""
+"Préparez la configuration, installez ou vérifiez le schéma, inspectez chaque "
+"lot, puis migrez explicitement le lot vérifié. Reprenez les lots interrompus "
+"avec les mêmes données ; les soldes initiaux ne peuvent pas être importés "
+"deux fois."
+
+#: includes/financial/class-nodevora-financial-setup.php:77
+msgid ""
+"Accounts needing review retain their raw snapshots and remain unable to "
+"spend. Review the displayed reasons against the backup; never invent missing "
+"lots, dates or historical debits. An approved reconciliation plan is "
+"required before changing their financial value."
+msgstr ""
+"Les comptes à vérifier conservent leurs données d’origine et ne peuvent pas "
+"dépenser leurs points. Comparez les motifs affichés à la sauvegarde ; "
+"n’inventez aucun lot, date ou débit manquant. Un plan de rapprochement "
+"approuvé est nécessaire avant de modifier leur valeur financière."
+
+#: includes/financial/class-nodevora-financial-setup.php:77
+msgid ""
+"After the final empty inspection batch, explicitly activate eligible "
+"wallets. Keep unreconciled accounts blocked. Restore maintenance/callbacks "
+"deliberately and verify a supported offline checkout."
+msgstr ""
+"Après le dernier lot d’inspection vide, activez explicitement les "
+"portefeuilles admissibles. Maintenez les comptes non rapprochés bloqués. "
+"Rétablissez les commandes et les rappels de manière contrôlée, puis vérifiez "
+"un paiement hors ligne pris en charge."
+
+#: includes/financial/class-nodevora-financial-setup.php:78
+msgid ""
+"Before cutover, rollback requires stopped writers and a complete consistent "
+"restore. After committed wallet transactions, keep wallet authority and "
+"journal: do not downgrade PHP or restore a pre-cutover database. Pause and "
+"reconcile instead."
+msgstr ""
+"Avant la bascule, un retour arrière exige l’arrêt des écritures et une "
+"restauration complète et cohérente. Après des opérations de portefeuille "
+"validées, conservez l’autorité financière et le journal : ne revenez pas à "
+"l’ancien code ni à une base antérieure. Suspendez les écritures et effectuez "
+"un rapprochement."
+
+#: includes/financial/class-nodevora-financial-setup.php:80
+msgid "Backup reference (no secrets)"
+msgstr "Référence de sauvegarde (sans données secrètes)"
+
+#: includes/financial/class-nodevora-financial-setup.php:80
+msgid "I verified a restorable database and files backup."
+msgstr "J’ai vérifié une sauvegarde restaurable de la base et des fichiers."
+
+#: includes/financial/class-nodevora-financial-setup.php:80
+msgid ""
+"Maintenance is enabled and legacy writers and callbacks are stopped and "
+"drained."
+msgstr ""
+"La maintenance est active et les anciens traitements et rappels sont "
+"arrêtés, sans opération en cours."
+
+#: includes/financial/class-nodevora-financial-setup.php:81
+msgid "Prepare and pause"
+msgstr "Préparer et suspendre"
+
+#: includes/financial/class-nodevora-financial-setup.php:81
+msgid "Install / verify schema"
+msgstr "Installer / vérifier le schéma"
+
+#: includes/financial/class-nodevora-financial-setup.php:81
+msgid "Inspect next 20 accounts"
+msgstr "Inspecter les 20 comptes suivants"
+
+#: includes/financial/class-nodevora-financial-setup.php:81
+msgid "Migrate reviewed batch"
+msgstr "Migrer le lot vérifié"
+
+#: includes/financial/class-nodevora-financial-setup.php:83
+msgid "Unreconciled accounts must remain blocked."
+msgstr "Les comptes non rapprochés doivent rester bloqués."
+
+#: includes/financial/class-nodevora-financial-setup.php:83
+msgid "I authorize wallet cutover and new financial writes for ready accounts."
+msgstr ""
+"J’autorise la bascule des portefeuilles et les nouvelles écritures pour les "
+"comptes prêts."
+
+#: includes/financial/class-nodevora-financial-setup.php:84
+msgid ""
+"I reviewed pending effects and authorize background recovery. Leave "
+"unchecked to keep recovery manual."
+msgstr ""
+"J’ai vérifié les effets en attente et j’autorise leur reprise en arrière-"
+"plan. Laissez cette case décochée pour conserver une reprise manuelle."
+
+#: includes/financial/class-nodevora-financial-setup.php:85
+msgid "Activate reviewed wallets"
+msgstr "Activer les portefeuilles vérifiés"
+
+#: includes/financial/class-nodevora-financial-setup.php:85
+msgid "Pause new financial writes"
+msgstr "Suspendre les nouvelles écritures financières"
+
+#: includes/financial/class-nodevora-financial-setup.php:86
+msgid "Resolve a reviewed partial refund"
+msgstr "Résoudre un remboursement partiel vérifié"
+
+#: includes/financial/class-nodevora-financial-setup.php:86
+msgid ""
+"No proportional refund policy is applied. Record the authorized external "
+"reconciliation decision. This clears only the selected refund hold; it does "
+"not move points or advance the order status. A later refund requires a new "
+"review."
+msgstr ""
+"Aucune règle de remboursement proportionnel n’est appliquée. Enregistrez la "
+"décision de rapprochement externe autorisée. Seul le blocage du "
+"remboursement sélectionné est levé ; aucun point ni statut de commande n’est "
+"modifié. Tout remboursement ultérieur exige une nouvelle vérification."
+
+#: includes/financial/class-nodevora-financial-setup.php:87
+msgid "Order ID"
+msgstr "Identifiant de commande"
+
+#: includes/financial/class-nodevora-financial-setup.php:87
+msgid "Refund ID"
+msgstr "Identifiant de remboursement"
+
+#: includes/financial/class-nodevora-financial-setup.php:88
+msgid "Authorized review decision and reference"
+msgstr "Décision de vérification autorisée et référence"
+
+#: includes/financial/class-nodevora-financial-setup.php:88
+msgid "I completed and authorize this external financial reconciliation."
+msgstr "J’ai terminé et j’autorise ce rapprochement financier externe."
+
+#: includes/financial/class-nodevora-financial-setup.php:88
+msgid "Record refund resolution"
+msgstr "Enregistrer la résolution du remboursement"
+
+#: includes/front/class-nodevora-loyalty-blocks.php:58
 msgid "Log in before using loyalty points."
 msgstr "Connectez-vous avant d’utiliser vos points de fidélité."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:58
+#: includes/front/class-nodevora-loyalty-blocks.php:60
 msgid "Choose a valid loyalty action."
 msgstr "Choisissez une action de fidélité valide."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:60
+#: includes/front/class-nodevora-loyalty-blocks.php:62
 msgid "Redemption is temporarily unavailable. Your points are preserved."
 msgstr ""
 "L’utilisation des points est temporairement indisponible. Vos points sont "
@@ -1246,72 +1558,72 @@ msgstr ""
 msgid "My Points"
 msgstr "Mes points"
 
-#: includes/front/class-rewardly-loyalty-account.php:48
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:18
+#: includes/front/class-rewardly-loyalty-account.php:50
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:20
 msgid "Earned"
 msgstr "Gagnés"
 
-#: includes/front/class-rewardly-loyalty-account.php:49
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:19
+#: includes/front/class-rewardly-loyalty-account.php:51
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:21
 msgid "Redeemed"
 msgstr "Utilisés"
 
-#: includes/front/class-rewardly-loyalty-account.php:50
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:20
+#: includes/front/class-rewardly-loyalty-account.php:52
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:22
 msgid "Cancelled / Refunded"
 msgstr "Annulés / Remboursés"
 
-#: includes/front/class-rewardly-loyalty-account.php:51
-#: includes/front/class-rewardly-loyalty-account.php:52
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:21
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:22
+#: includes/front/class-rewardly-loyalty-account.php:53
+#: includes/front/class-rewardly-loyalty-account.php:54
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:23
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:24
 msgid "Adjustment"
 msgstr "Ajustement"
 
-#: includes/front/class-rewardly-loyalty-account.php:53
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:23
+#: includes/front/class-rewardly-loyalty-account.php:55
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:25
 msgid "Manual Removal"
 msgstr "Retrait manuel"
 
-#: includes/front/class-rewardly-loyalty-account.php:54
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:24
+#: includes/front/class-rewardly-loyalty-account.php:56
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:26
 msgid "Expired"
 msgstr "Expirés"
 
-#: includes/front/class-rewardly-loyalty-account.php:55
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:25
+#: includes/front/class-rewardly-loyalty-account.php:57
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:27
 msgid "Registration Bonus"
 msgstr "Bonus d’inscription"
 
-#: includes/front/class-rewardly-loyalty-account.php:56
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:26
+#: includes/front/class-rewardly-loyalty-account.php:58
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:28
 msgid "First Order Bonus"
 msgstr "Bonus de première commande"
 
-#: includes/front/class-rewardly-loyalty-account.php:57
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:27
+#: includes/front/class-rewardly-loyalty-account.php:59
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:29
 msgid "Review Bonus"
 msgstr "Bonus d’avis"
 
 #. translators: %s: order number.
-#: includes/front/class-rewardly-loyalty-account.php:134
-#: includes/front/class-rewardly-loyalty-account.php:156
-#: includes/front/class-rewardly-loyalty-account.php:162
-#: includes/front/class-rewardly-loyalty-account.php:167
-#: includes/front/class-rewardly-loyalty-account.php:176
+#: includes/front/class-rewardly-loyalty-account.php:136
+#: includes/front/class-rewardly-loyalty-account.php:158
+#: includes/front/class-rewardly-loyalty-account.php:164
+#: includes/front/class-rewardly-loyalty-account.php:169
+#: includes/front/class-rewardly-loyalty-account.php:178
 #, php-format
 msgid "Order #%s"
 msgstr "Commande nº %s"
 
 #. translators: 1: first product name, 2: number of items
-#: includes/front/class-rewardly-loyalty-account.php:186
+#: includes/front/class-rewardly-loyalty-account.php:188
 #, php-format
 msgid "%1$s and %2$d more item"
 msgid_plural "%1$s and %2$d more items"
 msgstr[0] "%1$s et %2$d autre article"
 msgstr[1] "%1$s et %2$d autres articles"
 
-#: includes/front/class-rewardly-loyalty-account.php:214
+#: includes/front/class-rewardly-loyalty-account.php:216
 msgid ""
 "You will earn {points} point(s) from your order for {product_name} once "
 "{order_link} is completed."
@@ -1320,95 +1632,95 @@ msgstr ""
 "sera terminée."
 
 #. translators: 1: item label, 2: order number.
-#: includes/front/class-rewardly-loyalty-account.php:260
+#: includes/front/class-rewardly-loyalty-account.php:262
 #, php-format
 msgid "%1$s (Order #%2$s)"
 msgstr "%1$s (commande nº %2$s)"
 
-#: includes/front/class-rewardly-loyalty-account.php:301
+#: includes/front/class-rewardly-loyalty-account.php:303
 msgid "My Loyalty Points"
 msgstr "Mes points de fidélité"
 
-#: includes/front/class-rewardly-loyalty-account.php:305
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
+#: includes/front/class-rewardly-loyalty-account.php:307
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:83
 msgid "Current Balance"
 msgstr "Solde actuel"
 
-#: includes/front/class-rewardly-loyalty-account.php:310
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:82
+#: includes/front/class-rewardly-loyalty-account.php:312
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:84
 msgid "Available Value"
 msgstr "Valeur disponible"
 
-#: includes/front/class-rewardly-loyalty-account.php:315
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:83
+#: includes/front/class-rewardly-loyalty-account.php:317
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:85
 msgid "Points Earned"
 msgstr "Points gagnés"
 
-#: includes/front/class-rewardly-loyalty-account.php:320
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:84
+#: includes/front/class-rewardly-loyalty-account.php:322
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:86
 msgid "Points Redeemed"
 msgstr "Points utilisés"
 
-#: includes/front/class-rewardly-loyalty-account.php:327
+#: includes/front/class-rewardly-loyalty-account.php:329
 msgid "Current Level"
 msgstr "Niveau actuel"
 
 #. translators: 1: remaining points, 2: next level label.
-#: includes/front/class-rewardly-loyalty-account.php:334
+#: includes/front/class-rewardly-loyalty-account.php:336
 #, php-format
 msgid "You need %1$d more point to reach %2$s."
 msgid_plural "You need %1$d more points to reach %2$s."
 msgstr[0] "Il vous manque %1$d point pour atteindre le niveau %2$s."
 msgstr[1] "Il vous manque %1$d points pour atteindre le niveau %2$s."
 
-#: includes/front/class-rewardly-loyalty-account.php:336
+#: includes/front/class-rewardly-loyalty-account.php:338
 msgid "You already reached the highest available level."
 msgstr "Vous avez déjà atteint le niveau le plus élevé."
 
-#: includes/front/class-rewardly-loyalty-account.php:343
+#: includes/front/class-rewardly-loyalty-account.php:345
 msgid "Pending Loyalty Reward"
 msgstr "Récompense de fidélité en attente"
 
-#: includes/front/class-rewardly-loyalty-account.php:350
+#: includes/front/class-rewardly-loyalty-account.php:352
 msgid "Recent History"
 msgstr "Historique récent"
 
-#: includes/front/class-rewardly-loyalty-account.php:354
-#: includes/front/class-rewardly-loyalty-account.php:364
-#: includes/front/class-rewardly-loyalty-account.php:384
+#: includes/front/class-rewardly-loyalty-account.php:356
+#: includes/front/class-rewardly-loyalty-account.php:366
+#: includes/front/class-rewardly-loyalty-account.php:386
 msgid "Date"
 msgstr "Date"
-
-#: includes/front/class-rewardly-loyalty-account.php:355
-#: includes/front/class-rewardly-loyalty-account.php:365
-#: includes/front/class-rewardly-loyalty-account.php:385
-msgid "Type"
-msgstr "Type"
 
 #: includes/front/class-rewardly-loyalty-account.php:357
 #: includes/front/class-rewardly-loyalty-account.php:367
 #: includes/front/class-rewardly-loyalty-account.php:387
+msgid "Type"
+msgstr "Type"
+
+#: includes/front/class-rewardly-loyalty-account.php:359
+#: includes/front/class-rewardly-loyalty-account.php:369
+#: includes/front/class-rewardly-loyalty-account.php:389
 msgid "Amount"
 msgstr "Montant"
 
-#: includes/front/class-rewardly-loyalty-account.php:387
+#: includes/front/class-rewardly-loyalty-account.php:389
 msgid "Amount:"
 msgstr "Montant :"
 
-#: includes/front/class-rewardly-loyalty-account.php:402
+#: includes/front/class-rewardly-loyalty-account.php:404
 msgid "Older activity"
 msgstr "Activité plus ancienne"
 
-#: includes/front/class-rewardly-loyalty-account.php:403
+#: includes/front/class-rewardly-loyalty-account.php:405
 msgid "Show Less"
 msgstr "Afficher moins"
 
-#: includes/front/class-rewardly-loyalty-account.php:405
+#: includes/front/class-rewardly-loyalty-account.php:407
 msgid "Show More"
 msgstr "Afficher plus"
 
-#: includes/front/class-rewardly-loyalty-account.php:411
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:51
+#: includes/front/class-rewardly-loyalty-account.php:413
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:53
 msgid "No loyalty activity yet."
 msgstr "Aucune activité de fidélité pour le moment."
 
@@ -1424,7 +1736,7 @@ msgstr "points de fidélité"
 msgid "Please log in to view your loyalty information."
 msgstr "Connectez-vous pour consulter vos informations de fidélité."
 
-#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:49
+#: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:51
 msgid "My Points History"
 msgstr "Historique de mes points"
 
@@ -1438,14 +1750,14 @@ msgstr ""
 "données, désactivez l’ancien paquet, puis activez le paquet officiel "
 "Nodevora. Les données financières doivent être conservées."
 
-#: nodevora-customer-rewards-for-woocommerce.php:73
+#: nodevora-customer-rewards-for-woocommerce.php:72
 msgid ""
 "Nodevora financial operations currently support single-site WordPress only."
 msgstr ""
 "Les opérations financières Nodevora prennent actuellement en charge "
 "uniquement WordPress à site unique."
 
-#: nodevora-customer-rewards-for-woocommerce.php:172
+#: nodevora-customer-rewards-for-woocommerce.php:171
 msgid ""
 "Nodevora Customer Rewards for WooCommerce requires WooCommerce to work "
 "correctly."
@@ -1453,8 +1765,8 @@ msgstr ""
 "Nodevora Customer Rewards for WooCommerce nécessite WooCommerce pour "
 "fonctionner correctement."
 
-#: nodevora-customer-rewards-for-woocommerce.php:174
-#: nodevora-customer-rewards-for-woocommerce.php:185
+#: nodevora-customer-rewards-for-woocommerce.php:173
+#: nodevora-customer-rewards-for-woocommerce.php:184
 msgid "Install or activate WooCommerce"
 msgstr "Installer ou activer WooCommerce"
 

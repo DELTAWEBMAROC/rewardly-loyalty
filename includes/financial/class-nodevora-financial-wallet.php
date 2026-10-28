@@ -27,6 +27,7 @@ class Nodevora_Financial_Wallet {
 	public function apply( $user_id, $key, $kind, $amount, $details = array() ) {
 		self::points($user_id); self::points($amount);
 		if ( $user_id < 1 || ! is_string($key) || strlen($key)>191 || ! preg_match('/^[A-Za-z0-9:_\-.]+$/D',$key) || ! in_array($kind,array('credit','debit','reserve','commit','release','reverse','restore','expire','control'),true) ) { throw new Nodevora_Financial_Error('Invalid operation identity.'); }
+		$writes_paused=Nodevora_Financial_Setup::paused();
 		$payload = json_encode(self::canonical(array('user'=>$user_id,'kind'=>$kind,'amount'=>$amount,'details'=>$details)),JSON_THROW_ON_ERROR); $hash=hash('sha256',$payload);
 		for($attempt=0;$attempt<3;$attempt++) {
 			$this->db=$this->connect(); $this->leg=0; $committing=false;
@@ -39,7 +40,7 @@ class Nodevora_Financial_Wallet {
 				if(isset($details['order'],$details['order_action'])){$coordinator=new Nodevora_Financial_Order();$coordinator->prepare($this->db,$user_id,$kind,$amount,$details);}
 				$prior=$this->db->one('SELECT * FROM '.$this->db->table('event').' WHERE operation_key=?',array($key));
 				if($prior){if(!hash_equals($prior['payload_hash'],$hash)){throw new Nodevora_Financial_Error('Operation identity conflict.');}$this->db->rollback();$this->db->close();return json_decode($prior['result'],true,512,JSON_THROW_ON_ERROR);}
-				if(defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&true===NODEVORA_FINANCIAL_WRITES_PAUSED&&(in_array($kind,array('credit','debit','reserve','commit'),true)||(isset($details['order_action'])&&'dispatch'===$details['order_action']))){throw new Nodevora_Financial_Error('New financial writes are paused.');}
+				if($writes_paused&&(in_array($kind,array('credit','debit','reserve','commit'),true)||(isset($details['order_action'])&&'dispatch'===$details['order_action']))){throw new Nodevora_Financial_Error('New financial writes are paused.');}
 				$before=$this->wallet;
 				$this->write('INSERT INTO '.$this->db->table('event').' (user_id,operation_key,kind,payload_hash,payload,original_event_id,gross_points,result,created_at) VALUES (?,?,?,?,?,?,?,?,UTC_TIMESTAMP())',array($user_id,$key,$kind,$hash,$payload,isset($details['original_event_id'])?$details['original_event_id']:null,$amount,'{}'));
 				$this->event=$this->db->id(); $result=array('status'=>'committed','event_id'=>$this->event,'operation_key'=>$key,'amount'=>$amount);

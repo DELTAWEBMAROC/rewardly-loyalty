@@ -369,6 +369,19 @@ class Rewardly_Loyalty_Helpers {
 		return $notes[$log->note] ?? $log->note;
 	}
 
+	/** Les événements de coordination gardent une description lisible sans effacer le journal. */
+	public static function coordination_label( $type ) {
+		$labels = array(
+			'dispatch' => __( 'Payment submitted', 'nodevora-customer-rewards-for-woocommerce' ),
+			'paid' => __( 'Payment confirmed', 'nodevora-customer-rewards-for-woocommerce' ),
+			'close' => __( 'Order closed', 'nodevora-customer-rewards-for-woocommerce' ),
+			'control' => __( 'Financial review', 'nodevora-customer-rewards-for-woocommerce' ),
+			'refund_review' => __( 'Refund under review', 'nodevora-customer-rewards-for-woocommerce' ),
+			'refund_resolution' => __( 'Refund review completed', 'nodevora-customer-rewards-for-woocommerce' ),
+		);
+		return isset( $labels[$type] ) ? $labels[$type] : null;
+	}
+
 	public static function log_sign( $log ) {
 		if ( 0 === (int) $log->points ) { return ''; }
 		return in_array( $log->type, array( 'spend', 'debit', 'commit', 'adjust_remove', 'expire', 'revoke', 'reverse' ), true ) ? '-' : '+';

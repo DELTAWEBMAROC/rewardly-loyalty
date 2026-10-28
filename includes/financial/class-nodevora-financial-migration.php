@@ -59,7 +59,7 @@ class Nodevora_Financial_Migration {
 		return array('user_id'=>$user,'state'=>$data['state'],'balance'=>$data['balance'],'lot_total'=>$data['lot_total'],'reasons'=>$data['reasons'],'checksum'=>hash('sha256',json_encode(array('rows'=>$rows,'orders'=>$orders['orders'],'reviews'=>$reviews['claims'],'expiration_days'=>$days,'timezone'=>wp_timezone_string()),JSON_THROW_ON_ERROR)));
 	}
 	public function migrate($user,$expected_checksum=null){
-		if(!defined('WP_CLI')||!WP_CLI||is_multisite()||'local'!==wp_get_environment_type()||!defined('NODEVORA_FINANCIAL_MIGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_MIGRATION_ALLOWED||!defined('NODEVORA_FINANCIAL_WRITERS_DRAINED')||true!==NODEVORA_FINANCIAL_WRITERS_DRAINED){throw new Nodevora_Financial_Error('Migration is disabled outside an explicitly isolated local CLI cutover.');}
+		if(is_multisite()||(!Nodevora_Financial_Setup::permits('migration')&&(!defined('WP_CLI')||!WP_CLI||'local'!==wp_get_environment_type()||!defined('NODEVORA_FINANCIAL_MIGRATION_ALLOWED')||true!==NODEVORA_FINANCIAL_MIGRATION_ALLOWED||!defined('NODEVORA_FINANCIAL_WRITERS_DRAINED')||true!==NODEVORA_FINANCIAL_WRITERS_DRAINED))){throw new Nodevora_Financial_Error('Migration requires the reviewed backup/setup workflow.');}
 		Nodevora_Financial_Wallet::points($user);if(!$user||!get_user_by('id',$user)){throw new Nodevora_Financial_Error('Legacy user does not exist.');}
 		$settings=Rewardly_Loyalty_Helpers::get_settings();$days=max(0,(int)$settings['points_expiration_days']);$timezone=wp_timezone_string();$orders=$this->orders($user);$reviews=$this->reviews($user);$orders['reasons']=array_merge($orders['reasons'],$reviews['reasons']);$db=$this->connect();Nodevora_Financial_Schema::verify($db);
 		try{
