@@ -169,7 +169,6 @@
 
 .rewardly-loyalty-btn:focus,
 .button.rewardly-loyalty-btn:focus{
-  outline:none;
   box-shadow:0 0 0 3px rgba(18,184,166,.16);
 }
 
@@ -205,7 +204,6 @@
   font-size:1rem;
   line-height:1.2;
   box-shadow:none;
-  outline:none;
   transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;
 }
 
@@ -389,7 +387,7 @@
 @media (min-width:768px){
   .rewardly-log-table-head{
     display:grid;
-    grid-template-columns:190px 250px 130px 190px minmax(280px,1fr);
+    grid-template-columns:minmax(0,1.2fr) minmax(0,1.1fr) minmax(0,.65fr) minmax(0,1fr) minmax(0,1.3fr);
     gap:18px;
     margin-bottom:10px;
     padding:0 18px;
@@ -405,7 +403,7 @@
 
   .rewardly-loyalty-account .shop_table tr.rewardly-log-row{
     display:grid;
-    grid-template-columns:190px 250px 130px 190px minmax(280px,1fr);
+    grid-template-columns:minmax(0,1.2fr) minmax(0,1.1fr) minmax(0,.65fr) minmax(0,1fr) minmax(0,1.3fr);
     gap:18px;
     align-items:start;
     width:100%;
@@ -900,3 +898,11 @@
 @media(max-width:359px){.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-items{table-layout:fixed;width:100%;min-width:0}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__image{width:18%;padding-right:8px}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__product{width:57%;overflow-wrap:anywhere}.wp-block-woocommerce-cart:has(.nodevora-block-card) .wc-block-cart-item__total{width:25%;overflow-wrap:anywhere}}
 /* Le contour des champs conserve un contraste suffisant avec les préréglages fournis. */
 .nodevora-redeem-form input,.rewardly-loyalty-box input.rewardly-loyalty-box__input{border-color:var(--rewardly-primary,#243b53)}
+
+.rewardly-loyalty-box .rewardly-loyalty-btn:focus-visible{outline:3px solid var(--rewardly-primary,#243b53);outline-offset:3px}
+
+.rewardly-loyalty-account .rewardly-log-table-head,.rewardly-loyalty-account .shop_table tr.rewardly-log-row{column-gap:12px}
+.rewardly-loyalty-account .rewardly-log-type{white-space:normal;text-align:center;max-width:100%}
+.rewardly-loyalty-account .shop_table thead{display:table-header-group;position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* Préserver la largeur du produit avec des noms d'avis particulièrement longs. */
+.single-product:has(.rewardly-product-points-notice) .woocommerce-review__author{overflow-wrap:anywhere}

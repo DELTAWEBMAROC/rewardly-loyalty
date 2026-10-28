@@ -348,11 +348,11 @@ class Rewardly_Loyalty_Account {
 				<table class="shop_table shop_table_responsive my_account_orders">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
-							<th><?php esc_html_e( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
-							<th><?php esc_html_e( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
-							<th><?php esc_html_e( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
-							<th><?php esc_html_e( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Date', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Type', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Amount', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Note', 'nodevora-customer-rewards-for-woocommerce' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>

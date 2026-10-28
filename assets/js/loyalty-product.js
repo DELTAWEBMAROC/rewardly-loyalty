@@ -10,7 +10,7 @@ jQuery(function ($) {
 	const scale = Math.pow(10, decimals);
 	let rate = initialRate;
 	let price = initialPrice;
-	const form = notice.closest('.summary')?.querySelector('form.cart');
+	const form = notice.closest('.summary, .product')?.querySelector('form.cart') || document.querySelector('form.cart');
 	function update() {
 		const quantity = Math.max(1, Number(form?.querySelector('input.qty')?.value) || 1);
 		const points = Math.floor(price * rate * quantity);

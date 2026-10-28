@@ -54,23 +54,13 @@ class Rewardly_Loyalty_Product {
 			return;
 		}
 
-		$price = (float) $product->get_price();
-		if ( $price <= 0 && $product->is_type( 'variable' ) ) {
-			$variation_prices = $product->get_variation_prices( true );
-			if ( ! empty( $variation_prices['price'] ) ) {
-				$price = (float) current( $variation_prices['price'] );
-			}
-		}
-
-		if ( $price <= 0 ) {
-			return;
-		}
-
-		$points_rate = Rewardly_Loyalty_Helpers::get_effective_product_earning_rate( $product );
-		$points      = Rewardly_Loyalty_Helpers::calculate_product_earned_points( $product, $price );
-		if ( $points <= 0 && ! $product->is_type( 'variable' ) ) {
-			return;
-		}
+		$is_variable = $product->is_type( 'variable' );
+		/* Une estimation parentale ne prouve pas le taux de la variation choisie. */
+		$price = $is_variable ? 0 : (float) $product->get_price();
+		if ( ! $is_variable && $price <= 0 ) { return; }
+		$points_rate = $is_variable ? 0 : Rewardly_Loyalty_Helpers::get_effective_product_earning_rate( $product );
+		$points = $is_variable ? 0 : Rewardly_Loyalty_Helpers::calculate_product_earned_points( $product, $price );
+		if ( $points <= 0 && ! $is_variable ) { return; }
 
 		$amount = Rewardly_Loyalty_Helpers::convert_points_to_amount( $points );
 		?>
