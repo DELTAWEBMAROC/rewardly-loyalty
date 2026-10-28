@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T23:17:27+00:00\n"
+"POT-Creation-Date: 2026-10-28T11:03:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -892,7 +892,7 @@ msgid "Loyalty points were removed from this order."
 msgstr ""
 
 #: includes/core/class-rewardly-loyalty-redeem.php:208
-#: includes/front/class-nodevora-loyalty-blocks.php:50
+#: includes/front/class-nodevora-loyalty-blocks.php:62
 msgid "You cannot use your loyalty points yet."
 msgstr ""
 
@@ -941,7 +941,7 @@ msgid "Remove My Points"
 msgstr ""
 
 #: includes/core/class-rewardly-loyalty-redeem.php:490
-#: includes/front/class-nodevora-loyalty-blocks.php:39
+#: includes/front/class-nodevora-loyalty-blocks.php:51
 msgid "Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup."
 msgstr ""
 
@@ -1020,19 +1020,19 @@ msgid "loyalty points."
 msgstr ""
 
 #: includes/financial/class-nodevora-financial-checkout.php:31
-#: includes/financial/class-nodevora-financial-checkout.php:80
+#: includes/financial/class-nodevora-financial-checkout.php:81
 msgid "Loyalty discount"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-checkout.php:86
+#: includes/financial/class-nodevora-financial-checkout.php:87
 msgid "Nodevora could not verify order funding. Please retry or contact the store."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-checkout.php:87
+#: includes/financial/class-nodevora-financial-checkout.php:88
 msgid "Nodevora could not verify order funding."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-checkout.php:88
+#: includes/financial/class-nodevora-financial-checkout.php:89
 msgid "Nodevora could not verify order funding. Contact the store before retrying."
 msgstr ""
 
@@ -1053,15 +1053,15 @@ msgstr ""
 msgid "Loyalty spending is paused or awaiting setup. Existing points are preserved. Review financial readiness before enabling new rewards."
 msgstr ""
 
-#: includes/front/class-nodevora-loyalty-blocks.php:44
+#: includes/front/class-nodevora-loyalty-blocks.php:56
 msgid "Log in before using loyalty points."
 msgstr ""
 
-#: includes/front/class-nodevora-loyalty-blocks.php:46
+#: includes/front/class-nodevora-loyalty-blocks.php:58
 msgid "Choose a valid loyalty action."
 msgstr ""
 
-#: includes/front/class-nodevora-loyalty-blocks.php:48
+#: includes/front/class-nodevora-loyalty-blocks.php:60
 msgid "Redemption is temporarily unavailable. Your points are preserved."
 msgstr ""
 

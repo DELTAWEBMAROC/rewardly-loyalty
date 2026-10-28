@@ -4,16 +4,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
+"POT-Creation-Date: 2026-10-28T11:03:40+00:00\n"
+"PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "Last-Translator: Nodevora Project\n"
 "Language-Team: French\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T23:17:27+00:00\n"
-"PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
-"Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. Plugin Name of the plugin
@@ -25,8 +25,13 @@ msgstr "Nodevora Customer Rewards for WooCommerce"
 
 #. Description of the plugin
 #: nodevora-customer-rewards-for-woocommerce.php
-msgid "WooCommerce loyalty points with discounts, expiration, customer history, emails, shortcodes, and Cart & Checkout Blocks support."
-msgstr "Programme de fidélité WooCommerce avec remises, expiration, historique client, e-mails, codes courts et prise en charge des blocs Panier et Commande."
+msgid ""
+"WooCommerce loyalty points with discounts, expiration, customer history, "
+"emails, shortcodes, and Cart & Checkout Blocks support."
+msgstr ""
+"Programme de fidélité WooCommerce avec remises, expiration, historique "
+"client, e-mails, codes courts et prise en charge des blocs Panier et "
+"Commande."
 
 #. Author of the plugin
 #: nodevora-customer-rewards-for-woocommerce.php
@@ -122,12 +127,19 @@ msgid "Missing adjustment identity. Reload the form."
 msgstr "Identifiant d’ajustement manquant. Rechargez le formulaire."
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:46
-msgid "Adjustment was not authorized. Check account readiness and retry with the same form."
-msgstr "L’ajustement n’a pas été autorisé. Vérifiez la disponibilité du compte et réessayez avec le même formulaire."
+msgid ""
+"Adjustment was not authorized. Check account readiness and retry with the "
+"same form."
+msgstr ""
+"L’ajustement n’a pas été autorisé. Vérifiez la disponibilité du compte et "
+"réessayez avec le même formulaire."
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:49
-msgid "Points are preserved. Complete financial setup before adjusting balances."
-msgstr "Les points sont conservés. Terminez la configuration financière avant d’ajuster les soldes."
+msgid ""
+"Points are preserved. Complete financial setup before adjusting balances."
+msgstr ""
+"Les points sont conservés. Terminez la configuration financière avant "
+"d’ajuster les soldes."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:10
 msgid "Nodevora Rewards"
@@ -190,12 +202,18 @@ msgid "Card in checkout. Informational notice in cart."
 msgstr "Carte lors de la commande. Notice d’information dans le panier."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:116
-msgid "Automatic card and notice are disabled. Use the provided shortcodes only."
-msgstr "La carte et la notice automatiques sont désactivées. Utilisez uniquement les codes courts fournis."
+msgid ""
+"Automatic card and notice are disabled. Use the provided shortcodes only."
+msgstr ""
+"La carte et la notice automatiques sont désactivées. Utilisez uniquement les "
+"codes courts fournis."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:118
-msgid "Card is shown automatically in cart and checkout. Auto notice stays hidden."
-msgstr "La carte s’affiche automatiquement dans le panier et lors de la commande. La notice automatique reste masquée."
+msgid ""
+"Card is shown automatically in cart and checkout. Auto notice stays hidden."
+msgstr ""
+"La carte s’affiche automatiquement dans le panier et lors de la commande. La "
+"notice automatique reste masquée."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:125
 msgid "Minimal template with a cleaner neutral look."
@@ -214,16 +232,24 @@ msgid "You are not allowed to manage rewards."
 msgstr "Vous n’êtes pas autorisé à gérer les récompenses."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:140
-msgid "Configure the loyalty program, adjust customer balances, place shortcodes and manage all loyalty tools from a single place."
-msgstr "Configurez le programme de fidélité, ajustez les soldes clients, insérez des codes courts et gérez les outils de fidélité au même endroit."
+msgid ""
+"Configure the loyalty program, adjust customer balances, place shortcodes "
+"and manage all loyalty tools from a single place."
+msgstr ""
+"Configurez le programme de fidélité, ajustez les soldes clients, insérez des "
+"codes courts et gérez les outils de fidélité au même endroit."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:175
 msgid "Design settings"
 msgstr "Réglages de présentation"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:176
-msgid "These settings apply only to Nodevora reward interface elements and keep the plugin compatible with most WooCommerce themes."
-msgstr "Ces réglages s’appliquent uniquement aux éléments de fidélité Nodevora et préservent la compatibilité avec la plupart des thèmes WooCommerce."
+msgid ""
+"These settings apply only to Nodevora reward interface elements and keep the "
+"plugin compatible with most WooCommerce themes."
+msgstr ""
+"Ces réglages s’appliquent uniquement aux éléments de fidélité Nodevora et "
+"préservent la compatibilité avec la plupart des thèmes WooCommerce."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:176
 #: includes/admin/class-rewardly-loyalty-admin.php:421
@@ -371,8 +397,12 @@ msgid "Card border"
 msgstr "Bordure des cartes"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:188
-msgid "Optional hex color. Leave empty to follow the preset. Check text contrast after changing colors."
-msgstr "Couleur hexadécimale facultative. Laissez vide pour suivre le modèle. Vérifiez le contraste du texte après toute modification."
+msgid ""
+"Optional hex color. Leave empty to follow the preset. Check text contrast "
+"after changing colors."
+msgstr ""
+"Couleur hexadécimale facultative. Laissez vide pour suivre le modèle. "
+"Vérifiez le contraste du texte après toute modification."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:190
 msgid "Spacing"
@@ -383,8 +413,12 @@ msgid "Comfortable"
 msgstr "Confortable"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:203
-msgid "Use these shortcodes to display Nodevora rewards data in any page, block or builder section."
-msgstr "Utilisez ces codes courts pour afficher les données de fidélité Nodevora dans une page, un bloc ou une section de votre outil de création."
+msgid ""
+"Use these shortcodes to display Nodevora rewards data in any page, block or "
+"builder section."
+msgstr ""
+"Utilisez ces codes courts pour afficher les données de fidélité Nodevora "
+"dans une page, un bloc ou une section de votre outil de création."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:205
 msgid "Display the current customer points balance."
@@ -403,12 +437,20 @@ msgid "Display a loyalty summary block."
 msgstr "Afficher un résumé du programme de fidélité."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:209
-msgid "Display the informational loyalty notice anywhere. Supports context=\"cart\" or context=\"checkout\"."
-msgstr "Afficher la notice d’information de fidélité à l’emplacement souhaité. Accepte context=\"cart\" ou context=\"checkout\"."
+msgid ""
+"Display the informational loyalty notice anywhere. Supports context=\"cart\" "
+"or context=\"checkout\"."
+msgstr ""
+"Afficher la notice d’information de fidélité à l’emplacement souhaité. "
+"Accepte context=\"cart\" ou context=\"checkout\"."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:210
-msgid "Display the full loyalty redeem card anywhere. Supports context=\"cart\" or context=\"checkout\"."
-msgstr "Afficher la carte complète d’utilisation des points à l’emplacement souhaité. Accepte context=\"cart\" ou context=\"checkout\"."
+msgid ""
+"Display the full loyalty redeem card anywhere. Supports context=\"cart\" or "
+"context=\"checkout\"."
+msgstr ""
+"Afficher la carte complète d’utilisation des points à l’emplacement "
+"souhaité. Accepte context=\"cart\" ou context=\"checkout\"."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:214
 msgid "Current display mode"
@@ -419,8 +461,12 @@ msgid "Quick reminder"
 msgstr "Rappel"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:217
-msgid "When the mode is set to Shortcode only, place both the loyalty card and the informational notice with shortcodes where you want them to appear."
-msgstr "En mode Codes courts uniquement, insérez la carte de fidélité et la notice d’information à l’aide de codes courts aux emplacements souhaités."
+msgid ""
+"When the mode is set to Shortcode only, place both the loyalty card and the "
+"informational notice with shortcodes where you want them to appear."
+msgstr ""
+"En mode Codes courts uniquement, insérez la carte de fidélité et la notice "
+"d’information à l’aide de codes courts aux emplacements souhaités."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:219
 msgid "Recommended snippets"
@@ -428,15 +474,21 @@ msgstr "Exemples recommandés"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:238
 msgid "All advanced features are available in this free release."
-msgstr "Toutes les fonctions avancées sont disponibles dans cette version gratuite."
+msgstr ""
+"Toutes les fonctions avancées sont disponibles dans cette version gratuite."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:261
 msgid "Advanced Rules"
 msgstr "Règles avancées"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:262
-msgid "Build category rules and exclusions with search-assisted selectors. Product-level overrides are available directly inside the Product data panel."
-msgstr "Créez des règles par catégorie et des exclusions avec les sélecteurs de recherche. Les taux propres aux produits se règlent dans leurs données produit."
+msgid ""
+"Build category rules and exclusions with search-assisted selectors. Product-"
+"level overrides are available directly inside the Product data panel."
+msgstr ""
+"Créez des règles par catégorie et des exclusions avec les sélecteurs de "
+"recherche. Les taux propres aux produits se règlent dans leurs données "
+"produit."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:265
 msgid "Exclude sale products from earning"
@@ -451,8 +503,12 @@ msgid "Add category rule"
 msgstr "Ajouter une règle de catégorie"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:282
-msgid "Each rule defines how many points are earned for each 1 unit of store currency spent in products from that category."
-msgstr "Chaque règle définit le nombre de points gagnés par unité monétaire dépensée pour les produits de cette catégorie."
+msgid ""
+"Each rule defines how many points are earned for each 1 unit of store "
+"currency spent in products from that category."
+msgstr ""
+"Chaque règle définit le nombre de points gagnés par unité monétaire dépensée "
+"pour les produits de cette catégorie."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:286
 #: includes/admin/class-rewardly-loyalty-admin.php:423
@@ -464,8 +520,12 @@ msgid "Add excluded product"
 msgstr "Ajouter un produit exclu"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:298
-msgid "You can also type raw product IDs manually inside the selector field if needed."
-msgstr "Vous pouvez également saisir directement les identifiants de produits dans le sélecteur."
+msgid ""
+"You can also type raw product IDs manually inside the selector field if "
+"needed."
+msgstr ""
+"Vous pouvez également saisir directement les identifiants de produits dans "
+"le sélecteur."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:302
 #: includes/admin/class-rewardly-loyalty-admin.php:424
@@ -482,7 +542,9 @@ msgstr "Bonus de points"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:329
 msgid "Set optional one-time bonuses for customer lifecycle events."
-msgstr "Définissez des bonus uniques facultatifs pour les événements du parcours client."
+msgstr ""
+"Définissez des bonus uniques facultatifs pour les événements du parcours "
+"client."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:331
 msgid "Registration bonus"
@@ -498,7 +560,8 @@ msgstr "Bonus de première commande"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:332
 msgid "Awarded once when the first eligible order is processed."
-msgstr "Attribué une seule fois au traitement de la première commande éligible."
+msgstr ""
+"Attribué une seule fois au traitement de la première commande éligible."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:333
 msgid "Approved product review bonus"
@@ -513,24 +576,35 @@ msgid "Campaigns"
 msgstr "Messages clients"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:346
-msgid "Configure customer-facing messages that make loyalty earnings easier to understand."
-msgstr "Configurez les messages qui expliquent aux clients leurs gains de fidélité."
+msgid ""
+"Configure customer-facing messages that make loyalty earnings easier to "
+"understand."
+msgstr ""
+"Configurez les messages qui expliquent aux clients leurs gains de fidélité."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:348
 msgid "Enable pending points notice"
 msgstr "Activer la notice de points en attente"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:348
-msgid "Display a custom message in My Account when a customer has an eligible order that will earn points later."
-msgstr "Afficher un message personnalisé dans Mon compte lorsqu’une commande éligible permettra de gagner des points ultérieurement."
+msgid ""
+"Display a custom message in My Account when a customer has an eligible order "
+"that will earn points later."
+msgstr ""
+"Afficher un message personnalisé dans Mon compte lorsqu’une commande "
+"éligible permettra de gagner des points ultérieurement."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:349
 msgid "Pending points notice text"
 msgstr "Texte de la notice de points en attente"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:349
-msgid "Available placeholders: {points}, {order_number}, {status}, {total}, {currency}, {product_name}, {product_link}, {order_link}, {order_summary}."
-msgstr "Variables disponibles : {points}, {order_number}, {status}, {total}, {currency}, {product_name}, {product_link}, {order_link}, {order_summary}."
+msgid ""
+"Available placeholders: {points}, {order_number}, {status}, {total}, "
+"{currency}, {product_name}, {product_link}, {order_link}, {order_summary}."
+msgstr ""
+"Variables disponibles : {points}, {order_number}, {status}, {total}, "
+"{currency}, {product_name}, {product_link}, {order_link}, {order_summary}."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:350
 msgid "Statuses considered pending"
@@ -550,20 +624,33 @@ msgid "Processing"
 msgstr "En cours"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:354
-msgid "Only the latest eligible order in one of these statuses will be used for the pending message."
-msgstr "Seule la dernière commande éligible dans l’un de ces états sera utilisée pour le message en attente."
+msgid ""
+"Only the latest eligible order in one of these statuses will be used for the "
+"pending message."
+msgstr ""
+"Seule la dernière commande éligible dans l’un de ces états sera utilisée "
+"pour le message en attente."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:357
-msgid "Order-linked references in My Account history are enabled automatically when a history entry is tied to an order owned by the current customer."
-msgstr "Les liens vers les commandes s’affichent automatiquement dans l’historique Mon compte lorsque l’entrée concerne une commande appartenant au client connecté."
+msgid ""
+"Order-linked references in My Account history are enabled automatically when "
+"a history entry is tied to an order owned by the current customer."
+msgstr ""
+"Les liens vers les commandes s’affichent automatiquement dans l’historique "
+"Mon compte lorsque l’entrée concerne une commande appartenant au client "
+"connecté."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:367
 msgid "Levels & Badges"
 msgstr "Niveaux et badges"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:368
-msgid "Define milestone thresholds based on the total earned points of each customer."
-msgstr "Définissez les seuils de progression à partir du total de points gagnés par chaque client."
+msgid ""
+"Define milestone thresholds based on the total earned points of each "
+"customer."
+msgstr ""
+"Définissez les seuils de progression à partir du total de points gagnés par "
+"chaque client."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:370
 msgid "Enable levels system"
@@ -583,7 +670,9 @@ msgstr "Seuil Or"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:377
 msgid "Levels are displayed in My Account with a badge and a progress bar."
-msgstr "Les niveaux s’affichent dans Mon compte avec un badge et une barre de progression."
+msgstr ""
+"Les niveaux s’affichent dans Mon compte avec un badge et une barre de "
+"progression."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:387
 msgid "Help and quick notes"
@@ -595,15 +684,24 @@ msgstr "Utilisez l’onglet Général pour les réglages de conversion des point
 
 #: includes/admin/class-rewardly-loyalty-admin.php:390
 msgid "Use General for loyalty rules and Design for appearance."
-msgstr "Utilisez Général pour les règles de fidélité et Présentation pour l’apparence."
+msgstr ""
+"Utilisez Général pour les règles de fidélité et Présentation pour "
+"l’apparence."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:391
-msgid "Use Advanced Features to manage advanced rules, bonuses, campaigns and levels."
-msgstr "Utilisez Fonctions avancées pour gérer les règles, les bonus, les messages et les niveaux."
+msgid ""
+"Use Advanced Features to manage advanced rules, bonuses, campaigns and "
+"levels."
+msgstr ""
+"Utilisez Fonctions avancées pour gérer les règles, les bonus, les messages "
+"et les niveaux."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:392
-msgid "Shortcodes can be inserted in builders, custom pages and account dashboards."
-msgstr "Les codes courts peuvent être insérés dans les outils de création de pages, les pages personnalisées et les tableaux de bord clients."
+msgid ""
+"Shortcodes can be inserted in builders, custom pages and account dashboards."
+msgstr ""
+"Les codes courts peuvent être insérés dans les outils de création de pages, "
+"les pages personnalisées et les tableaux de bord clients."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:394
 msgid "Display mode"
@@ -614,24 +712,39 @@ msgid "Launch checklist"
 msgstr "Liste de contrôle avant lancement"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:399
-msgid "Confirm the earning and redeem conversion values in the main settings tab."
-msgstr "Vérifiez les taux de gain et de conversion des points dans les réglages principaux."
+msgid ""
+"Confirm the earning and redeem conversion values in the main settings tab."
+msgstr ""
+"Vérifiez les taux de gain et de conversion des points dans les réglages "
+"principaux."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:400
 msgid "Choose where the loyalty card should appear automatically."
 msgstr "Choisissez les pages où afficher automatiquement la carte de fidélité."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:401
-msgid "Select a free template and verify the store front result on desktop and mobile."
-msgstr "Choisissez un modèle gratuit et vérifiez le résultat sur ordinateur et mobile."
+msgid ""
+"Select a free template and verify the store front result on desktop and "
+"mobile."
+msgstr ""
+"Choisissez un modèle gratuit et vérifiez le résultat sur ordinateur et "
+"mobile."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:402
-msgid "Review the advanced features tab and enable the options you need for your store."
-msgstr "Consultez les fonctions avancées et activez les options utiles à votre boutique."
+msgid ""
+"Review the advanced features tab and enable the options you need for your "
+"store."
+msgstr ""
+"Consultez les fonctions avancées et activez les options utiles à votre "
+"boutique."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:403
-msgid "Verify an isolated test order and refund or cancellation before release. Never use a real payment for testing."
-msgstr "Vérifiez une commande de test isolée et son remboursement ou son annulation avant publication. N’utilisez jamais un paiement réel pour les tests."
+msgid ""
+"Verify an isolated test order and refund or cancellation before release. "
+"Never use a real payment for testing."
+msgstr ""
+"Vérifiez une commande de test isolée et son remboursement ou son annulation "
+"avant publication. N’utilisez jamais un paiement réel pour les tests."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:415
 msgid "Debug information"
@@ -683,7 +796,8 @@ msgstr "1 %s = X point(s)"
 #: includes/admin/class-rewardly-loyalty-settings.php:89
 #, php-format
 msgid "Define how many points are earned for each 1 %s spent."
-msgstr "Définissez le nombre de points gagnés pour chaque unité de %s dépensée."
+msgstr ""
+"Définissez le nombre de points gagnés pour chaque unité de %s dépensée."
 
 #. translators: %s: store currency code.
 #: includes/admin/class-rewardly-loyalty-settings.php:93
@@ -695,7 +809,8 @@ msgstr "X point(s) = 1 %s"
 #: includes/admin/class-rewardly-loyalty-settings.php:96
 #, php-format
 msgid "Define how many points are required to unlock 1 %s of discount."
-msgstr "Définissez le nombre de points nécessaires pour obtenir 1 %s de remise."
+msgstr ""
+"Définissez le nombre de points nécessaires pour obtenir 1 %s de remise."
 
 #: includes/admin/class-rewardly-loyalty-settings.php:98
 msgid "Minimum points to redeem"
@@ -752,8 +867,14 @@ msgid "Shortcode only"
 msgstr "Codes courts uniquement"
 
 #: includes/admin/class-rewardly-loyalty-settings.php:106
-msgid "Choose where the loyalty card should appear automatically. The informational notice will be shown on the opposite page when only one card location is selected."
-msgstr "Choisissez où afficher automatiquement la carte de fidélité. La notice d’information s’affichera sur l’autre page si vous choisissez un seul emplacement pour la carte."
+msgid ""
+"Choose where the loyalty card should appear automatically. The informational "
+"notice will be shown on the opposite page when only one card location is "
+"selected."
+msgstr ""
+"Choisissez où afficher automatiquement la carte de fidélité. La notice "
+"d’information s’affichera sur l’autre page si vous choisissez un seul "
+"emplacement pour la carte."
 
 #: includes/admin/class-rewardly-loyalty-settings.php:106
 msgid "Use this shortcode:"
@@ -768,8 +889,13 @@ msgid "Delete plugin data on uninstall"
 msgstr "Supprimer les données de l’extension à la désinstallation"
 
 #: includes/admin/class-rewardly-loyalty-settings.php:107
-msgid "If enabled, plugin preferences are removed on uninstall. Customer balances, history and financial evidence are always preserved."
-msgstr "Si cette option est activée, les préférences de l’extension sont supprimées à la désinstallation. Les soldes clients, l’historique et les preuves financières sont toujours conservés."
+msgid ""
+"If enabled, plugin preferences are removed on uninstall. Customer balances, "
+"history and financial evidence are always preserved."
+msgstr ""
+"Si cette option est activée, les préférences de l’extension sont supprimées "
+"à la désinstallation. Les soldes clients, l’historique et les preuves "
+"financières sont toujours conservés."
 
 #: includes/core/class-rewardly-loyalty-emails.php:33
 msgid "You earned loyalty points"
@@ -830,8 +956,12 @@ msgid "Review reward withdrawn after moderation."
 msgstr "Récompense d’avis retirée à la suite de la modération."
 
 #: includes/core/class-rewardly-loyalty-helpers.php:367
-msgid "Partial refund requires reconciliation; no proportional points adjustment was applied."
-msgstr "Un remboursement partiel nécessite une vérification ; aucun ajustement proportionnel des points n’a été appliqué."
+msgid ""
+"Partial refund requires reconciliation; no proportional points adjustment "
+"was applied."
+msgstr ""
+"Un remboursement partiel nécessite une vérification ; aucun ajustement "
+"proportionnel des points n’a été appliqué."
 
 #: includes/core/class-rewardly-loyalty-helpers.php:530
 msgid "Bronze"
@@ -886,15 +1016,19 @@ msgid "Nodevora points per currency unit"
 msgstr "Points Nodevora par unité monétaire"
 
 #: includes/core/class-rewardly-loyalty-pro.php:77
-msgid "Override the global earn rate for this product only. Leave empty to use the global rule."
-msgstr "Remplacez le taux de gain global pour ce produit uniquement. Laissez vide pour utiliser la règle globale."
+msgid ""
+"Override the global earn rate for this product only. Leave empty to use the "
+"global rule."
+msgstr ""
+"Remplacez le taux de gain global pour ce produit uniquement. Laissez vide "
+"pour utiliser la règle globale."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:147
 msgid "Loyalty points were removed from this order."
 msgstr "Les points de fidélité ont été retirés de cette commande."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:208
-#: includes/front/class-nodevora-loyalty-blocks.php:50
+#: includes/front/class-nodevora-loyalty-blocks.php:62
 msgid "You cannot use your loyalty points yet."
 msgstr "Vous ne pouvez pas encore utiliser vos points de fidélité."
 
@@ -912,8 +1046,10 @@ msgid "You cannot use more points than your available balance."
 msgstr "Vous ne pouvez pas utiliser plus de points que votre solde disponible."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:262
-msgid "The number of points entered exceeds the maximum allowed for this order."
-msgstr "Le nombre de points saisi dépasse le maximum autorisé pour cette commande."
+msgid ""
+"The number of points entered exceeds the maximum allowed for this order."
+msgstr ""
+"Le nombre de points saisi dépasse le maximum autorisé pour cette commande."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:344
 msgid "Complete your order and earn up to"
@@ -935,7 +1071,9 @@ msgstr "cette commande"
 #: includes/core/class-rewardly-loyalty-redeem.php:466
 #, php-format
 msgid "Log in to use loyalty points and earn up to %1$s points with %2$s."
-msgstr "Connectez-vous pour utiliser vos points de fidélité et gagner jusqu’à %1$s points avec %2$s."
+msgstr ""
+"Connectez-vous pour utiliser vos points de fidélité et gagner jusqu’à %1$s "
+"points avec %2$s."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:482
 #: includes/core/class-rewardly-loyalty-redeem.php:661
@@ -943,9 +1081,13 @@ msgid "Remove My Points"
 msgstr "Retirer mes points"
 
 #: includes/core/class-rewardly-loyalty-redeem.php:490
-#: includes/front/class-nodevora-loyalty-blocks.php:39
-msgid "Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup."
-msgstr "Vos points sont conservés. Leur utilisation est temporairement indisponible pendant la configuration financière de la boutique."
+#: includes/front/class-nodevora-loyalty-blocks.php:51
+msgid ""
+"Your points are preserved. Redemption is temporarily unavailable while the "
+"store completes financial setup."
+msgstr ""
+"Vos points sont conservés. Leur utilisation est temporairement indisponible "
+"pendant la configuration financière de la boutique."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:516
 #: includes/core/class-rewardly-loyalty-redeem.php:538
@@ -1002,16 +1144,26 @@ msgid "Apply My Points"
 msgstr "Appliquer mes points"
 
 #: includes/core/class-rewardly-loyalty-redeem.php:679
-msgid "Loyalty spending is unavailable until the store completes setup. Remove the points selection before payment."
-msgstr "L’utilisation des points est indisponible tant que la boutique n’a pas terminé la configuration. Retirez la sélection de points avant le paiement."
+msgid ""
+"Loyalty spending is unavailable until the store completes setup. Remove the "
+"points selection before payment."
+msgstr ""
+"L’utilisation des points est indisponible tant que la boutique n’a pas "
+"terminé la configuration. Retirez la sélection de points avant le paiement."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:684
-msgid "Loyalty spending is unavailable. Remove the points selection or contact the store before payment."
-msgstr "L’utilisation des points est indisponible. Retirez la sélection de points ou contactez la boutique avant le paiement."
+msgid ""
+"Loyalty spending is unavailable. Remove the points selection or contact the "
+"store before payment."
+msgstr ""
+"L’utilisation des points est indisponible. Retirez la sélection de points ou "
+"contactez la boutique avant le paiement."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:697
 msgid "Loyalty setup is required before this discount can be accepted."
-msgstr "La configuration du programme de fidélité est requise avant d’accepter cette remise."
+msgstr ""
+"La configuration du programme de fidélité est requise avant d’accepter cette "
+"remise."
 
 #: includes/core/class-rewardly-loyalty-redeem.php:851
 msgid "This order can earn you up to"
@@ -1022,25 +1174,35 @@ msgid "loyalty points."
 msgstr "points de fidélité."
 
 #: includes/financial/class-nodevora-financial-checkout.php:31
-#: includes/financial/class-nodevora-financial-checkout.php:80
+#: includes/financial/class-nodevora-financial-checkout.php:81
 msgid "Loyalty discount"
 msgstr "Remise de fidélité"
 
-#: includes/financial/class-nodevora-financial-checkout.php:86
-msgid "Nodevora could not verify order funding. Please retry or contact the store."
-msgstr "Nodevora n’a pas pu vérifier le financement de la commande. Réessayez ou contactez la boutique."
-
 #: includes/financial/class-nodevora-financial-checkout.php:87
+msgid ""
+"Nodevora could not verify order funding. Please retry or contact the store."
+msgstr ""
+"Nodevora n’a pas pu vérifier le financement de la commande. Réessayez ou "
+"contactez la boutique."
+
+#: includes/financial/class-nodevora-financial-checkout.php:88
 msgid "Nodevora could not verify order funding."
 msgstr "Nodevora n’a pas pu vérifier le financement de la commande."
 
-#: includes/financial/class-nodevora-financial-checkout.php:88
-msgid "Nodevora could not verify order funding. Contact the store before retrying."
-msgstr "Nodevora n’a pas pu vérifier le financement de la commande. Contactez la boutique avant de réessayer."
+#: includes/financial/class-nodevora-financial-checkout.php:89
+msgid ""
+"Nodevora could not verify order funding. Contact the store before retrying."
+msgstr ""
+"Nodevora n’a pas pu vérifier le financement de la commande. Contactez la "
+"boutique avant de réessayer."
 
 #: includes/financial/class-nodevora-financial-compatibility.php:16
-msgid "Loyalty spending is unavailable while this account is reconciled. Existing points are preserved."
-msgstr "L’utilisation des points est indisponible pendant la vérification de ce compte. Les points existants sont conservés."
+msgid ""
+"Loyalty spending is unavailable while this account is reconciled. Existing "
+"points are preserved."
+msgstr ""
+"L’utilisation des points est indisponible pendant la vérification de ce "
+"compte. Les points existants sont conservés."
 
 #: includes/financial/class-nodevora-financial-compatibility.php:17
 #, php-format
@@ -1048,24 +1210,36 @@ msgid "Preserved opening balance: %s points."
 msgstr "Solde initial conservé : %s points."
 
 #: includes/financial/class-nodevora-financial-readiness.php:21
-msgid "Nodevora financial operations support single-site stores only. Network data is retained and loyalty spending is unavailable."
-msgstr "Les opérations financières Nodevora prennent uniquement en charge les boutiques WordPress à site unique. Les données du réseau sont conservées et l’utilisation des points est indisponible."
+msgid ""
+"Nodevora financial operations support single-site stores only. Network data "
+"is retained and loyalty spending is unavailable."
+msgstr ""
+"Les opérations financières Nodevora prennent uniquement en charge les "
+"boutiques WordPress à site unique. Les données du réseau sont conservées et "
+"l’utilisation des points est indisponible."
 
 #: includes/financial/class-nodevora-financial-readiness.php:22
-msgid "Loyalty spending is paused or awaiting setup. Existing points are preserved. Review financial readiness before enabling new rewards."
-msgstr "L’utilisation des points est suspendue ou en attente de configuration. Les points existants sont conservés. Vérifiez la configuration financière avant d’activer de nouvelles récompenses."
+msgid ""
+"Loyalty spending is paused or awaiting setup. Existing points are preserved. "
+"Review financial readiness before enabling new rewards."
+msgstr ""
+"L’utilisation des points est suspendue ou en attente de configuration. Les "
+"points existants sont conservés. Vérifiez la configuration financière avant "
+"d’activer de nouvelles récompenses."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:44
+#: includes/front/class-nodevora-loyalty-blocks.php:56
 msgid "Log in before using loyalty points."
 msgstr "Connectez-vous avant d’utiliser vos points de fidélité."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:46
+#: includes/front/class-nodevora-loyalty-blocks.php:58
 msgid "Choose a valid loyalty action."
 msgstr "Choisissez une action de fidélité valide."
 
-#: includes/front/class-nodevora-loyalty-blocks.php:48
+#: includes/front/class-nodevora-loyalty-blocks.php:60
 msgid "Redemption is temporarily unavailable. Your points are preserved."
-msgstr "L’utilisation des points est temporairement indisponible. Vos points sont conservés."
+msgstr ""
+"L’utilisation des points est temporairement indisponible. Vos points sont "
+"conservés."
 
 #: includes/front/class-rewardly-loyalty-account.php:35
 #: includes/front/class-rewardly-loyalty-account.php:40
@@ -1138,8 +1312,12 @@ msgstr[0] "%1$s et %2$d autre article"
 msgstr[1] "%1$s et %2$d autres articles"
 
 #: includes/front/class-rewardly-loyalty-account.php:214
-msgid "You will earn {points} point(s) from your order for {product_name} once {order_link} is completed."
-msgstr "Vous gagnerez {points} point(s) pour {product_name} lorsque {order_link} sera terminée."
+msgid ""
+"You will earn {points} point(s) from your order for {product_name} once "
+"{order_link} is completed."
+msgstr ""
+"Vous gagnerez {points} point(s) pour {product_name} lorsque {order_link} "
+"sera terminée."
 
 #. translators: 1: item label, 2: order number.
 #: includes/front/class-rewardly-loyalty-account.php:260
@@ -1247,16 +1425,29 @@ msgid "My Points History"
 msgstr "Historique de mes points"
 
 #: nodevora-customer-rewards-for-woocommerce.php:27
-msgid "Another Rewardly or Nodevora installation is active. Back up your data, deactivate the previous package, then activate the official Nodevora package. Financial data must be retained."
-msgstr "Une autre installation Rewardly ou Nodevora est active. Sauvegardez vos données, désactivez l’ancien paquet, puis activez le paquet officiel Nodevora. Les données financières doivent être conservées."
+msgid ""
+"Another Rewardly or Nodevora installation is active. Back up your data, "
+"deactivate the previous package, then activate the official Nodevora "
+"package. Financial data must be retained."
+msgstr ""
+"Une autre installation Rewardly ou Nodevora est active. Sauvegardez vos "
+"données, désactivez l’ancien paquet, puis activez le paquet officiel "
+"Nodevora. Les données financières doivent être conservées."
 
 #: nodevora-customer-rewards-for-woocommerce.php:73
-msgid "Nodevora financial operations currently support single-site WordPress only."
-msgstr "Les opérations financières Nodevora prennent actuellement en charge uniquement WordPress à site unique."
+msgid ""
+"Nodevora financial operations currently support single-site WordPress only."
+msgstr ""
+"Les opérations financières Nodevora prennent actuellement en charge "
+"uniquement WordPress à site unique."
 
 #: nodevora-customer-rewards-for-woocommerce.php:172
-msgid "Nodevora Customer Rewards for WooCommerce requires WooCommerce to work correctly."
-msgstr "Nodevora Customer Rewards for WooCommerce nécessite WooCommerce pour fonctionner correctement."
+msgid ""
+"Nodevora Customer Rewards for WooCommerce requires WooCommerce to work "
+"correctly."
+msgstr ""
+"Nodevora Customer Rewards for WooCommerce nécessite WooCommerce pour "
+"fonctionner correctement."
 
 #: nodevora-customer-rewards-for-woocommerce.php:174
 #: nodevora-customer-rewards-for-woocommerce.php:185
@@ -1272,14 +1463,12 @@ msgid "Your loyalty rewards"
 msgstr "Vos récompenses de fidélité"
 
 #: assets/js/loyalty-blocks.js:28
-#, js-format
 msgid "This order earns up to %s point."
 msgid_plural "This order earns up to %s points."
 msgstr[0] "Cette commande rapporte jusqu’à %s point."
 msgstr[1] "Cette commande rapporte jusqu’à %s points."
 
 #: assets/js/loyalty-blocks.js:30
-#, js-format
 msgid "Available balance: %s points"
 msgstr "Solde disponible : %s points"
 
@@ -1288,7 +1477,6 @@ msgid "Points to use"
 msgstr "Points à utiliser"
 
 #: assets/js/loyalty-blocks.js:34
-#, js-format
 msgid "You can use up to %s points on this order."
 msgstr "Vous pouvez utiliser jusqu’à %s points sur cette commande."
 
@@ -1301,7 +1489,6 @@ msgid "Apply points"
 msgstr "Appliquer les points"
 
 #: assets/js/loyalty-blocks.js:38
-#, js-format
 msgid "%1$s points applied · %2$s discount"
 msgstr "%1$s points appliqués · %2$s de remise"
 

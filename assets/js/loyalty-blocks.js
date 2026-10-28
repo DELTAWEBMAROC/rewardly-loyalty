@@ -1,13 +1,13 @@
 (function () {
 	'use strict';
-	if (!window.wp?.element || !window.wp?.plugins || !window.wc?.blocksCheckout) return;
+	if (!window.wp?.element || !window.wc?.blocksCheckout) return;
 	const {createElement: el, useState, useEffect} = wp.element;
 	const {__, _n, sprintf} = wp.i18n;
-	const {ExperimentalOrderMeta, extensionCartUpdate} = wc.blocksCheckout;
-	if (!ExperimentalOrderMeta || !extensionCartUpdate) return;
-	const domain = 'nodevora-customer-rewards-for-woocommerce';
+	const {registerCheckoutBlock, extensionCartUpdate} = wc.blocksCheckout;
+	if (!registerCheckoutBlock || !extensionCartUpdate || !wp.data) return;
 	function Loyalty({extensions, context}) {
-		const state = extensions?.['nodevora-loyalty'];
+		const cartExtensions = wp.data.useSelect(function (select) { return select('wc/store/cart').getCartData()?.extensions; }, []);
+		const state = cartExtensions?.['nodevora-loyalty'] || extensions?.['nodevora-loyalty'];
 		const [value, setValue] = useState('');
 		const [busy, setBusy] = useState(false);
 		const [error, setError] = useState('');
@@ -40,5 +40,7 @@
 				el('p', {id: id + '-error', role: 'alert'}, error)) : null,
 			!state.logged_in && card ? el('a', {href: state.login_url, className: 'rewardly-loyalty-btn'}, __('Log in to use your points', 'nodevora-customer-rewards-for-woocommerce')) : null);
 	}
-	wp.plugins.registerPlugin('nodevora-loyalty', {scope: 'woocommerce-checkout', render: function () {return el(ExperimentalOrderMeta, null, el(Loyalty));}});
+	const lock = {type: 'object', default: {remove: true, move: true}};
+	registerCheckoutBlock({metadata: {name: 'nodevora/cart-loyalty', parent: ['woocommerce/cart-totals-block'], attributes: {lock}}, component: function () {return el(Loyalty, {context: 'woocommerce/cart'});}});
+	registerCheckoutBlock({metadata: {name: 'nodevora/checkout-loyalty', parent: ['woocommerce/checkout-contact-information-block'], attributes: {lock}}, component: function () {return el(Loyalty, {context: 'woocommerce/checkout'});}});
 })();

@@ -5,9 +5,21 @@ class Nodevora_Loyalty_Blocks {
 	const NAMESPACE_KEY = 'nodevora-loyalty';
 	public static function init() {
 		add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'register' ) );
+		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
 	}
+	public static function register_blocks() {
+		/* Les blocs forcés utilisent le registre WooCommerce sans déplacer son DOM React. */
+		foreach ( array( 'cart' => 'woocommerce/cart-totals-block', 'checkout' => 'woocommerce/checkout-contact-information-block' ) as $context => $parent ) {
+			register_block_type( 'nodevora/' . $context . '-loyalty', array( 'api_version' => 2, 'parent' => array( $parent ), 'attributes' => array( 'lock' => array( 'type' => 'object', 'default' => array( 'remove' => true, 'move' => true ) ) ), 'render_callback' => static function() use ( $context ) { return '<div data-block-name="nodevora/' . esc_attr( $context ) . '-loyalty"></div>'; } ) );
+		}
+	}
+
 	public static function register() {
 		if ( ! function_exists( 'woocommerce_store_api_register_endpoint_data' ) ) { return; }
+		if ( interface_exists( 'Automattic\\WooCommerce\\Blocks\\Integrations\\IntegrationInterface' ) ) {
+			require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-nodevora-blocks-integration.php';
+			foreach ( array( 'cart', 'checkout' ) as $block ) { add_action( 'woocommerce_blocks_' . $block . '_block_registration', static function( $registry ) { $registry->register( new Nodevora_Blocks_Integration() ); } ); }
+		}
 		woocommerce_store_api_register_endpoint_data( array(
 			'endpoint' => \Automattic\WooCommerce\StoreApi\Schemas\V1\CartSchema::IDENTIFIER,
 			'namespace' => self::NAMESPACE_KEY, 'data_callback' => array( __CLASS__, 'data' ), 'schema_callback' => array( __CLASS__, 'schema' ), 'schema_type' => ARRAY_A,

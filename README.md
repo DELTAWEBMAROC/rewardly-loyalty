@@ -10,7 +10,7 @@ See [installation and readiness](docs/installation-and-financial-readiness.md) b
 
 General holds earning/redemption rules; Design holds scoped appearance settings; Points Adjustments requires `manage_woocommerce` and an audited operation identity. Shortcodes, Advanced Features and Help retain their existing navigation identities. Birthday/referral settings remain stored for compatibility but have no supported workflow and no misleading active controls.
 
-Design supports primary/accent, button and hover foreground/background, card background/border, corner radius, spacing and three existing presets. Empty optional color overrides follow the preset. Theme CSS can override the scoped styles. No custom CSS injection or new frontend framework is used. Blocks use Store API extension data and the documented experimental OrderMeta SlotFill; that interface requires compatibility verification for each supported WooCommerce release.
+Design supports primary/accent, button and hover foreground/background, card background/border, corner radius, spacing and three existing presets. Empty optional color overrides follow the preset. Theme CSS can override the scoped styles. No custom CSS injection or new frontend framework is used. Blocks use Store API extension data, the WooCommerce cart data store and registered inner blocks loaded through IntegrationInterface. Existing display settings control automatic placement; merchants do not need to rewrite saved checkout content. Each supported WooCommerce version still requires integration verification.
 
 ## Supported shortcodes
 

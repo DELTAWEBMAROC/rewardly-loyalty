@@ -231,7 +231,7 @@ function rewardly_loyalty_enqueue_assets() {
 		wp_enqueue_script(
 			'nodevora-customer-rewards-for-woocommerce-blocks',
 			REWARDLY_LOYALTY_URL . 'assets/js/loyalty-blocks.js',
-			array( 'wp-element', 'wp-plugins', 'wp-i18n', 'wc-blocks-checkout' ),
+			array( 'wp-element', 'wp-plugins', 'wp-i18n', 'wp-data', 'wc-blocks-data-store', 'wc-blocks-checkout' ),
 			filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/loyalty-blocks.js' ),
 			true
 		);
