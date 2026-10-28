@@ -19,18 +19,19 @@ class Nodevora_Financial_Checkout {
 	}
 	public static function cart($cart) {
 		if(!$cart instanceof WC_Cart||!WC()->session){return;}
-		WC()->session->set('rewardly_loyalty_discount_amount',0);WC()->session->set('rewardly_applied_points',0);
-		if(!is_user_logged_in()||!Rewardly_Loyalty_Helpers::is_enabled()||'yes'!==WC()->session->get('rewardly_use_points')){return;}
+		/* Ne pas salir la session par un aller-retour à zéro lors d'une simple relecture. */
+		if(!is_user_logged_in()||!Rewardly_Loyalty_Helpers::is_enabled()||'yes'!==WC()->session->get('rewardly_use_points')){self::clear_cart_projection();return;}
 		self::require_enabled();$s=Rewardly_Loyalty_Helpers::get_settings();$available=Nodevora_Financial_Compatibility::balance(get_current_user_id());$requested=(int)WC()->session->get('rewardly_requested_points');
 		if($requested<1||$available<(int)$s['min_points_to_redeem']||$requested>$available){throw new Nodevora_Financial_Error('Requested points are no longer available.');}
 		$p=self::policy();WC()->session->__unset('nodevora_financial_quote_error');$minor=Nodevora_Financial_Money::discount($requested,$p['ratio'],$p['scale']);
 		$cap=Nodevora_Financial_Money::minor(wc_format_decimal($cart->get_cart_contents_total(),$p['decimals']),$p['decimals']);
 		if((float)$s['max_discount_per_order']>0){$cap=min($cap,Nodevora_Financial_Money::minor(wc_format_decimal($s['max_discount_per_order'],$p['decimals']),$p['decimals']));}
-		$minor=min($minor,max(0,$cap));$points=Nodevora_Financial_Money::charge($minor,$p['ratio'],$p['scale']);if(!$minor||!$points){return;}
+		$minor=min($minor,max(0,$cap));$points=Nodevora_Financial_Money::charge($minor,$p['ratio'],$p['scale']);if(!$minor||!$points){self::clear_cart_projection();return;}
 		$amount=Nodevora_Financial_Money::decimal(-$minor,$p['decimals']);
 		$cart->fees_api()->add_fee(array('id'=>self::FEE_ID,'name'=>__('Loyalty discount','nodevora-customer-rewards-for-woocommerce'),'amount'=>$amount,'taxable'=>false));
 		WC()->session->set('nodevora_quote_policy',$p);WC()->session->set('rewardly_applied_points',$points);WC()->session->set('rewardly_loyalty_discount_amount',Nodevora_Financial_Money::decimal($minor,$p['decimals']));
 	}
+	private static function clear_cart_projection() { WC()->session->set('rewardly_loyalty_discount_amount',0);WC()->session->set('rewardly_applied_points',0); }
 	public static function tag_fee($item,$fee_key,$fee,$order) { if(Nodevora_Financial_Compatibility::selected()&&self::FEE_ID===$fee_key){$item->add_meta_data('_nodevora_wallet_fee','v1',true);} }
 	private static function normalize($value) {
 		if(is_array($value)){ksort($value);foreach($value as $key=>$part){$value[$key]=self::normalize($part);}return $value;}
