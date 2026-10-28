@@ -346,11 +346,11 @@ class Rewardly_Loyalty_Helpers {
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total' );
 	}
 
-	public static function get_user_logs( $user_id, $limit = 20 ) {
-		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view( $user_id, 'logs', $limit ); }
+	public static function get_user_logs( $user_id, $limit = 20, $before = null ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view( $user_id, 'logs', $limit, $before ); }
 		global $wpdb;
 		/* La lecture bornée évite toute dépendance à flush_group et aux anciens caches périmés. */
-		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE user_id=%d ORDER BY id DESC LIMIT %d', self::get_log_table_name(), $user_id, min( 1000, max( 1, (int) $limit ) ) ) );
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE user_id=%d AND id<%d ORDER BY id DESC LIMIT %d', self::get_log_table_name(), $user_id, is_array( $before ) ? max( 1, (int) $before[0] ) : PHP_INT_MAX, min( 1000, max( 1, (int) $limit ) ) ) );
 	}
 
 	public static function format_log_date( $log ) {

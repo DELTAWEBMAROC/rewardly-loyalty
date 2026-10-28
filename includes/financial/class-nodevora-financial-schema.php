@@ -1,12 +1,12 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Nodevora_Financial_Schema {
-	const VERSION = 2;
+	const VERSION = 3;
 	public static function definitions() {
 		return array(
 			'wallet' => 'user_id BIGINT UNSIGNED PRIMARY KEY,balance BIGINT NOT NULL DEFAULT 0,reserved BIGINT NOT NULL DEFAULT 0,debt BIGINT NOT NULL DEFAULT 0,revision BIGINT NOT NULL DEFAULT 0,state VARCHAR(24) NOT NULL,migration_version INT NOT NULL DEFAULT 0,checksum CHAR(64) NULL',
 			'event' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,operation_key VARBINARY(191) NOT NULL,kind VARCHAR(24) NOT NULL,payload_hash CHAR(64) NOT NULL,payload LONGTEXT NULL,original_event_id BIGINT UNSIGNED NULL,gross_points BIGINT NOT NULL,delta_balance BIGINT NOT NULL DEFAULT 0,delta_reserved BIGINT NOT NULL DEFAULT 0,delta_debt BIGINT NOT NULL DEFAULT 0,result LONGTEXT NOT NULL,created_at DATETIME NOT NULL,UNIQUE KEY operation_key(operation_key),KEY user_history(user_id,id),KEY original_event(original_event_id,kind)',
-			'lot' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,source_event_id BIGINT UNSIGNED NOT NULL,remaining BIGINT NOT NULL,reserved BIGINT NOT NULL DEFAULT 0,earned_at DATETIME NULL,expires_at DATETIME NULL,provenance LONGTEXT NOT NULL,KEY eligible(user_id,expires_at,id)',
+			'lot' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,source_event_id BIGINT UNSIGNED NOT NULL,remaining BIGINT NOT NULL,reserved BIGINT NOT NULL DEFAULT 0,earned_at DATETIME NULL,expires_at DATETIME NULL,provenance LONGTEXT NOT NULL,KEY eligible(user_id,expires_at,id),KEY active_lots(user_id,remaining,expires_at,id)',
 			'allocation' => 'event_id BIGINT UNSIGNED NOT NULL,lot_id BIGINT UNSIGNED NOT NULL,leg INT NOT NULL,reservation_key VARBINARY(191) NULL,original_event_id BIGINT UNSIGNED NULL,original_lot_id BIGINT UNSIGNED NULL,reason VARCHAR(24) NOT NULL,delta_remaining BIGINT NOT NULL,delta_reserved BIGINT NOT NULL,PRIMARY KEY(event_id,lot_id,leg),KEY reservation(reservation_key,lot_id),KEY restoration(original_event_id,original_lot_id,reason)',
 			'order_state' => 'order_id BIGINT UNSIGNED PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,intent VARBINARY(96) NOT NULL,state VARCHAR(32) NOT NULL,fingerprint CHAR(64) NOT NULL,points BIGINT NOT NULL DEFAULT 0,discount_minor BIGINT NOT NULL DEFAULT 0,currency CHAR(3) NOT NULL,debit_event_id BIGINT UNSIGNED NULL,generation BIGINT NOT NULL DEFAULT 0,revision BIGINT NOT NULL DEFAULT 0,data LONGTEXT NOT NULL,updated_at DATETIME NOT NULL,KEY recovery(state,updated_at)',
 			'outbox' => 'id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,event_id BIGINT UNSIGNED NOT NULL,user_id BIGINT UNSIGNED NOT NULL,effect VARCHAR(24) NOT NULL,state VARCHAR(24) NOT NULL DEFAULT \'pending\',attempts INT NOT NULL DEFAULT 0,lease_until DATETIME NULL,payload LONGTEXT NOT NULL,UNIQUE KEY delivery(event_id,effect),KEY due(state,lease_until)',
@@ -20,6 +20,9 @@ class Nodevora_Financial_Schema {
 		$columns = array_column( $db->query('SHOW COLUMNS FROM '.$db->table('event')), 'Field' );
 		// Preserve pre-existing prototype events; unknown original payloads remain NULL.
 		if ( ! in_array('payload', $columns, true) ) { $db->query('ALTER TABLE '.$db->table('event').' ADD COLUMN payload LONGTEXT NULL'); }
+		// L’index est ajouté uniquement par cet installateur local explicite, sans supprimer de lot.
+		$lot_indexes = array_column( $db->query('SHOW INDEX FROM '.$db->table('lot')), 'Key_name' );
+		if ( ! in_array('active_lots', $lot_indexes, true) ) { $db->query('ALTER TABLE '.$db->table('lot').' ADD KEY active_lots(user_id,remaining,expires_at,id)'); }
 		self::verify( $db );
 	}
 	public static function verify( Nodevora_Financial_DB $db ) {

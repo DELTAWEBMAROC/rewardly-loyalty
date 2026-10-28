@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-28T11:03:40+00:00\n"
+"POT-Creation-Date: 2026-10-28T11:32:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -65,7 +65,7 @@ msgstr ""
 #: includes/core/class-rewardly-loyalty-redeem.php:571
 #: includes/core/class-rewardly-loyalty-redeem.php:622
 #: includes/core/class-rewardly-loyalty-redeem.php:625
-#: includes/front/class-rewardly-loyalty-account.php:293
+#: includes/front/class-rewardly-loyalty-account.php:306
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:34
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:58
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
@@ -86,16 +86,16 @@ msgid "Remove points"
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
-#: includes/front/class-rewardly-loyalty-account.php:343
-#: includes/front/class-rewardly-loyalty-account.php:353
-#: includes/front/class-rewardly-loyalty-account.php:373
+#: includes/front/class-rewardly-loyalty-account.php:356
+#: includes/front/class-rewardly-loyalty-account.php:366
+#: includes/front/class-rewardly-loyalty-account.php:386
 msgid "Points"
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin-adjustments.php:22
-#: includes/front/class-rewardly-loyalty-account.php:345
-#: includes/front/class-rewardly-loyalty-account.php:355
-#: includes/front/class-rewardly-loyalty-account.php:375
+#: includes/front/class-rewardly-loyalty-account.php:358
+#: includes/front/class-rewardly-loyalty-account.php:368
+#: includes/front/class-rewardly-loyalty-account.php:388
 msgid "Note"
 msgstr ""
 
@@ -1145,94 +1145,98 @@ msgstr ""
 msgid "%1$s (Order #%2$s)"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:288
+#: includes/front/class-rewardly-loyalty-account.php:301
 msgid "My Loyalty Points"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:292
+#: includes/front/class-rewardly-loyalty-account.php:305
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:81
 msgid "Current Balance"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:297
+#: includes/front/class-rewardly-loyalty-account.php:310
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:82
 msgid "Available Value"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:302
+#: includes/front/class-rewardly-loyalty-account.php:315
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:83
 msgid "Points Earned"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:307
+#: includes/front/class-rewardly-loyalty-account.php:320
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:84
 msgid "Points Redeemed"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:314
+#: includes/front/class-rewardly-loyalty-account.php:327
 msgid "Current Level"
 msgstr ""
 
 #. translators: 1: remaining points, 2: next level label.
-#: includes/front/class-rewardly-loyalty-account.php:321
+#: includes/front/class-rewardly-loyalty-account.php:334
 #, php-format
 msgid "You need %1$d more point to reach %2$s."
 msgid_plural "You need %1$d more points to reach %2$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/front/class-rewardly-loyalty-account.php:323
+#: includes/front/class-rewardly-loyalty-account.php:336
 msgid "You already reached the highest available level."
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:330
+#: includes/front/class-rewardly-loyalty-account.php:343
 msgid "Pending Loyalty Reward"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:337
+#: includes/front/class-rewardly-loyalty-account.php:350
 msgid "Recent History"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:341
-#: includes/front/class-rewardly-loyalty-account.php:351
-#: includes/front/class-rewardly-loyalty-account.php:371
+#: includes/front/class-rewardly-loyalty-account.php:354
+#: includes/front/class-rewardly-loyalty-account.php:364
+#: includes/front/class-rewardly-loyalty-account.php:384
 msgid "Date"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:342
-#: includes/front/class-rewardly-loyalty-account.php:352
-#: includes/front/class-rewardly-loyalty-account.php:372
+#: includes/front/class-rewardly-loyalty-account.php:355
+#: includes/front/class-rewardly-loyalty-account.php:365
+#: includes/front/class-rewardly-loyalty-account.php:385
 msgid "Type"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:344
-#: includes/front/class-rewardly-loyalty-account.php:354
-#: includes/front/class-rewardly-loyalty-account.php:374
+#: includes/front/class-rewardly-loyalty-account.php:357
+#: includes/front/class-rewardly-loyalty-account.php:367
+#: includes/front/class-rewardly-loyalty-account.php:387
 msgid "Amount"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:374
+#: includes/front/class-rewardly-loyalty-account.php:387
 msgid "Amount:"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:389
+#: includes/front/class-rewardly-loyalty-account.php:402
+msgid "Older activity"
+msgstr ""
+
+#: includes/front/class-rewardly-loyalty-account.php:403
 msgid "Show Less"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:391
+#: includes/front/class-rewardly-loyalty-account.php:405
 msgid "Show More"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-account.php:397
+#: includes/front/class-rewardly-loyalty-account.php:411
 #: includes/shortcodes/class-rewardly-loyalty-shortcodes.php:51
 msgid "No loyalty activity yet."
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-product.php:85
+#: includes/front/class-rewardly-loyalty-product.php:75
 msgid "Buy this product and earn up to"
 msgstr ""
 
-#: includes/front/class-rewardly-loyalty-product.php:87
+#: includes/front/class-rewardly-loyalty-product.php:77
 msgid "loyalty points"
 msgstr ""
 

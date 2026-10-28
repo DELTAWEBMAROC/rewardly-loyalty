@@ -50,23 +50,35 @@ class Nodevora_Financial_Recovery {
 	}
 	public static function holds($user=0) {
 		Nodevora_Financial_Checkout::require_enabled(true);$db=new Nodevora_Financial_DB();try{
-			$holds=$db->query('SELECT e.id,e.user_id,e.operation_key,e.result,SUM(a.delta_reserved) AS held FROM '.$db->table('event').' e JOIN '.$db->table('allocation').' a ON a.reservation_key=e.operation_key WHERE e.kind=?'.($user?' AND e.user_id='.(int)$user:'').' GROUP BY e.id,e.user_id,e.operation_key,e.result HAVING held>0 ORDER BY e.id LIMIT 50',array('reserve'));
+			$holds=$db->query('SELECT e.id,e.user_id,e.operation_key,e.result,SUM(a.delta_reserved) AS held FROM '.$db->table('event').' e JOIN '.$db->table('allocation').' a ON a.reservation_key=e.operation_key WHERE e.kind=? AND JSON_UNQUOTE(JSON_EXTRACT(e.result,?))<=UTC_TIMESTAMP()'.($user?' AND e.user_id='.(int)$user:'').' GROUP BY e.id,e.user_id,e.operation_key,e.result HAVING held>0 ORDER BY e.id LIMIT 50',array('reserve','$.deadline'));
 		}finally{$db->close();}
 		foreach($holds as $hold){$r=json_decode($hold['result'],true,512,JSON_THROW_ON_ERROR);if(isset($r['deadline'])&&$r['deadline']<=gmdate('Y-m-d H:i:s')){(new Nodevora_Financial_Wallet())->apply((int)$hold['user_id'],'hold:'.$hold['id'].':release','release',(int)$hold['held'],array('reservation'=>$hold['operation_key']));}}
 	}
+	/** Le curseur est indicatif : chaque effet conserve son identité et son contrôle transactionnel. */
+	public static function order_batch($after=0,$limit=50) {
+		$db=new Nodevora_Financial_DB();
+		try{return $db->query('SELECT order_id,state FROM '.$db->table('order_state').' WHERE order_id>? AND state IN (?,?,?,?,?) ORDER BY order_id LIMIT '.min(50,max(1,(int)$limit)),array(max(0,(int)$after),'bound','funded','dispatched','paid','reversing'));}
+		finally{$db->close();}
+	}
 	public static function run() {
 		Nodevora_Financial_Checkout::require_enabled(true);$db=new Nodevora_Financial_DB();try{
-			$orders=$db->query('SELECT order_id,state FROM '.$db->table('order_state').' WHERE state IN (?,?,?,?,?) ORDER BY updated_at LIMIT 50',array('bound','funded','dispatched','paid','reversing'));
+			$orders=self::order_batch((int)get_option('nodevora_financial_order_cursor',0));
+			if(!$orders){update_option('nodevora_financial_order_cursor',0,false);}
 
-			$users=$db->query('SELECT DISTINCT l.user_id FROM '.$db->table('lot').' l JOIN '.$db->table('wallet').' w ON w.user_id=l.user_id WHERE w.state=? AND l.remaining>l.reserved AND l.expires_at<=UTC_TIMESTAMP() ORDER BY l.user_id LIMIT 50',array('ready'));
+			$expiry_cursor=(int)get_option('nodevora_financial_expiry_cursor',0);
+			$users=$db->query('SELECT DISTINCT l.user_id FROM '.$db->table('lot').' l JOIN '.$db->table('wallet').' w ON w.user_id=l.user_id WHERE l.user_id>? AND w.state=? AND l.remaining>l.reserved AND l.expires_at<=UTC_TIMESTAMP() ORDER BY l.user_id LIMIT 50',array($expiry_cursor,'ready'));
+			if(!$users){update_option('nodevora_financial_expiry_cursor',0,false);}
 		}finally{$db->close();}
-		foreach($orders as $row){$order=wc_get_order($row['order_id']);if(!$order){continue; /* Orphaned state is retained for operator reconciliation. */}
+		foreach($orders as $row){
+			// Une interruption reprend après cette identité ; le prochain tour la réexamine.
+			update_option('nodevora_financial_order_cursor',(int)$row['order_id'],false);
+			$order=wc_get_order($row['order_id']);if(!$order){continue; /* Orphaned state is retained for operator reconciliation. */}
 			if(in_array($order->get_status(),array('cancelled','refunded','failed'),true)){Nodevora_Financial_Lifecycle::reverse($order->get_id());}
 			elseif(in_array($order->get_status(),array('completed','processing'),true)){Nodevora_Financial_Lifecycle::payment_complete($order->get_id());if(!defined('NODEVORA_FINANCIAL_WRITES_PAUSED')||!NODEVORA_FINANCIAL_WRITES_PAUSED){Nodevora_Financial_Lifecycle::earn($order->get_id());}}
 			elseif('dispatched'===$row['state']){$order->update_meta_data('_nodevora_financial_recovery','Payment outcome unknown; retain funding. Do not redispatch automatically.');$order->save();}
 		}
 		self::holds();
-		foreach($users as $row){$uid=(int)$row['user_id'];$wallet=(new Nodevora_Financial_Wallet())->read($uid);(new Nodevora_Financial_Wallet())->apply($uid,'user:'.$uid.':expire:'.$wallet['revision'],'expire',0);}
+		foreach($users as $row){$uid=(int)$row['user_id'];update_option('nodevora_financial_expiry_cursor',$uid,false);$wallet=(new Nodevora_Financial_Wallet())->read($uid);(new Nodevora_Financial_Wallet())->apply($uid,'user:'.$uid.':expire:'.$wallet['revision'],'expire',0);}
 		return self::outbox();
 	}
 }

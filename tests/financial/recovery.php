@@ -12,4 +12,13 @@ for($at=1;$at<=9;$at++){$before=$w->read($u);$fault=new Nodevora_Financial_Walle
 $r=Nodevora_Financial_Checkout::operation($o,'fund');$o->delete_meta_data('_nodevora_financial_quote');$o->save();$mail=function(){return false;};add_filter('pre_wp_mail',$mail,PHP_INT_MAX);Nodevora_Financial_Recovery::outbox(100,$u);remove_filter('pre_wp_mail',$mail,PHP_INT_MAX);$o=wc_get_order($o->get_id());$check('missing_order_projection_rebuilt',$o->get_meta('_nodevora_financial_quote')['intent']===$q['intent']&&(int)$o->get_meta('_nodevora_financial_debit_event')===$r['event_id']);
 $db->query('UPDATE '.$db->table('outbox').' SET state=?,attempts=4,lease_until=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 1 SECOND) WHERE user_id=? AND effect=? AND state=?',array('processing',$u,'notify','pending'));add_filter('pre_wp_mail',$mail,PHP_INT_MAX);Nodevora_Financial_Recovery::outbox(100,$u);remove_filter('pre_wp_mail',$mail,PHP_INT_MAX);$dead=$db->one('SELECT COUNT(*) AS n FROM '.$db->table('outbox').' WHERE user_id=? AND effect=? AND state=?',array($u,'notify','dead'));$check('expired_worker_lease_reclaimed_and_dead_lettered',(int)$dead['n']>0&&$w->read($u)['available']===900);
 $hash=$db->one('SELECT checksum FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array($u));$check('snapshot_checksum_still_immutable',strlen($hash['checksum'])===64&&(new Nodevora_Financial_Migration())->verify($u)['verified']);
+// Les réservations futures ne doivent pas masquer une échéance au-delà du premier lot de cinquante.
+for($i=0;$i<51;$i++){$w->apply($u,$run.':future-hold:'.$i,'reserve',1);}
+$late=$w->apply($u,$run.':late-expired-hold','reserve',1);
+$deadline=json_encode(array('reservation'=>$late['reservation'],'deadline'=>'2000-01-01 00:00:00'));
+$db->query('UPDATE '.$db->table('event').' SET result=? WHERE id=? AND user_id=?',array($deadline,$late['event_id'],$u));
+Nodevora_Financial_Recovery::holds($u);
+$check('expired_hold_not_starved_by_51_future_holds',(int)$w->read($u)['reserved']===51);
+for($i=0;$i<51;$i++){$w->apply($u,$run.':release-future:'.$i,'release',1,array('reservation'=>$run.':future-hold:'.$i));}
+$check('scoped_future_holds_cleanup',(int)$w->read($u)['reserved']===0&&$w->read($u)['available']===900);
 echo json_encode(array('tests'=>$tests),JSON_PRETTY_PRINT);

@@ -31,3 +31,7 @@ Uninstall retains every customer balance, lot, transaction history, wallet/journ
 ## Roles
 
 Administrators, shop managers and custom roles explicitly granted `manage_woocommerce` can save loyalty settings and request audited adjustments. Customers and subscribers cannot. Adjustments require POST, a valid nonce, an existing customer, bounded positive whole points and a stable operation UUID. Repeated financial operation identities cannot create repeated effects. Migration/schema tools additionally require the explicit local CLI gates described in the financial test documentation.
+
+## Development schema revision3
+
+The explicit local CLI installer adds `active_lots(user_id,remaining,expires_at,id)` to existing revision2 tables and verifies its exact shape. It preserves every lot and journal row. Deploying this development revision before the index is installed fails closed; normal activation never runs the ALTER or a production migration. Back up and pause financial writers before invoking the authorized isolated installer.

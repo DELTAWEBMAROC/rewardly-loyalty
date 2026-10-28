@@ -67,7 +67,7 @@ class Rewardly_Loyalty_Account {
 			return add_query_arg( 'history', 'all', $base_url );
 		}
 
-		return remove_query_arg( 'history', $base_url );
+		return remove_query_arg( array( 'history', 'loyalty_legacy', 'loyalty_journal' ), $base_url );
 	}
 
 	/**
@@ -280,9 +280,22 @@ class Rewardly_Loyalty_Account {
 		$history_view   = filter_input( INPUT_GET, 'history', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		$history_view   = is_string( $history_view ) ? sanitize_text_field( wp_unslash( $history_view ) ) : '';
 		$show_all       = 'all' === $history_view;
-		$logs_limit     = $show_all ? 200 : 10;
-		$logs           = Rewardly_Loyalty_Helpers::get_user_logs( $user_id, $logs_limit );
-		$all_logs_count = count( Rewardly_Loyalty_Helpers::get_user_logs( $user_id, 11 ) );
+		// Deux curseurs indépendants préservent la lecture bornée des historiques fusionnés.
+		$before = array( PHP_INT_MAX, PHP_INT_MAX );
+		foreach ( array( 'loyalty_legacy', 'loyalty_journal' ) as $index => $key ) {
+			if ( isset( $_GET[$key] ) && is_string( $_GET[$key] ) && ctype_digit( $_GET[$key] ) ) { $before[$index] = max( 1, (int) $_GET[$key] ); }
+		}
+		$page_size = $show_all ? 50 : 10;
+		$logs = Rewardly_Loyalty_Helpers::get_user_logs( $user_id, $page_size + 1, $show_all ? $before : null );
+		$has_more = count( $logs ) > $page_size;
+		$logs = array_slice( $logs, 0, $page_size );
+		$next = $before;
+		foreach ( $logs as $log ) {
+			$is_journal = 0 === strpos( (string) $log->id, 'v2:' );
+			$index = $is_journal ? 1 : 0;
+			$next[$index] = min( $next[$index], (int) str_replace( 'v2:', '', (string) $log->id ) );
+		}
+		$older_url = add_query_arg( array( 'loyalty_legacy' => $next[0], 'loyalty_journal' => $next[1] ), self::get_history_toggle_url( true ) );
 		?>
 		<div class="rewardly-loyalty-account">
 			<h3><?php esc_html_e( 'My Loyalty Points', 'nodevora-customer-rewards-for-woocommerce' ); ?></h3>
@@ -383,9 +396,10 @@ class Rewardly_Loyalty_Account {
 					</tbody>
 				</table>
 
-				<?php if ( $all_logs_count > 10 ) : ?>
+				<?php if ( $show_all || $has_more ) : ?>
 					<div class="rewardly-loyalty-history-actions rewardly-loyalty-history-actions--bottom">
 						<?php if ( $show_all ) : ?>
+							<?php if ( $has_more ) : ?><a class="rewardly-history-toggle" href="<?php echo esc_url( $older_url ); ?>"><?php esc_html_e( 'Older activity', 'nodevora-customer-rewards-for-woocommerce' ); ?></a><?php endif; ?>
 							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( false ) ); ?>"><?php esc_html_e( 'Show Less', 'nodevora-customer-rewards-for-woocommerce' ); ?></a>
 						<?php else : ?>
 							<a class="rewardly-history-toggle" href="<?php echo esc_url( self::get_history_toggle_url( true ) ); ?>"><?php esc_html_e( 'Show More', 'nodevora-customer-rewards-for-woocommerce' ); ?></a>

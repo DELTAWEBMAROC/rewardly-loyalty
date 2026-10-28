@@ -9,8 +9,8 @@ class Nodevora_Financial_Compatibility {
 		Nodevora_Financial_Checkout::require_enabled();Nodevora_Financial_Schema::verify(new Nodevora_Financial_DB());update_option('nodevora_financial_authority','wallet',false);
 	}
 	/** Read-only customer views show unavailable funds explicitly; financial callers use balance/apply. */
-	public static function view($user,$kind,$limit=20) {
-		try{if('balance'===$kind){return self::balance($user);}if('lots'===$kind){return self::lots($user);}if('logs'===$kind){return self::logs($user,$limit);}return self::total($user,$kind);}
+	public static function view($user,$kind,$limit=20,$before=null) {
+		try{if('balance'===$kind){return self::balance($user);}if('lots'===$kind){return self::lots($user);}if('logs'===$kind){return self::logs($user,$limit,$before);}return self::total($user,$kind);}
 		catch(Nodevora_Financial_Error $e){
 			if(defined('WP_CLI')&&WP_CLI){throw $e;}
 			static $shown=array();if(!isset($shown[$user])){$shown[$user]=true;$message=__('Loyalty spending is unavailable while this account is reconciled. Existing points are preserved.','nodevora-customer-rewards-for-woocommerce');
@@ -34,20 +34,22 @@ class Nodevora_Financial_Compatibility {
 			$snapshot = json_decode($row['payload'],true,512,JSON_THROW_ON_ERROR); $total = 0;
 			$key = 'rewardly_loyalty_points_'.$type.'_total';
 			foreach ($snapshot['rows'] as $meta) { if ($key === $meta['meta_key']) { $total = (int)$meta['meta_value']; } }
-			$events = $db->query('SELECT kind,gross_points,payload FROM '.$db->table('event').' WHERE user_id=? AND kind IN (?,?,?) ORDER BY id',array((int)$user_id,'credit','debit','commit'));
-			foreach ($events as $event) {
-				$payload = $event['payload'] ? json_decode($event['payload'],true,512,JSON_THROW_ON_ERROR) : array();
-				$source = isset($payload['details']['type']) ? $payload['details']['type'] : '';
-				if ('spent' === $type && in_array($event['kind'],array('debit','commit'),true)) { $total += (int)$event['gross_points']; }
-				if ('earned' === $type && 'credit' === $event['kind'] && in_array($source,array('earn','bonus_registration','bonus_first_order','bonus_review','bonus_birthday','bonus_referral'),true)) { $total += (int)$event['gross_points']; }
+			// Le journal reste immuable ; seule la somme utile traverse la connexion.
+			if ('spent' === $type) {
+				$sum = $db->one('SELECT COALESCE(SUM(gross_points),0) AS amount FROM '.$db->table('event').' WHERE user_id=? AND kind IN (?,?)',array((int)$user_id,'debit','commit'));
+			} elseif ('earned' === $type) {
+				$sum = $db->one('SELECT COALESCE(SUM(gross_points),0) AS amount FROM '.$db->table('event').' WHERE user_id=? AND kind=? AND JSON_UNQUOTE(JSON_EXTRACT(payload,?)) IN (?,?,?,?,?,?)',array((int)$user_id,'credit','$.details.type','earn','bonus_registration','bonus_first_order','bonus_review','bonus_birthday','bonus_referral'));
+			} else {
+				$sum = array('amount'=>0);
 			}
+			$total += (int)$sum['amount'];
 			return Nodevora_Financial_Wallet::points($total);
 		} finally { $db->close(); }
 	}
 	public static function lots($user_id) {
 		self::balance($user_id); $db = new Nodevora_Financial_DB();
 		try {
-			$rows = $db->query('SELECT * FROM '.$db->table('lot').' WHERE user_id=? ORDER BY id',array((int)$user_id)); $lots = array();
+			$rows = $db->query('SELECT * FROM '.$db->table('lot').' WHERE user_id=? AND remaining>0 ORDER BY id',array((int)$user_id)); $lots = array();
 			foreach ($rows as $row) {
 				$source = json_decode($row['provenance'],true,512,JSON_THROW_ON_ERROR);
 				$lots[] = array('id'=>'v2:'.$row['id'],'points_remaining'=>(int)$row['remaining'],'points_reserved'=>(int)$row['reserved'],'earned_at'=>$row['earned_at'] ? get_date_from_gmt($row['earned_at']) : '', 'expires_at_utc'=>$row['expires_at'],'source_type'=>isset($source['type'])?$source['type']:(isset($source['source_type'])?$source['source_type']:'migration'),'order_id'=>isset($source['order_id'])?(int)$source['order_id']:0,'note'=>isset($source['note'])?$source['note']:'');
@@ -56,19 +58,26 @@ class Nodevora_Financial_Compatibility {
 		} finally { $db->close(); }
 	}
 	/** Historical legacy rows stay read-only; no new journal event is mirrored into that table. */
-	public static function logs($user_id, $limit) {
+	public static function logs($user_id, $limit, $before=null) {
 		self::balance($user_id); global $wpdb; $limit = min(1000,max(1,(int)$limit));
-		$legacy = $wpdb->get_results($wpdb->prepare('SELECT * FROM %i WHERE user_id=%d ORDER BY id DESC LIMIT %d',$wpdb->prefix.'rewardly_loyalty_log',$user_id,$limit));
+		$legacy_before=is_array($before)?max(1,(int)$before[0]):PHP_INT_MAX;$journal_before=is_array($before)?max(1,(int)$before[1]):PHP_INT_MAX;
+		$legacy = $wpdb->get_results($wpdb->prepare('SELECT * FROM %i WHERE user_id=%d AND id<%d ORDER BY id DESC LIMIT %d',$wpdb->prefix.'rewardly_loyalty_log',$user_id,$legacy_before,$limit));
 		if (null === $legacy || $wpdb->last_error) { throw new Nodevora_Financial_Error('Historical reporting is unavailable.'); }
 		$db = new Nodevora_Financial_DB();
 		try {
-			$events = $db->query('SELECT * FROM '.$db->table('event').' WHERE user_id=? AND kind NOT IN (?,?) ORDER BY id DESC LIMIT '.$limit,array((int)$user_id,'opening','legacy_claim'));
+			$events = $db->query('SELECT * FROM '.$db->table('event').' WHERE user_id=? AND id<? AND kind NOT IN (?,?) ORDER BY id DESC LIMIT '.$limit,array((int)$user_id,$journal_before,'opening','legacy_claim'));
+			$journal = array();
 			foreach ($events as $event) {
 				$p = $event['payload'] ? json_decode($event['payload'],true,512,JSON_THROW_ON_ERROR) : array(); $d = isset($p['details'])?$p['details']:array();
-				$legacy[] = (object)array('id'=>'v2:'.$event['id'],'user_id'=>(int)$user_id,'order_id'=>isset($d['order_id'])?(int)$d['order_id']:0,'type'=>isset($d['type'])?$d['type']:$event['kind'],'points'=>'expire'===$event['kind']?abs((int)$event['delta_balance']):(int)$event['gross_points'],'amount_dh'=>isset($d['discount_minor'],$d['scale'])?$d['discount_minor']/$d['scale']:0,'note'=>isset($d['note'])?$d['note']:'','created_at'=>get_date_from_gmt($event['created_at']),'created_at_utc'=>$event['created_at']);
+				$journal[] = (object)array('id'=>'v2:'.$event['id'],'user_id'=>(int)$user_id,'order_id'=>isset($d['order_id'])?(int)$d['order_id']:0,'type'=>isset($d['type'])?$d['type']:$event['kind'],'points'=>'expire'===$event['kind']?abs((int)$event['delta_balance']):(int)$event['gross_points'],'amount_dh'=>isset($d['discount_minor'],$d['scale'])?$d['discount_minor']/$d['scale']:0,'note'=>isset($d['note'])?$d['note']:'','created_at'=>get_date_from_gmt($event['created_at']),'created_at_utc'=>$event['created_at']);
 			}
-			usort($legacy,function($a,$b){$date=strcmp($b->created_at,$a->created_at);return $date?:strcmp((string)$b->id,(string)$a->id);});
-			return array_slice($legacy,0,$limit);
+			// Fusion des deux flux décroissants sans réordonner leurs identités immuables.
+			$rows=array();$left=0;$right=0;
+			while(count($rows)<$limit && (isset($legacy[$left])||isset($journal[$right]))){
+				if(!isset($journal[$right]) || (isset($legacy[$left]) && strcmp($legacy[$left]->created_at,$journal[$right]->created_at)>=0)){$rows[]=$legacy[$left++];}
+				else{$rows[]=$journal[$right++];}
+			}
+			return $rows;
 		} finally { $db->close(); }
 	}
 }
