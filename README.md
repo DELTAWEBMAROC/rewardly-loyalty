@@ -2,7 +2,7 @@
 
 Development branch for the existing free WordPress.org plugin. Public metadata stays at 4.8.5; this branch is not a published release and does not authorize production cutover.
 
-The transactional InnoDB wallet and immutable journal preserve financial identities, lot provenance and reconciliation evidence. Unconfigured installs retain read-only historical data and refuse loyalty mutations/discounts. Verified integration currently supports isolated single-site local BACS, COD and zero-total flows. Unsupported gateways, uncertain historic accounts and partial-refund policy remain restricted. Ordinary cash checkout remains available.
+The transactional InnoDB wallet and immutable journal preserve financial identities, lot provenance and reconciliation evidence. Unconfigured installs retain read-only historical data and refuse loyalty mutations/discounts. The explicit administrator Financial setup workflow is validated on isolated single-site fixtures, including a production environment flag without CLI opt-ins. Supported payment verification remains scoped to local BACS, COD and zero-total flows. Unsupported gateways, uncertain historic accounts and partial-refund policy remain restricted. Ordinary cash checkout remains available.
 
 See [installation and readiness](docs/installation-and-financial-readiness.md) before activation, update or migration. A normal activation does not perform a production financial migration. The historical Rewardly folder requires the documented single-active-package staging procedure.
 

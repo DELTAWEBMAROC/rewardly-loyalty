@@ -1,0 +1,20 @@
+{
+    "tests": [
+        {
+            "test": "customer",
+            "status": "PASS"
+        },
+        {
+            "test": "admin_get",
+            "status": "PASS"
+        },
+        {
+            "test": "admin_csrf",
+            "status": "PASS"
+        },
+        {
+            "test": "denials_preserve_setup",
+            "status": "PASS"
+        }
+    ]
+}

@@ -98,12 +98,21 @@ This gives store owners additional flexibility when placing customer rewards inf
 
 == Installation ==
 
-1. Install Nodevora Customer Rewards for WooCommerce through the WordPress Plugins screen, or upload the `nodevora-customer-rewards-for-woocommerce` folder to the `/wp-content/plugins/` directory.
-2. Activate Nodevora Customer Rewards for WooCommerce.
-3. Make sure WooCommerce is installed and active.
-4. Open Nodevora Customer Rewards from the WordPress admin area.
-5. Configure your earning, redemption, expiration, notification, and display settings.
-6. Test the earning and redemption workflow before using the loyalty program on a production store.
+This development package requires verified financial setup. Activation does not migrate customer accounts or enable financial writes. Keep existing points and historical records; never uninstall the previous package to perform migration. Only one Nodevora/Rewardly package may be active.
+
+1. Install the official nodevora-customer-rewards-for-woocommerce folder with WooCommerce active. Financial operations currently support single-site stores only.
+2. As an administrator, open WooCommerce > Financial setup. Shop managers must ask an administrator for financial setup and refund resolution.
+3. Export the full database and plugin files outside the web root and test restoring them on an isolated copy. Enter only a non-secret backup reference. Enable store maintenance; stop external payment callbacks and legacy loyalty workers; wait for in-flight requests to finish. Confirm both attestations and select Prepare and pause.
+4. Select Install / verify schema, then Inspect next 20 accounts. Review balances, lot totals and diagnostic reasons before Migrate reviewed batch. Repeat until an empty inspection confirms discovery is complete. Changed evidence refuses migration. Keep maintenance enabled while investigating; retry interrupted batches with the same reviewed evidence. Already committed opening identities cannot import twice.
+5. Inconsistent accounts retain snapshots and remain blocked. Do not invent missing lots, expiry dates, historical debits or a proportional-refund policy. A separately approved reconciliation plan is required before changing quarantined financial value. Activation of ready accounts does not resolve quarantine.
+6. Explicitly confirm quarantine and wallet cutover before Activate reviewed wallets. Server pause/deny overrides take precedence; this page never changes server configuration. Background recovery needs its own confirmation after review of pending effects; otherwise leave it unchecked. Never drain unknown effects.
+7. Verify a supported offline checkout on staging before deliberately restoring maintenance and callbacks. Locally verified financial payment paths are BACS, COD and zero-total orders. Arbitrary payment gateways and production cutover are not certified by this development package.
+
+Pause new financial writes preserves wallet authority and history. Resume requires the activation confirmations again. Before cutover, rollback requires stopped writers and a complete consistent restore. After committed wallet activity, pause and reconcile; never switch back to legacy authority or restore a pre-cutover database.
+
+A partial refund holds fulfillment through delayed status/payment/recovery callbacks even if loyalty is disabled. After an authorized external review, an administrator can record the matching order/refund IDs and a decision/reference under Financial setup > Resolve a reviewed partial refund. Resolution records a zero-value immutable review; it does not adjust points or advance the order. A later refund needs a new review.
+
+Schema/database errors, changed migration evidence, incomplete account discovery and server safety overrides must be resolved while maintenance remains enabled. The interface displays errors and current progress. Normal activation never silently bypasses these requirements. The public version/stable tag remains 4.8.5; this development work is not a published release.
 
 == Frequently Asked Questions ==
 
