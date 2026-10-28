@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-28T18:39:02+00:00\n"
+"POT-Creation-Date: 2026-10-28T21:02:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -1152,118 +1152,135 @@ msgid "Unknown setup action."
 msgstr ""
 
 #: includes/financial/class-nodevora-financial-setup.php:75
+msgid "Operation completed. Review the current state before the next step."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+#, php-format
+msgid "Reviewed through account #%d."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+msgid "Account discovery is complete. Review quarantine before explicit cutover."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-setup.php:76
+msgid "Inspect the next batch; an empty batch confirms account discovery is complete."
+msgstr ""
+
+#: includes/financial/class-nodevora-financial-setup.php:77
 msgid "No account is migrated and no financial writes are enabled automatically. Keep checkout, payment callbacks and legacy workers stopped until setup is complete."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:76
+#: includes/financial/class-nodevora-financial-setup.php:78
 msgid "Current state:"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:76
+#: includes/financial/class-nodevora-financial-setup.php:78
 msgid "Not configured"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:76
+#: includes/financial/class-nodevora-financial-setup.php:78
 msgid "Writes paused"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:77
+#: includes/financial/class-nodevora-financial-setup.php:79
 msgid "Export the full database and plugin files outside the web root. Test restoring the backup on an isolated snapshot. Never enter credentials or backup contents here."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:77
+#: includes/financial/class-nodevora-financial-setup.php:79
 msgid "Enable store maintenance, stop external payment callbacks and all previous loyalty writers, then wait for in-flight work to finish. The confirmations below are operator attestations, not a mutex."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:77
+#: includes/financial/class-nodevora-financial-setup.php:79
 msgid "Prepare setup, install/verify the schema, inspect each batch, then explicitly migrate that reviewed batch. Retry interrupted batches with the same evidence; opening balances cannot be imported twice."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:77
+#: includes/financial/class-nodevora-financial-setup.php:79
 msgid "Accounts needing review retain their raw snapshots and remain unable to spend. Review the displayed reasons against the backup; never invent missing lots, dates or historical debits. An approved reconciliation plan is required before changing their financial value."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:77
+#: includes/financial/class-nodevora-financial-setup.php:79
 msgid "After the final empty inspection batch, explicitly activate eligible wallets. Keep unreconciled accounts blocked. Restore maintenance/callbacks deliberately and verify a supported offline checkout."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:78
+#: includes/financial/class-nodevora-financial-setup.php:80
 msgid "Before cutover, rollback requires stopped writers and a complete consistent restore. After committed wallet transactions, keep wallet authority and journal: do not downgrade PHP or restore a pre-cutover database. Pause and reconcile instead."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:80
+#: includes/financial/class-nodevora-financial-setup.php:82
 msgid "Backup reference (no secrets)"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:80
+#: includes/financial/class-nodevora-financial-setup.php:82
 msgid "I verified a restorable database and files backup."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:80
+#: includes/financial/class-nodevora-financial-setup.php:82
 msgid "Maintenance is enabled and legacy writers and callbacks are stopped and drained."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:81
+#: includes/financial/class-nodevora-financial-setup.php:83
 msgid "Prepare and pause"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:81
+#: includes/financial/class-nodevora-financial-setup.php:83
 msgid "Install / verify schema"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:81
+#: includes/financial/class-nodevora-financial-setup.php:83
 msgid "Inspect next 20 accounts"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:81
+#: includes/financial/class-nodevora-financial-setup.php:83
 msgid "Migrate reviewed batch"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:83
+#: includes/financial/class-nodevora-financial-setup.php:85
 msgid "Unreconciled accounts must remain blocked."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:83
+#: includes/financial/class-nodevora-financial-setup.php:85
 msgid "I authorize wallet cutover and new financial writes for ready accounts."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:84
+#: includes/financial/class-nodevora-financial-setup.php:86
 msgid "I reviewed pending effects and authorize background recovery. Leave unchecked to keep recovery manual."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:85
+#: includes/financial/class-nodevora-financial-setup.php:87
 msgid "Activate reviewed wallets"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:85
+#: includes/financial/class-nodevora-financial-setup.php:87
 msgid "Pause new financial writes"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:86
+#: includes/financial/class-nodevora-financial-setup.php:88
 msgid "Resolve a reviewed partial refund"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:86
+#: includes/financial/class-nodevora-financial-setup.php:88
 msgid "No proportional refund policy is applied. Record the authorized external reconciliation decision. This clears only the selected refund hold; it does not move points or advance the order status. A later refund requires a new review."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:87
+#: includes/financial/class-nodevora-financial-setup.php:89
 msgid "Order ID"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:87
+#: includes/financial/class-nodevora-financial-setup.php:89
 msgid "Refund ID"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:88
+#: includes/financial/class-nodevora-financial-setup.php:90
 msgid "Authorized review decision and reference"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:88
+#: includes/financial/class-nodevora-financial-setup.php:90
 msgid "I completed and authorize this external financial reconciliation."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:88
+#: includes/financial/class-nodevora-financial-setup.php:90
 msgid "Record refund resolution"
 msgstr ""
 
