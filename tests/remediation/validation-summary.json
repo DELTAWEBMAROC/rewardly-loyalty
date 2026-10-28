@@ -1,0 +1,100 @@
+{
+  "financial": [
+    {
+      "suite": "foundation",
+      "pass": 22
+    },
+    {
+      "suite": "migration",
+      "pass": 14
+    },
+    {
+      "suite": "compatibility",
+      "pass": 5
+    },
+    {
+      "suite": "reporting",
+      "pass": 8
+    },
+    {
+      "suite": "checkout",
+      "pass": 13
+    },
+    {
+      "suite": "lifecycle",
+      "pass": 12
+    },
+    {
+      "suite": "recovery",
+      "pass": 17
+    },
+    {
+      "suite": "bonuses",
+      "pass": 8
+    },
+    {
+      "suite": "gates",
+      "pass": 9
+    },
+    {
+      "suite": "legacy-storage",
+      "pass": 13
+    },
+    {
+      "suite": "concurrency",
+      "pass": 6
+    },
+    {
+      "suite": "crash",
+      "pass": 1
+    },
+    {
+      "suite": "real HTTP checkout + retries",
+      "pass": 14
+    }
+  ],
+  "financial_pass": 142,
+  "remediation": [
+    {
+      "suite": "installation-gates",
+      "pass": 16
+    },
+    {
+      "suite": "business-rules",
+      "pass": 44
+    },
+    {
+      "suite": "review-lifecycle",
+      "pass": 17
+    },
+    {
+      "suite": "permissions",
+      "pass": 12
+    },
+    {
+      "suite": "retention",
+      "pass": 3
+    },
+    {
+      "suite": "blocks-state",
+      "pass": 18
+    },
+    {
+      "suite": "http-cart",
+      "pass": 10
+    },
+    {
+      "suite": "performance",
+      "pass": 10
+    }
+  ],
+  "remediation_pass": 130,
+  "total_pass": 272,
+  "historical_140_preserved": true,
+  "browser_checks": "Separate actual UI evidence, not inflated into machine assertion count",
+  "minimum_runtimes": "Not installed; NOT TESTED",
+  "schema": 3,
+  "version": "4.8.5",
+  "branch": "feat/nodevora-4.8.6-financial-foundation",
+  "validated_source_commit": "2dd7bbd64c6ea7f3366c274cd686b7ec29707a98"
+}

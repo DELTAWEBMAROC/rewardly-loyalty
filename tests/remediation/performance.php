@@ -2,7 +2,7 @@
 /** Mesures locales sur un compte synthétique ; aucun traitement global de récupération. */
 if(!defined('WP_CLI')||!WP_CLI||home_url()!=='http://localhost:10004'){throw new RuntimeException('Dedicated test site required.');}
 require_once getenv('NODEVORA_TEST_SOURCE').'/nodevora-customer-rewards-for-woocommerce.php';
-class Nodevora_M05_Measured_DB extends Nodevora_Financial_DB {public $queries=0;public function query($sql,$params=array()){$this->queries++;return parent::query($sql,$params);}}
+class Nodevora_M05_Measured_DB extends Nodevora_Financial_DB {public $queries=0;public static $total_queries=0;public function query($sql,$params=array()){$this->queries++;self::$total_queries++;return parent::query($sql,$params);}}
 $run=bin2hex(random_bytes(6));$db=new Nodevora_M05_Measured_DB();$uid=(int)getenv('NODEVORA_PERFORMANCE_USER');if($uid && 0!==strpos(get_userdata($uid)->user_login,'qa_m05_perf_')){throw new RuntimeException('Synthetic fixture required.');}
 if(!$uid){$uid=wp_insert_user(array('user_login'=>'qa_m05_perf_'.$run,'user_pass'=>wp_generate_password(32),'user_email'=>$run.'@example.invalid','role'=>'customer'));
 $db->query('INSERT INTO '.$db->table('wallet').' (user_id,state) VALUES (?,?)',array($uid,'ready'));
@@ -19,18 +19,22 @@ try{
 }catch(Throwable $e){$db->rollback();throw $e;}
 }
 $wallet=new Nodevora_Financial_Wallet();
-require_once getenv('NODEVORA_BASELINE_COMPATIBILITY');
-$measure=function($callback)use($db){$samples=array();$answer=null;for($n=0;$n<5;$n++){$query_before=$db->queries;$memory=memory_get_usage();if(function_exists('memory_reset_peak_usage')){memory_reset_peak_usage();}$start=hrtime(true);$answer=$callback();$samples[]=array('ms'=>(hrtime(true)-$start)/1e6,'instrumented_connection_queries'=>$db->queries-$query_before,'peak_extra_bytes'=>function_exists('memory_reset_peak_usage')?max(0,memory_get_peak_usage()-$memory):null);}return array('samples'=>$samples,'result'=>$answer);};
+// Copies instrumentées du même code, sans modifier les calculs ni les requêtes.
+$instrument=static function($path,$from,$to){$code=file_get_contents($path);$code=str_replace(array($from,'new Nodevora_Financial_DB()','new Nodevora_Financial_Wallet()'),array($to,'new Nodevora_M05_Measured_DB()','new Nodevora_M05_Measured_Wallet()'),$code);eval(preg_replace('/^<\?php/','',$code));};
+$instrument(getenv('NODEVORA_TEST_SOURCE').'/includes/financial/class-nodevora-financial-wallet.php','class Nodevora_Financial_Wallet','class Nodevora_M05_Measured_Wallet');
+$instrument(getenv('NODEVORA_BASELINE_COMPATIBILITY'),'class Nodevora_Baseline_Compatibility','class Nodevora_Baseline_Compatibility');
+$instrument(getenv('NODEVORA_TEST_SOURCE').'/includes/financial/class-nodevora-financial-compatibility.php','class Nodevora_Financial_Compatibility','class Nodevora_M05_Measured_Compatibility');
+$measure=function($callback)use($db){$samples=array();$answer=null;for($n=0;$n<5;$n++){$query_before=Nodevora_M05_Measured_DB::$total_queries;$memory=memory_get_usage();if(function_exists('memory_reset_peak_usage')){memory_reset_peak_usage();}$start=hrtime(true);$answer=$callback();$samples[]=array('ms'=>(hrtime(true)-$start)/1e6,'measured_select_queries'=>Nodevora_M05_Measured_DB::$total_queries-$query_before,'peak_extra_bytes'=>function_exists('memory_reset_peak_usage')?max(0,memory_get_peak_usage()-$memory):null);}return array('samples'=>$samples,'result'=>$answer);};
 $before=$measure(function()use($db,$uid){$db->begin();try{$rows=$db->query('SELECT * FROM '.$db->table('lot').' WHERE user_id=? ORDER BY expires_at IS NULL,expires_at,id FOR UPDATE',array($uid));return count($rows);}finally{$db->rollback();}});
 $reflect=new ReflectionClass($wallet);foreach(array('db'=>$db,'wallet'=>array('user_id'=>$uid))as$key=>$value){$p=$reflect->getProperty($key);$p->setAccessible(true);$p->setValue($wallet,$value);}$method=$reflect->getMethod('lots');$method->setAccessible(true);
 $after=$measure(function()use($db,$wallet,$method){$db->begin();try{return count($method->invoke($wallet));}finally{$db->rollback();}});
 $history_before=$measure(function()use($uid){return Nodevora_Baseline_Compatibility::total($uid,'earned');});
-$history_after=$measure(function()use($uid){return Nodevora_Financial_Compatibility::total($uid,'earned');});
+$history_after=$measure(function()use($uid){return Nodevora_M05_Measured_Compatibility::total($uid,'earned');});
 $plan=$db->query('EXPLAIN SELECT * FROM '.$db->table('lot').' WHERE user_id=? AND remaining>0 ORDER BY expires_at IS NULL,expires_at,id FOR UPDATE',array($uid));
 $tests=array();$check=function($name,$ok)use(&$tests){$tests[]=array('test'=>$name,'status'=>$ok?'PASS':'FAIL');};
 $check('active_lot_index_used',$plan[0]['key']==='active_lots'&&(int)$plan[0]['rows']<10);
 $check('exhausted_lots_excluded',$before['result']===5001&&$after['result']===1);
-$check('reporting_total_preserved',$history_before['result']===100&&$history_after['result']===100);
+$check('reporting_total_preserved',$history_before['result']===100&&$history_after['result']===100&&Nodevora_Financial_Compatibility::total($uid,'earned')===100);
 $check('read_balance_preserved',$wallet->read($uid)['available']===100);
 $check('exhausted_lots_preserved_in_ledger',(int)$db->one('SELECT COUNT(*) AS n FROM '.$db->table('lot').' WHERE user_id=?',array($uid))['n']===5001&&count(Nodevora_Financial_Compatibility::lots($uid))===1);
 global $wpdb;
