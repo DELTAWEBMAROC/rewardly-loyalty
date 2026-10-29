@@ -36,6 +36,9 @@ class Nodevora_Financial_Wallet {
 			try {
 				Nodevora_Financial_Schema::verify($this->db);
 				$this->db->begin();
+				$control = Nodevora_Financial_Setup::lock_state( $this->db );
+				if ( isset( $control['phase'] ) && in_array( $control['phase'], array( 'restoring', 'restore_review' ), true ) ) { throw new Nodevora_Financial_Error('Restore review is required.'); }
+				if ( isset( $control['phase'] ) && 'active' !== $control['phase'] ) { $writes_paused = true; }
 				$this->wallet=$this->db->one('SELECT * FROM '.$this->db->table('wallet').' WHERE user_id=? FOR UPDATE',array($user_id));
 				if(!$this->wallet || 'ready'!==$this->wallet['state']){throw new Nodevora_Financial_Error('Account requires migration or reconciliation.');}
 				$coordinator=null;

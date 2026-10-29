@@ -5,6 +5,16 @@ class Nodevora_Financial_Setup {
 	private static $scope = '';
 	const OPTION = 'nodevora_financial_setup';
 	public static function state() { return (array) get_option( self::OPTION, array() ); }
+	/** Barrière partagée en transaction : une pause attend les écritures déjà engagées. */
+	public static function lock_state( $db ) {
+		global $wpdb;
+		$row = $db->one( 'SELECT option_value FROM `' . $wpdb->options . '` WHERE option_name=? LOCK IN SHARE MODE', array( self::OPTION ) );
+		if ( ! $row ) { return array(); }
+		$state = @unserialize( $row['option_value'], array( 'allowed_classes' => false ) );
+		if ( ! is_array( $state ) ) { throw new Nodevora_Financial_Error( 'Financial control state is invalid.' ); }
+		return $state;
+	}
+
 	public static function paused() {
 		$s = self::state();
 		return ( defined('NODEVORA_FINANCIAL_WRITES_PAUSED') && true === NODEVORA_FINANCIAL_WRITES_PAUSED ) || ( isset($s['phase']) && 'active' !== $s['phase'] );

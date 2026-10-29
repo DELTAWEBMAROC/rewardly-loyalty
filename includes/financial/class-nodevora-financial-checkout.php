@@ -9,6 +9,7 @@ class Nodevora_Financial_Checkout {
 		add_action('woocommerce_store_api_checkout_order_processed',array(__CLASS__,'blocks'),PHP_INT_MAX);
 	}
 	public static function require_enabled($recovery=false) {
+		if ( in_array( Nodevora_Financial_Setup::state()['phase'] ?? '', array('restoring','restore_review'), true ) ) { throw new Nodevora_Financial_Error('Restore review is required.'); }
 		if ( 'blocked' === get_option( 'nodevora_installation_status' ) ) { throw new Nodevora_Financial_Error('Nodevora installation requires repair.'); }
 		if (!$recovery&&Nodevora_Financial_Setup::paused()){throw new Nodevora_Financial_Error('New financial writes are paused; recovery remains available.');}
 		if(!Nodevora_Financial_Compatibility::selected()){throw new Nodevora_Financial_Error('Verified financial setup is required.');}

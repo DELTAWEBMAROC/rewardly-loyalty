@@ -70,6 +70,8 @@ class Nodevora_Financial_Recovery {
 		elseif('dispatched'===$state['state']){$order->update_meta_data('_nodevora_financial_recovery','Payment outcome unknown; retain funding. Do not redispatch automatically.');$order->save();}
 	}
 	public static function run() {
+		// Une restauration ne donne jamais une autorisation implicite sur sa file héritée.
+		if ( 'nodevora_financial_recover' === current_filter() && empty( Nodevora_Financial_Setup::state()['recovery_approved'] ) ) { return array('done'=>0,'failed'=>0,'awaiting_review'=>true); }
 		Nodevora_Financial_Checkout::require_enabled(true);$db=new Nodevora_Financial_DB();try{
 			$orders=self::order_batch((int)get_option('nodevora_financial_order_cursor',0));
 			if(!$orders){update_option('nodevora_financial_order_cursor',0,false);}

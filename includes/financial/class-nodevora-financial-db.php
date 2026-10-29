@@ -50,6 +50,8 @@ class Nodevora_Financial_DB {
 	public function one( $sql, $params = array() ) { $rows = $this->query( $sql, $params ); return $rows ? $rows[0] : null; }
 	public function id() { return (int) $this->connection->insert_id; }
 	public function begin() { try { if ( ! $this->connection->begin_transaction() ) { throw new Exception(); } } catch ( Throwable $e ) { throw new Nodevora_Financial_Error( 'Cannot begin financial transaction.' ); } }
+	/** Vue cohérente en lecture pour l’export, sur la connexion dédiée. */
+	public function begin_snapshot() { try { if ( ! $this->connection->begin_transaction( MYSQLI_TRANS_START_WITH_CONSISTENT_SNAPSHOT ) ) { throw new Exception(); } } catch ( Throwable $e ) { throw new Nodevora_Financial_Error( 'Cannot start a consistent backup snapshot.' ); } }
 	public function commit() {
 		try { if ( ! $this->connection->commit() ) { throw new Exception(); } } catch ( Throwable $e ) { throw new Nodevora_Financial_Unknown( 'Commit outcome requires resolution.' ); }
 	}

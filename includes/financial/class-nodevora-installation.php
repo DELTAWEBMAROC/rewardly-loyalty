@@ -41,7 +41,7 @@ class Nodevora_Installation {
 			Nodevora_Financial_Schema::install( $db );
 			// La création de tables ne suffit pas : revérifier les sources avant l’autorité unique.
 			if ( 'empty' !== self::detect( $db ) ) { throw new Nodevora_Financial_Error( 'Existing loyalty evidence was detected.' ); }
-			$state = array( 'phase' => 'active', 'origin' => 'fresh', 'activated_at' => gmdate( 'c' ), 'recovery_approved' => false );
+			$state = array( 'phase' => 'active', 'origin' => 'fresh', 'activated_at' => gmdate( 'c' ), 'recovery_approved' => true );
 			update_option( Nodevora_Financial_Setup::OPTION, $state, false );
 			if ( get_option( Nodevora_Financial_Setup::OPTION ) !== $state ) { throw new Nodevora_Financial_Error( 'Installation state could not be saved.' ); }
 			update_option( 'nodevora_financial_authority', 'wallet', false );
@@ -68,6 +68,8 @@ class Nodevora_Installation {
 			$existing = $db->one( 'SELECT state FROM ' . $db->table( 'wallet' ) . ' WHERE user_id=?', array( $user ) );
 			if ( $existing && 'ready' === $existing['state'] ) { return; }
 			Nodevora_Financial_Schema::verify( $db ); $db->begin();
+			$control = Nodevora_Financial_Setup::lock_state( $db );
+			if ( ( $control['phase'] ?? '' ) !== 'active' || ( $control['origin'] ?? '' ) !== 'fresh' ) { throw new Nodevora_Financial_Error( 'Account initialization is paused.' ); }
 			$db->query( 'INSERT IGNORE INTO ' . $db->table( 'wallet' ) . ' (user_id,state) VALUES (?,?)', array( $user, 'pending' ) );
 			$w = $db->one( 'SELECT * FROM ' . $db->table( 'wallet' ) . ' WHERE user_id=? FOR UPDATE', array( $user ) );
 			if ( 'ready' === $w['state'] ) { $db->rollback(); return; }
