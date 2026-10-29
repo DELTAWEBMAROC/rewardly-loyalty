@@ -68,28 +68,31 @@ class Nodevora_Backup {
 		} catch ( Throwable $e ) { $db->rollback(); fclose( $stream ); throw $e; } finally { $db->close(); }
 	}
 	/** Les identités référencées sont vérifiées, sans exporter de comptes WordPress. */
-	public static function references( $db, $type, $row, &$cache ) {
+	public static function references( $db, $type, $row, &$cache, $lock = false ) {
 		global $wpdb;
+		$one=static function($sql,$params=array())use($db,$lock){return$db->one($sql.($lock?' LOCK IN SHARE MODE':''),$params);};
+		$many=static function($sql,$params=array())use($db,$lock){return$db->query($sql.($lock?' LOCK IN SHARE MODE':''),$params);};
+		if(count($cache)>2048){$cache=array();}
 		$ids = array();
 		if('event'===$type&&!empty($row['payload'])){$event=json_decode($row['payload'],true,32,JSON_THROW_ON_ERROR);if(!empty($event['details']['order_id'])){$ids['order']=(int)$event['details']['order_id'];}if(!empty($event['details']['refund_id'])){$ids['refund']=(int)$event['details']['refund_id'];}}
 		if ( ! empty( $row['user_id'] ) ) { $ids['user'] = (int) $row['user_id']; }
 		if ( ! empty( $row['order_id'] ) ) { $ids['order'] = (int) $row['order_id']; }
-		if ( 'post_meta' === $type ) { $post=$db->one('SELECT post_type FROM `'.$wpdb->posts.'` WHERE ID=?',array((int)$row['post_id']));$ids[$post&&in_array($post['post_type'],array('shop_order','shop_order_refund'),true)?'order':'post'] = (int) $row['post_id']; }
+		if ( 'post_meta' === $type ) { $post=$one('SELECT post_type FROM `'.$wpdb->posts.'` WHERE ID=?',array((int)$row['post_id']));$ids[$post&&in_array($post['post_type'],array('shop_order','shop_order_refund'),true)?'order':'post'] = (int) $row['post_id']; }
 		if ( 'item_meta' === $type ) { $ids['item'] = (int) $row['order_item_id']; }
 		if ( 'comment_meta' === $type ) { $ids['comment'] = (int) $row['comment_id']; }
 		$refs = array();
 		foreach ( $ids as $kind => $id ) {
 			$key = $kind . ':' . $id;
 			if ( ! isset( $cache[$key] ) ) {
-				if ( 'user' === $kind ) { $identity = $db->one( 'SELECT ID,user_login,user_email,user_registered FROM `' . $wpdb->users . '` WHERE ID=?', array( $id ) ); }
-				elseif ( 'item' === $kind ) { $identity=$db->one('SELECT order_item_id,order_id,order_item_type,order_item_name FROM `'.$wpdb->prefix.'woocommerce_order_items` WHERE order_item_id=?',array($id));if($identity){$identity['amounts']=$db->query('SELECT meta_key,meta_value FROM `'.$wpdb->prefix.'woocommerce_order_itemmeta` WHERE order_item_id=? AND meta_key IN (?,?,?,?) ORDER BY meta_key,meta_id',array($id,'_line_total','_line_tax','_line_subtotal','_line_subtotal_tax'));} }
-				elseif ( 'comment' === $kind ) { $identity = $db->one( 'SELECT comment_ID,comment_post_ID,user_id,comment_date_gmt,comment_author_email FROM `' . $wpdb->comments . '` WHERE comment_ID=?', array( $id ) ); }
+				if ( 'user' === $kind ) { $identity = $one( 'SELECT ID,user_login,user_email,user_registered FROM `' . $wpdb->users . '` WHERE ID=?', array( $id ) ); }
+				elseif ( 'item' === $kind ) { $identity=$one('SELECT order_item_id,order_id,order_item_type,order_item_name FROM `'.$wpdb->prefix.'woocommerce_order_items` WHERE order_item_id=?',array($id));if($identity){$identity['amounts']=$many('SELECT meta_key,meta_value FROM `'.$wpdb->prefix.'woocommerce_order_itemmeta` WHERE order_item_id=? AND meta_key IN (?,?,?,?) ORDER BY meta_key,meta_id',array($id,'_line_total','_line_tax','_line_subtotal','_line_subtotal_tax'));} }
+				elseif ( 'comment' === $kind ) { $identity = $one( 'SELECT comment_ID,comment_post_ID,user_id,comment_date_gmt,comment_author_email FROM `' . $wpdb->comments . '` WHERE comment_ID=?', array( $id ) ); }
 				elseif ( 'order' === $kind || 'refund' === $kind ) {
-					$storage=$db->one('SELECT option_value FROM `'.$wpdb->options.'` WHERE option_name=?',array('woocommerce_custom_orders_table_enabled'));$exists=$storage&&'yes'===$storage['option_value'];
-					$identity = $exists ? $db->one( 'SELECT id,type,status,parent_order_id,customer_id,total_amount,currency FROM `' . $wpdb->prefix . 'wc_orders` WHERE id=?', array( $id ) ) : null;
-					if ( ! $identity ) { $identity = $db->one( 'SELECT ID,post_type,post_status,post_name,post_parent,post_date_gmt FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
-				} else { $identity = $db->one( 'SELECT ID,post_type,post_status,post_name,post_parent,post_date_gmt FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
-				if($identity&&in_array($kind,array('order','refund'),true)){if(isset($identity['ID'])){$identity['terms']=$db->query('SELECT meta_key,meta_value FROM `'.$wpdb->postmeta.'` WHERE post_id=? AND meta_key IN (?,?,?,?,?,?,?) ORDER BY meta_key,meta_id',array($id,'_customer_user','_order_total','_order_currency','_payment_method','_order_tax','_cart_discount','_order_shipping'));}$identity['items']=$db->query('SELECT i.order_item_id,i.order_item_type,m.meta_key,m.meta_value FROM `'.$wpdb->prefix.'woocommerce_order_items` i LEFT JOIN `'.$wpdb->prefix.'woocommerce_order_itemmeta` m ON m.order_item_id=i.order_item_id WHERE i.order_id=? AND m.meta_key IN (?,?,?,?,?,?,?,?) ORDER BY i.order_item_id,m.meta_key,m.meta_id',array($id,'_product_id','_variation_id','_qty','_line_subtotal','_line_total','_line_tax','_line_subtotal_tax','_tax_class'));}
+					$storage=$one('SELECT option_value FROM `'.$wpdb->options.'` WHERE option_name=?',array('woocommerce_custom_orders_table_enabled'));$exists=$storage&&'yes'===$storage['option_value'];
+					$identity = $exists ? $one( 'SELECT id,type,status,parent_order_id,customer_id,total_amount,currency FROM `' . $wpdb->prefix . 'wc_orders` WHERE id=?', array( $id ) ) : null;
+					if ( ! $identity ) { $identity = $one( 'SELECT ID,post_type,post_status,post_name,post_parent,post_date_gmt FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
+				} else { $identity = $one( 'SELECT ID,post_type,post_status,post_name,post_parent,post_date_gmt FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
+				if($identity&&in_array($kind,array('order','refund'),true)){if(isset($identity['ID'])){$identity['terms']=$many('SELECT meta_key,meta_value FROM `'.$wpdb->postmeta.'` WHERE post_id=? AND meta_key IN (?,?,?,?,?,?,?) ORDER BY meta_key,meta_id',array($id,'_customer_user','_order_total','_order_currency','_payment_method','_order_tax','_cart_discount','_order_shipping'));}$identity['items']=$many('SELECT i.order_item_id,i.order_item_type,m.meta_key,m.meta_value FROM `'.$wpdb->prefix.'woocommerce_order_items` i LEFT JOIN `'.$wpdb->prefix.'woocommerce_order_itemmeta` m ON m.order_item_id=i.order_item_id WHERE i.order_id=? AND m.meta_key IN (?,?,?,?,?,?,?,?) ORDER BY i.order_item_id,m.meta_key,m.meta_id',array($id,'_product_id','_variation_id','_qty','_line_subtotal','_line_total','_line_tax','_line_subtotal_tax','_tax_class'));}
 					$missing=!$identity;if($missing){$identity=array('id'=>$id,'missing'=>true);}
 				$cache[$key] = array('sha256'=>hash( 'sha256', json_encode( $identity, JSON_THROW_ON_ERROR ) ),'missing'=>$missing);
 			}

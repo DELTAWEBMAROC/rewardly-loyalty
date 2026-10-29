@@ -1,0 +1,17 @@
+[
+  {
+    "test": "nontransactional_restore_target_refused_before_insert",
+    "status": "PASS",
+    "method": "Injected storage introspection; no table conversion"
+  },
+  {
+    "test": "final_import_identity_lock_excludes_concurrent_profile_writer",
+    "status": "PASS",
+    "method": "Two independent InnoDB connections, shared identity lock versus no-op update"
+  },
+  {
+    "test": "backup_snapshot_keeps_wallet_and_journal_consistent_across_concurrent_credit",
+    "status": "PASS",
+    "method": "Native export snapshot primitive versus a separately committed wallet transaction"
+  }
+]

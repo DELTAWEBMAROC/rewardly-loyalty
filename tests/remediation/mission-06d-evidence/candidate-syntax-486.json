@@ -1,0 +1,20 @@
+[
+  {
+    "check": "PHP8.2 syntax",
+    "files": 42,
+    "errors": [],
+    "status": "PASS"
+  },
+  {
+    "check": "PHP8.3 syntax",
+    "files": 42,
+    "errors": [],
+    "status": "PASS"
+  },
+  {
+    "check": "JavaScript syntax",
+    "files": 5,
+    "errors": [],
+    "status": "PASS"
+  }
+]

@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Nodevora Customer Rewards for WooCommerce
  * Description: WooCommerce loyalty points with discounts, expiration, customer history, emails, shortcodes, and Cart & Checkout Blocks support.
- * Version: 4.8.5
+ * Version: 4.8.6
  * Author: Ahmed Ghanem
  * Author URI: https://profiles.wordpress.org/ahmedxy/
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * WC requires at least: 8.2
- * WC tested up to: 11.0
+ * WC tested up to: 11.2.1
  * Text Domain: nodevora-customer-rewards-for-woocommerce
  * Domain Path: /languages
  * License: GPLv2 or later
@@ -30,7 +30,7 @@ if ( $nodevora_legacy_active || defined( 'REWARDLY_LOYALTY_FILE' ) || class_exis
 }
 /* Les déclarations conditionnelles empêchent les collisions avec une autre copie déjà chargée. */
 if ( ! function_exists( 'rewardly_loyalty_activate' ) ) {
-define( 'NODEVORA_CUSTOMER_REWARDS_VERSION', '4.8.5' );
+define( 'NODEVORA_CUSTOMER_REWARDS_VERSION', '4.8.6' );
 define( 'REWARDLY_LOYALTY_DEV_PRO_MODE', false );
 define( 'REWARDLY_LOYALTY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REWARDLY_LOYALTY_URL', plugin_dir_url( __FILE__ ) );
@@ -51,7 +51,7 @@ add_action(
 	}
 );
 
-// The financial service is inert until explicitly installed/integrated; no automatic migration.
+// Installation vierge vérifiée ; les données historiques nécessitent une synchronisation explicite.
 require_once REWARDLY_LOYALTY_PATH . 'includes/financial/bootstrap.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-helpers.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/core/class-rewardly-loyalty-emails.php';

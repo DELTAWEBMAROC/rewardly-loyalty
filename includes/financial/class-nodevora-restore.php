@@ -9,6 +9,10 @@ class Nodevora_Restore {
 		global $wpdb;
 		return Nodevora_Backup::table_map( $db ) + array( 'user_meta' => $wpdb->usermeta, 'post_meta' => $wpdb->postmeta, 'comment_meta' => $wpdb->commentmeta, 'order_meta' => $wpdb->prefix . 'wc_orders_meta', 'item_meta' => $wpdb->prefix . 'woocommerce_order_itemmeta' );
 	}
+	private static function verify_storage($db) {
+		global$wpdb;$tables=array_merge(array_values(self::maps($db)),array($wpdb->options,$wpdb->users,$wpdb->posts,$wpdb->comments,$wpdb->prefix.'woocommerce_order_items',$wpdb->prefix.'wc_orders'));
+		foreach(array_unique($tables)as$table){$info=$db->one('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?',array($table));if($info&&$info['ENGINE']!=='InnoDB'){throw new Nodevora_Financial_Error('Restore requires transactional tables for all included records and identities.');}}
+	}
 	private static function empty_target( $db ) {
 		foreach ( Nodevora_Backup::table_map( $db ) as $table ) {
 			if ( $db->one( 'SELECT 1 AS present FROM `' . $table . '` LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'This store already contains loyalty activity. An older backup cannot replace it. Use an empty test copy or request reviewed reconciliation.' ); }
@@ -18,7 +22,7 @@ class Nodevora_Restore {
 			if ( $db->one( 'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $table ) ) && $db->one( 'SELECT 1 AS present FROM `' . $table . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(rewardly_loyalty_|_rewardly|_nodevora)' ) ) ) { throw new Nodevora_Financial_Error( 'Existing loyalty metadata conflicts with this restore.' ); }
 		}
 	}
-	private static function check_record( $db, $r, &$columns, &$references ) {
+	private static function check_record( $db, $r, &$columns, &$references, $lock = false ) {
 		if ( isset( $r['option'] ) ) {
 			if ( ! in_array( $r['option'], array( 'rewardly_loyalty_settings', 'nodevora_financial_authority', Nodevora_Financial_Setup::OPTION, 'nodevora_access_policy', 'nodevora_sync_source_settings' ), true ) ) { throw new Nodevora_Financial_Error( 'Unsupported backup option.' ); }
 			if ( 'nodevora_financial_authority' === $r['option'] ) { if ( ! in_array( $r['value'], array( 'wallet', 'legacy' ), true ) ) { throw new Nodevora_Financial_Error( 'Invalid backup authority.' ); } return; }
@@ -35,13 +39,13 @@ class Nodevora_Restore {
 		if ( isset( $r['row']['meta_key'] ) && ! preg_match( '/^(rewardly_loyalty_|_rewardly|_nodevora)/D', $r['row']['meta_key'] ) ) { throw new Nodevora_Financial_Error( 'Unrelated WordPress metadata refused.' ); }
 		if ( in_array( $type, array( 'user_meta', 'post_meta', 'comment_meta', 'order_meta', 'item_meta' ), true ) ) { $pk = 'user_meta' === $type ? 'umeta_id' : ( 'order_meta' === $type ? 'id' : 'meta_id' ); if ( $db->one( 'SELECT 1 AS conflict FROM `' . $map[$type] . '` WHERE `' . $pk . '`=?', array( $r['row'][$pk] ) ) ) { throw new Nodevora_Financial_Error( 'A metadata identity conflicts with this backup.' ); } }
 		if(isset($r['row']['meta_value'])&&is_string($r['row']['meta_value'])&&preg_match('/^(?:a|O|C|s|b|i|d|r|R):.*[;}]$/s',$r['row']['meta_value'])){$decoded=@unserialize($r['row']['meta_value'],array('allowed_classes'=>false,'max_depth'=>32));if(false===$decoded&&'b:0;'!==$r['row']['meta_value']){throw new Nodevora_Financial_Error('Invalid serialized loyalty metadata.');}json_encode($decoded,JSON_THROW_ON_ERROR,32);$plain=static function($v)use(&$plain){if(is_array($v)){foreach($v as$item){$plain($item);}}elseif(is_object($v)){throw new Nodevora_Financial_Error('Objects are not permitted in loyalty metadata.');}};$plain($decoded);}
-		$expected = Nodevora_Backup::references( $db, $type, $r['row'], $references );
+		$expected = Nodevora_Backup::references( $db, $type, $r['row'], $references, $lock );
 		if ( ! isset( $r['references'] ) || $r['references'] !== $expected ) { throw new Nodevora_Financial_Error( 'Account or order identity does not match this store.' ); }
 	}
 	public static function preview( $path ) {
 		self::permission(); $db = new Nodevora_Financial_DB();
 		try {
-			Nodevora_Financial_Schema::verify( $db ); self::empty_target( $db ); $columns = array(); $refs = array(); $seen = array();
+			Nodevora_Financial_Schema::verify( $db ); self::verify_storage($db); self::empty_target( $db ); $columns = array(); $refs = array(); $seen = array();
 			return Nodevora_Backup::inspect( $path, static function( $r ) use ( $db, &$columns, &$refs, &$seen ) {
 				self::check_record( $db, $r, $columns, $refs );
 				if(isset($r['option'])){$keys=array('option:'.$r['option']);}else{
@@ -98,9 +102,9 @@ class Nodevora_Restore {
 			$marker['phase'] = 'restoring'; update_option( Nodevora_Financial_Setup::OPTION, $marker, false );
 			if ( get_option( Nodevora_Financial_Setup::OPTION ) !== $marker ) { throw new Nodevora_Financial_Error( 'Could not pause for restore.' ); }
 			// La barrière partagée des wallets fait attendre les transactions en vol avant cette pause.
-			$db->begin(); self::empty_target( $db ); $columns = array(); $refs = array(); $options = array(); $meta_cache = array(); $map = self::maps( $db );
+			$db->begin(); self::verify_storage($db); self::empty_target( $db ); $columns = array(); $refs = array(); $options = array(); $meta_cache = array(); $map = self::maps( $db );
 			$restored_info=Nodevora_Backup::inspect( $path, static function( $r ) use ( $db, &$columns, &$refs, &$options, &$meta_cache, $map ) {
-				self::check_record( $db, $r, $columns, $refs );
+				self::check_record( $db, $r, $columns, $refs, true );
 				if ( isset( $r['option'] ) ) { if ( isset( $options[$r['option']] ) ) { throw new Nodevora_Financial_Error( 'Duplicate backup option.' ); } $options[$r['option']] = $r['value']; return; }
 				if(isset($r['row']['meta_key'])){$types=array('user_meta'=>array('user','user_id'),'post_meta'=>array('post','post_id'),'comment_meta'=>array('comment','comment_id'),'order_meta'=>array('orders','order_id'),'item_meta'=>array('order_item','order_item_id'));$spec=$types[$r['table']];$meta_cache[$spec[0].'_meta'][(int)$r['row'][$spec[1]]]=true;}
 				$names = array_keys( $r['row'] ); $quoted = array_map( static function( $n ) { return '`' . $n . '`'; }, $names );

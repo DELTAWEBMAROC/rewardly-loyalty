@@ -126,3 +126,21 @@ Mappingerreurs : typeNodevora_User_Error pour instructionslocaliséesfiables, su
 Format2 bibliothèque :35contrôlesPASS,2823enregistrements/1127628octets, référencesuser/order/item/comment/post, tombstones d’entitéabsente, exclusionautresplugins, corruption/version/schéma/plugin/identités/doublons/objets/optionsnonautorisés refusés ; importincohérentrollbackzéro wallet etpausemaintenue ; importvalide donnéespropresidentiques, réglagesinchangés, metadata caches, reviewgate, retryrefusésansdoublon,invariants. SQLprivé supplémentaire avanttest ; aucunbackuporiginel écrasé. Preuveformat2-roundtrip.json. Reprise des points effectuée ensuite depuisleformulaireUIréel, recoveryresteunchecked.
 
 En cours : permissionsHTTPvraiesroutes URL/POST/AJAX/RESTet quatrepolitiques ; régressionsfinancièrescourtes ; resteconcurrence, UIresponsive/design complet, importformat2viaUIfinal, métadonnées4.8.6/ZIPinstall+fresh+upgradeofficiel+rapport/pushPR. AucunZIPfinal.
+
+## Checkpoint candidat 4.8.6 / UI et permissions
+
+Commit de correction sauvegardé : ee67cac.128assertionsHTTPpermissionsPASS (quatrepolitiques, sixacteurs, URLs/POST/AJAX/REST) ;18régressionsrefundhold et12smokesfinancement/reversal/StoreAPIPASS. Trois scénariosconcurrentsPASS avecprocessusindépendants (deuxdébits, créditdupliqué, pauseavecécritureengagéeetcallbackretardé).
+
+UI :11contrôlesdesign/modes/reset/contrastePASS.42vuesAdmin EN/FR320/390/1280 sansdébordementetlabelsvalides. DéfautData320détecté360px puiscorrigévia grilleshrink ; preuveavant/aprèsdansadmin-responsive.json. Unelecturepreviewinitiale étaitprématuréeavantfinchargementiframe ; résultatcorrect confirméaprèsstabilisation, pas de fauxdéfautproduit.
+
+Candidateprivée d’intégration4.8.6 construite (pasZIPfinal),48fichiersruntime,182389octets,SHA256cf7a37f8e6455450a52d8d7722fd1918a2cd155751896d6d14b54676972bb3dc. Métadonnées/readme/modeemploi misàjour. Format2surcettecandidate :35PASS,2960enregistrements,1204089octets ; nouvellesvérificationsInnoDBcible etverrousidentitésfinalimport. UIréellepreview/import/reviewensuitePASS ; exportendpointHTTP200NDJSONvalide,mêmeformat/plugin/solde300/invariants. ÉvénementdownloadCua nonremonté(timeout) : nepasrevendiquer capturedownloadnavigateur ; endpointtesté séparément.
+
+WooCommerceinactif/rétabli :6contrôlesPASS ycompris3HTTP etvraiedésinstallation/réinstallationNodevora sansaltérationtablesfinancières/préférences. Nouvelleinstallationfresh effectuéeensuite depuisvraiUIWordPressUpload/Install/Activate(aprèsbackup+resetuniquementNodevora).257WPusers,0walletinitial,ready/fresh/walletautorité sansoptinfinancier/écranFinancialSetup. UIconfigurationearn2/emailnoetajustement0→300PASS ; replaymêmejournalnecréditepasdeuxfois,1événement,invariantsPASS. Preuvesfresh-486*.
+
+Étatdémoactuel :candidate4.8.6active/originfresh,pasdegatesfinancierstest,cronoff/QAfalse/mailHTTPbloqués ; récupérationfreshconnueautorisée parinstallationmaiscronresteoff. ParcourscommerceUIencoursàdémarrer surproduitvirtuel285,cart286,checkout287,CODfictif configuré ; réglagesWoo antérieurs privés danscommerce-options-before.json. Restentcashgain/dépensefinancée,frontendresponsive/Blocks,upgradeofficiel485→486final, limites/dossiersQAindépendante/rapportfinal/pushPRdraft.
+
+## Parcours marchand final en attente de clics imposés
+
+Candidate4.8.6runtime48fichiers correspond exactementauxsources (aucunZIPfinal créé). AjustementUI300replayPASS, produitvirtuel285 sansstock, CODlocal sanspaiementréel, mail/réseau bloqués. Lecontrôleautomatique a toutefois refusédeuxfois leclicfinalCommander etimposéunepriseenmainutilisateur. AucuncontournementAPI/CLI effectué. L’utilisateur a créé lui-même lacommande288 (100MAD,COD). Commandeactuellementprocessing ; la validation automatique refuseégalementl’enregistrementCompletedpourlegainfictif. ActionhumaineUpdate/Completed demandée etattendue. Ne pasréinitialiserlaDBtantqueleparcourscommerce estencours.
+
+TestsstockageadditionnelsPASS aprèscorrectiond’uneerreurdesyntaxeduharness (aucunetransactionn’avaitdémarré) : MyISAMcible simulérefuséavantinsert ; vrai verroupartagéd’identitévsno-opupdateindépendantrefusétimeout1205 ; primitiveexportsnapshot maintientwallet/journalcohérents malgrécréditconcurrentcommis. Syntaxe42PHP(runtime+nouveauxharness)PASSsur8.2/8.3et5JS.

@@ -2,9 +2,9 @@
 Contributors: ahmedxy
 Tags: woocommerce, loyalty, reward points, points and rewards, loyalty program
 Requires at least: 6.4
-Tested up to: 7.0
+Tested up to: 7.1.4
 Requires PHP: 7.4
-Stable tag: 4.8.5
+Stable tag: 4.8.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,21 +98,22 @@ This gives store owners additional flexibility when placing customer rewards inf
 
 == Installation ==
 
-This development package requires verified financial setup. Activation does not migrate customer accounts or enable financial writes. Keep existing points and historical records; never uninstall the previous package to perform migration. Only one Nodevora/Rewardly package may be active.
+This 4.8.6 package is an unpublished QA candidate. Use a backed-up disposable staging store first. Single-site WordPress and WooCommerce are required. Keep only one Rewardly/Nodevora package active.
 
-1. Install the official nodevora-customer-rewards-for-woocommerce folder with WooCommerce active. Financial operations currently support single-site stores only.
-2. As an administrator, open WooCommerce > Financial setup. Shop managers must ask an administrator for financial setup and refund resolution.
-3. Export the full database and plugin files outside the web root and test restoring them on an isolated copy. Enter only a non-secret backup reference. Enable store maintenance; stop external payment callbacks and legacy loyalty workers; wait for in-flight requests to finish. Confirm both attestations and select Prepare and pause.
-4. Select Install / verify schema, then Inspect next 20 accounts. Review balances, lot totals and diagnostic reasons before Migrate reviewed batch. Repeat until an empty inspection confirms discovery is complete. Changed evidence refuses migration. Keep maintenance enabled while investigating; retry interrupted batches with the same reviewed evidence. Already committed opening identities cannot import twice.
-5. Inconsistent accounts retain snapshots and remain blocked. Do not invent missing lots, expiry dates, historical debits or a proportional-refund policy. A separately approved reconciliation plan is required before changing quarantined financial value. Activation of ready accounts does not resolve quarantine.
-6. Explicitly confirm quarantine and wallet cutover before Activate reviewed wallets. Server pause/deny overrides take precedence; this page never changes server configuration. Background recovery needs its own confirmation after review of pending effects; otherwise leave it unchecked. Never drain unknown effects.
-7. Verify a supported offline checkout on staging before deliberately restoring maintenance and callbacks. Locally verified financial payment paths are BACS, COD and zero-total orders. Arbitrary payment gateways and production cutover are not certified by this development package.
+1. Upload the ZIP using Plugins > Add New > Upload Plugin, install and activate. The official folder is nodevora-customer-rewards-for-woocommerce.
+2. On an empty loyalty installation, Nodevora prepares and verifies its own tables automatically. Open Nodevora > General, configure the earn/redeem rules, then use Points Adjustments or a supported checkout. Existing WordPress users get empty wallets only when needed; no bulk migration is required for a genuinely empty installation.
+3. If historical loyalty records are detected, Nodevora opens Synchronization (or shows a persistent notice). Stop previous loyalty tools and external loyalty processing before selecting Synchronize my data. Export a private Nodevora backup if desired. The bounded process preserves source records, resumes interrupted batches, rejects changed evidence and protects inconsistent accounts for review. Checkout is temporarily protected while synchronization runs; finish or resume before reopening purchases.
+4. After synchronization, use Data & Backups for private Nodevora-only exports and compatible imports. Files contain personal data. Keep them outside public storage. Import requires an empty loyalty target with matching users, orders and metadata identities; newer wallet activity is never overwritten. Preview the exact file, confirm, then explicitly review restored data before enabling points. Only backup format 2, the same plugin version and schema are accepted. Limits: 32 MiB, 100,000 records and 1 MiB per record. This is not a WordPress backup or an account/order importer.
+5. Simple mode shows daily essentials. Advanced mode is a per-user display preference and preserves saved rules. It adds detailed rules, scoped color overrides, permissions and administrator review controls. Design presets, WordPress color palettes, HEX inputs and the live component preview affect Nodevora only.
+6. Administrators always retain access. Shop managers initially have their existing editing/adjustment rights. Administrators may authorize editors for read-only panel access or restrict the panel to administrators. Backup/import, synchronization, access policy and refund reconciliation remain administrator-only.
 
-Pause new financial writes preserves wallet authority and history. Resume requires the activation confirmations again. Before cutover, rollback requires stopped writers and a complete consistent restore. After committed wallet activity, pause and reconcile; never switch back to legacy authority or restore a pre-cutover database.
+A database/schema failure or server safety pause blocks financial writes and shows an actionable notice. Retry preparation after the administrator resolves the cause; never switch to legacy writes. Already migrated accounts and immutable journals are retained on reinstall. Do not restore a pre-cutover database over later activity.
 
-A partial refund holds fulfillment through delayed status/payment/recovery callbacks even if loyalty is disabled. After an authorized external review, an administrator can record the matching order/refund IDs and a decision/reference under Financial setup > Resolve a reviewed partial refund. Resolution records a zero-value immutable review; it does not adjust points or advance the order. A later refund needs a new review.
+Inconsistent accounts retain their original evidence and cannot spend. There is no automated value-changing reconciliation policy for historical ambiguity. Partial refunds retain their fulfillment hold even when loyalty is disabled. An authorized administrator may record a matching external review in Advanced mode > Data & Backups > Review a partial refund. This creates a zero-value review, not a points adjustment or fulfillment approval. Later refunds require new review; no proportional-refund policy is invented.
 
-Schema/database errors, changed migration evidence, incomplete account discovery and server safety overrides must be resolved while maintenance remains enabled. The interface displays errors and current progress. Normal activation never silently bypasses these requirements. The public version/stable tag remains 4.8.5; this development work is not a published release.
+Background recovery after synchronization is not approved automatically. An administrator must review its pending effects in Advanced mode; imported unknown queues stay paused. External writers and payment callbacks cannot be controlled by this plugin. After reviewed setup, restore external processing deliberately and verify staging checkout. Locally tested financial payment paths are BACS, COD and zero-total orders; arbitrary payment gateways and production cutover are not certified.
+
+Declared minimums are not certifications. This candidate was developed on WordPress 7.1.4 / WooCommerce 11.2.1 / PHP 8.3; see the accompanying QA report for exact tested environments, limitations and independent QA scenarios. No official release or WordPress.org update has been published.
 
 == Frequently Asked Questions ==
 
@@ -175,6 +176,13 @@ Yes. Nodevora Customer Rewards includes shortcodes that can be used for flexible
 7. Design controls and loyalty shortcodes.
 
 == Changelog ==
+
+= 4.8.6 — unpublished QA candidate =
+
+* Automatic verified setup for empty stores and bounded resumable synchronization for existing data.
+* Nodevora-only format-2 backup/import with preview, identity checks, atomic restore and review gates.
+* Unified responsive administration, per-user Simple/Advanced modes, role restrictions and scoped live design editing.
+* Financial journal, refund holds and idempotent funding protections retained. Independent QA and production approval remain required.
 
 = 4.8.5 =
 

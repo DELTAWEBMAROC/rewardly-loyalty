@@ -1,0 +1,47 @@
+[
+  {
+    "test": "simple_hides_advanced",
+    "status": "PASS"
+  },
+  {
+    "test": "invalid_hex_rejected",
+    "status": "PASS"
+  },
+  {
+    "test": "hex_live_preview",
+    "status": "PASS"
+  },
+  {
+    "test": "simple_preset_saved",
+    "status": "PASS"
+  },
+  {
+    "test": "advanced_palette_sets_hex",
+    "status": "PASS"
+  },
+  {
+    "test": "cart_override_preview",
+    "status": "PASS",
+    "note": "Première lecture effectuée avant la fin du chargement iframe ; couleur attendue confirmée après stabilisation."
+  },
+  {
+    "test": "advanced_value_retained_in_simple",
+    "status": "PASS"
+  },
+  {
+    "test": "simple_save_preserves_advanced_value",
+    "status": "PASS"
+  },
+  {
+    "test": "individual_color_reset_inherits",
+    "status": "PASS"
+  },
+  {
+    "test": "global_reset_clears_component_overrides",
+    "status": "PASS"
+  },
+  {
+    "test": "contrast_warning_shown",
+    "status": "PASS"
+  }
+]

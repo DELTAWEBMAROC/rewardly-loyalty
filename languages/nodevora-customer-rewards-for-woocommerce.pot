@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
+"Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-29T14:57:56+00:00\n"
+"POT-Creation-Date: 2026-10-29T19:11:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -84,216 +84,216 @@ msgstr ""
 msgid "Choose a valid Nodevora backup smaller than 32 MiB."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:35
+#: includes/admin/class-nodevora-data.php:36
 msgid "Loyalty data changed during synchronization. Keep external loyalty tools stopped and ask your administrator to review the saved batch before retrying."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:36
+#: includes/admin/class-nodevora-data.php:37
 msgid "This backup refers to different accounts or orders. Use its matching site copy; no records were imported."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:37
+#: includes/admin/class-nodevora-data.php:38
 msgid "This backup requires the same Nodevora version and supported backup format. Install the matching version on an empty test copy first."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:38
 #: includes/admin/class-nodevora-data.php:39
+#: includes/admin/class-nodevora-data.php:40
 msgid "This backup is damaged or incomplete. Select a complete original export and preview it again."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:40
 #: includes/admin/class-nodevora-data.php:41
+#: includes/admin/class-nodevora-data.php:42
 msgid "Another data operation is running. Wait for it to finish, then resume."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:42
+#: includes/admin/class-nodevora-data.php:43
 msgid "Pending effects changed. Reload and review the current list before approving recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:43
+#: includes/admin/class-nodevora-data.php:44
 msgid "This store already contains loyalty activity. An older backup cannot replace it. Use an empty test copy or request reviewed reconciliation."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:44
+#: includes/admin/class-nodevora-data.php:45
 msgid "This store still contains loyalty records. Import into an empty matching test copy; existing records are preserved."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:45
+#: includes/admin/class-nodevora-data.php:46
 msgid "The backup exceeds 32 MiB or private temporary storage is unavailable. Ask your administrator for an assisted export."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:46
+#: includes/admin/class-nodevora-data.php:47
 msgid "The backup exceeds 100,000 records. Ask your administrator for an assisted export."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:52
+#: includes/admin/class-nodevora-data.php:51
 msgid "The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:57
+#: includes/admin/class-nodevora-data.php:56
 msgid "Preview and explicitly confirm the selected backup before importing."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:58
+#: includes/admin/class-nodevora-data.php:57
 msgid "Review the restored data before enabling points."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:59
+#: includes/admin/class-nodevora-data.php:58
 msgid "Review pending effects before authorizing background recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:61
+#: includes/admin/class-nodevora-data.php:60
 msgid "Operation completed. Review the current status."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:67
+#: includes/admin/class-nodevora-data.php:66
 msgid "Ask an administrator to manage synchronization and backups."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:69
+#: includes/admin/class-nodevora-data.php:68
 msgid "Your loyalty data is ready."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:69
+#: includes/admin/class-nodevora-data.php:68
 msgid "Your data is preserved. Synchronization or administrator review is required before enabling points."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:70
 msgid "Consistent accounts are available. Accounts requiring review remain protected; their original records are retained."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:70
 #, php-format
 msgid "%d account requires review."
 msgid_plural "%d accounts require review."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "I reviewed the restored data and authorize new points operations."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "I reviewed all pending effects and authorize background recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "Enable reviewed points"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "Existing loyalty records will be preserved. Consistent accounts will be synchronized; ambiguous accounts remain protected for review. Previously imported balances cannot be credited twice. Checkout is temporarily protected during this process; finish or resume synchronization before reopening purchases."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "I stopped previous loyalty tools and external loyalty processing."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "Resume synchronization"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "Synchronize my data"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid "Export your data"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid "This Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid "Export a backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Import a backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Imports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Nodevora backup file"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Preview import"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Import reviewed backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:76
+#: includes/admin/class-nodevora-data.php:75
 msgid "Retry preparation"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:81
 msgid "Background recovery review"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:81
 msgid "Background recovery is paused after synchronization. Review pending effects before authorizing scheduled retries and notifications. This does not resolve quarantined accounts or refund holds."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:83
 msgid "Too many pending effects for this review. Keep recovery paused and request an operator review."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "No pending effects. Approval enables future scheduled recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "I reviewed these effects and authorize background recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "Authorize reviewed recovery"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:86
+#: includes/admin/class-nodevora-data.php:85
 msgid "Pending effects could not be read. Recovery remains paused."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:88
 msgid "Review a partial refund"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:88
 msgid "Administrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:90
+#: includes/admin/class-nodevora-data.php:89
 #: includes/financial/class-nodevora-financial-setup.php:143
 msgid "Order ID"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:90
+#: includes/admin/class-nodevora-data.php:89
 #: includes/financial/class-nodevora-financial-setup.php:143
 msgid "Refund ID"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Authorized review decision and reference"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "I completed and authorize this external financial reconciliation."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Record refund resolution"
 msgstr ""
@@ -1439,7 +1439,7 @@ msgstr ""
 msgid "Preserved opening balance: %s points."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-lifecycle.php:146
+#: includes/financial/class-nodevora-financial-lifecycle.php:164
 msgid "Authorized refund reconciliation recorded; no automatic points movement or status change."
 msgstr ""
 

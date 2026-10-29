@@ -1,0 +1,18 @@
+{
+  "version": "4.8.6",
+  "installation": "ready",
+  "setup": {
+    "phase": "active",
+    "origin": "fresh",
+    "activated_at": "2026-10-29T19:23:11+00:00",
+    "recovery_approved": true
+  },
+  "authority": "wallet",
+  "wallets": 0,
+  "wp_users": 257,
+  "operator_opt_in": false,
+  "safety": {
+    "cron": true,
+    "qa": false
+  }
+}

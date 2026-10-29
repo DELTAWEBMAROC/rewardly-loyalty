@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
-"POT-Creation-Date: 2026-10-29T14:57:56+00:00\n"
+"POT-Creation-Date: 2026-10-29T19:11:45+00:00\n"
 "PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "Last-Translator: Nodevora Project\n"
 "Language-Team: French\n"
@@ -56,7 +56,11 @@ msgid ""
 "Administrators always retain access. Shop managers retain their existing "
 "editing and adjustment capabilities. Authorized editors have read-only "
 "access; panel visibility never grants financial authority."
-msgstr "Les administrateurs conservent toujours l’accès. Les gestionnaires de boutique conservent leurs droits de modification et d’ajustement. Les éditeurs autorisés disposent d’un accès en lecture seule ; la visibilité du panneau ne confère aucun droit financier."
+msgstr ""
+"Les administrateurs conservent toujours l’accès. Les gestionnaires de "
+"boutique conservent leurs droits de modification et d’ajustement. Les "
+"éditeurs autorisés disposent d’un accès en lecture seule ; la visibilité du "
+"panneau ne confère aucun droit financier."
 
 #: includes/admin/class-nodevora-access.php:59
 msgid "Restrict Nodevora access to administrators"
@@ -94,260 +98,327 @@ msgstr "Données et sauvegardes"
 msgid "Choose a valid Nodevora backup smaller than 32 MiB."
 msgstr "Choisissez une sauvegarde Nodevora valide de moins de 32 Mio."
 
-#: includes/admin/class-nodevora-data.php:35
+#: includes/admin/class-nodevora-data.php:36
 msgid ""
 "Loyalty data changed during synchronization. Keep external loyalty tools "
 "stopped and ask your administrator to review the saved batch before retrying."
-msgstr "Les données de fidélité ont changé pendant la synchronisation. Gardez les outils de fidélité externes arrêtés et demandez à votre administrateur de vérifier le lot enregistré avant de réessayer."
-
-#: includes/admin/class-nodevora-data.php:36
-msgid ""
-"This backup refers to different accounts or orders. Use its matching site "
-"copy; no records were imported."
-msgstr "Cette sauvegarde correspond à d’autres comptes ou commandes. Utilisez la copie de site correspondante ; aucun enregistrement n’a été importé."
+msgstr ""
+"Les données de fidélité ont changé pendant la synchronisation. Gardez les "
+"outils de fidélité externes arrêtés et demandez à votre administrateur de "
+"vérifier le lot enregistré avant de réessayer."
 
 #: includes/admin/class-nodevora-data.php:37
 msgid ""
-"This backup requires the same Nodevora version and supported backup format. "
-"Install the matching version on an empty test copy first."
-msgstr "Cette sauvegarde nécessite la même version de Nodevora et un format de sauvegarde compatible. Installez d’abord la version correspondante sur une copie de test vide."
+"This backup refers to different accounts or orders. Use its matching site "
+"copy; no records were imported."
+msgstr ""
+"Cette sauvegarde correspond à d’autres comptes ou commandes. Utilisez la "
+"copie de site correspondante ; aucun enregistrement n’a été importé."
 
 #: includes/admin/class-nodevora-data.php:38
+msgid ""
+"This backup requires the same Nodevora version and supported backup format. "
+"Install the matching version on an empty test copy first."
+msgstr ""
+"Cette sauvegarde nécessite la même version de Nodevora et un format de "
+"sauvegarde compatible. Installez d’abord la version correspondante sur une "
+"copie de test vide."
+
 #: includes/admin/class-nodevora-data.php:39
+#: includes/admin/class-nodevora-data.php:40
 msgid ""
 "This backup is damaged or incomplete. Select a complete original export and "
 "preview it again."
-msgstr "Cette sauvegarde est endommagée ou incomplète. Sélectionnez un export original complet et prévisualisez-le à nouveau."
+msgstr ""
+"Cette sauvegarde est endommagée ou incomplète. Sélectionnez un export "
+"original complet et prévisualisez-le à nouveau."
 
-#: includes/admin/class-nodevora-data.php:40
 #: includes/admin/class-nodevora-data.php:41
-msgid "Another data operation is running. Wait for it to finish, then resume."
-msgstr "Une autre opération sur les données est en cours. Attendez sa fin, puis reprenez."
-
 #: includes/admin/class-nodevora-data.php:42
-msgid ""
-"Pending effects changed. Reload and review the current list before approving "
-"recovery."
-msgstr "Les actions en attente ont changé. Rechargez et vérifiez la liste actuelle avant d’approuver la reprise."
+msgid "Another data operation is running. Wait for it to finish, then resume."
+msgstr ""
+"Une autre opération sur les données est en cours. Attendez sa fin, puis "
+"reprenez."
 
 #: includes/admin/class-nodevora-data.php:43
 msgid ""
-"This store already contains loyalty activity. An older backup cannot replace "
-"it. Use an empty test copy or request reviewed reconciliation."
-msgstr "Cette boutique contient déjà une activité de fidélité. Une ancienne sauvegarde ne peut pas la remplacer. Utilisez une copie de test vide ou demandez un rapprochement contrôlé."
+"Pending effects changed. Reload and review the current list before approving "
+"recovery."
+msgstr ""
+"Les actions en attente ont changé. Rechargez et vérifiez la liste actuelle "
+"avant d’approuver la reprise."
 
 #: includes/admin/class-nodevora-data.php:44
 msgid ""
-"This store still contains loyalty records. Import into an empty matching "
-"test copy; existing records are preserved."
-msgstr "Cette boutique contient encore des données de fidélité. Importez dans une copie de test correspondante vide ; les données existantes sont conservées."
+"This store already contains loyalty activity. An older backup cannot replace "
+"it. Use an empty test copy or request reviewed reconciliation."
+msgstr ""
+"Cette boutique contient déjà une activité de fidélité. Une ancienne "
+"sauvegarde ne peut pas la remplacer. Utilisez une copie de test vide ou "
+"demandez un rapprochement contrôlé."
 
 #: includes/admin/class-nodevora-data.php:45
 msgid ""
-"The backup exceeds 32 MiB or private temporary storage is unavailable. Ask "
-"your administrator for an assisted export."
-msgstr "La sauvegarde dépasse 32 Mio ou le stockage temporaire privé est indisponible. Demandez un export assisté à votre administrateur."
+"This store still contains loyalty records. Import into an empty matching "
+"test copy; existing records are preserved."
+msgstr ""
+"Cette boutique contient encore des données de fidélité. Importez dans une "
+"copie de test correspondante vide ; les données existantes sont conservées."
 
 #: includes/admin/class-nodevora-data.php:46
 msgid ""
+"The backup exceeds 32 MiB or private temporary storage is unavailable. Ask "
+"your administrator for an assisted export."
+msgstr ""
+"La sauvegarde dépasse 32 Mio ou le stockage temporaire privé est "
+"indisponible. Demandez un export assisté à votre administrateur."
+
+#: includes/admin/class-nodevora-data.php:47
+msgid ""
 "The backup exceeds 100,000 records. Ask your administrator for an assisted "
 "export."
-msgstr "La sauvegarde dépasse 100 000 enregistrements. Demandez un export assisté à votre administrateur."
+msgstr ""
+"La sauvegarde dépasse 100 000 enregistrements. Demandez un export assisté à "
+"votre administrateur."
 
-#: includes/admin/class-nodevora-data.php:52
+#: includes/admin/class-nodevora-data.php:51
 msgid ""
 "The operation could not finish. Your data is preserved. Check the selected "
 "file, database access and any active safety pause, then ask your "
 "administrator before retrying."
-msgstr "L’opération n’a pas pu aboutir. Vos données sont conservées. Vérifiez le fichier sélectionné, l’accès à la base de données et toute suspension de sécurité active, puis contactez votre administrateur avant de réessayer."
+msgstr ""
+"L’opération n’a pas pu aboutir. Vos données sont conservées. Vérifiez le "
+"fichier sélectionné, l’accès à la base de données et toute suspension de "
+"sécurité active, puis contactez votre administrateur avant de réessayer."
+
+#: includes/admin/class-nodevora-data.php:56
+msgid "Preview and explicitly confirm the selected backup before importing."
+msgstr ""
+"Prévisualisez et confirmez explicitement la sauvegarde sélectionnée avant "
+"l’import."
 
 #: includes/admin/class-nodevora-data.php:57
-msgid "Preview and explicitly confirm the selected backup before importing."
-msgstr "Prévisualisez et confirmez explicitement la sauvegarde sélectionnée avant l’import."
-
-#: includes/admin/class-nodevora-data.php:58
 msgid "Review the restored data before enabling points."
 msgstr "Vérifiez les données restaurées avant d’activer les points."
 
-#: includes/admin/class-nodevora-data.php:59
+#: includes/admin/class-nodevora-data.php:58
 msgid "Review pending effects before authorizing background recovery."
-msgstr "Vérifiez les actions en attente avant d’autoriser leur reprise en arrière-plan."
+msgstr ""
+"Vérifiez les actions en attente avant d’autoriser leur reprise en arrière-"
+"plan."
 
-#: includes/admin/class-nodevora-data.php:61
+#: includes/admin/class-nodevora-data.php:60
 msgid "Operation completed. Review the current status."
 msgstr "Opération terminée. Vérifiez l’état actuel."
 
-#: includes/admin/class-nodevora-data.php:67
+#: includes/admin/class-nodevora-data.php:66
 msgid "Ask an administrator to manage synchronization and backups."
-msgstr "Demandez à un administrateur de gérer la synchronisation et les sauvegardes."
+msgstr ""
+"Demandez à un administrateur de gérer la synchronisation et les sauvegardes."
 
-#: includes/admin/class-nodevora-data.php:69
+#: includes/admin/class-nodevora-data.php:68
 msgid "Your loyalty data is ready."
 msgstr "Vos données de fidélité sont prêtes."
 
-#: includes/admin/class-nodevora-data.php:69
+#: includes/admin/class-nodevora-data.php:68
 msgid ""
 "Your data is preserved. Synchronization or administrator review is required "
 "before enabling points."
-msgstr "Vos données sont conservées. Une synchronisation ou une vérification par un administrateur est nécessaire avant d’activer les points."
+msgstr ""
+"Vos données sont conservées. Une synchronisation ou une vérification par un "
+"administrateur est nécessaire avant d’activer les points."
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:70
 msgid ""
 "Consistent accounts are available. Accounts requiring review remain "
 "protected; their original records are retained."
-msgstr "Les comptes cohérents sont disponibles. Les comptes nécessitant une vérification restent protégés et leurs données d’origine sont conservées."
+msgstr ""
+"Les comptes cohérents sont disponibles. Les comptes nécessitant une "
+"vérification restent protégés et leurs données d’origine sont conservées."
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:70
 #, php-format
 msgid "%d account requires review."
 msgid_plural "%d accounts require review."
 msgstr[0] "%d compte nécessite une vérification."
 msgstr[1] "%d comptes nécessitent une vérification."
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "I reviewed the restored data and authorize new points operations."
-msgstr "J’ai vérifié les données restaurées et j’autorise de nouvelles opérations de points."
+msgstr ""
+"J’ai vérifié les données restaurées et j’autorise de nouvelles opérations de "
+"points."
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "I reviewed all pending effects and authorize background recovery."
-msgstr "J’ai vérifié toutes les actions en attente et j’autorise leur reprise en arrière-plan."
+msgstr ""
+"J’ai vérifié toutes les actions en attente et j’autorise leur reprise en "
+"arrière-plan."
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:71
 msgid "Enable reviewed points"
 msgstr "Activer les points vérifiés"
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid ""
 "Existing loyalty records will be preserved. Consistent accounts will be "
 "synchronized; ambiguous accounts remain protected for review. Previously "
 "imported balances cannot be credited twice. Checkout is temporarily "
 "protected during this process; finish or resume synchronization before "
 "reopening purchases."
-msgstr "Les données de fidélité existantes seront conservées. Les comptes cohérents seront synchronisés ; les comptes ambigus resteront protégés pour vérification. Les soldes déjà importés ne peuvent pas être crédités deux fois. Le passage de commande est temporairement protégé pendant ce processus ; terminez ou reprenez la synchronisation avant de rouvrir les achats."
+msgstr ""
+"Les données de fidélité existantes seront conservées. Les comptes cohérents "
+"seront synchronisés ; les comptes ambigus resteront protégés pour "
+"vérification. Les soldes déjà importés ne peuvent pas être crédités deux "
+"fois. Le passage de commande est temporairement protégé pendant ce "
+"processus ; terminez ou reprenez la synchronisation avant de rouvrir les "
+"achats."
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "I stopped previous loyalty tools and external loyalty processing."
-msgstr "J’ai arrêté les anciens outils de fidélité et les traitements de fidélité externes."
+msgstr ""
+"J’ai arrêté les anciens outils de fidélité et les traitements de fidélité "
+"externes."
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "Resume synchronization"
 msgstr "Reprendre la synchronisation"
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:72
 msgid "Synchronize my data"
 msgstr "Synchroniser mes données"
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid "Export your data"
 msgstr "Exporter vos données"
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid ""
 "This Nodevora-only file may contain personal data. Store it privately. It "
 "does not back up WordPress or other plugins."
-msgstr "Ce fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions."
+msgstr ""
+"Ce fichier limité à Nodevora peut contenir des données personnelles. "
+"Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les "
+"autres extensions."
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:73
 msgid "Export a backup"
 msgstr "Exporter une sauvegarde"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Import a backup"
 msgstr "Importer une sauvegarde"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid ""
 "Imports require an empty loyalty target with matching accounts and orders. "
 "Existing activity is never overwritten. Preview the same file and confirm "
 "before importing. Limits: 32 MiB and 100,000 records."
-msgstr "L’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements."
+msgstr ""
+"L’import nécessite une cible de fidélité vide avec les mêmes comptes et "
+"commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même "
+"fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements."
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Nodevora backup file"
 msgstr "Fichier de sauvegarde Nodevora"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Preview import"
 msgstr "Prévisualiser l’import"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid ""
 "I stopped previous loyalty tools and external callbacks and confirm this "
 "import into the verified empty target."
-msgstr "J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée."
+msgstr ""
+"J’ai arrêté les anciens outils de fidélité et les rappels externes et je "
+"confirme cet import dans la cible vide vérifiée."
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:74
 msgid "Import reviewed backup"
 msgstr "Importer la sauvegarde vérifiée"
 
-#: includes/admin/class-nodevora-data.php:76
+#: includes/admin/class-nodevora-data.php:75
 msgid "Retry preparation"
 msgstr "Réessayer la préparation"
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:81
 msgid "Background recovery review"
 msgstr "Vérification de la reprise en arrière-plan"
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:81
 msgid ""
 "Background recovery is paused after synchronization. Review pending effects "
 "before authorizing scheduled retries and notifications. This does not "
 "resolve quarantined accounts or refund holds."
-msgstr "La reprise en arrière-plan est suspendue après synchronisation. Vérifiez les actions en attente avant d’autoriser les nouvelles tentatives planifiées et les notifications. Cela ne résout ni les comptes isolés ni les blocages de remboursement."
+msgstr ""
+"La reprise en arrière-plan est suspendue après synchronisation. Vérifiez les "
+"actions en attente avant d’autoriser les nouvelles tentatives planifiées et "
+"les notifications. Cela ne résout ni les comptes isolés ni les blocages de "
+"remboursement."
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:83
 msgid ""
 "Too many pending effects for this review. Keep recovery paused and request "
 "an operator review."
-msgstr "Trop d’actions en attente pour cette vérification. Laissez la reprise suspendue et demandez une vérification à l’opérateur."
+msgstr ""
+"Trop d’actions en attente pour cette vérification. Laissez la reprise "
+"suspendue et demandez une vérification à l’opérateur."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "No pending effects. Approval enables future scheduled recovery."
-msgstr "Aucune action en attente. L’approbation permet la reprise planifiée des actions futures."
+msgstr ""
+"Aucune action en attente. L’approbation permet la reprise planifiée des "
+"actions futures."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "I reviewed these effects and authorize background recovery."
 msgstr "J’ai vérifié ces actions et j’autorise leur reprise en arrière-plan."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:84
 msgid "Authorize reviewed recovery"
 msgstr "Autoriser la reprise vérifiée"
 
-#: includes/admin/class-nodevora-data.php:86
+#: includes/admin/class-nodevora-data.php:85
 msgid "Pending effects could not be read. Recovery remains paused."
-msgstr "Les actions en attente n’ont pas pu être lues. La reprise reste suspendue."
+msgstr ""
+"Les actions en attente n’ont pas pu être lues. La reprise reste suspendue."
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:88
 msgid "Review a partial refund"
 msgstr "Vérifier un remboursement partiel"
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:88
 msgid ""
 "Administrator-only external reconciliation. Recording a review does not "
 "adjust points or advance fulfillment. A later refund requires another review."
-msgstr "Rapprochement externe réservé aux administrateurs. L’enregistrement d’une vérification ne modifie pas les points et ne fait pas avancer la commande. Tout remboursement ultérieur nécessite une nouvelle vérification."
+msgstr ""
+"Rapprochement externe réservé aux administrateurs. L’enregistrement d’une "
+"vérification ne modifie pas les points et ne fait pas avancer la commande. "
+"Tout remboursement ultérieur nécessite une nouvelle vérification."
 
-#: includes/admin/class-nodevora-data.php:90
+#: includes/admin/class-nodevora-data.php:89
 #: includes/financial/class-nodevora-financial-setup.php:143
 msgid "Order ID"
 msgstr "Identifiant de commande"
 
-#: includes/admin/class-nodevora-data.php:90
+#: includes/admin/class-nodevora-data.php:89
 #: includes/financial/class-nodevora-financial-setup.php:143
 msgid "Refund ID"
 msgstr "Identifiant de remboursement"
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Authorized review decision and reference"
 msgstr "Décision de vérification autorisée et référence"
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "I completed and authorize this external financial reconciliation."
 msgstr "J’ai terminé et j’autorise ce rapprochement financier externe."
 
-#: includes/admin/class-nodevora-data.php:91
+#: includes/admin/class-nodevora-data.php:90
 #: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Record refund resolution"
 msgstr "Enregistrer la résolution du remboursement"
@@ -432,7 +503,10 @@ msgstr "Personnalisez Nodevora"
 msgid ""
 "Choose a preset, then personalize its colors. The preview uses example data "
 "and updates without saving. Changes apply only to Nodevora components."
-msgstr "Choisissez un preset, puis personnalisez ses couleurs. L’aperçu utilise des données d’exemple et se met à jour sans enregistrement. Les modifications s’appliquent uniquement aux composants Nodevora."
+msgstr ""
+"Choisissez un preset, puis personnalisez ses couleurs. L’aperçu utilise des "
+"données d’exemple et se met à jour sans enregistrement. Les modifications "
+"s’appliquent uniquement aux composants Nodevora."
 
 #: includes/admin/class-nodevora-design-admin.php:14
 msgid "Visual preset"
@@ -543,7 +617,9 @@ msgstr "Non"
 msgid ""
 "Leave a color empty to keep the general design. Only explicit overrides "
 "replace general values."
-msgstr "Laissez une couleur vide pour conserver le design général. Seules les valeurs explicitement définies remplacent les valeurs générales."
+msgstr ""
+"Laissez une couleur vide pour conserver le design général. Seules les "
+"valeurs explicitement définies remplacent les valeurs générales."
 
 #: includes/admin/class-nodevora-design-admin.php:27
 msgid "Reset this preset and all design overrides"
@@ -579,11 +655,14 @@ msgstr "Saisissez une couleur HEX valide, par exemple #0b1638."
 
 #: includes/admin/class-nodevora-design-admin.php:31
 msgid "Custom design is disabled. Saved colors are retained."
-msgstr "Le design personnalisé est désactivé. Les couleurs enregistrées sont conservées."
+msgstr ""
+"Le design personnalisé est désactivé. Les couleurs enregistrées sont "
+"conservées."
 
 #: includes/admin/class-nodevora-design-admin.php:31
 msgid "Check contrast: button text may be difficult to read."
-msgstr "Vérifiez le contraste : le texte des boutons peut être difficile à lire."
+msgstr ""
+"Vérifiez le contraste : le texte des boutons peut être difficile à lire."
 
 #: includes/admin/class-nodevora-design-admin.php:31
 msgid "Example loyalty rewards"
@@ -713,7 +792,8 @@ msgstr "Traitement en cours…"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:24
 msgid "File verified. Review the record count and confirm the import."
-msgstr "Fichier vérifié. Vérifiez le nombre d’enregistrements et confirmez l’import."
+msgstr ""
+"Fichier vérifié. Vérifiez le nombre d’enregistrements et confirmez l’import."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:24
 msgid "The operation could not finish. Retry without changing the data."
@@ -816,7 +896,9 @@ msgstr ""
 #: includes/admin/class-rewardly-loyalty-admin.php:145
 msgid ""
 "Read-only access. Ask an authorized manager to change settings or points."
-msgstr "Accès en lecture seule. Demandez à un gestionnaire autorisé de modifier les réglages ou les points."
+msgstr ""
+"Accès en lecture seule. Demandez à un gestionnaire autorisé de modifier les "
+"réglages ou les points."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:187
 msgid ""
@@ -887,7 +969,10 @@ msgstr ""
 msgid ""
 "Enable Advanced mode to review detailed rules, exclusions, expiration and "
 "access settings. Existing advanced values remain active."
-msgstr "Activez le mode avancé pour consulter les règles détaillées, exclusions, expirations et droits d’accès. Les valeurs avancées existantes restent actives."
+msgstr ""
+"Activez le mode avancé pour consulter les règles détaillées, exclusions, "
+"expirations et droits d’accès. Les valeurs avancées existantes restent "
+"actives."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:246
 msgid "Advanced Rules"
@@ -1649,7 +1734,7 @@ msgstr ""
 msgid "Preserved opening balance: %s points."
 msgstr "Solde initial conservé : %s points."
 
-#: includes/financial/class-nodevora-financial-lifecycle.php:146
+#: includes/financial/class-nodevora-financial-lifecycle.php:164
 msgid ""
 "Authorized refund reconciliation recorded; no automatic points movement or "
 "status change."
@@ -1670,7 +1755,9 @@ msgstr ""
 msgid ""
 "Your points data is preserved. Open Nodevora to complete synchronization or "
 "review the current pause."
-msgstr "Vos données de points sont conservées. Ouvrez Nodevora pour terminer la synchronisation ou vérifier la suspension actuelle."
+msgstr ""
+"Vos données de points sont conservées. Ouvrez Nodevora pour terminer la "
+"synchronisation ou vérifier la suspension actuelle."
 
 #: includes/financial/class-nodevora-financial-readiness.php:23
 msgid "Review my data"
@@ -1744,12 +1831,17 @@ msgstr "Action de configuration inconnue."
 msgid ""
 "Stop any previous loyalty tools and external loyalty processing before "
 "confirming synchronization. Ordinary store settings will be retained."
-msgstr "Arrêtez tout ancien outil de fidélité et les traitements de fidélité externes avant de confirmer la synchronisation. Les réglages habituels de la boutique seront conservés."
+msgstr ""
+"Arrêtez tout ancien outil de fidélité et les traitements de fidélité "
+"externes avant de confirmer la synchronisation. Les réglages habituels de la "
+"boutique seront conservés."
 
 #: includes/financial/class-nodevora-financial-setup.php:92
 msgid ""
 "This store needs an administrator review before synchronization can continue."
-msgstr "Cette boutique nécessite une vérification par un administrateur avant de poursuivre la synchronisation."
+msgstr ""
+"Cette boutique nécessite une vérification par un administrateur avant de "
+"poursuivre la synchronisation."
 
 #: includes/financial/class-nodevora-financial-setup.php:116
 msgid "Confirm cutover and that unreconciled accounts must remain blocked."
@@ -1974,7 +2066,10 @@ msgid ""
 "Nodevora could not prepare your points. Ask your site administrator to check "
 "database access and any active safety pause, then retry. Existing data is "
 "preserved."
-msgstr "Nodevora n’a pas pu préparer vos points. Demandez à votre administrateur de vérifier l’accès à la base de données et toute suspension de sécurité active, puis réessayez. Les données existantes sont conservées."
+msgstr ""
+"Nodevora n’a pas pu préparer vos points. Demandez à votre administrateur de "
+"vérifier l’accès à la base de données et toute suspension de sécurité "
+"active, puis réessayez. Les données existantes sont conservées."
 
 #: includes/front/class-nodevora-loyalty-blocks.php:58
 msgid "Log in before using loyalty points."
