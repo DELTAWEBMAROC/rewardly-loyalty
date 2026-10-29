@@ -1,0 +1,175 @@
+{
+  "state": {
+    "phase": "migrating",
+    "origin": "synchronized",
+    "cursor": 100,
+    "sync_authorized": 1,
+    "prepared_at": "2026-10-29T13:57:17+00:00",
+    "recovery_approved": false,
+    "batch": [
+      {
+        "user_id": 101,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 102,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 103,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 104,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 105,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 106,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 107,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 108,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 109,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 110,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 111,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 112,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 113,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 114,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 115,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 116,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 117,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 118,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 119,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      },
+      {
+        "user_id": 120,
+        "state": "ready",
+        "balance": 0,
+        "lot_total": 0,
+        "reasons": [],
+        "checksum": "06e694d3000966a498ea80f85ccd3a9e22839bbb3982ab58e88d29e2c045a3d4"
+      }
+    ],
+    "scan_complete": false
+  },
+  "wallet_count": 100,
+  "opening_count": 100
+}
