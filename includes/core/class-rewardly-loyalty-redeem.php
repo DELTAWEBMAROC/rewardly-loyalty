@@ -444,7 +444,9 @@ class Rewardly_Loyalty_Redeem {
 			self::render_guest_loyalty_card( $potential_points, $context );
 		}
 
-		return trim( ob_get_clean() );
+		// Attribut purement visuel, partagé avec les cartes Blocks.
+		$html=trim(ob_get_clean());$context='cart'===$context?'cart':'checkout';
+		return preg_replace('/(class="rewardly-loyalty-box(?:[\s"]))/', 'data-nodevora-context="'.esc_attr($context).'" $1', $html);
 	}
 
 	/**

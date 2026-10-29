@@ -17,7 +17,7 @@
    const body=new FormData();body.set('action','nodevora_sync');
    body.set('writers_confirmed',document.querySelector('#nodevora-sync input[name="writers_confirmed"]').checked?'1':'');
    const data=await request(body);if(data.complete){location.reload();return;}
-   status.textContent=nodevoraData.working+' '+(data.processed||0);
+   status.textContent=(data.processed||0)+' '+nodevoraData.checked;
   }throw new Error(nodevoraData.failed);}catch(error){status.textContent=error.message;sync.disabled=false;}
  });
  const form=document.getElementById('nodevora-import');

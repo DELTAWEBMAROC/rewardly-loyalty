@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Rewardly_Loyalty_Helpers {
 
 	public static function get_default_settings() {
-		return array(
+		$defaults = array(
 			'enabled'                      => 'yes',
 			'earn_points_per_dh'           => 1,
 			'redeem_points_per_dh'         => 20,
@@ -54,6 +54,8 @@ class Rewardly_Loyalty_Helpers {
 			'pro_level_silver_threshold'   => 500,
 			'pro_level_gold_threshold'     => 1000,
 		);
+		foreach(Rewardly_Loyalty_Design::additional_colors()as$key){$defaults[$key]='';}
+		return $defaults;
 	}
 
 	/**

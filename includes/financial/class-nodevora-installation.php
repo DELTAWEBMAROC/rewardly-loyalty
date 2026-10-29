@@ -16,11 +16,11 @@ class Nodevora_Installation {
 		foreach ( Nodevora_Financial_Schema::definitions() as $name => $unused ) {
 			if ( self::exists( $db, $db->prefix . $name ) && $db->one( 'SELECT 1 AS found FROM ' . $db->table( $name ) . ' LIMIT 1' ) ) { return 'existing'; }
 		}
-		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->usermeta . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(rewardly_loyalty_|_rewardly_bonus_)' ) ) ) { return 'existing'; }
-		foreach ( array( $wpdb->postmeta, $wpdb->prefix . 'wc_orders_meta' ) as $table ) {
-			if ( self::exists( $db, $table ) && $db->one( 'SELECT 1 AS found FROM `' . $table . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly|_nodevora_financial|_nodevora_refund|_nodevora_earning)' ) ) ) { return 'existing'; }
+		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->usermeta . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(rewardly_loyalty_|_rewardly_bonus_|_nodevora_)' ) ) ) { return 'existing'; }
+		foreach ( array( $wpdb->postmeta, $wpdb->prefix . 'wc_orders_meta', $wpdb->prefix . 'woocommerce_order_itemmeta' ) as $table ) {
+			if ( self::exists( $db, $table ) && $db->one( 'SELECT 1 AS found FROM `' . $table . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly|_nodevora_financial|_nodevora_refund|_nodevora_earning|_nodevora_wallet_fee)' ) ) ) { return 'existing'; }
 		}
-		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->commentmeta . '` WHERE meta_key=? LIMIT 1', array( '_rewardly_bonus_review_awarded' ) ) ) { return 'existing'; }
+		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->commentmeta . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly_bonus_|_nodevora_)' ) ) ) { return 'existing'; }
 		$legacy = $wpdb->prefix . 'rewardly_loyalty_log';
 		if ( self::exists( $db, $legacy ) && $db->one( 'SELECT 1 AS found FROM `' . $legacy . '` LIMIT 1' ) ) { return 'existing'; }
 		return 'empty';
@@ -75,7 +75,8 @@ class Nodevora_Installation {
 			$w = $db->one( 'SELECT * FROM ' . $db->table( 'wallet' ) . ' WHERE user_id=? FOR UPDATE', array( $user ) );
 			if ( 'ready' === $w['state'] ) { $db->rollback(); return; }
 			global $wpdb;
-			if ( 'pending' !== $w['state'] || $db->one( 'SELECT 1 AS found FROM `' . $wpdb->usermeta . '` WHERE user_id=? AND meta_key REGEXP ? LIMIT 1', array( $user, '^(rewardly_loyalty_|_rewardly_bonus_)' ) ) ) { throw new Nodevora_Financial_Error( 'Historical account requires reviewed synchronization.' ); }
+			if ( 'pending' !== $w['state'] || $db->one( 'SELECT 1 AS found FROM `' . $wpdb->usermeta . '` WHERE user_id=? AND meta_key REGEXP ? AND meta_key<>? LIMIT 1', array( $user, '^(rewardly_loyalty_|_rewardly_bonus_|_nodevora_)', '_nodevora_registration_pending' ) ) ) { throw new Nodevora_Financial_Error( 'Historical account requires reviewed synchronization.' ); }
+			if($db->one('SELECT 1 AS present FROM '.$db->table('event').' WHERE user_id=? LIMIT 1',array($user))||$db->one('SELECT 1 AS present FROM '.$db->table('lot').' WHERE user_id=? LIMIT 1',array($user))){throw new Nodevora_Financial_Error('Existing wallet evidence requires reviewed recovery.');}
 			$payload = json_encode( array( 'rows' => array(), 'new_account' => true ), JSON_THROW_ON_ERROR ); $hash = hash( 'sha256', $payload );
 			$db->query( 'INSERT INTO ' . $db->table( 'snapshot' ) . ' (user_id,version,checksum,payload,created_at) VALUES (?,1,?,?,UTC_TIMESTAMP())', array( $user, $hash, $payload ) );
 			$db->query( 'UPDATE ' . $db->table( 'wallet' ) . ' SET state=?,migration_version=1,checksum=? WHERE user_id=?', array( 'ready', $hash, $user ) ); $db->commit();

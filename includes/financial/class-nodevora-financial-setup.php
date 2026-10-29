@@ -64,7 +64,8 @@ class Nodevora_Financial_Setup {
 		}
 		if('migrate'===$step){
 			if(!isset($s['batch'])||!$s['batch']){throw new Nodevora_Financial_Error(__('Inspect the next account batch first.','nodevora-customer-rewards-for-woocommerce'));}
-			self::$scope='migration';$m=new Nodevora_Financial_Migration();foreach($s['batch']as$row){$m->migrate((int)$row['user_id'],$row['checksum']);}
+			self::$scope='migration';$m=new Nodevora_Financial_Migration();$quarantined=0;foreach($s['batch']as$row){$result=$m->migrate((int)$row['user_id'],$row['checksum']);if('needs_review'===$result['state']){$quarantined++;}}
+			$s['processed']=(int)($s['processed']??0)+count($s['batch']);$s['quarantined']=(int)($s['quarantined']??0)+$quarantined;
 			$s['cursor']=(int)end($s['batch'])['user_id'];$s['batch']=array();$s['scan_complete']=false;self::save($s);return;
 		}
 		if('activate'===$step){ self::activate_state($s,!empty($_POST['cutover_confirmed']),!empty($_POST['quarantine_confirmed']),!empty($_POST['recovery_reviewed']));return; }
@@ -84,17 +85,30 @@ class Nodevora_Financial_Setup {
 				if ( ! $writers_confirmed ) { throw new Nodevora_Financial_Error( __('Stop any previous loyalty tools and external loyalty processing before confirming synchronization. Ordinary store settings will be retained.','nodevora-customer-rewards-for-woocommerce') ); }
 				// Conserver les règles initiales ; les sources et historiques ne sont jamais supprimés.
 				add_option('nodevora_sync_source_settings',get_option('rewardly_loyalty_settings',array()),'',false);
-				$s=array('phase'=>'prepared','origin'=>'synchronized','cursor'=>0,'sync_authorized'=>get_current_user_id(),'prepared_at'=>gmdate('c'),'recovery_approved'=>false);
+				$s=array('phase'=>'prepared','origin'=>'synchronized','cursor'=>0,'processed'=>0,'quarantined'=>0,'sync_authorized'=>get_current_user_id(),'prepared_at'=>gmdate('c'),'recovery_approved'=>false);
 				self::save($s);
 			}
-			if ( 'prepared' === $s['phase'] ) { self::perform('schema'); return array('complete'=>false,'processed'=>(int)$s['cursor']); }
+			if ( 'prepared' === $s['phase'] ) { self::perform('schema'); return array('complete'=>false,'processed'=>(int)($s['processed']??0)); }
 			if ( 'migrating' !== $s['phase'] ) { throw new Nodevora_Financial_Error( __('This store needs an administrator review before synchronization can continue.','nodevora-customer-rewards-for-woocommerce') ); }
-			if ( ! empty($s['batch']) ) { self::perform('migrate'); return array('complete'=>false,'processed'=>(int)self::state()['cursor']); }
-			if ( empty($s['scan_complete']) ) { self::perform('inspect'); return array('complete'=>false,'processed'=>(int)$s['cursor']); }
+			if ( ! empty($s['batch']) ) { self::perform('migrate'); return array('complete'=>false,'processed'=>(int)(self::state()['processed']??0)); }
+			if ( empty($s['scan_complete']) ) { self::perform('inspect'); return array('complete'=>false,'processed'=>(int)($s['processed']??0)); }
 			// Une fin explicite, sans autoriser une file de récupération historique.
 			self::activate_state($s,true,true,false); update_option('nodevora_installation_status','ready',false);
-			return array('complete'=>true,'processed'=>(int)$s['cursor']);
+			return array('complete'=>true,'processed'=>(int)($s['processed']??0));
 		} finally { self::$scope=''; if($locked){$db->one('SELECT RELEASE_LOCK(?) AS released',array($key));} $db->close(); }
+	}
+
+	/** Explicit approval never runs the queue inline or overrides a server pause. */
+	public static function approve_recovery($review_hash) {
+		if(!current_user_can('manage_options')||is_multisite()){throw new Nodevora_Financial_Error('Administrator recovery permission required.');}
+		$db=new Nodevora_Financial_DB();$key='nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup';$locked=false;
+		try{$locked=1===(int)$db->one('SELECT GET_LOCK(?,0) AS acquired',array($key))['acquired'];if(!$locked){throw new Nodevora_Financial_Error('Another data operation is running.');}
+			Nodevora_Financial_Checkout::require_enabled();$state=self::state();
+			$rows=$db->query('SELECT id,event_id,effect,state,attempts FROM '.$db->table('outbox').' WHERE state<>? ORDER BY id LIMIT 251',array('delivered'));
+			if(!is_string($review_hash)||!hash_equals(hash_hmac('sha256',json_encode($rows),wp_salt('nonce')),$review_hash)){throw new Nodevora_Financial_Error('Pending effects changed. Review the list again.');}
+			if(count($rows)>250){throw new Nodevora_Financial_Error('Too many pending effects for this review. Keep recovery paused and request an operator review.');}
+			$state['recovery_approved']=true;$state['recovery_approved_by']=get_current_user_id();$state['recovery_approved_at']=gmdate('c');self::save($state);
+		}finally{if($locked){$db->one('SELECT RELEASE_LOCK(?) AS released',array($key));}$db->close();}
 	}
 
 	private static function activate_state($s,$cutover,$quarantine,$recovery) {

@@ -876,7 +876,7 @@
 /* Harmonisation des cartes, contraintes mobiles et navigation au clavier. */
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice){max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.6;color:var(--rewardly-primary,#243b53)}
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box) *{box-sizing:border-box;min-width:0}
-.rewardly-loyalty-box,.rewardly-loyalty-card,.rewardly-shortcode-account,.rewardly-shortcode-history{padding:var(--rewardly-padding,20px);background:var(--rewardly-card-bg,#fff);border:1px solid var(--rewardly-border,#cbd5e1);border-radius:var(--rewardly-radius,12px);box-shadow:0 4px 20px rgb(15 23 42 / 4%)}
+.rewardly-loyalty-box,.rewardly-loyalty-card,.rewardly-shortcode-account,.rewardly-shortcode-history{padding:var(--rewardly-padding,20px);background:var(--rewardly-card-bg,#fff);border:1px solid var(--rewardly-border,#cbd5e1);border-radius:var(--rewardly-radius,12px);box-shadow:var(--rewardly-card-shadow,0 4px 20px rgb(15 23 42 / 4%))}
 .rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice{background:var(--rewardly-card-bg,var(--rewardly-soft));border-radius:var(--rewardly-radius,12px)}
 .rewardly-loyalty-box h3,.rewardly-loyalty-account h3{font-size:1.25rem;margin:0 0 .75em;line-height:1.3;color:inherit}
 .rewardly-loyalty-box p{margin:.5em 0 1em}
@@ -915,3 +915,11 @@
  .rewardly-loyalty-box__summary-hint { max-width:100%;white-space:normal;overflow-wrap:anywhere; }
  .rewardly-loyalty-box__summary-hint::after { flex-shrink:0; }
 }
+
+/* Les couleurs informatives restent limitées aux composants Nodevora. */
+.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice{background:var(--rewardly-soft,#e9faf7);color:var(--rewardly-info-color,var(--rewardly-black,#0b1638))}
+
+.rewardly-loyalty-account{padding:var(--rewardly-padding,20px);background:var(--rewardly-card-bg,#fff);border:1px solid var(--rewardly-border,#cbd5e1);border-radius:var(--rewardly-radius,12px)}
+:where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box){color:var(--rewardly-black,#0b1638)}
+.rewardly-loyalty-box h3,.rewardly-shortcode-account h3,.rewardly-shortcode-history h3{color:var(--rewardly-black,#0b1638)}
+.rewardly-loyalty-account .shop_table .rewardly-log-row,.rewardly-shortcode-history .rewardly-log-row{background:var(--rewardly-card-bg,#fff);border-color:var(--rewardly-border,#cbd5e1)}

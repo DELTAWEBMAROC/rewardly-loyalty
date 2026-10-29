@@ -1,0 +1,29 @@
+/* Interface limitée au panneau Nodevora ; aucune règle sur les pages du thème. */
+.nodevora-admin{--nv-navy:#0b1638;--nv-teal:#12b8a6;max-width:1180px;color:#18253f;overflow-wrap:anywhere}
+.nodevora-admin h1{font-size:25px;font-weight:650;color:var(--nv-navy);margin:20px 0 8px}
+.nodevora-admin .rewardly-admin-description{color:#526077;line-height:1.6}
+.nodevora-admin .rewardly-admin-tabs{gap:6px;border-bottom:1px solid #dce3ed;padding:0 0 14px;margin:20px 0}
+.nodevora-admin .rewardly-admin-tab{border-radius:7px;padding:8px 12px;font-size:13px}
+.nodevora-admin .rewardly-admin-tab.is-active{background:var(--nv-navy);border-color:var(--nv-navy)}
+.nodevora-admin .rewardly-admin-card{border-color:#dce3ed;border-radius:12px;padding:22px;max-width:100%;box-shadow:0 2px 6px #0b163805}
+.nodevora-admin .form-table{margin:0}.nodevora-admin .form-table tbody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px}
+.nodevora-admin .form-table tr{display:flex;flex-direction:column;min-width:0;padding:0;margin:0}
+.nodevora-admin .form-table th,.nodevora-admin .form-table td{display:block;width:auto;padding:0;min-width:0}
+.nodevora-admin .form-table th{font-weight:600;margin:0 0 7px}.nodevora-admin .form-table .description{font-size:12px;line-height:1.5;color:#526077}
+.nodevora-admin label{font-weight:500}.nodevora-admin select,.nodevora-admin input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=hidden]),.nodevora-admin textarea{max-width:100%;box-sizing:border-box;border-radius:6px}
+.nodevora-admin .button{min-height:32px;padding:2px 12px;white-space:normal;border-radius:6px}.nodevora-admin .button-primary{background:var(--nv-navy);border-color:var(--nv-navy);color:#fff}
+.nodevora-admin .button-primary:hover{background:#193456;border-color:#193456}.nodevora-admin :focus-visible{outline:2px solid #087b70;outline-offset:3px}
+.nodevora-admin .nodevora-mode{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;font-size:13px}
+.nodevora-admin.is-simple .nodevora-advanced{display:none!important}
+.nodevora-admin .nodevora-data-form{margin:14px 0 22px;display:grid;gap:12px;justify-items:start}.nodevora-admin .nodevora-data-form label{display:block;line-height:1.6}
+.nodevora-admin #nodevora-sync label{display:block;margin:12px 0}.nodevora-admin [role=status]{line-height:1.6;max-width:850px}
+.nodevora-admin .nodevora-design-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,1fr);gap:24px;align-items:start}
+.nodevora-admin .nodevora-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.nodevora-admin .nodevora-field{min-width:0}
+.nodevora-admin .nodevora-field>label{display:block;margin-bottom:7px}.nodevora-admin .nodevora-field .wp-picker-container{display:block}.nodevora-admin .nodevora-field .wp-picker-input-wrap label{display:inline}
+.nodevora-admin details{border:1px solid #dce3ed;border-radius:8px;padding:12px;margin:12px 0}.nodevora-admin summary{cursor:pointer;font-weight:600;color:var(--nv-navy)}.nodevora-admin details[open]>summary{margin-bottom:16px}
+.nodevora-admin .nodevora-preview{position:sticky;top:48px;background:#f3f6fa;border:1px solid #dce3ed;border-radius:10px;padding:16px;min-width:0}.nodevora-admin .nodevora-preview iframe{border:0;width:100%;min-height:330px;background:#fff;border-radius:8px;display:block;margin:auto}
+.nodevora-admin .nodevora-preview-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.nodevora-admin .nodevora-preview iframe.is-mobile{width:280px;max-width:100%}
+.nodevora-admin .nodevora-presets{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0 22px}.nodevora-admin .nodevora-preset{background:#fff;border:1px solid #cbd5e1;padding:12px;border-radius:8px;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:8px}.nodevora-admin .nodevora-swatch{display:inline-block;width:18px;height:18px;border-radius:50%;border:1px solid #cbd5e1}
+.nodevora-admin .nodevora-readonly{border:0;margin:0;padding:0;min-width:0}.nodevora-admin .nodevora-readonly-note{border-left:3px solid var(--nv-teal);padding:10px;background:#f0faf8}
+@media(max-width:900px){.nodevora-admin .nodevora-design-grid{grid-template-columns:minmax(0,1fr)}.nodevora-admin .nodevora-preview{position:static}}
+@media(max-width:600px){.nodevora-admin .form-table tbody,.nodevora-admin .nodevora-fields{grid-template-columns:minmax(0,1fr)}.nodevora-admin .rewardly-admin-card{padding:15px}.nodevora-admin .nodevora-mode{justify-content:flex-start}.nodevora-admin h1{font-size:21px}.nodevora-admin .nodevora-preview{padding:10px}.nodevora-admin .wp-picker-holder{max-width:100%}}

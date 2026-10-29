@@ -9,7 +9,7 @@ class Nodevora_Financial_Migration {
 		global $wpdb;
 		if(!preg_match('/^[a-zA-Z0-9_]+$/D',$wpdb->usermeta)){throw new Nodevora_Financial_Error('Unsupported legacy metadata table.');}
 		$engine=$db->one('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?',array($wpdb->usermeta));if(!$engine||'InnoDB'!==$engine['ENGINE']){throw new Nodevora_Financial_Error('Legacy metadata is not transactional.');}
-		return $db->query('SELECT umeta_id,meta_key,meta_value FROM `'.$wpdb->usermeta.'` WHERE user_id=? AND meta_key REGEXP ? ORDER BY umeta_id'.($lock?' FOR UPDATE':''),array($user,'^(rewardly_loyalty_|_rewardly_bonus_)'));
+		return $db->query('SELECT umeta_id,meta_key,meta_value FROM `'.$wpdb->usermeta.'` WHERE user_id=? AND meta_key REGEXP ? ORDER BY umeta_id'.($lock?' FOR UPDATE':''),array($user,'^(rewardly_loyalty_|_rewardly_bonus_|_nodevora_)'));
 	}
 	private static function integer($raw){
 		if(!is_scalar($raw)||!preg_match('/^(0|[1-9][0-9]*)$/D',(string)$raw)){throw new Nodevora_Financial_Error('Invalid legacy integer.');}
@@ -18,7 +18,7 @@ class Nodevora_Financial_Migration {
 	private function inspect_rows($rows,$days,$timezone){
 		$meta=array();$reasons=array();$lots=array();$balance=0;
 		foreach($rows as $row){$meta[$row['meta_key']][]=$row['meta_value'];}
-		foreach($meta as $key=>$values){if(count($values)!==1){$reasons[]='duplicate_meta:'.$key;}}
+		foreach($meta as $key=>$values){if(count($values)!==1){$reasons[]='duplicate_meta:'.$key;}if(0===strpos($key,'_nodevora_')){$reasons[]='pending_operation_requires_review:'.$key;}}
 		try{$balance=self::integer(isset($meta['rewardly_loyalty_points_balance'][0])?$meta['rewardly_loyalty_points_balance'][0]:'0');}catch(Nodevora_Financial_Error $e){$reasons[]='invalid_balance';}
 		foreach(array('rewardly_loyalty_points_earned_total','rewardly_loyalty_points_spent_total') as $key){try{if(isset($meta[$key][0])){self::integer($meta[$key][0]);}}catch(Nodevora_Financial_Error $e){$reasons[]='invalid_reporting_total:'.$key;}}
 		$raw=isset($meta['rewardly_loyalty_point_lots'][0])?$meta['rewardly_loyalty_point_lots'][0]:'';
@@ -44,7 +44,8 @@ class Nodevora_Financial_Migration {
 	private function orders($user){
 		$orders=wc_get_orders(array('customer_id'=>$user,'limit'=>101,'orderby'=>'ID','order'=>'ASC'));$out=array();$reasons=array();
 		if(count($orders)>100){$reasons[]='legacy_order_scan_requires_batch_review';}
-		foreach($orders as $order){$meta=array();foreach($order->get_meta_data() as $item){$data=$item->get_data();if(0===strpos($data['key'],'_rewardly')){$meta[$data['key']]=$data['value'];}}
+		foreach($orders as $order){$meta=array();foreach($order->get_meta_data() as $item){$data=$item->get_data();if(0===strpos($data['key'],'_rewardly')||0===strpos($data['key'],'_nodevora')){$meta[$data['key']]=$data['value'];}}
+			$fees=array();foreach($order->get_items('fee')as$item){$owned=array();foreach($item->get_meta_data()as$item_meta){$entry=$item_meta->get_data();if(0===strpos($entry['key'],'_rewardly')||0===strpos($entry['key'],'_nodevora')){$owned[$entry['key']]=$entry['value'];}}if($owned){$fees[]=array('item_id'=>$item->get_id(),'total'=>$item->get_total(),'meta'=>$owned);}}if($fees){$meta['_nodevora_preserved_fee_evidence']=$fees;}
 			if($meta){$out[]=array('order_id'=>$order->get_id(),'status'=>$order->get_status(),'total'=>$order->get_total(),'currency'=>$order->get_currency(),'meta'=>$meta);$reasons[]='legacy_order_baseline_required:'.$order->get_id();}
 		}return array('orders'=>$out,'reasons'=>$reasons);
 	}
@@ -52,6 +53,7 @@ class Nodevora_Financial_Migration {
 		$comments=get_comments(array('user_id'=>$user,'post_type'=>'product','meta_key'=>'_rewardly_bonus_review_awarded','number'=>101,'status'=>'all','orderby'=>'comment_ID','order'=>'ASC'));$out=array();$reasons=array();
 		if(count($comments)>100){$reasons[]='legacy_review_scan_requires_batch_review';}
 		foreach($comments as $comment){$values=get_comment_meta($comment->comment_ID,'_rewardly_bonus_review_awarded',false);$out[]=array('comment_id'=>(int)$comment->comment_ID,'post_id'=>(int)$comment->comment_post_ID,'values'=>$values);if(count($values)!==1||!in_array($values[0],array('yes','no',''),true)){$reasons[]='ambiguous_review_claim:'.$comment->comment_ID;}}
+		foreach(array('_nodevora_review_pending','_nodevora_review_reconciliation')as$pending_key){$pending=get_comments(array('user_id'=>$user,'post_type'=>'product','meta_key'=>$pending_key,'number'=>101,'status'=>'all','orderby'=>'comment_ID','order'=>'ASC'));foreach($pending as$c){$out[]=array('comment_id'=>(int)$c->comment_ID,'post_id'=>(int)$c->comment_post_ID,'values'=>array('pending_review'),'pending_key'=>$pending_key,'pending_values'=>get_comment_meta($c->comment_ID,$pending_key,false));$reasons[]='pending_review_requires_reconciliation:'.$c->comment_ID;}if(count($pending)>100){$reasons[]='pending_review_scan_requires_batch_review';}}
 		return array('claims'=>$out,'reasons'=>$reasons);
 	}
 	public function inspect($user){
@@ -65,6 +67,7 @@ class Nodevora_Financial_Migration {
 		try{
 			$db->begin();$db->query('INSERT IGNORE INTO '.$db->table('wallet').' (user_id,state) VALUES (?,?)',array($user,'pending'));
 			$wallet=$db->one('SELECT * FROM '.$db->table('wallet').' WHERE user_id=? FOR UPDATE',array($user));if('ready'===$wallet['state']){$db->rollback();$db->close();return array('state'=>'already_migrated','checksum'=>$wallet['checksum']);}
+			if($db->one('SELECT 1 AS present FROM '.$db->table('event').' WHERE user_id=? LIMIT 1',array($user))||$db->one('SELECT 1 AS present FROM '.$db->table('lot').' WHERE user_id=? LIMIT 1',array($user))){throw new Nodevora_Financial_Error('Existing financial activity requires reviewed recovery; no opening was imported.');}
 			$rows=$this->source($db,$user,true);$payload=json_encode(array('rows'=>$rows,'orders'=>$orders['orders'],'reviews'=>$reviews['claims'],'expiration_days'=>$days,'timezone'=>$timezone),JSON_THROW_ON_ERROR);$hash=hash('sha256',$payload);$data=$this->inspect_rows($rows,$days,$timezone);$data['reasons']=array_merge($data['reasons'],$orders['reasons']);if($data['reasons']){$data['state']='needs_review';}if(null!==$expected_checksum&&!hash_equals($expected_checksum,$hash)){throw new Nodevora_Financial_Error('Dry-run checksum changed.');}
 			$prior=$db->one('SELECT checksum FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array($user));
 			if($prior&&!hash_equals($prior['checksum'],$hash)){throw new Nodevora_Financial_Error('Legacy snapshot changed; reviewed reconciliation is required.');}

@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** Sauvegarde Nodevora NDJSON bornée ; aucun SQL ni fichier public dans le format. */
 class Nodevora_Backup {
-	const FORMAT = 1;
+	const FORMAT = 2;
 	const MAX_BYTES = 33554432;
 	const MAX_ROWS = 100000;
 	public static function table_map( $db ) {
@@ -47,7 +47,7 @@ class Nodevora_Backup {
 			}
 			// Inclure les seules métadonnées de fidélité, jamais les données générales WordPress.
 			global $wpdb;
-			$meta = array( 'user_meta' => array( $wpdb->usermeta, 'umeta_id', '^(rewardly_loyalty_|_rewardly_bonus_)' ), 'post_meta' => array( $wpdb->postmeta, 'meta_id', '^(_rewardly|_nodevora)' ), 'comment_meta' => array( $wpdb->commentmeta, 'meta_id', '^_rewardly_bonus_' ), 'order_meta' => array( $wpdb->prefix . 'wc_orders_meta', 'id', '^(_rewardly|_nodevora)' ) );
+			$meta = array( 'user_meta' => array( $wpdb->usermeta, 'umeta_id', '^(rewardly_loyalty_|_rewardly_bonus_|_nodevora_)' ), 'post_meta' => array( $wpdb->postmeta, 'meta_id', '^(_rewardly|_nodevora)' ), 'comment_meta' => array( $wpdb->commentmeta, 'meta_id', '^(_rewardly_bonus_|_nodevora_)' ), 'order_meta' => array( $wpdb->prefix . 'wc_orders_meta', 'id', '^(_rewardly|_nodevora)' ), 'item_meta' => array( $wpdb->prefix . 'woocommerce_order_itemmeta', 'meta_id', '^(_rewardly|_nodevora)' ) );
 			foreach ( $meta as $type => $spec ) {
 				$exists = $db->one( 'SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $spec[0] ) );
 				if ( ! $exists ) { continue; } if ( 'InnoDB' !== $exists['ENGINE'] ) { throw new Nodevora_Financial_Error( 'Loyalty metadata is not transactional.' ); }
@@ -71,23 +71,27 @@ class Nodevora_Backup {
 	public static function references( $db, $type, $row, &$cache ) {
 		global $wpdb;
 		$ids = array();
+		if('event'===$type&&!empty($row['payload'])){$event=json_decode($row['payload'],true,32,JSON_THROW_ON_ERROR);if(!empty($event['details']['order_id'])){$ids['order']=(int)$event['details']['order_id'];}if(!empty($event['details']['refund_id'])){$ids['refund']=(int)$event['details']['refund_id'];}}
 		if ( ! empty( $row['user_id'] ) ) { $ids['user'] = (int) $row['user_id']; }
 		if ( ! empty( $row['order_id'] ) ) { $ids['order'] = (int) $row['order_id']; }
 		if ( 'post_meta' === $type ) { $ids['post'] = (int) $row['post_id']; }
+		if ( 'item_meta' === $type ) { $ids['item'] = (int) $row['order_item_id']; }
 		if ( 'comment_meta' === $type ) { $ids['comment'] = (int) $row['comment_id']; }
 		$refs = array();
 		foreach ( $ids as $kind => $id ) {
 			$key = $kind . ':' . $id;
 			if ( ! isset( $cache[$key] ) ) {
 				if ( 'user' === $kind ) { $identity = $db->one( 'SELECT ID,user_login,user_email FROM `' . $wpdb->users . '` WHERE ID=?', array( $id ) ); }
+				elseif ( 'item' === $kind ) { $identity=$db->one('SELECT order_item_id,order_id,order_item_type,order_item_name FROM `'.$wpdb->prefix.'woocommerce_order_items` WHERE order_item_id=?',array($id));if($identity){$identity['amounts']=$db->query('SELECT meta_key,meta_value FROM `'.$wpdb->prefix.'woocommerce_order_itemmeta` WHERE order_item_id=? AND meta_key IN (?,?,?,?) ORDER BY meta_key,meta_id',array($id,'_line_total','_line_tax','_line_subtotal','_line_subtotal_tax'));} }
 				elseif ( 'comment' === $kind ) { $identity = $db->one( 'SELECT comment_ID,comment_post_ID,user_id FROM `' . $wpdb->comments . '` WHERE comment_ID=?', array( $id ) ); }
-				elseif ( 'order' === $kind ) {
+				elseif ( 'order' === $kind || 'refund' === $kind ) {
 					$exists = $db->one( 'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $wpdb->prefix . 'wc_orders' ) );
-					$identity = $exists ? $db->one( 'SELECT id,type,parent_order_id,customer_id,total_amount,currency FROM `' . $wpdb->prefix . 'wc_orders` WHERE id=?', array( $id ) ) : null;
-					if ( ! $identity ) { $identity = $db->one( 'SELECT ID,post_type,post_name,post_parent FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
-				} else { $identity = $db->one( 'SELECT ID,post_type,post_name,post_parent FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
-				if ( ! $identity ) { throw new Nodevora_Financial_Error( 'A referenced account or order is missing.' ); }
-				$cache[$key] = hash( 'sha256', json_encode( $identity, JSON_THROW_ON_ERROR ) );
+					$identity = $exists ? $db->one( 'SELECT id,type,status,parent_order_id,customer_id,total_amount,currency FROM `' . $wpdb->prefix . 'wc_orders` WHERE id=?', array( $id ) ) : null;
+					if ( ! $identity ) { $identity = $db->one( 'SELECT ID,post_type,post_status,post_name,post_parent FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
+				} else { $identity = $db->one( 'SELECT ID,post_type,post_status,post_name,post_parent FROM `' . $wpdb->posts . '` WHERE ID=?', array( $id ) ); }
+				if($identity&&in_array($kind,array('order','refund'),true)){$identity['items']=$db->query('SELECT i.order_item_id,i.order_item_type,m.meta_key,m.meta_value FROM `'.$wpdb->prefix.'woocommerce_order_items` i LEFT JOIN `'.$wpdb->prefix.'woocommerce_order_itemmeta` m ON m.order_item_id=i.order_item_id WHERE i.order_id=? AND m.meta_key IN (?,?,?,?,?,?,?,?) ORDER BY i.order_item_id,m.meta_key,m.meta_id',array($id,'_product_id','_variation_id','_qty','_line_subtotal','_line_total','_line_tax','_line_subtotal_tax','_tax_class'));}
+					$missing=!$identity;if($missing){$identity=array('id'=>$id,'missing'=>true);}
+				$cache[$key] = array('sha256'=>hash( 'sha256', json_encode( $identity, JSON_THROW_ON_ERROR ) ),'missing'=>$missing);
 			}
 			$refs[$key] = $cache[$key];
 		}
@@ -107,7 +111,7 @@ class Nodevora_Backup {
 				if ( null === $header ) {
 					if ( ( $r['format'] ?? '' ) !== 'nodevora' || ( $r['version'] ?? null ) !== self::FORMAT || ( $r['schema'] ?? null ) !== Nodevora_Financial_Schema::VERSION || ( $r['plugin'] ?? '' ) !== NODEVORA_CUSTOMER_REWARDS_VERSION ) { throw new Nodevora_Financial_Error( 'Incompatible backup format, schema or plugin version.' ); } $header = $r;
 				} elseif ( isset( $r['complete'] ) ) {
-					if ( true !== $r['complete'] || $r['rows'] !== $rows || ! is_string( $r['sha256'] ) || ! hash_equals( hash_final( $hash ), $r['sha256'] ) || false !== fgets( $f ) ) { throw new Nodevora_Financial_Error( 'Backup integrity verification failed.' ); } $trailer = $r; break;
+					if ( true !== $r['complete'] || !isset($r['rows'],$r['sha256']) || $r['rows'] !== $rows || ! is_string( $r['sha256'] ) || ! hash_equals( hash_final( $hash ), $r['sha256'] ) || false !== fgets( $f ) ) { throw new Nodevora_Financial_Error( 'Backup integrity verification failed.' ); } $trailer = $r; break;
 				} elseif ( isset( $r['table'], $r['row'] ) && is_array( $r['row'] ) ) { if ( array_diff( array_keys($r), array('table','row','references') ) ) { throw new Nodevora_Financial_Error('Ambiguous backup record.'); } if ( ++$rows > self::MAX_ROWS ) { throw new Nodevora_Financial_Error( 'Backup row limit exceeded.' ); } $counts[$r['table']] = 1 + ( $counts[$r['table']] ?? 0 );
 				} elseif ( ! isset( $r['option'], $r['value'] ) || ! is_string( $r['value'] ) || array_diff( array_keys($r), array('option','value') ) ) { throw new Nodevora_Financial_Error( 'Unknown backup record.' ); }
 				if ( $visitor && $line_number > 0 ) { $visitor( $r ); }

@@ -19,9 +19,24 @@ class Nodevora_Access {
 			if ( in_array( 'nodevora_edit', $caps, true ) ) { $all['nodevora_edit'] = self::can_view( $user ) && ( user_can( $user, 'manage_options' ) || user_can( $user, 'manage_woocommerce' ) ); }
 			return $all;
 		}, 10, 4 );
+		// Product overrides are settings too: hiding their panel must not leave REST/meta bypasses.
+		foreach ( array( 'add_post_metadata', 'update_post_metadata', 'delete_post_metadata' ) as $hook ) {
+			add_filter( $hook, static function( $check, $id, $key ) {
+				if ( '_rewardly_loyalty_product_points_rate' !== $key || ( defined('WP_CLI') && WP_CLI && !defined('REST_REQUEST') ) ) { return $check; }
+				return self::can_edit() && current_user_can('edit_post', $id) ? $check : false;
+			}, 10, 3 );
+		}
+		foreach ( array('product','product_variation') as $type ) {
+			add_filter( 'woocommerce_rest_pre_insert_'.$type.'_object', static function($object, $request) {
+				foreach ( (array)$request->get_param('meta_data') as $meta ) {
+					if ( is_array($meta) && '_rewardly_loyalty_product_points_rate' === ($meta['key'] ?? '') && !self::can_edit() ) { return new WP_Error('nodevora_forbidden', __('You are not allowed to change Nodevora settings.','nodevora-customer-rewards-for-woocommerce'), array('status'=>403)); }
+				}
+				return $object;
+			},10,2 );
+		}
 		add_action( 'admin_init', static function() {
 			$owner = get_transient( 'nodevora_activation_redirect' );
-			if ( $owner && (int) $owner === get_current_user_id() && ! wp_doing_ajax() && ! isset( $_GET['activate-multi'] ) ) { delete_transient( 'nodevora_activation_redirect' ); wp_safe_redirect( admin_url( 'admin.php?page=rewardly-loyalty-settings' ) ); exit; }
+			if ( $owner && (int) $owner === get_current_user_id() && ! wp_doing_ajax() && ! isset( $_GET['activate-multi'] ) ) { delete_transient( 'nodevora_activation_redirect' ); wp_safe_redirect( admin_url( 'admin.php?page=rewardly-loyalty-settings' . ('synchronization_required'===get_option('nodevora_installation_status')?'&tab=data':'') ) ); exit; }
 		} );
 		add_action( 'admin_post_nodevora_preferences', array( __CLASS__, 'save' ) );
 	}

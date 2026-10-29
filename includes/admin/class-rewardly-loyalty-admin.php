@@ -18,12 +18,10 @@ class Rewardly_Loyalty_Admin {
 			return;
 		}
 
-		wp_register_style( 'rewardly-loyalty-admin-inline', false, array(), NODEVORA_CUSTOMER_REWARDS_VERSION );
+		wp_register_style( 'rewardly-loyalty-admin-inline', REWARDLY_LOYALTY_URL.'assets/css/admin-legacy.css', array(), filemtime(REWARDLY_LOYALTY_PATH.'assets/css/admin-legacy.css') );
 		wp_enqueue_style( 'rewardly-loyalty-admin-inline' );
-		wp_add_inline_style( 'rewardly-loyalty-admin-inline', '.rewardly-admin-tabs{display:flex;gap:8px;margin:18px 0 24px;flex-wrap:wrap}.rewardly-admin-tab{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:#fff;border:1px solid #dcdcde;border-radius:8px;text-decoration:none;color:#1d2327}.rewardly-admin-tab.is-active{background:#0b1638;color:#fff;border-color:#0b1638}.rewardly-admin-badge{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:#edeff1;color:#50575e;font-size:11px;font-weight:600;text-transform:uppercase}.rewardly-admin-badge--pro{background:#fff2cc;color:#8a6500}.rewardly-admin-badge--ok{background:#ecfdf3;color:#027a48}.rewardly-admin-badge--warn{background:#fff7ed;color:#b54708}.rewardly-admin-tab.is-active .rewardly-admin-badge{background:rgba(255,255,255,.2);color:#fff}.rewardly-admin-card{background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:20px;max-width:1100px}.rewardly-admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1100px}.rewardly-admin-stat{background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:18px}.rewardly-admin-code{background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:12px;font-family:monospace;word-break:break-word}.rewardly-admin-list{margin:8px 0 0 18px}.rewardly-admin-list li{margin:6px 0}.rewardly-admin-description{max-width:840px;color:#50575e}.rewardly-admin-section-title{margin:0 0 10px}.rewardly-admin-note{margin:12px 0 0;padding:12px 14px;border-left:4px solid #12b8a6;background:#f6f7f7;border-radius:6px}.rewardly-admin-note--warn{border-left-color:#dba617;background:#fffdf5}.rewardly-admin-note--ok{border-left-color:#46b450;background:#f6fff7}.rewardly-admin-kbd{display:inline-block;padding:1px 6px;border:1px solid #dcdcde;border-bottom-width:2px;border-radius:6px;background:#fff;font-family:monospace;font-size:12px}.rewardly-admin-split{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;max-width:1100px}.rewardly-admin-panel-list{margin:0;padding-left:18px}.rewardly-admin-panel-list li{margin:8px 0}.rewardly-pro-panel{position:relative;background:linear-gradient(180deg,#fcfcfd 0%,#f6f7f7 100%);border:1px solid #dcdcde;border-radius:12px;padding:22px;max-width:1100px}.rewardly-pro-locked{opacity:.78}.rewardly-pro-overlay{position:absolute;inset:0;background:rgba(255,255,255,.55);border-radius:12px;pointer-events:none}.rewardly-pro-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}.rewardly-pro-table td,.rewardly-pro-table th{vertical-align:top}.rewardly-pro-mini-lock{font-size:13px;opacity:.8}.rewardly-rule-row,.rewardly-selector-row{display:grid;grid-template-columns:minmax(250px,1fr) 120px 44px;gap:10px;align-items:center;margin:0 0 10px}.rewardly-selector-row{grid-template-columns:minmax(250px,1fr) 44px}.rewardly-row-actions{display:flex;gap:8px;align-items:center}.rewardly-box-note{margin-top:10px;padding:10px 12px;border-left:4px solid #dcdcde;background:#f6f7f7}.rewardly-level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.rewardly-lock-note{display:inline-flex;align-items:center;gap:8px;font-weight:600}@media (max-width: 900px){.rewardly-admin-split{grid-template-columns:1fr}.rewardly-rule-row{grid-template-columns:1fr 120px 44px}.rewardly-selector-row{grid-template-columns:1fr 44px}}' );
-
-		wp_add_inline_style( 'rewardly-loyalty-admin-inline', '.rewardly-admin-card{box-sizing:border-box;margin-bottom:20px}.rewardly-admin-card input,.rewardly-admin-card select,.rewardly-admin-card textarea{max-width:100%;box-sizing:border-box}.rewardly-admin-tab:focus-visible{outline:3px solid #2271b1;outline-offset:3px}.rewardly-rule-row>* ,.rewardly-selector-row>*{min-width:0}@media(max-width:600px){.rewardly-admin-card{padding:14px}.rewardly-rule-row,.rewardly-selector-row{grid-template-columns:minmax(0,1fr)}.rewardly-admin-card input[type=text],.rewardly-admin-card textarea{width:100%;min-width:0}.rewardly-admin-tabs{gap:6px}.rewardly-admin-tab{padding:10px}}' );
-		if($is_settings_page){wp_enqueue_script('nodevora-admin-data',REWARDLY_LOYALTY_URL.'assets/js/admin-data.js',array(),filemtime(REWARDLY_LOYALTY_PATH.'assets/js/admin-data.js'),true);wp_localize_script('nodevora-admin-data','nodevoraData',array('url'=>admin_url('admin-ajax.php'),'nonce'=>wp_create_nonce('nodevora_data'),'working'=>__('Working…','nodevora-customer-rewards-for-woocommerce'),'review'=>__('File verified. Review the record count and confirm the import.','nodevora-customer-rewards-for-woocommerce'),'failed'=>__('The operation could not finish. Retry without changing the data.','nodevora-customer-rewards-for-woocommerce')));}
+		if($is_settings_page){wp_enqueue_style('nodevora-admin',REWARDLY_LOYALTY_URL.'assets/css/admin.css',array('rewardly-loyalty-admin-inline'),filemtime(REWARDLY_LOYALTY_PATH.'assets/css/admin.css'));if('design'===self::get_current_tab()){Nodevora_Design_Admin::enqueue();}}
+		if($is_settings_page&&'data'===self::get_current_tab()){wp_enqueue_script('nodevora-admin-data',REWARDLY_LOYALTY_URL.'assets/js/admin-data.js',array(),filemtime(REWARDLY_LOYALTY_PATH.'assets/js/admin-data.js'),true);wp_localize_script('nodevora-admin-data','nodevoraData',array('url'=>admin_url('admin-ajax.php'),'nonce'=>wp_create_nonce('nodevora_data'),'checked'=>__('accounts checked','nodevora-customer-rewards-for-woocommerce'),'working'=>__('Working…','nodevora-customer-rewards-for-woocommerce'),'review'=>__('File verified. Review the record count and confirm the import.','nodevora-customer-rewards-for-woocommerce'),'failed'=>__('The operation could not finish. Retry without changing the data.','nodevora-customer-rewards-for-woocommerce')));}
 		if ( ! $is_settings_page || 'pro_features' !== self::get_current_tab() ) { return; }
 		wp_enqueue_script( 'rewardly-loyalty-admin-pro', REWARDLY_LOYALTY_URL . 'assets/js/admin-pro.js', array( 'jquery' ), filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/admin-pro.js' ), true );
 		wp_localize_script( 'rewardly-loyalty-admin-pro', 'rewardlyAdminData', array(
@@ -46,7 +44,7 @@ class Rewardly_Loyalty_Admin {
 			'pro_features' => array( 'label' => __( 'Advanced Features', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 			'help'         => array( 'label' => __( 'Help', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 		);
-		if(current_user_can('manage_options')&&Nodevora_Data::relevant()){$tabs['data']=array('label'=>__('Data & Backups','nodevora-customer-rewards-for-woocommerce'),'pro'=>false);}
+		if(current_user_can('manage_options')&&Nodevora_Data::relevant()){$tabs['data']=array('label'=>Nodevora_Data::label(),'pro'=>false);}
 		return $tabs;
 	}
 
@@ -144,6 +142,7 @@ class Rewardly_Loyalty_Admin {
 			<?php Nodevora_Access::mode_control(); ?>
 			<nav class="rewardly-admin-tabs"><?php foreach ( $tabs as $tab_key => $tab_data ) { self::render_tab_link( $tab_key, $tab_data, $current_tab ); } ?></nav>
 			<?php
+			$readonly=!Nodevora_Access::can_edit();if($readonly){echo '<p class="nodevora-readonly-note">'.esc_html__('Read-only access. Ask an authorized manager to change settings or points.','nodevora-customer-rewards-for-woocommerce').'</p><fieldset disabled class="nodevora-readonly">';}
 			switch ( $current_tab ) {
 				case 'data':
 					Nodevora_Data::render();break;
@@ -167,6 +166,7 @@ class Rewardly_Loyalty_Admin {
 				default:
 					self::render_general_tab();
 			}
+			if($readonly){echo '</fieldset>';}
 			?>
 		</div>
 		<?php
@@ -176,30 +176,7 @@ class Rewardly_Loyalty_Admin {
 		Rewardly_Loyalty_Settings::render_settings_tab();
 	}
 
-	private static function render_design_tab() {
-		$settings = Rewardly_Loyalty_Helpers::get_settings(); ?>
-		<form method="post" action="options.php" class="rewardly-admin-card"><?php settings_fields( 'rewardly_loyalty_group' ); ?><input type="hidden" name="rewardly_loyalty_settings[_section]" value="design">
-			<h2><?php esc_html_e( 'Design settings', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
-			<p class="rewardly-admin-description"><?php esc_html_e( 'These settings apply only to Nodevora reward interface elements and keep the plugin compatible with most WooCommerce themes.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p><div class="rewardly-admin-note"><p><strong><?php esc_html_e( 'Selected template', 'nodevora-customer-rewards-for-woocommerce' ); ?>:</strong> <?php echo esc_html( self::get_template_summary( $settings['design_template'] ?? 'default' ) ); ?></p></div>
-			<table class="form-table rewardly-pro-table">
-				<tr><th><label for="nodevora-setting-enable_front_styles"><?php esc_html_e( 'Enable Nodevora front styles', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-enable_front_styles" name="rewardly_loyalty_settings[enable_front_styles]"><option value="yes" <?php selected( $settings['enable_front_styles'], 'yes' ); ?>><?php esc_html_e( 'Yes', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="no" <?php selected( $settings['enable_front_styles'], 'no' ); ?>><?php esc_html_e( 'No', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-				<tr><th><label for="nodevora-setting-design_template"><?php esc_html_e( 'Free template', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-design_template" name="rewardly_loyalty_settings[design_template]"><option value="default" <?php selected( $settings['design_template'], 'default' ); ?>><?php esc_html_e( 'Default', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="minimal" <?php selected( $settings['design_template'], 'minimal' ); ?>><?php esc_html_e( 'Minimal', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="soft" <?php selected( $settings['design_template'], 'soft' ); ?>><?php esc_html_e( 'Soft', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select><p class="description"><?php esc_html_e( 'Choose one of the three free visual presets.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p></td></tr>
-				<tr><th><label for="nodevora-setting-primary_color"><?php esc_html_e( 'Primary color', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><input type="color" id="nodevora-setting-primary_color" name="rewardly_loyalty_settings[primary_color]" value="<?php echo esc_attr( $settings['primary_color'] ); ?>"></td></tr>
-				<tr><th><label for="nodevora-setting-accent_color"><?php esc_html_e( 'Accent color', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><input type="color" id="nodevora-setting-accent_color" name="rewardly_loyalty_settings[accent_color]" value="<?php echo esc_attr( $settings['accent_color'] ); ?>"></td></tr>
-				<tr><th><label for="nodevora-setting-border_radius"><?php esc_html_e( 'Border radius', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><input type="range" min="0" max="30" id="nodevora-setting-border_radius" name="rewardly_loyalty_settings[border_radius]" value="<?php echo esc_attr( $settings['border_radius'] ); ?>"> <strong><?php echo esc_html( (int) $settings['border_radius'] ); ?>px</strong></td></tr>
-				<tr><th><label for="nodevora-setting-icon_style"><?php esc_html_e( 'Icon style', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-icon_style" name="rewardly_loyalty_settings[icon_style]"><option value="default" <?php selected( $settings['icon_style'], 'default' ); ?>><?php esc_html_e( 'Default', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="minimal" <?php selected( $settings['icon_style'], 'minimal' ); ?>><?php esc_html_e( 'Minimal', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="circle" <?php selected( $settings['icon_style'], 'circle' ); ?>><?php esc_html_e( 'Circle', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-				<tr><th><label for="nodevora-setting-button_style"><?php esc_html_e( 'Button style', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-button_style" name="rewardly_loyalty_settings[button_style]"><option value="rounded" <?php selected( $settings['button_style'], 'rounded' ); ?>><?php esc_html_e( 'Rounded', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="solid" <?php selected( $settings['button_style'], 'solid' ); ?>><?php esc_html_e( 'Solid', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="outline" <?php selected( $settings['button_style'], 'outline' ); ?>><?php esc_html_e( 'Outline', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-				<tr><th><label for="nodevora-setting-card_style"><?php esc_html_e( 'Card style', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-card_style" name="rewardly_loyalty_settings[card_style]"><option value="soft" <?php selected( $settings['card_style'], 'soft' ); ?>><?php esc_html_e( 'Soft', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="outline" <?php selected( $settings['card_style'], 'outline' ); ?>><?php esc_html_e( 'Outline', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="filled" <?php selected( $settings['card_style'], 'filled' ); ?>><?php esc_html_e( 'Filled', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-				<tr><th><label for="nodevora-setting-typography_preset"><?php esc_html_e( 'Typography preset', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-setting-typography_preset" name="rewardly_loyalty_settings[typography_preset]"><option value="default" <?php selected( $settings['typography_preset'], 'default' ); ?>><?php esc_html_e( 'Default', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="compact" <?php selected( $settings['typography_preset'], 'compact' ); ?>><?php esc_html_e( 'Compact', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="modern" <?php selected( $settings['typography_preset'], 'modern' ); ?>><?php esc_html_e( 'Modern', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-				<?php foreach ( array( 'button_background' => __( 'Button background', 'nodevora-customer-rewards-for-woocommerce' ), 'button_text' => __( 'Button text', 'nodevora-customer-rewards-for-woocommerce' ), 'button_hover_background' => __( 'Button hover background', 'nodevora-customer-rewards-for-woocommerce' ), 'button_hover_text' => __( 'Button hover text', 'nodevora-customer-rewards-for-woocommerce' ), 'card_background' => __( 'Card background', 'nodevora-customer-rewards-for-woocommerce' ), 'card_border' => __( 'Card border', 'nodevora-customer-rewards-for-woocommerce' ) ) as $key => $label ) : ?>
-				<tr><th scope="row"><label for="nodevora-<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></label></th><td><input id="nodevora-<?php echo esc_attr( $key ); ?>" type="text" pattern="#[a-fA-F0-9]{3}([a-fA-F0-9]{3})?" placeholder="#243b53" name="rewardly_loyalty_settings[<?php echo esc_attr( $key ); ?>]" value="<?php echo esc_attr( $settings[$key] ?? '' ); ?>"><p class="description"><?php esc_html_e( 'Optional hex color. Leave empty to follow the preset. Check text contrast after changing colors.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p></td></tr>
-				<?php endforeach; ?>
-				<tr><th scope="row"><label for="nodevora-density"><?php esc_html_e( 'Spacing', 'nodevora-customer-rewards-for-woocommerce' ); ?></label></th><td><select id="nodevora-density" name="rewardly_loyalty_settings[density]"><option value="comfortable" <?php selected( $settings['density'], 'comfortable' ); ?>><?php esc_html_e( 'Comfortable', 'nodevora-customer-rewards-for-woocommerce' ); ?></option><option value="compact" <?php selected( $settings['density'], 'compact' ); ?>><?php esc_html_e( 'Compact', 'nodevora-customer-rewards-for-woocommerce' ); ?></option></select></td></tr>
-			</table>
-			<?php submit_button(); ?>
-		</form>
-		<?php
-	}
+	private static function render_design_tab() { Nodevora_Design_Admin::render(); }
 
 	private static function render_shortcodes_tab() {
 		$settings = Rewardly_Loyalty_Helpers::get_settings();
@@ -249,6 +226,7 @@ class Rewardly_Loyalty_Admin {
 	}
 
 	private static function render_pro_features_tab() {
+		if(!Nodevora_Access::advanced()){echo '<section class="rewardly-admin-card"><p>'.esc_html__('Enable Advanced mode to review detailed rules, exclusions, expiration and access settings. Existing advanced values remain active.','nodevora-customer-rewards-for-woocommerce').'</p></section>';return;}
 		self::render_advanced_rules_tab();
 		self::render_extra_points_tab();
 		self::render_campaigns_tab();
@@ -411,7 +389,7 @@ class Rewardly_Loyalty_Admin {
 				</ol>
 			</div>
 		</div>
-		<?php self::render_debug_tab(); ?>
+		<?php if(Nodevora_Access::advanced()&&current_user_can('manage_options')){self::render_debug_tab();} ?>
 		<?php
 	}
 

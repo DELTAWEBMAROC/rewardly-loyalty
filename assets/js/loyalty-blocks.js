@@ -23,7 +23,7 @@
 				.catch(function (response) { setError(response.message || __('Unable to update points. Please try again.', 'nodevora-customer-rewards-for-woocommerce')); })
 				.finally(function () { setBusy(false); });
 		}
-		return el('section', {className: 'rewardly-loyalty-box nodevora-block-card', 'aria-labelledby': id + '-title', 'aria-busy': busy},
+		return el('section', {className: 'rewardly-loyalty-box nodevora-block-card', 'data-nodevora-context': isCart ? 'cart' : 'checkout', 'aria-labelledby': id + '-title', 'aria-busy': busy},
 			el('h3', {id: id + '-title'}, __('Your loyalty rewards', 'nodevora-customer-rewards-for-woocommerce')),
 			el('p', {className: 'nodevora-earning', 'aria-live': 'polite'}, sprintf(_n('This order earns up to %s point.', 'This order earns up to %s points.', state.potential, 'nodevora-customer-rewards-for-woocommerce'), state.potential)),
 			state.logged_in && card ? el('div', null,

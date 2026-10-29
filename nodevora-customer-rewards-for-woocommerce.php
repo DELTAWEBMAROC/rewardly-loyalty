@@ -66,6 +66,7 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/shortcodes/class-rewardly-loyalty
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-access.php';
 Nodevora_Access::init();
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-data.php';
+require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-design-admin.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-settings.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin-adjustments.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin.php';
