@@ -63,6 +63,8 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-rewardly-loyalty-prod
 require_once REWARDLY_LOYALTY_PATH . 'includes/front/class-nodevora-loyalty-blocks.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/design/class-rewardly-loyalty-design.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/shortcodes/class-rewardly-loyalty-shortcodes.php';
+require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-access.php';
+Nodevora_Access::init();
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-settings.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin-adjustments.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin.php';
@@ -98,6 +100,8 @@ function rewardly_loyalty_activate() {
 	if ( ! wp_next_scheduled( REWARDLY_LOYALTY_CRON_HOOK ) ) {
 		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', REWARDLY_LOYALTY_CRON_HOOK );
 	}
+	Nodevora_Installation::activate();
+	set_transient( 'nodevora_activation_redirect', get_current_user_id(), 120 );
 	flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'rewardly_loyalty_activate' );

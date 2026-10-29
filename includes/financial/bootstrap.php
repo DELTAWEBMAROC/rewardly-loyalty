@@ -12,3 +12,4 @@ require_once __DIR__ . '/class-nodevora-financial-lifecycle.php';
 require_once __DIR__ . '/class-nodevora-financial-recovery.php';
 require_once __DIR__ . '/class-nodevora-financial-readiness.php';
 require_once __DIR__ . '/class-nodevora-financial-setup.php';
+require_once __DIR__ . '/class-nodevora-installation.php';

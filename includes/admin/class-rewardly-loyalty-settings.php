@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Rewardly_Loyalty_Settings {
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
-		add_filter( 'option_page_capability_rewardly_loyalty_group', function() { return 'manage_woocommerce'; } );
+		add_filter( 'option_page_capability_rewardly_loyalty_group', function() { return 'nodevora_edit'; } );
 	}
 
 	public static function register_settings() {

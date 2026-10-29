@@ -20,6 +20,7 @@ class Nodevora_Financial_Wallet {
 	}
 	public function read( $user_id ) {
 		$db = $this->connect(); $w = $db->one( 'SELECT * FROM ' . $db->table('wallet') . ' WHERE user_id=?', array( self::points($user_id) ) );
+		if ( ! $w ) { $db->close(); Nodevora_Installation::ensure_wallet( (int) $user_id ); $db = $this->connect(); $w = $db->one( 'SELECT * FROM ' . $db->table('wallet') . ' WHERE user_id=?', array( self::points($user_id) ) ); }
 		if ( ! $w || 'ready' !== $w['state'] ) { throw new Nodevora_Financial_Error( 'Account requires migration or reconciliation.' ); }
 		$eligible = $db->one( 'SELECT COALESCE(SUM(remaining-reserved),0) AS amount FROM ' . $db->table('lot') . ' WHERE user_id=? AND (expires_at IS NULL OR expires_at>UTC_TIMESTAMP())', array($user_id) );
 		$w['available'] = max( 0, (int) $eligible['amount'] - (int) $w['debt'] ); $db->close(); return $w;
@@ -27,6 +28,7 @@ class Nodevora_Financial_Wallet {
 	public function apply( $user_id, $key, $kind, $amount, $details = array() ) {
 		self::points($user_id); self::points($amount);
 		if ( $user_id < 1 || ! is_string($key) || strlen($key)>191 || ! preg_match('/^[A-Za-z0-9:_\-.]+$/D',$key) || ! in_array($kind,array('credit','debit','reserve','commit','release','reverse','restore','expire','control'),true) ) { throw new Nodevora_Financial_Error('Invalid operation identity.'); }
+		Nodevora_Installation::ensure_wallet( (int) $user_id );
 		$writes_paused=Nodevora_Financial_Setup::paused();
 		$payload = json_encode(self::canonical(array('user'=>$user_id,'kind'=>$kind,'amount'=>$amount,'details'=>$details)),JSON_THROW_ON_ERROR); $hash=hash('sha256',$payload);
 		for($attempt=0;$attempt<3;$attempt++) {

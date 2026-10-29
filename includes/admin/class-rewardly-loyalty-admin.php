@@ -7,11 +7,11 @@ class Rewardly_Loyalty_Admin {
 	}
 
 	public static function add_menu() {
-		add_submenu_page( 'woocommerce', __( 'Nodevora Customer Rewards for WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ), __( 'Nodevora Rewards', 'nodevora-customer-rewards-for-woocommerce' ), 'manage_woocommerce', 'rewardly-loyalty-settings', array( __CLASS__, 'render_page' ) );
+		add_menu_page( __( 'Nodevora Customer Rewards for WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ), __( 'Nodevora Rewards', 'nodevora-customer-rewards-for-woocommerce' ), 'nodevora_view', 'rewardly-loyalty-settings', array( __CLASS__, 'render_page' ) );
 	}
 
 	public static function enqueue_assets( $hook ) {
-		$is_settings_page = 'woocommerce_page_rewardly-loyalty-settings' === $hook;
+		$is_settings_page = 'toplevel_page_rewardly-loyalty-settings' === $hook;
 		$is_product_page  = in_array( $hook, array( 'post.php', 'post-new.php' ), true ) && 'product' === get_post_type();
 
 		if ( ! $is_settings_page && ! $is_product_page ) {
@@ -132,12 +132,13 @@ class Rewardly_Loyalty_Admin {
 
 
 	public static function render_page() {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) { wp_die( esc_html__( 'You are not allowed to manage rewards.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 403 ) ); }
+		if ( ! Nodevora_Access::can_view() ) { wp_die( esc_html__( 'You are not allowed to manage rewards.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 403 ) ); }
 		$tabs        = self::get_tabs();
 		$current_tab = self::get_current_tab(); ?>
-		<div class="wrap">
+		<div class="wrap nodevora-admin <?php echo Nodevora_Access::advanced() ? 'is-advanced' : 'is-simple'; ?>">
 			<h1><?php esc_html_e( 'Nodevora Customer Rewards for WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ); ?></h1>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Configure the loyalty program, adjust customer balances, place shortcodes and manage all loyalty tools from a single place.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
+			<?php Nodevora_Access::mode_control(); ?>
 			<nav class="rewardly-admin-tabs"><?php foreach ( $tabs as $tab_key => $tab_data ) { self::render_tab_link( $tab_key, $tab_data, $current_tab ); } ?></nav>
 			<?php
 			switch ( $current_tab ) {

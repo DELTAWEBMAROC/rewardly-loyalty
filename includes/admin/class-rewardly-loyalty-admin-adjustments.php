@@ -23,7 +23,7 @@ class Rewardly_Loyalty_Admin_Adjustments {
 	}
 
 	public static function handle_form() {
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! Nodevora_Access::can_edit() || ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_die( esc_html__( 'Sorry, you are not allowed to manage loyalty points.', 'nodevora-customer-rewards-for-woocommerce' ), '', array( 'response' => 403 ) );
 		}
 
