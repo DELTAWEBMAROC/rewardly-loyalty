@@ -1,0 +1,14 @@
+{
+  "method": "Inactive official4.8.5 package under recognized legacy identity; active-identity guard tested in one isolated process without persisting active_plugins",
+  "genuine_historical_rewardly_package_certified": false,
+  "normal": {
+    "version": "4.8.6",
+    "official_runtime": true,
+    "inactive_files_present": true
+  },
+  "guard": {
+    "second_runtime_refused": true,
+    "no_candidate_authority_initialized": true
+  },
+  "status": "PASS"
+}

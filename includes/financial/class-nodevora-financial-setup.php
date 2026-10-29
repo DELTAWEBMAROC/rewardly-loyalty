@@ -92,6 +92,9 @@ class Nodevora_Financial_Setup {
 			if ( 'migrating' !== $s['phase'] ) { throw new Nodevora_User_Error( __('This store needs an administrator review before synchronization can continue.','nodevora-customer-rewards-for-woocommerce') ); }
 			if ( ! empty($s['batch']) ) { self::perform('migrate'); return array('complete'=>false,'processed'=>(int)(self::state()['processed']??0)); }
 			if ( empty($s['scan_complete']) ) { self::perform('inspect'); return array('complete'=>false,'processed'=>(int)($s['processed']??0)); }
+			// Une inscription après le dernier lot vide impose une nouvelle découverte, jamais un blocage sans reprise.
+			global $wpdb;
+			if($db->one('SELECT ID FROM `'.$wpdb->users.'` WHERE ID>? ORDER BY ID LIMIT 1',array((int)$s['cursor']))){$s['scan_complete']=false;self::save($s);self::perform('inspect');return array('complete'=>false,'processed'=>(int)($s['processed']??0));}
 			// Une fin explicite, sans autoriser une file de récupération historique.
 			self::activate_state($s,true,true,false); update_option('nodevora_installation_status','ready',false);
 			return array('complete'=>true,'processed'=>(int)($s['processed']??0));

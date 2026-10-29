@@ -1,0 +1,237 @@
+{
+  "valid": 259,
+  "review": 260,
+  "bulk": 261,
+  "zero": [
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    271,
+    272,
+    273,
+    274,
+    275,
+    276,
+    277,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288,
+    289,
+    290,
+    291,
+    292,
+    293,
+    294,
+    295,
+    296,
+    297,
+    298,
+    299,
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329,
+    330,
+    331
+  ],
+  "order": 288,
+  "settings": {
+    "enabled": "yes",
+    "earn_points_per_dh": 3,
+    "redeem_points_per_dh": 20,
+    "min_points_to_redeem": 100,
+    "max_discount_per_order": 0,
+    "order_status_trigger": "completed",
+    "points_expiration_days": 365,
+    "email_notifications": "no",
+    "notice_display_mode": "both",
+    "primary_color": "#123456",
+    "accent_color": "#12b8a6",
+    "border_radius": 12,
+    "enable_front_styles": "yes",
+    "delete_data_on_uninstall": "no",
+    "design_template": "default",
+    "icon_style": "default",
+    "button_style": "rounded",
+    "card_style": "soft",
+    "typography_preset": "default",
+    "license_key": "",
+    "license_status": "inactive",
+    "license_plan": "free",
+    "license_instance_id": "",
+    "license_last_check": "",
+    "license_expires_at": "",
+    "license_grace_until": "",
+    "license_activated_domain": "",
+    "pro_exclude_sale_products": "no",
+    "pro_excluded_product_ids": [],
+    "pro_excluded_category_ids": [],
+    "pro_category_rules": [],
+    "pro_points_registration": 0,
+    "pro_points_first_order": 0,
+    "pro_points_review": 0,
+    "pro_points_birthday": 0,
+    "pro_referral_points": 0,
+    "pro_pending_points_notice_enabled": "no",
+    "pro_pending_points_notice_text": "You will earn {points} point(s) from your order for {product_name} once {order_link} is completed.",
+    "pro_pending_points_statuses": [
+      "pending",
+      "on-hold",
+      "processing"
+    ],
+    "pro_levels_enabled": "no",
+    "pro_level_bronze_threshold": 100,
+    "pro_level_silver_threshold": 500,
+    "pro_level_gold_threshold": 1000
+  },
+  "valid_meta": {
+    "nickname": [
+      "m06d_valid_e9b80431"
+    ],
+    "first_name": [
+      ""
+    ],
+    "last_name": [
+      ""
+    ],
+    "description": [
+      ""
+    ],
+    "rich_editing": [
+      "true"
+    ],
+    "syntax_highlighting": [
+      "true"
+    ],
+    "infinite_scrolling": [
+      "true"
+    ],
+    "comment_shortcuts": [
+      "false"
+    ],
+    "admin_color": [
+      "modern"
+    ],
+    "use_ssl": [
+      "0"
+    ],
+    "show_admin_bar_front": [
+      "true"
+    ],
+    "locale": [
+      ""
+    ],
+    "wp_capabilities": [
+      "a:1:{s:8:\"customer\";b:1;}"
+    ],
+    "wp_user_level": [
+      "0"
+    ],
+    "dismissed_wp_pointers": [
+      ""
+    ],
+    "rewardly_loyalty_points_balance": [
+      "123"
+    ],
+    "rewardly_loyalty_point_lots": [
+      "a:1:{i:0;a:7:{s:2:\"id\";s:27:\"lot_6ae3a43ed962e5.63369763\";s:12:\"points_total\";i:123;s:16:\"points_remaining\";i:123;s:9:\"earned_at\";s:19:\"2026-10-29 20:53:34\";s:11:\"source_type\";s:10:\"adjust_add\";s:8:\"order_id\";i:0;s:4:\"note\";s:33:\"Mission06D authentic4.8.5 fixture\";}}"
+    ],
+    "_rewardly_bonus_registration_awarded": [
+      "yes"
+    ]
+  },
+  "review_meta": {
+    "nickname": [
+      "m06d_review_acb5af08"
+    ],
+    "first_name": [
+      ""
+    ],
+    "last_name": [
+      ""
+    ],
+    "description": [
+      ""
+    ],
+    "rich_editing": [
+      "true"
+    ],
+    "syntax_highlighting": [
+      "true"
+    ],
+    "infinite_scrolling": [
+      "true"
+    ],
+    "comment_shortcuts": [
+      "false"
+    ],
+    "admin_color": [
+      "modern"
+    ],
+    "use_ssl": [
+      "0"
+    ],
+    "show_admin_bar_front": [
+      "true"
+    ],
+    "locale": [
+      ""
+    ],
+    "wp_capabilities": [
+      "a:1:{s:8:\"customer\";b:1;}"
+    ],
+    "wp_user_level": [
+      "0"
+    ],
+    "dismissed_wp_pointers": [
+      ""
+    ],
+    "rewardly_loyalty_points_balance": [
+      "99"
+    ],
+    "wc_last_active": [
+      "1793303615"
+    ]
+  },
+  "bulk_lots_hash": "ffedb4ed18a8021f75a72fe5f2a0964350b6b0702fac4e86f1cd8aec6f0d9ac3"
+}

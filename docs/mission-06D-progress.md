@@ -1,91 +1,160 @@
-# Mission 06D — SAFE STOP / reprise exacte
+# Mission 06D — SAFE PAUSE 02 / reprise exacte
 
-**État : INCOMPLET, WIP sauvegardé, développement arrêté à la demande de l’utilisateur.**
-Date : 29 octobre 2026. Avancement estimatif : **65 %** (estimation, pas un taux de tests réussis).
-Dépôt Git : `github/`. Branche : `feat/nodevora-4.8.6-financial-foundation`.
-Base : `d4936e165eb75300aff483d5685d97e9c5626077`.
-**Dernier commit sauvegardé (documentation et checkpoint) : `0f98eb535f6723d06e2824327b683809812713a6`. Arbre Git propre.**
-Dernier commit d’implémentation WIP : `855a7c8a00a1d453a9d8398263db888fed3c3bc7`.
-Le commit documentaire qui contient ce checkpoint s’identifie avec `git log -1 --format=%H -- docs/mission-06D-progress.md` ; le SHA final est également enregistré dans le rapport local après ce commit.
-`main` local inchangé : `eca72d6c08184ed5dd7e28b4e52abc98ebf342ef`.
-Aucun push Mission06D ni modification de PR#2, aucun merge/tag/release/publication/SVN. L’état distant n’a pas été recontrôlé pendant cet arrêt.
-**Pas de ZIP final.** Métadonnées source toujours4.8.5 ; archives de développement privées4.8.5 uniquement, non livrables.
+**Mission INCOMPLÈTE, développement arrêté à la demande de l’utilisateur.**
+Checkpoint du 29 octobre 2026 ; pause LocalWP vérifiée à 20:08:30 UTC.
+Avancement estimé : **90 %**, estimation de travail et non pourcentage de tests réussis.
+
+- Dépôt : `/Users/user/Desktop/work/nodevora-plugin/github`.
+- Branche : `feat/nodevora-4.8.6-financial-foundation`.
+- Dernier commit avant cette sauvegarde : `5a801e0b7a639fe1c514333ceeb91cc93cfae4f1`.
+- Correction précédente : `ee67cac` ; checkpoint de reprise précédent : `0f98eb535f6723d06e2824327b683809812713a6`.
+- Le commit WIP contenant ce fichier est le nouveau checkpoint ; son SHA exact est ajouté après commit au rapport local `audit-reports/mission-06D-progress.md`, hors dépôt. Pour retrouver ce commit dans Git : `git log -1 --format=%H -- docs/mission-06D-progress.md`.
+- `main` local inchangé : `eca72d6c08184ed5dd7e28b4e52abc98ebf342ef`.
+- Dernière vérification distante pendant la reprise : main au même SHA ; développement `d4936e165eb75300aff483d5685d97e9c5626077`. PR #2 ouverte, Draft et non fusionnée. Aucun push Mission 06D, aucun changement de PR pendant cette pause. Le distant n’est pas reconsulté pour créer une nouvelle phase de livraison.
+- **Aucun ZIP final QA, release, tag, merge, changement main ou SVN.** Trois archives privées d’intégration existent, non livrables.
 
 ## Autorisation et périmètre
 
-L’utilisateur a explicitement identifié **LocalWP nodevora-plugin / http://localhost:10004 / DB local** comme démonstration jetable et autorisé la réinitialisation de ses seules données fictives. Cette autorisation remplace la restriction antérieure de conservation de CE site. Aucun autre site ou fixture06B/06C n’a été touché. Nom/path LocalWP et URL vérifiés avant les resets. Aucun identifiant de connexion conservé dans Git ou les rapports.
-Spécification complète : pièce jointe `689ce5a8-7143-4852-bc2b-5de730dee2eb/Pasted text.txt`.
+Seul le site jetable explicitement autorisé **LocalWP nodevora-plugin / http://localhost:10004/** a été manipulé. Identité recoupée : Local id `6JRuOv4ug`, docroot `/Users/user/Local Sites/nodevora-plugin/app/public`, DB `local`. Les autorisations de reset concernent ses seules données fictives. Aucun autre site, environnement de production ou fixture antérieure n’a été modifié. Aucun identifiant de connexion n’est conservé dans Git ou les rapports.
 
-## Phases et décisions
+Spécification : pièce jointe `689ce5a8-7143-4852-bc2b-5de730dee2eb/Pasted text.txt`. Les limitations financières antérieures demeurent : aucune politique proportionnelle de remboursement partiel, aucun contournement des gates, aucun drainage d’une file inconnue, aucune migration de production.
 
-1. **Fondations installation vierge : implémentées et premier parcours vérifié.** Détection conservatrice des tables/journaux/soldes/lots/claims/commandes HPOS/métadonnées. Schéma automatique uniquement sans preuve historique, autoritéWallet persistante, créationparesseuse0, échec fermé et réparation. Aucun retour legacy. Dernier élargissement frais/marqueurs doit être retesté avant certification fraîche.
-2. **Synchronisation marchand : implémentée, parcours UI4.8.5 testé.** Lots20, état/curseur/checksums persistés, sources et snapshots immuables, reprise réseau, quarantaine. Ancien menuFinancialSetup supprimé ; Data/Synchronisation dans panneau unique. Attestation externe nécessaire, interruption checkout clairement expliquée ; aucun contrôle fictif sur les writers externes. Aucun drainage automatique des anciennes files. Revue récupération avancée ajoutée mais pas encore validée.
-3. **Backup/Restore : prototype fonctionnel vérifié, durcissement encore WIP.** NDJSON privé borné32Mio/100000records/1Mioligne, vueDBcohérente, empreintes et références, previewHMAC+nonce+permissions, import transactionnel ciblevideuniquement, pausepartagée sur wallets, étatrestore_review aprèsimport. Format désormais2 avec métadonnéesfrais/pending et empreintes tombstones pour entités supprimées. Les testsréussis7lignes/UI portent sur FORMAT1 prototype ; **ne pas les présenter comme certification FORMAT2**.
-4. **UX/modes/design/permissions : implémentés, validation partielle.** Simple/Advanced par utilisateur, valeursavancées conservées, éditeurNodevora scopedCSSvariables/presets/paletteWordPress+HEX/reset/previewiframe, composantsCart/Checkout/Account/History/Notices. Panneauunique, Editoroptionnelreadonly, ShopManagerpar défaut, admins_only, gatesPOST/AJAX/export/import, guardréglageproduitREST/meta. Matrice complète non exécutée. Aucun suivi du thème, aucune dépendance lourde. Traductions438messages compilées ; comportementFR réel final reste à vérifier.
-5. **Régressions/compatibilité : à terminer**, pas de rejeu global des anciens audits. Aucun résultatMission05/06/06B/06C revendiqué comme nouveauPASS06D.
-6. **Packaging4.8.6, rapportfinal, matriceQAindépendante, pushdev et PRdraft : NONCOMMENCÉS.** Ne produire ZIPfinal qu’après corrections et tests requis.
+## Phases terminées et décisions techniques
 
-## Vérifications réellement exécutées
+1. Installation vierge et synchronisation : implémentées et testées sur le vrai installateur WordPress. Schéma vérifié, autorité wallet, wallets créés à la demande, aucun import global sur une boutique fraîche. Synchronisation marchande par lots bornés de 20, snapshots/checksums, reprise et quarantaine ; pas de migration silencieuse. L’arrivée d’un compte après le dernier lot vide provoque une nouvelle découverte bornée avant cutover.
+2. Registration et messages : défaut checksum NULL reproduit puis corrigé ; réparation limitée au snapshot vide reconnu généré par ce chemin. Barrière partagée avec restauration, échec conservé en attente. Instructions métier localisées conservées par type d’erreur fiable ; exceptions internes masquées, mapping EN/FR vérifié.
+3. Backup/Restore format 2 : export NDJSON borné (32 Mio, 100000 enregistrements, 1 Mio par ligne), snapshot cohérent, intégrité, références et tombstones, métadonnées Nodevora uniquement. Import seulement sur cible Nodevora vide, confirmation du fichier exact, transaction/rollback, moteurs transactionnels et verrous d’identités, phase review puis reprise explicite. Aucun remplacement d’une base ayant de nouvelles transactions.
+4. Admin et design : panneau unifié, Simple/Advanced par utilisateur, réglages avancés conservés, permissions serveur, palette WordPress/HEX/presets/preview/reset. Grille Data corrigée à 320 px. Dernier ajustement : classe de grille sur le formulaire de revue des remboursements, rendu desktop vérifié ; sa vérification mobile finale ciblée reste à faire.
+5. Régressions et intégration : parcours réel ajustement 300, gain 200, dépense 119/remise 5,95 ; Classic/Blocks, concurrence, refund hold, Woo absent/rétabli, réinstallation, vraie migration du package officiel 4.8.5 vers la candidate 4.8.6. Preuves détaillées ci-dessous.
+6. Livraison : matrice de future QA indépendante rédigée, **pas exécutée**. Rapport final, acceptation des derniers bits de l’archive, ZIP final, push dev et mise à jour PR Draft **restants**.
 
-- BootstrapZIPdéveloppement installé/activé via installateurWordPress ; schéma/prêt/authoritywallet. FormulaireUIajustement réel0→300. Replayidentitédujournal :300inchangés, un crédit, un wallet créé àlademande, invariantsPASS. `fresh-300-journal-retry.json`, `adjustment-300-browser.png`. L’ancienne capture d’identitédeformulaire contientnull ; ne pas la citer comme preuve.
-- Prototypebackup export7rows, corruptionrefusée ; cibleactive300refusée sansaltération ; cibleNodevora vidée uniquement aprèsbackupSQL puis importbibliothèque7checksPASS, mêmeswallet/journal/lots/checksum ; barrièreDBrestoring malgré cacheWPactive refusecrédit. `export-inspection.json`, `restore-active-refused.json`, `restore-compatible-library.json`.
-- **UI réelle backup FORMAT1** : previewactive refusée ; ciblevidéeaprèsbackup, preview/importconfirmé/repriseexplicite réussis ; export téléchargé5888octets, SHA256cd069c86eb8bde6803a09fb479a5aa9bc18893915820287befe1958e4d9b1f85 ; solde300/revision1/invariants, récupérationnonapprouvée. `backup-import-ui.json`, `import-resume-browser.png`.
-- **AuthentiqueZIPofficiel4.8.5** SHA25686e0dabe18533cc694a2a0fcf2ca2a81121e1239610762efc015ff38dacff37a réellement installé, donnéesseedées viaHelperancienneversion puis updatecandidatWIP. Pas encore candidat4.8.6final. UIattestationrequise, reloadinterruption(cursor100/batch20/wallets100), driftinjectérefusé, seuleinjection annulée, UIreprisecomplète : **15comparaisonsPASS**, bon123, mauvais99isolé,1000lots/1000points/expirations/source/settings/commandes préservés. `official-485-before.json`, `official-485-activated.json`, `sync-ui-interruption.json`, `sync-ui-drift.json`, `official-485-sync-after.json`.
-- UI design : HEX#156058 reflété danspreview(buttonrgb21,96,88), presetMinimal, mobilepreview, paletteWordPresschoix#12b8a6, reset déclenché sanssave ; modeAdvancedpersisté sans modifier règles3/365. Ce n’est pas encore une validation complète sauvegarde/reset/roles/responsive.
-- **SAFE STOP rapide : PASS** syntaxe35fichiersruntime surPHP8.2 etPHP8.3,5JS viaNode--check, gettextcheck/format438messagestraduits, gitdiff--check. `safe-stop-syntax.json`. Aucun testfonctionnel ou migration supplémentaire démarré pour l’arrêt.
+## Tests réellement exécutés — PASS
 
-## Problèmes / risques à reprendre en premier
+Les preuves JSON citées sont conservées dans `audit-reports/mission-06D-evidence/` et leur sélection sans secrets dans `github/tests/remediation/mission-06d-evidence/`. Les preuves originales ne sont pas écrasées. Ne pas additionner les nombres ci-dessous en un total de couverture : certaines validations se recoupent.
 
-- **Contrôle checksumRestore à vérifier immédiatement** : la nouvelle validation refusewallet.checksumNULL ; `Nodevora_Financial_Lifecycle::registration()` crée encore des comptesneufs sans renseigner cette colonne. Incompatibilitépotentielle entre nouveaucompte etrestauration ; pas encore reproduite. Ajouter un testciblé puis corrigercohéremment l’initialisation/validation, sans dégrader l’intégrité.
-- `Nodevora_Data::message()` WIP : un message déjàtraduit arrive inchangé àtranslate(), donc peut tomber sur le fallbackgénérique ; compléter la correspondance sûre des erreurs UIenEN/FR et garder des instructionsactionnables. Aucun secret ou exceptionDBbruteàafficher.
-- Enregistrer un compte neuf pendantune migration/restore : revue nécessaire du cheminregistration et de sa barrièrepartagée ; ne pas inventer/rejouer un bonus historique.
-- Format2 : retester références order/refund/item, tombstones, snapshot/journal/lot/outbox, doublons, cachemetadata, races/retries et rollbackatomique. MoteursDButilisés pour identitésWoo àrevérifierdansbackupcohérent. Bornes tailles/objets/version/fichierinvalide àchallenger.
-- Détectionfreshinitiale/resetprototype n’incluaitpas les métadonnéesfrais ; code etscriptreset corrigés, certificationfreshàrefaireavecZIPfinal. Ne pas reprendre lesrésultatsantérieurs comme preuveexclusive.
-- ContrôlespermissionsproduitREST/meta, récupérationrevueavecempreinte, UIadvancedreadonly, gardeanti-bypass et EN/FR320/390/desktop encore àtester. Préserver règles de remboursementpartiel existantes, aucunepolitiqueproportionnelle.
-- PHP7.4, WP6.4, Woo8.2 ne sontpas certifiés parcescontrôlessyntaxe. Réutiliser seulement lespreuves antérieures enles identifiant, puis tests ciblés accessibles. Productionjamaisautorisée.
-- Aucun blocageoutil/authentification nouveau constaté ; arrêt uniquement demandé parutilisateur. Testsfinaux/QAindépendante nonréalisés.
+| Domaine | Résultat et preuve |
+|---|---|
+| Registration | Échec initial checksum NULL confirmé, puis initialisation/réparation bornée et barrière DB restoring PASS : `registration-before.json`, `registration-after.json`, `registration-barrier.json` |
+| Messages EN/FR | Instructions fiables conservées et diagnostics inconnus masqués : `messages-en-fr.json` |
+| Format 2 bibliothèque | 35 contrôles PASS sur WIP, puis 35 sur candidate 4.8.6 : 2960 enregistrements, 1204089 octets ; corruptions, versions, doublons, références, objets et options non autorisés refusés, rollback intégral, égalité des données/restauration/invariants : `format2-roundtrip-486.json` |
+| Format 2 interface | Preview/import/review/reprise via interface réussis ; endpoint export HTTP200 NDJSON valide, en-têtes téléchargement, solde300/invariants : `format2-ui-486.json`. Les anciens tests format1 ne servent pas de preuve format2 |
+| Stockage | 3 contrôles PASS : moteur cible non transactionnel simulé refusé avant insertion ; vrai verrou partagé d’identité face à update indépendant (timeout1205) ; primitive de snapshot export stable malgré crédit concurrent : `storage-and-reference-locks.json` |
+| Permissions | 128 assertions HTTP PASS, quatre politiques, Admin/ShopManager/Editor/Customer/Subscriber/Guest, URL/options.php/admin-post/AJAX/REST : `permissions-http.json` |
+| Finance ciblée | 18 assertions refund hold/callbacks/programme désactivé/résolution/recovery et 12 smoke financement/COD/BACS/zéro/reversal/StoreAPI/invariants PASS : `financial-targeted.json`, `smoke-targeted.json` |
+| Concurrence | 3 scénarios PASS : deux débits80 sur100, crédit100 dupliqué, écriture engagée puis pause/callback tardif : `concurrency-targeted.json` |
+| Design | 11 contrôles PASS : modes, HEX/palette/presets, sauvegarde, préservation Advanced, resets, preview/contraste : `ui-design.json` |
+| Responsive Admin | 42 vues EN/FR ×320/390/1280, sept onglets, labels et bounds PASS après correction Data360→320 : `admin-responsive.json`. Dernière classe du formulaire refund à recontrôler de façon ciblée |
+| Responsive frontend | 36 vues Classic Cart/Checkout, Blocks Cart/Checkout, compte et shortcodes, EN/FR ×320/390/1280 PASS ; pas de débordement ni Dispatch : `frontend-responsive.json` |
+| Fresh réel | Upload ZIP/Install/Activate via WordPress, 257 utilisateurs existants, zéro wallet initial, aucune étape Financial Setup ; configuration puis ajustement UI0→300, retry journal sans double crédit : `fresh-486-bootstrap.json`, `fresh-486-adjustment-replay.json` |
+| Achat/gain réel | Utilisateur : Classic commande288 à100MAD COD, puis Completed ; gain200, wallet500, événement unique/invariants : `fresh-486-cash-earning-ui.json` |
+| Dépense financée réelle | Application119 points Classic persistée dans Blocks ; utilisateur : commande289 à94,05MAD, fee−5,95, débit119, wallet381/reserved0/debt0, état dispatched/invariants : `fresh-486-blocks-funded-ui.json` |
+| Woo et réinstallation | 6 contrôles PASS : Woo inactif sans fatal, trois HTTP200, retour init Blocks ; désinstallation/réinstallation sans nettoyage conserve tables/préférences/autorité : `dependencies-reinstall-486.json` |
+| Authentique485 vide | Package officiel485→486 : ready/fresh, zéro wallet, réglages conservés : `official-485-empty-to-486.json` |
+| Authentique485 avec données | Activation candidate sans migration automatique ; reprise par endpoints supportés puis bouton marchand UI ; 15 comparaisons persistantes PASS :123 cohérent,99 isolé,1000 points/1000 lots/expirations, sources/settings/commande/opening/invariants conservés : `official-485-final-before.json`, `official-485-final-activated.json`, `official-485-final-after.json` |
+| Nouvelle inscription tardive | Après dernier lot vide, user332 redécouvert dans un lot avant cutover ; aucune autorité activée prématurément : `sync-final-new-account-race.json` |
+| Recovery revue | Empreinte périmée refusée, aucun effet livré ; nouvelle revue/autorisation explicite UI réussie sans exécution cron, puis pause rétablie : `recovery-review-stale.json`, `recovery-review-ui.json` |
+| Identité historique | Fichiers officiels485 sous chemin legacy reconnu, inactifs et conservés en copie privée ; second runtime refusé dans processus isolé sans changer active_plugins : `historical-file-identity-guard.json`. Ce n’est pas une certification des vrais packages Rewardly3.0.1/4.8.4 |
+| Syntaxe | 42 fichiers PHP runtime+harness sur8.2/8.3 et5JS PASS, 438 messages français compilés/check-format. Dernières petites modifications runtime lintées lors des builds privés ; pas de nouveau rejeu global à la pause : `candidate-syntax-486.json` |
+| Pause02 | Gates persistés, zéro transaction, settings/tables financières identiques avant/après, commandes fictives mises en attente : `safe-pause-02-localwp.json`, `safe-pause-02-backup.json` |
 
-## État EXACT LocalWP au SAFE STOP
+## FAIL corrigés, BLOCKED et limites
 
-- Site toujours lancé : **nodevora-plugin**, URLhttp://localhost:10004, docroot `/Users/user/Local Sites/nodevora-plugin/app/public`, DB`local`, LocalWPid6JRuOv4ug.
-- WordPress7.1.4 / WooCommerce11.2.1 / PHP8.3.30, HPOSfixtureexistante.
-- Setup : **phasepaused**, originsynchronized, authoritywallet, installationstatusready (schémadisponible, ce n’estpas uneautorisationd’écriture), recovery_approvedfalse, marqueurSAFE_STOP06D.
-- **Zéro transactionInnoDBactive** avant etaprèspause. Aucunesync/importfinancierencours.
-- Wallets inchangés :241ready,total1123points ;1needs_review,valeurwallet0, source99conservée. Outbox**vide**, nonpurgée. Commandesfictives etpreuves demeurent ; n’affirme pas que touteslescommandesont étéclôturées.
-- Constantesdémo : WRITES_PAUSED=true, INTEGRATION_ALLOWED=false, QA_TESTING=false, DISABLE_WP_CRON=true, SCHEMA_ALLOWED=false, MIGRATION_ALLOWED=false, WRITERS_DRAINED=false ; aucunQAgateway.
-- MU `nodevora-m06d-safety.php` et `nodevora-qa-safety.php` conservés ; mail etHTTPsortants bloqués. Ne pas les supprimer enreprenant.
-- Réglagesmarchandinchangés entreavant/aprèspause, SHA256serializationfe2d91c31a037b4ab8e3371a1488a89f3e46a799cc564485a85ad36f9ddfc72c. Modeaffichageadmincourantadvanced (changementexplicitedetest), aucunréglagedesign d’essaienregistré.
-- **Runtime installé distinct du dernierGitWIP** : dernièrescorrections financières déjàdéployées, mais `class-nodevora-data.php` (mappingerreurs) etPOT/PO/MOfrançaisfinaux nonencoredéployés. Listeexacte dans `safe-stop-persistence.json`. Ne pas supposerqueGitetLocalWPsontidentiques.
-- PreuveUIpause : `safe-stop-admin.png`. Ongletadminconservépourreprise ; aucunprocessustestPHP/Nodeencoreactif.
+- Défauts reproduits puis corrigés : checksum registration NULL ; overflow Data à320 ; compte arrivé après le dernier scan vide empêchant la fin de synchronisation. Les preuves avant/après sont conservées.
+- Deux erreurs de harness ont été corrigées : syntaxe avant toute transaction, détection de CSS WordPress concaténé. Une lecture preview était prématurée et a été reprise après chargement effectif. Aucun échec initial n’est présenté comme PASS produit.
+- **BLOCKED capture navigateur seulement** : événement téléchargement export non remonté (timeout CUA). Endpoint réel export vérifié séparément ; ne pas prétendre avoir capturé un téléchargement navigateur format2.
+- **Restriction automatique sur les clics financiers** : soumission checkout et enregistrement Completed refusés par le contrôle d’approbation, même sur COD fictif. L’utilisateur a réalisé ces trois clics, puis le journal et les commandes ont été vérifiés. Aucun contournement API/CLI. Parcours validé avec cette intervention humaine, pas en autonomie intégrale.
+- Pas de défaut produit connu restant dans les assertions exécutées ; **acceptation des dernières variantes du package et livraison incomplètes**. Ne pas présenter la mission comme terminée ou la candidate comme prête pour production.
+- Stack complète testée : WordPress7.1.4 / WooCommerce11.2.1 / PHP8.3.30. Bootstrap WordPress/Woo, schéma et lecture wallet réels sur PHP8.2.29 : `php82-bootstrap-486.json`, pas de certification complète checkout8.2. Les minimums déclarés PHP7.4/WP6.4/Woo8.2 ne sont pas nouvellement certifiés par Mission06D ; preuves anciennes distinctes.
+- Pas de certification multisite, gateways arbitraires, SMTP externe, production ou de toutes les anciennes identités/packages historiques. Aucune politique proportionnelle de refund implémentée.
 
-## Sauvegardes et persistance
+## Mesures de performance locales
 
-Touslesrapports/evidenceslocaux sontconservés sous `audit-reports/mission-06D-evidence/`, horsdépôtGit. Copiecheckpointcuratée sanssecrets dans `github/docs/mission-06D-checkpoint-evidence/`.
-Sauvegardes privées désormaiscopiéesdurablement sous **`.private/mission-06D/` au niveauworkspace, hors`github/`**, permissionsdossier0700 ; originauxtemporairesconservés aussi. **Ne jamais ajoutercedossierou lesSQL/wp-config/exportsdansGit.** Pointeurslocaux0600 : `private-location.txt` (tmporiginal) et `durable-private-location.txt` (copiedurable).
-- Avantmission : SQL7286082octets, SHA256d24c6add20ca543f3aa79efee198bcfaf17cb5824fff2b0b0d77275d8bec5c66, copiecomplètedocroot`site-before/`.
-- Backupsprivéssupplémentaires : after-300-before-restore.sql, before-ui-import.sql, before-official-upgrade.sql ; exportsprototypeNodevora etarchivesdéveloppementconservés.
-- Snapshotàl’arrêt : `safe-stop-demo.sql`3342889octets, SHA25619ae0f0082fca6bc865c6619a5940ba05c4923d9c1be7a7609d2fa556fc24946 +`safe-stop-wp-config.php`privé.
-- Scriptscontinuationcopiés dans `.private/mission-06D/session-tools/` ; plusieursréférencentl’ancienpointeurtmp, **adapterlepointdelectureversdurable-private-location.txtsi/tmpn’existeplus**. Ne pas relanceraveuglémentlesreset/builders : plusieursécrasentleursanciennespreuves. Créer variantesnouvellesevidencesauprochaintest.
+`admin-assets-performance.json` : deux GET authentifiés par onglet, site LocalWP complet (thème/autres plugins inclus), pas des Core Web Vitals ni un benchmark production.
 
-## Reprise — prochaine action précise
+| Onglet | Durées HTML (ms) | Taille HTML (octets) |
+|---|---|---|
+| General |1011,9 /891,8|285574|
+| Design |848,3 /1347,5|325290|
+| Data |1336,5 /1114,8|283247|
 
-Attendre une instruction explicite **RESUME MISSION 06D**. Ensuite :
+DesignJS8517 octets et DataJS2243 octets chargés seulement sur leurs onglets ; palette WordPress sur Design uniquement. Aucune nouvelle mesure démarrée pour cette pause.
 
-1. Lire cecheckpoint, vérifierbranche/HEAD propre et identitédémoLocalWP10004. GarderlesgatesSAFE_STOPpendantlarevue. Ne répéteraucunauditcomplet.
-2. **Commencer par le testciblé de cohérence registration→backup/restore checksumNULL** et revue de sa barrièrependantimport. Fixeruniquementle défautreproduit. Puisfinir mappingerreurs EN/FR et validationsformat2/métadonnées/refs/caches/retries.
-3. Déployer WIPàjour surdémoavecscriptadapté seulementaprèscescorrections. Pourtestsfinanciersautorisés, leverdélibérémentuniquementpause/integrationetphasepauseddeCEsite ; gardercrondésactivé, gatesmigration/QAfalse et mailHTTPbloqués, ne jamais vider d’anciennefile. Sauvegarderd’abordsiun nouveauresetestnécessaire. Ne pas exécuterunemigrationautomatiquesurlefixtureactifdéjàsynchronisé.
-4. ComplétertestsUIavancée/paletteHEX/reset/save/preview etmatricerôlesAdmin/ShopManager/Editor/Customer/guest, restrictionON/OFF, URL/POST/AJAX/REST,320/390/desktopEN/FR. Finirrevuerécupérationexplicitementcontrôlée.
-5. Régressionsfinancièrescourtes ciblées concurrence/doublongain/reversal/refundhold/Classic/Blocks/missingWoo+rétablissement/réinstallation, fresh/legacyempty/485avec données etambiguïtés/historiquescoexistants ; préserverpreuvesoriginales. Contrôlescompatibilité réellementaccessibles seulement.
-6. SeulementaprèsPASS : métadonnées4.8.6QA, ZIPruntimepropre au slugofficiel+SHA256, installation/activationréelle+ajustement300+achat/gain/dépensefinancée, nouvelupgradeauthentique485→final486, importformat2réelUI. Rapportfinal/limites/matriceQAindépendante, commitdev/pushseulebranche/PR#2draftetSHAremotevérifié. Aucunmerge/main/SVN/release.
+## État EXACT LocalWP sécurisé
 
-## Fichiers modifiés depuis base
+Preuve : `safe-pause-02-localwp.json`, capture `safe-pause-02-admin.png`.
 
+- Site toujours lancé, identité ci-dessus ; WP7.1.4/Woo11.2.1/PHP8.3.30, Nodevora4.8.6 installé depuis l’archive privée d’intégration3.
+- Setup `phase=paused`, `origin=synchronized`, `authority=wallet`, `installation_status=ready` (schéma prêt, **pas** permission d’écriture), `cursor=332`, `processed=332`, `quarantined=2`, `scan_complete=true`, `batch=[]`, `recovery_approved=false`. Marqueur `safe_pause_checkpoint=02`.
+- **0 transaction InnoDB active. Aucune migration/restauration en cours.** Aucun harness financier actif ni checkout en cours.
+- Constantes : `NODEVORA_FINANCIAL_WRITES_PAUSED=true`, `NODEVORA_FINANCIAL_INTEGRATION_ALLOWED=false`, `NODEVORA_QA_TESTING=false`, `DISABLE_WP_CRON=true`, `NODEVORA_FINANCIAL_SCHEMA_ALLOWED=false`, `NODEVORA_FINANCIAL_MIGRATION_ALLOWED=false`, `NODEVORA_FINANCIAL_WRITERS_DRAINED=false`.
+- QA désactivée, aucun gateway QA. MU `nodevora-m06d-safety.php` et `nodevora-qa-safety.php` conservés ; blocage mail/HTTP sortants maintenu.
+- **330 wallets ready, total1123 points ; 2 needs_review, solde wallet0**. Sources123 cohérent,99 ambigu conservé en quarantaine ; compte tardif332 en attente/quarantaine. Ne pas inventer un bonus ni réparer arbitrairement99.
+- **1 effet outbox pending connu**, attempts0 : projection de test zéro valeur, aucun effet livré ni purgé. Recovery refusée à nouveau malgré l’historique d’approbation conservé. Ne pas vider la file à la reprise.
+- Commandes fictives **288 et289 on-hold** ; aucun paiement, remboursement ou ajustement de points effectué pour la pause. 288 pending→on-hold, total courant95 ; 289 processing→on-hold,94,05. Leur identité fictive a été vérifiée. Données/journal/source immutable conservés.
+- Important : après archivage SQL du parcours fresh300→500→381, le dataset Nodevora a été réinitialisé intentionnellement pour la vraie migration485. La commande288 a été réutilisée comme baseline legacy95. **Le dataset courant n’est donc pas celui des preuves cash100/wallet381** ; celles-ci restent dans les archives privées et preuves dédiées. Ne pas les confondre.
+- Tables financières inchangées par la pause ; préférences marchandes inchangées, SHA256 sérialisation `fe2d91c31a037b4ab8e3371a1488a89f3e46a799cc564485a85ad36f9ddfc72c`.
+- Configurations de test conservées : cart286/checkout287, COD local, langue sitefr_FR, locale opérateuren_US. Valeurs antérieures privées dans `commerce-options-before.json` et `operator-locale-before.json` ; pas de restauration aveugle à la reprise.
+
+## Sauvegardes et archives privées
+
+Dossier durable **`.private/mission-06D/` au niveau workspace, hors `github/`**, permissions0700 ; configs/SQL/scripts privés0600. Ne jamais ajouter ces fichiers, identifiants ou exports à Git. Tous les backups précédents et les preuves restent conservés ; aucun original écrasé. Pointeur local : `audit-reports/mission-06D-evidence/durable-private-location.txt`.
+
+- Avant mission : SQL7286082 octets, SHA256 `d24c6add20ca543f3aa79efee198bcfaf17cb5824fff2b0b0d77275d8bec5c66`, docroot `site-before/`.
+- Pause précédente : `safe-stop-demo.sql`3342889 octets, SHA256 `19ae0f0082fca6bc865c6619a5940ba05c4923d9c1be7a7609d2fa556fc24946` ; ancien rapport conservé `progress-before-pause-02.md`.
+- **Pause02 : `safe-pause-02-demo.sql`3429833 octets, SHA256 `0895a78ba2b23ac076a5cb77da10d389e79d0dbfbb0980828a474901fe6ecb8e`**, `before-pause-02-wp-config.php`, `safe-pause-02-wp-config.php`.
+- Backups uniques avant format2, réinstallation, fresh486 et migration finale conservés, avec exports format1/format2 et options précédentes.
+- Scripts de cette session copiés sans écraser l’ancienne copie dans `session-tools-pause-02/`. Les scripts peuvent pointer vers d’anciens fichiers temporaires : adapter les chemins au dossier durable et créer de nouveaux noms de preuves, ne pas relancer aveuglément les resets.
+- Package officiel485 utilisé : `audit-reports/mission-06-evidence/checkpoint-2/nodevora-customer-rewards-for-woocommerce.4.8.5.zip`, SHA256 `86e0dabe18533cc694a2a0fcf2ca2a81121e1239610762efc015ff38dacff37a`.
+
+Archives privées non finales, 48 fichiers runtime, pas de tests/docs/credentials :
+
+| Archive | Octets | SHA256 | Portée |
+|---|---:|---|---|
+|candidate-486-integration-1.zip|182389|`cf7a37f8e6455450a52d8d7722fd1918a2cd155751896d6d14b54676972bb3dc`|Fresh/300/parcours Classic+Blocks/format2|
+|candidate-486-integration-2.zip|182487|`c0f64cb5ee6f0b5fbf13ad08400096268d563e149bfb06047181f92c19293b8e`|Seul delta runtime : redécouverte inscription tardive ; migration authentique finale validée|
+|candidate-486-integration-3.zip|182492|`11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496`|Actuellement installée ; seul delta vs2 : classe de grille formulaire refund, rendu desktop vérifié|
+
+Le nom final `nodevora-customer-rewards-for-woocommerce-4.8.6-qa.zip` n’a pas été créé. Métadonnées source4.8.6 sur branche de développement uniquement, aucune publication.
+
+## Reprise — première action précise et reste à livrer
+
+**Attendre une instruction explicite RESUME MISSION 06D. Aucun développement après ce checkpoint.**
+
+1. Lire ce rapport, vérifier branche/HEAD/arbre propre et identité du seul site jetable. Conserver toutes les pauses pendant cette vérification. Ne pas recommencer les anciens audits ni les suites déjà PASS.
+2. Reprendre l’acceptation finale de la variante privée3 : vérification mobile EN/FR320/390 du formulaire refund corrigé ; décision documentée et contrôle fresh install/ajustement300 sur les bits finaux si nécessaire. Archiver d’abord le dataset migré courant dans un nouveau backup avant tout reset autorisé. Ne pas répéter inutilement le parcours cash/Blocks : code financier inchangé entre1 et3 hors voie synchronisation legacy, déjà vérifiée sur2.
+3. Pour les seuls tests autorisés, retirer délibérément les pauses temporaires écriture/intégration et rétablir phaseactive après contrôles ; conserver QAfalse, cronoff, recoveryfalse, mail/HTTP bloqués. **Ne pas lancer une nouvelle synchronisation sur les wallets déjà migrés.** Ne pas compléter/rembourser automatiquement les commandes en attente ; ne pas purger l’effet pending.
+4. Rédiger `audit-reports/mission-06D-final-report.md` + miroir Git : résultats exacts, portée de chaque variante, mesures locales, compatibilités et limites, index de preuves. Finaliser la matrice existante `mission-06D-independent-QA.md` sans exécuter cette QA suivante.
+5. Seulement après acceptation : construire la ZIP runtime propre au slug officiel avec `github/tools/build-qa.py`, vérifier installabilité finale/empreinte SHA256 et fournir l’archive QA. Aucun paquet de release officielle.
+6. Reconfirmer sécurité LocalWP et éventuelle remise des options de test antérieures documentée, conserver backups/preuves/données. Commit final, push **seule branche de développement**, mise à jour PR#2 qui reste Draft, vérification SHA distant et main inchangé. Aucun merge/main/SVN/production/Mission suivante.
+
+## Fichiers et persistance Git de cette pause
+
+Deux modifications runtime finales sauvegardées :
+- `includes/financial/class-nodevora-financial-setup.php` : redécouverte du nouvel utilisateur après scan vide, test `sync-final-new-account-race.json` et migration finale PASS.
+- `includes/admin/class-nodevora-data.php` : classe `nodevora-data-form` sur revue refund, rendu desktop vérifié ; recontrôle mobile final restant.
+
+Ajouts : harness concurrence et permissions HTTP, preuves curatées supplémentaires, ignore des caches Python, matrice de QA indépendante, présent checkpoint. Aucun nouveau test fonctionnel démarré pour la pause. Contrôle de cohérence documentaire et `git diff --check` avant commit ; aucun rejeu complet des suites.
+
+L’inventaire ci-dessous couvre l’ensemble des chemins modifiés depuis la base Mission06D `d4936e1`, pas uniquement cette pause. Les backups privés et les rapports locaux hors dépôt ne sont pas inclus.
+
+- `.gitignore`
 - `assets/css/admin-legacy.css`
 - `assets/css/admin.css`
 - `assets/css/loyalty.css`
 - `assets/js/admin-data.js`
 - `assets/js/admin-design.js`
 - `assets/js/loyalty-blocks.js`
+- `docs/installation-and-financial-readiness.md`
+- `docs/mission-06D-checkpoint-evidence/backup-import-ui.json`
+- `docs/mission-06D-checkpoint-evidence/fresh-300-journal-retry.json`
+- `docs/mission-06D-checkpoint-evidence/official-485-sync-after.json`
+- `docs/mission-06D-checkpoint-evidence/safe-stop-localwp.json`
+- `docs/mission-06D-checkpoint-evidence/safe-stop-persistence.json`
+- `docs/mission-06D-checkpoint-evidence/safe-stop-syntax.json`
+- `docs/mission-06D-checkpoint-evidence/sync-ui-drift.json`
+- `docs/mission-06D-checkpoint-evidence/sync-ui-interruption.json`
+- `docs/mission-06D-independent-QA.md`
+- `docs/mission-06D-progress.md`
 - `includes/admin/class-nodevora-access.php`
 - `includes/admin/class-nodevora-data.php`
 - `includes/admin/class-nodevora-design-admin.php`
@@ -100,6 +169,7 @@ Attendre une instruction explicite **RESUME MISSION 06D**. Ensuite :
 - `includes/financial/class-nodevora-backup.php`
 - `includes/financial/class-nodevora-financial-checkout.php`
 - `includes/financial/class-nodevora-financial-db.php`
+- `includes/financial/class-nodevora-financial-lifecycle.php`
 - `includes/financial/class-nodevora-financial-migration.php`
 - `includes/financial/class-nodevora-financial-readiness.php`
 - `includes/financial/class-nodevora-financial-recovery.php`
@@ -112,35 +182,49 @@ Attendre une instruction explicite **RESUME MISSION 06D**. Ensuite :
 - `languages/nodevora-customer-rewards-for-woocommerce-fr_FR.po`
 - `languages/nodevora-customer-rewards-for-woocommerce.pot`
 - `nodevora-customer-rewards-for-woocommerce.php`
+- `readme.txt`
+- `tests/remediation/mission-06d-backup.php`
+- `tests/remediation/mission-06d-concurrency.py`
+- `tests/remediation/mission-06d-evidence/admin-assets-performance.json`
+- `tests/remediation/mission-06d-evidence/admin-responsive.json`
+- `tests/remediation/mission-06d-evidence/candidate-syntax-486.json`
+- `tests/remediation/mission-06d-evidence/concurrency-targeted.json`
+- `tests/remediation/mission-06d-evidence/dependencies-reinstall-486.json`
+- `tests/remediation/mission-06d-evidence/financial-targeted.json`
+- `tests/remediation/mission-06d-evidence/format2-roundtrip-486.json`
+- `tests/remediation/mission-06d-evidence/format2-roundtrip.json`
+- `tests/remediation/mission-06d-evidence/format2-ui-486.json`
+- `tests/remediation/mission-06d-evidence/fresh-486-adjustment-replay.json`
+- `tests/remediation/mission-06d-evidence/fresh-486-blocks-funded-ui.json`
+- `tests/remediation/mission-06d-evidence/fresh-486-bootstrap.json`
+- `tests/remediation/mission-06d-evidence/fresh-486-cash-earning-ui.json`
+- `tests/remediation/mission-06d-evidence/frontend-responsive.json`
+- `tests/remediation/mission-06d-evidence/historical-file-identity-guard.json`
+- `tests/remediation/mission-06d-evidence/messages-en-fr.json`
+- `tests/remediation/mission-06d-evidence/official-485-empty-to-486.json`
+- `tests/remediation/mission-06d-evidence/official-485-final-activated.json`
+- `tests/remediation/mission-06d-evidence/official-485-final-after.json`
+- `tests/remediation/mission-06d-evidence/official-485-final-before.json`
+- `tests/remediation/mission-06d-evidence/permissions-http.json`
+- `tests/remediation/mission-06d-evidence/php82-bootstrap-486.json`
+- `tests/remediation/mission-06d-evidence/recovery-review-stale.json`
+- `tests/remediation/mission-06d-evidence/recovery-review-ui.json`
+- `tests/remediation/mission-06d-evidence/registration-after.json`
+- `tests/remediation/mission-06d-evidence/registration-barrier.json`
+- `tests/remediation/mission-06d-evidence/registration-before.json`
+- `tests/remediation/mission-06d-evidence/safe-pause-02-backup.json`
+- `tests/remediation/mission-06d-evidence/safe-pause-02-localwp.json`
+- `tests/remediation/mission-06d-evidence/smoke-targeted.json`
+- `tests/remediation/mission-06d-evidence/storage-and-reference-locks.json`
+- `tests/remediation/mission-06d-evidence/sync-final-new-account-race.json`
+- `tests/remediation/mission-06d-evidence/ui-design.json`
+- `tests/remediation/mission-06d-financial.php`
+- `tests/remediation/mission-06d-http-permissions.py`
+- `tests/remediation/mission-06d-messages.php`
+- `tests/remediation/mission-06d-race-worker.php`
+- `tests/remediation/mission-06d-registration.php`
+- `tests/remediation/mission-06d-smoke.php`
+- `tests/remediation/mission-06d-storage.php`
+- `tools/build-qa.py`
 
-Aucunefonctionnalitéencoursn’estconsidéréeterminée tantquelespreuvesfinalesne sontpas produites. Arrêtvolontaireetcompletaprèscecheckpoint ; reprendreici, pasauMission06B/06C.
-
-## Reprise autorisée — 29 octobre 2026
-
-Instruction SAFE RESUME reçue. HEAD0f98eb535f6723d06e2824327b683809812713a6 et branche confirmés, arbre propre ; identité LocalWP6JRuOv4ug/nodevora-plugin/localhost10004/DBlocal confirmée. Pause, QAfalse, cronoff,0transaction vérifiés avant mutation. Levée contrôlée des seules pausesécriture/intégration et phaseactive pour tests ; recoveryfalse, réseau/mailbloqués et gatesmigration/QAfalse conservés. Aucune migration automatique sur cette base déjà synchronisée.
-
-Défaut registration confirmé avec userfictif243 : snapshotvalide, wallet.checksumNULL, validateurRestore refuse. Correction de l’initialisation et réparationuniquement du snapshotvide identifié déjà généré par ce chemin ; barrièrepartagée avecimport, échecconservéenpending sansfatal. Testaprès : nouveauxwallets/checksums cohérents, validationformat2 sanserreur ; stale-cacheDBrestoring empêchecréationwallet. Preuves registration-before/after/barrier.json (tests/remediation/mission-06d-evidence).
-
-Mappingerreurs : typeNodevora_User_Error pour instructionslocaliséesfiables, suppressionde la traductionrépétée dechaînesdéjàtraduites, mappingfinancieràfrontièreUI, diagnosticinconnu jamaisexposé. TestsEN/FR passent.
-
-Format2 bibliothèque :35contrôlesPASS,2823enregistrements/1127628octets, référencesuser/order/item/comment/post, tombstones d’entitéabsente, exclusionautresplugins, corruption/version/schéma/plugin/identités/doublons/objets/optionsnonautorisés refusés ; importincohérentrollbackzéro wallet etpausemaintenue ; importvalide donnéespropresidentiques, réglagesinchangés, metadata caches, reviewgate, retryrefusésansdoublon,invariants. SQLprivé supplémentaire avanttest ; aucunbackuporiginel écrasé. Preuveformat2-roundtrip.json. Reprise des points effectuée ensuite depuisleformulaireUIréel, recoveryresteunchecked.
-
-En cours : permissionsHTTPvraiesroutes URL/POST/AJAX/RESTet quatrepolitiques ; régressionsfinancièrescourtes ; resteconcurrence, UIresponsive/design complet, importformat2viaUIfinal, métadonnées4.8.6/ZIPinstall+fresh+upgradeofficiel+rapport/pushPR. AucunZIPfinal.
-
-## Checkpoint candidat 4.8.6 / UI et permissions
-
-Commit de correction sauvegardé : ee67cac.128assertionsHTTPpermissionsPASS (quatrepolitiques, sixacteurs, URLs/POST/AJAX/REST) ;18régressionsrefundhold et12smokesfinancement/reversal/StoreAPIPASS. Trois scénariosconcurrentsPASS avecprocessusindépendants (deuxdébits, créditdupliqué, pauseavecécritureengagéeetcallbackretardé).
-
-UI :11contrôlesdesign/modes/reset/contrastePASS.42vuesAdmin EN/FR320/390/1280 sansdébordementetlabelsvalides. DéfautData320détecté360px puiscorrigévia grilleshrink ; preuveavant/aprèsdansadmin-responsive.json. Unelecturepreviewinitiale étaitprématuréeavantfinchargementiframe ; résultatcorrect confirméaprèsstabilisation, pas de fauxdéfautproduit.
-
-Candidateprivée d’intégration4.8.6 construite (pasZIPfinal),48fichiersruntime,182389octets,SHA256cf7a37f8e6455450a52d8d7722fd1918a2cd155751896d6d14b54676972bb3dc. Métadonnées/readme/modeemploi misàjour. Format2surcettecandidate :35PASS,2960enregistrements,1204089octets ; nouvellesvérificationsInnoDBcible etverrousidentitésfinalimport. UIréellepreview/import/reviewensuitePASS ; exportendpointHTTP200NDJSONvalide,mêmeformat/plugin/solde300/invariants. ÉvénementdownloadCua nonremonté(timeout) : nepasrevendiquer capturedownloadnavigateur ; endpointtesté séparément.
-
-WooCommerceinactif/rétabli :6contrôlesPASS ycompris3HTTP etvraiedésinstallation/réinstallationNodevora sansaltérationtablesfinancières/préférences. Nouvelleinstallationfresh effectuéeensuite depuisvraiUIWordPressUpload/Install/Activate(aprèsbackup+resetuniquementNodevora).257WPusers,0walletinitial,ready/fresh/walletautorité sansoptinfinancier/écranFinancialSetup. UIconfigurationearn2/emailnoetajustement0→300PASS ; replaymêmejournalnecréditepasdeuxfois,1événement,invariantsPASS. Preuvesfresh-486*.
-
-Étatdémoactuel :candidate4.8.6active/originfresh,pasdegatesfinancierstest,cronoff/QAfalse/mailHTTPbloqués ; récupérationfreshconnueautorisée parinstallationmaiscronresteoff. ParcourscommerceUIencoursàdémarrer surproduitvirtuel285,cart286,checkout287,CODfictif configuré ; réglagesWoo antérieurs privés danscommerce-options-before.json. Restentcashgain/dépensefinancée,frontendresponsive/Blocks,upgradeofficiel485→486final, limites/dossiersQAindépendante/rapportfinal/pushPRdraft.
-
-## Parcours marchand final en attente de clics imposés
-
-Candidate4.8.6runtime48fichiers correspond exactementauxsources (aucunZIPfinal créé). AjustementUI300replayPASS, produitvirtuel285 sansstock, CODlocal sanspaiementréel, mail/réseau bloqués. Lecontrôleautomatique a toutefois refusédeuxfois leclicfinalCommander etimposéunepriseenmainutilisateur. AucuncontournementAPI/CLI effectué. L’utilisateur a créé lui-même lacommande288 (100MAD,COD). Commandeactuellementprocessing ; la validation automatique refuseégalementl’enregistrementCompletedpourlegainfictif. ActionhumaineUpdate/Completed demandée etattendue. Ne pasréinitialiserlaDBtantqueleparcourscommerce estencours.
-
-TestsstockageadditionnelsPASS aprèscorrectiond’uneerreurdesyntaxeduharness (aucunetransactionn’avaitdémarré) : MyISAMcible simulérefuséavantinsert ; vrai verroupartagéd’identitévsno-opupdateindépendantrefusétimeout1205 ; primitiveexportsnapshot maintientwallet/journalcohérents malgrécréditconcurrentcommis. Syntaxe42PHP(runtime+nouveauxharness)PASSsur8.2/8.3et5JS.
+Pause volontaire complète après sauvegarde. Reprise possible sans perte ; livraison QA encore incomplète.
