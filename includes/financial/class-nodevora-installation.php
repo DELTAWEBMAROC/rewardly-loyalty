@@ -3,6 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** Installation vierge seulement ; une preuve historique impose une synchronisation explicite. */
 class Nodevora_Installation {
 	private static $schema_scope = false;
+	public static function maybe_initialize() { if(current_user_can('manage_options') && false===get_option('nodevora_installation_status',false)){self::activate();} }
 	public static function permits_schema() { return self::$schema_scope; }
 	private static function exists( $db, $table ) {
 		return (bool) $db->one( 'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $table ) );

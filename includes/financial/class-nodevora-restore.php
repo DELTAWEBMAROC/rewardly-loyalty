@@ -24,6 +24,7 @@ class Nodevora_Restore {
 			if ( 'nodevora_financial_authority' === $r['option'] ) { if ( ! in_array( $r['value'], array( 'wallet', 'legacy' ), true ) ) { throw new Nodevora_Financial_Error( 'Invalid backup authority.' ); } return; }
 			$value = @unserialize( $r['value'], array( 'allowed_classes' => false ) );
 			if ( ! is_array( $value ) ) { throw new Nodevora_Financial_Error( 'Invalid backup configuration.' ); }
+			json_encode($value,JSON_THROW_ON_ERROR,32); // Refuser les cycles et profondeurs avant le parcours des valeurs.
 			$plain = static function( $v ) use ( &$plain ) { if ( is_array( $v ) ) { foreach ( $v as $item ) { $plain( $item ); } } elseif ( ! is_scalar( $v ) && null !== $v ) { throw new Nodevora_Financial_Error( 'Objects are not permitted in backup configuration.' ); } }; $plain( $value ); return;
 		}
 		$map = self::maps( $db ); $type = $r['table'];
@@ -57,6 +58,16 @@ class Nodevora_Restore {
 		if ( $db->one( 'SELECT o.id FROM ' . $db->table('outbox') . ' o LEFT JOIN ' . $e . ' e ON e.id=o.event_id WHERE e.id IS NULL OR e.user_id<>o.user_id LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup contains an orphan effect.' ); }
 		if ( $db->one( 'SELECT w.user_id FROM ' . $w . ' w LEFT JOIN ' . $s . ' s ON s.user_id=w.user_id AND s.version=1 WHERE s.user_id IS NULL LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup account snapshot is missing.' ); }
 	}
+	public static function resume_reviewed( $recovery_approved = false ) {
+		self::permission(); $state = Nodevora_Financial_Setup::state();
+		if ( ( $state['phase'] ?? '' ) !== 'restore_review' || ! in_array( $state['restore_previous_phase'] ?? '', array('active','paused'), true ) ) { throw new Nodevora_Financial_Error('Complete synchronization before enabling restored accounts.'); }
+		if ( (defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&NODEVORA_FINANCIAL_WRITES_PAUSED) || (defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED) ) { throw new Nodevora_Financial_Error('An operator safety override prevents activation.'); }
+		$db=new Nodevora_Financial_DB(); try { Nodevora_Financial_Schema::verify($db); self::verify_rows($db); } finally {$db->close();}
+		$state['phase']='active';$state['recovery_approved']=(bool)$recovery_approved;update_option(Nodevora_Financial_Setup::OPTION,$state,false);
+		if(get_option(Nodevora_Financial_Setup::OPTION)!==$state){throw new Nodevora_Financial_Error('Restore approval was not saved.');}
+		update_option('nodevora_installation_status','ready',false);
+	}
+
 	public static function apply( $path, $expected_hash ) {
 		self::permission(); $info = self::preview( $path );
 		if ( ! is_string( $expected_hash ) || ! hash_equals( $info['sha256'], $expected_hash ) ) { throw new Nodevora_Financial_Error( 'Preview changed. Review the selected file again.' ); }
@@ -77,7 +88,7 @@ class Nodevora_Restore {
 			self::verify_rows( $db );
 			global $wpdb;
 			$state = isset( $options[Nodevora_Financial_Setup::OPTION] ) ? unserialize( $options[Nodevora_Financial_Setup::OPTION], array( 'allowed_classes' => false ) ) : array();
-			$state['phase'] = 'restore_review'; $state['recovery_approved'] = false; $state['restore_hash'] = $expected_hash; $state['restored_at'] = gmdate( 'c' );
+			$state['restore_previous_phase'] = $state['phase'] ?? ''; $state['phase'] = 'restore_review'; $state['recovery_approved'] = false; $state['restore_hash'] = $expected_hash; $state['restored_at'] = gmdate( 'c' );
 			$options[Nodevora_Financial_Setup::OPTION] = serialize( $state );
 			// L’autorité Wallet ne revient jamais à l’ancien moteur après restauration.
 			$options['nodevora_financial_authority'] = 'wallet';

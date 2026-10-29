@@ -20,6 +20,6 @@ class Nodevora_Financial_Readiness {
 		$message = is_multisite()
 			? __( 'Nodevora financial operations support single-site stores only. Network data is retained and loyalty spending is unavailable.', 'nodevora-customer-rewards-for-woocommerce' )
 			: __( 'Loyalty spending is paused or awaiting setup. Existing points are preserved. Review financial readiness before enabling new rewards.', 'nodevora-customer-rewards-for-woocommerce' );
-		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . ' <a href="'.esc_url(admin_url('admin.php?page=nodevora-financial-setup')).'">'.esc_html__('Financial setup','nodevora-customer-rewards-for-woocommerce').'</a></p></div>';
+		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . ' <a href="'.esc_url(admin_url('admin.php?page=rewardly-loyalty-settings&tab=data')).'">'.esc_html__('Review my data','nodevora-customer-rewards-for-woocommerce').'</a></p></div>';
 	}
 }

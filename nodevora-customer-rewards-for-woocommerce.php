@@ -65,6 +65,7 @@ require_once REWARDLY_LOYALTY_PATH . 'includes/design/class-rewardly-loyalty-des
 require_once REWARDLY_LOYALTY_PATH . 'includes/shortcodes/class-rewardly-loyalty-shortcodes.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-access.php';
 Nodevora_Access::init();
+require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-nodevora-data.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-settings.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin-adjustments.php';
 require_once REWARDLY_LOYALTY_PATH . 'includes/admin/class-rewardly-loyalty-admin.php';
@@ -209,6 +210,8 @@ function rewardly_loyalty_init() {
 	Nodevora_Financial_Recovery::init();
 	Nodevora_Financial_Readiness::init();
 	Nodevora_Financial_Setup::init();
+	Nodevora_Data::init();
+	add_action('admin_init',array('Nodevora_Installation','maybe_initialize'));
 	Rewardly_Loyalty_Pro::init();
 	Rewardly_Loyalty_Account::init();
 	Rewardly_Loyalty_Product::init();

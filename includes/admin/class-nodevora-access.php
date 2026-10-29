@@ -37,6 +37,15 @@ class Nodevora_Access {
 		} else { update_user_meta( get_current_user_id(), 'nodevora_admin_mode', ! empty( $_POST['advanced'] ) ? 'advanced' : 'simple' ); }
 		wp_safe_redirect( admin_url( 'admin.php?page=rewardly-loyalty-settings' ) ); exit;
 	}
+	public static function policy_form() {
+		if(!current_user_can('manage_options')){return;}
+		$p=(array)get_option('nodevora_access_policy',array('roles'=>array('shop_manager')));
+		echo '<section class="rewardly-admin-card nodevora-advanced"><h2>'.esc_html__('Nodevora access','nodevora-customer-rewards-for-woocommerce').'</h2><p>'.esc_html__('Administrators always retain access. Shop managers retain their existing editing and adjustment capabilities. Authorized editors have read-only access; panel visibility never grants financial authority.','nodevora-customer-rewards-for-woocommerce').'</p><form method="post" action="'.esc_url(admin_url('admin-post.php')).'">';wp_nonce_field('nodevora_preferences');
+		echo '<input type="hidden" name="action" value="nodevora_preferences"><input type="hidden" name="policy" value="1"><label><input type="checkbox" name="administrators_only" value="1" '.checked(!empty($p['administrators_only']),true,false).'> '.esc_html__('Restrict Nodevora access to administrators','nodevora-customer-rewards-for-woocommerce').'</label>';
+		foreach(array('shop_manager'=>__('Shop Manager','nodevora-customer-rewards-for-woocommerce'),'editor'=>__('Editor (read only)','nodevora-customer-rewards-for-woocommerce'))as$role=>$label){echo '<label><input type="checkbox" name="roles[]" value="'.esc_attr($role).'" '.checked(in_array($role,$p['roles']??array('shop_manager'),true),true,false).'> '.esc_html($label).'</label>';}
+		echo '<button class="button">'.esc_html__('Save access policy','nodevora-customer-rewards-for-woocommerce').'</button></form></section>';
+	}
+
 	public static function mode_control() {
 		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="nodevora-mode">'; wp_nonce_field( 'nodevora_preferences' );
 		echo '<input type="hidden" name="action" value="nodevora_preferences"><label><input type="checkbox" name="advanced" value="1" ' . checked( self::advanced(), true, false ) . '> ' . esc_html__( 'Advanced mode', 'nodevora-customer-rewards-for-woocommerce' ) . '</label> <button class="button">' . esc_html__( 'Apply display mode', 'nodevora-customer-rewards-for-woocommerce' ) . '</button></form>';

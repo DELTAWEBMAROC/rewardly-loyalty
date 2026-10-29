@@ -30,6 +30,8 @@ class Nodevora_Backup {
 				$info = $db->one( 'SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?', array( $table ) );
 				if ( ! $info || 'InnoDB' !== $info['ENGINE'] ) { throw new Nodevora_Financial_Error( 'A consistent Nodevora backup requires transactional tables.' ); }
 			}
+			global $wpdb;
+			foreach(array($wpdb->options,$wpdb->users,$wpdb->posts,$wpdb->comments)as$table){$info=$db->one('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=?',array($table));if(!$info||'InnoDB'!==$info['ENGINE']){throw new Nodevora_Financial_Error('Backup identities and settings require transactional storage.');}}
 			$db->query( 'SET TRANSACTION ISOLATION LEVEL REPEATABLE READ' );
 			$db->begin_snapshot();
 			$hash = hash_init( 'sha256' ); $reference_cache = array();

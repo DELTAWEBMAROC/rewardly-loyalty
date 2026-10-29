@@ -23,6 +23,7 @@ class Rewardly_Loyalty_Admin {
 		wp_add_inline_style( 'rewardly-loyalty-admin-inline', '.rewardly-admin-tabs{display:flex;gap:8px;margin:18px 0 24px;flex-wrap:wrap}.rewardly-admin-tab{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;background:#fff;border:1px solid #dcdcde;border-radius:8px;text-decoration:none;color:#1d2327}.rewardly-admin-tab.is-active{background:#0b1638;color:#fff;border-color:#0b1638}.rewardly-admin-badge{display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:999px;background:#edeff1;color:#50575e;font-size:11px;font-weight:600;text-transform:uppercase}.rewardly-admin-badge--pro{background:#fff2cc;color:#8a6500}.rewardly-admin-badge--ok{background:#ecfdf3;color:#027a48}.rewardly-admin-badge--warn{background:#fff7ed;color:#b54708}.rewardly-admin-tab.is-active .rewardly-admin-badge{background:rgba(255,255,255,.2);color:#fff}.rewardly-admin-card{background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:20px;max-width:1100px}.rewardly-admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1100px}.rewardly-admin-stat{background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:18px}.rewardly-admin-code{background:#f6f7f7;border:1px solid #dcdcde;border-radius:8px;padding:12px;font-family:monospace;word-break:break-word}.rewardly-admin-list{margin:8px 0 0 18px}.rewardly-admin-list li{margin:6px 0}.rewardly-admin-description{max-width:840px;color:#50575e}.rewardly-admin-section-title{margin:0 0 10px}.rewardly-admin-note{margin:12px 0 0;padding:12px 14px;border-left:4px solid #12b8a6;background:#f6f7f7;border-radius:6px}.rewardly-admin-note--warn{border-left-color:#dba617;background:#fffdf5}.rewardly-admin-note--ok{border-left-color:#46b450;background:#f6fff7}.rewardly-admin-kbd{display:inline-block;padding:1px 6px;border:1px solid #dcdcde;border-bottom-width:2px;border-radius:6px;background:#fff;font-family:monospace;font-size:12px}.rewardly-admin-split{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;max-width:1100px}.rewardly-admin-panel-list{margin:0;padding-left:18px}.rewardly-admin-panel-list li{margin:8px 0}.rewardly-pro-panel{position:relative;background:linear-gradient(180deg,#fcfcfd 0%,#f6f7f7 100%);border:1px solid #dcdcde;border-radius:12px;padding:22px;max-width:1100px}.rewardly-pro-locked{opacity:.78}.rewardly-pro-overlay{position:absolute;inset:0;background:rgba(255,255,255,.55);border-radius:12px;pointer-events:none}.rewardly-pro-cta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}.rewardly-pro-table td,.rewardly-pro-table th{vertical-align:top}.rewardly-pro-mini-lock{font-size:13px;opacity:.8}.rewardly-rule-row,.rewardly-selector-row{display:grid;grid-template-columns:minmax(250px,1fr) 120px 44px;gap:10px;align-items:center;margin:0 0 10px}.rewardly-selector-row{grid-template-columns:minmax(250px,1fr) 44px}.rewardly-row-actions{display:flex;gap:8px;align-items:center}.rewardly-box-note{margin-top:10px;padding:10px 12px;border-left:4px solid #dcdcde;background:#f6f7f7}.rewardly-level-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.rewardly-lock-note{display:inline-flex;align-items:center;gap:8px;font-weight:600}@media (max-width: 900px){.rewardly-admin-split{grid-template-columns:1fr}.rewardly-rule-row{grid-template-columns:1fr 120px 44px}.rewardly-selector-row{grid-template-columns:1fr 44px}}' );
 
 		wp_add_inline_style( 'rewardly-loyalty-admin-inline', '.rewardly-admin-card{box-sizing:border-box;margin-bottom:20px}.rewardly-admin-card input,.rewardly-admin-card select,.rewardly-admin-card textarea{max-width:100%;box-sizing:border-box}.rewardly-admin-tab:focus-visible{outline:3px solid #2271b1;outline-offset:3px}.rewardly-rule-row>* ,.rewardly-selector-row>*{min-width:0}@media(max-width:600px){.rewardly-admin-card{padding:14px}.rewardly-rule-row,.rewardly-selector-row{grid-template-columns:minmax(0,1fr)}.rewardly-admin-card input[type=text],.rewardly-admin-card textarea{width:100%;min-width:0}.rewardly-admin-tabs{gap:6px}.rewardly-admin-tab{padding:10px}}' );
+		if($is_settings_page){wp_enqueue_script('nodevora-admin-data',REWARDLY_LOYALTY_URL.'assets/js/admin-data.js',array(),filemtime(REWARDLY_LOYALTY_PATH.'assets/js/admin-data.js'),true);wp_localize_script('nodevora-admin-data','nodevoraData',array('url'=>admin_url('admin-ajax.php'),'nonce'=>wp_create_nonce('nodevora_data'),'working'=>__('Working…','nodevora-customer-rewards-for-woocommerce'),'review'=>__('File verified. Review the record count and confirm the import.','nodevora-customer-rewards-for-woocommerce'),'failed'=>__('The operation could not finish. Retry without changing the data.','nodevora-customer-rewards-for-woocommerce')));}
 		if ( ! $is_settings_page || 'pro_features' !== self::get_current_tab() ) { return; }
 		wp_enqueue_script( 'rewardly-loyalty-admin-pro', REWARDLY_LOYALTY_URL . 'assets/js/admin-pro.js', array( 'jquery' ), filemtime( REWARDLY_LOYALTY_PATH . 'assets/js/admin-pro.js' ), true );
 		wp_localize_script( 'rewardly-loyalty-admin-pro', 'rewardlyAdminData', array(
@@ -37,7 +38,7 @@ class Rewardly_Loyalty_Admin {
 	}
 
 	private static function get_tabs() {
-		return array(
+		$tabs = array(
 			'general'      => array( 'label' => __( 'General', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 			'design' => array( 'label' => __( 'Design', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 			'adjustments'  => array( 'label' => __( 'Points Adjustments', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
@@ -45,6 +46,8 @@ class Rewardly_Loyalty_Admin {
 			'pro_features' => array( 'label' => __( 'Advanced Features', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 			'help'         => array( 'label' => __( 'Help', 'nodevora-customer-rewards-for-woocommerce' ), 'pro' => false ),
 		);
+		if(current_user_can('manage_options')&&Nodevora_Data::relevant()){$tabs['data']=array('label'=>__('Data & Backups','nodevora-customer-rewards-for-woocommerce'),'pro'=>false);}
+		return $tabs;
 	}
 
 	private static function get_current_tab() {
@@ -142,6 +145,8 @@ class Rewardly_Loyalty_Admin {
 			<nav class="rewardly-admin-tabs"><?php foreach ( $tabs as $tab_key => $tab_data ) { self::render_tab_link( $tab_key, $tab_data, $current_tab ); } ?></nav>
 			<?php
 			switch ( $current_tab ) {
+				case 'data':
+					Nodevora_Data::render();break;
 				case 'adjustments':
 					Rewardly_Loyalty_Admin_Adjustments::render_tab();
 					break;
@@ -152,6 +157,7 @@ class Rewardly_Loyalty_Admin {
 					self::render_shortcodes_tab();
 					break;
 				case 'pro_features':
+					Nodevora_Access::policy_form();
 					self::render_pro_features_tab();
 					break;
 				case 'help':
