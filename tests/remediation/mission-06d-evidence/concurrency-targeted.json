@@ -1,0 +1,67 @@
+[
+  {
+    "test": "two_debits",
+    "status": "PASS",
+    "workers": [
+      {
+        "outcome": "rejected",
+        "reason": "Insufficient available points."
+      },
+      {
+        "outcome": "committed",
+        "event_id": 263
+      }
+    ],
+    "state": {
+      "balance": 20,
+      "events": {
+        "n": 2,
+        "b": "20"
+      },
+      "invariants": true
+    }
+  },
+  {
+    "test": "duplicate_credit",
+    "status": "PASS",
+    "workers": [
+      {
+        "outcome": "committed",
+        "event_id": 265
+      },
+      {
+        "outcome": "committed",
+        "event_id": 265
+      }
+    ],
+    "state": {
+      "balance": 100,
+      "events": {
+        "n": 1,
+        "b": "100"
+      },
+      "invariants": true
+    }
+  },
+  {
+    "test": "pause_barrier_inflight_and_delayed_callback",
+    "status": "PASS",
+    "first": {
+      "outcome": "committed",
+      "event_id": 266
+    },
+    "late": {
+      "outcome": "rejected",
+      "reason": "Restore review is required."
+    },
+    "state": {
+      "balance": 10,
+      "events": {
+        "n": 1,
+        "b": "10"
+      },
+      "invariants": true
+    },
+    "pause_request_seconds": 3.539
+  }
+]

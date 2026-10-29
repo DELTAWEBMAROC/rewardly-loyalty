@@ -54,8 +54,26 @@ class Nodevora_Financial_Lifecycle {
 	}
 	public static function registration($user) {
 		try{Nodevora_Financial_Checkout::require_enabled();}catch(Nodevora_Financial_Error $e){if(Rewardly_Loyalty_Helpers::is_enabled()){update_user_meta($user,'_nodevora_registration_pending','yes');}return;}
-		// A newly inserted WP user has no legacy financial history; never use this for existing users.
-		$db=new Nodevora_Financial_DB();try{$db->begin();$db->query('INSERT IGNORE INTO '.$db->table('wallet').' (user_id,state,migration_version) VALUES (?,?,1)',array((int)$user,'ready'));$w=$db->one('SELECT * FROM '.$db->table('wallet').' WHERE user_id=? FOR UPDATE',array((int)$user));if(!$w||'ready'!==$w['state']){throw new Nodevora_Financial_Error('New account conflicts with migration state.');}$payload=json_encode(array('rows'=>array(),'new_account'=>true),JSON_THROW_ON_ERROR);$db->query('INSERT IGNORE INTO '.$db->table('snapshot').' (user_id,version,checksum,payload,created_at) VALUES (?,1,?,?,UTC_TIMESTAMP())',array((int)$user,hash('sha256',$payload),$payload));$db->commit();}catch(Throwable $e){$db->rollback();throw $e;}finally{$db->close();}
+		// The user_register path shares the restore/cutover barrier with all wallet writers.
+		$payload=json_encode(array('rows'=>array(),'new_account'=>true),JSON_THROW_ON_ERROR);$hash=hash('sha256',$payload);
+		$db=null;
+		try{
+			$db=new Nodevora_Financial_DB();$db->begin();$state=Nodevora_Financial_Setup::lock_state($db);
+			if(($state['phase']??'')!=='active'){throw new Nodevora_Financial_Error('Account initialization is paused.');}
+			$db->query('INSERT IGNORE INTO '.$db->table('wallet').' (user_id,state,migration_version,checksum) VALUES (?,?,1,?)',array((int)$user,'ready',$hash));
+			$w=$db->one('SELECT * FROM '.$db->table('wallet').' WHERE user_id=? FOR UPDATE',array((int)$user));
+			if(!$w||'ready'!==$w['state']){throw new Nodevora_Financial_Error('New account conflicts with migration state.');}
+			$snapshot=$db->one('SELECT checksum,payload FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array((int)$user));
+			if(!$snapshot){
+				if($w['checksum']!==$hash){throw new Nodevora_Financial_Error('New account snapshot conflicts with existing evidence.');}
+				$db->query('INSERT INTO '.$db->table('snapshot').' (user_id,version,checksum,payload,created_at) VALUES (?,1,?,?,UTC_TIMESTAMP())',array((int)$user,$hash,$payload));
+			}elseif($w['checksum']===null&&$snapshot['payload']===$payload&&hash_equals($hash,$snapshot['checksum'])){
+				// Repair only this previously generated, fully identified empty opening snapshot.
+				$db->query('UPDATE '.$db->table('wallet').' SET checksum=? WHERE user_id=? AND checksum IS NULL',array($hash,(int)$user));
+			}elseif($w['checksum']!==$snapshot['checksum']||!hash_equals($snapshot['checksum'],hash('sha256',$snapshot['payload']))){throw new Nodevora_Financial_Error('New account snapshot conflicts with existing evidence.');}
+			$db->commit();
+		}catch(Throwable$e){if($db){$db->rollback();}update_user_meta($user,'_nodevora_registration_pending','yes');return;}finally{if($db){$db->close();}}
+
 		$s=Rewardly_Loyalty_Helpers::get_settings();if(Rewardly_Loyalty_Helpers::is_enabled()&&class_exists('Rewardly_Loyalty_Pro')&&Rewardly_Loyalty_Pro::can_use_feature('extra_points')&&(int)$s['pro_points_registration']>0){self::claim((int)$user,'user:'.$user.':registration:v1',(int)$s['pro_points_registration'],self::credit_details('bonus_registration'));}
 	}
 	public static function review($id,$approved,$data) {

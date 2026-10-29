@@ -3,6 +3,8 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Nodevora_Financial_Error extends RuntimeException {}
 class Nodevora_Financial_Unknown extends Nodevora_Financial_Error {}
+/** Trusted, already-localized merchant instruction; never use for database diagnostics. */
+class Nodevora_User_Error extends Nodevora_Financial_Error {}
 class Nodevora_Financial_DB {
 	protected $connection;
 	public $prefix;

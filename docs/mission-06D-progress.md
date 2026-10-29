@@ -4,6 +4,7 @@
 Date : 29 octobre 2026. Avancement estimatif : **65 %** (estimation, pas un taux de tests réussis).
 Dépôt Git : `github/`. Branche : `feat/nodevora-4.8.6-financial-foundation`.
 Base : `d4936e165eb75300aff483d5685d97e9c5626077`.
+**Dernier commit sauvegardé (documentation et checkpoint) : `0f98eb535f6723d06e2824327b683809812713a6`. Arbre Git propre.**
 Dernier commit d’implémentation WIP : `855a7c8a00a1d453a9d8398263db888fed3c3bc7`.
 Le commit documentaire qui contient ce checkpoint s’identifie avec `git log -1 --format=%H -- docs/mission-06D-progress.md` ; le SHA final est également enregistré dans le rapport local après ce commit.
 `main` local inchangé : `eca72d6c08184ed5dd7e28b4e52abc98ebf342ef`.
@@ -113,3 +114,15 @@ Attendre une instruction explicite **RESUME MISSION 06D**. Ensuite :
 - `nodevora-customer-rewards-for-woocommerce.php`
 
 Aucunefonctionnalitéencoursn’estconsidéréeterminée tantquelespreuvesfinalesne sontpas produites. Arrêtvolontaireetcompletaprèscecheckpoint ; reprendreici, pasauMission06B/06C.
+
+## Reprise autorisée — 29 octobre 2026
+
+Instruction SAFE RESUME reçue. HEAD0f98eb535f6723d06e2824327b683809812713a6 et branche confirmés, arbre propre ; identité LocalWP6JRuOv4ug/nodevora-plugin/localhost10004/DBlocal confirmée. Pause, QAfalse, cronoff,0transaction vérifiés avant mutation. Levée contrôlée des seules pausesécriture/intégration et phaseactive pour tests ; recoveryfalse, réseau/mailbloqués et gatesmigration/QAfalse conservés. Aucune migration automatique sur cette base déjà synchronisée.
+
+Défaut registration confirmé avec userfictif243 : snapshotvalide, wallet.checksumNULL, validateurRestore refuse. Correction de l’initialisation et réparationuniquement du snapshotvide identifié déjà généré par ce chemin ; barrièrepartagée avecimport, échecconservéenpending sansfatal. Testaprès : nouveauxwallets/checksums cohérents, validationformat2 sanserreur ; stale-cacheDBrestoring empêchecréationwallet. Preuves registration-before/after/barrier.json (tests/remediation/mission-06d-evidence).
+
+Mappingerreurs : typeNodevora_User_Error pour instructionslocaliséesfiables, suppressionde la traductionrépétée dechaînesdéjàtraduites, mappingfinancieràfrontièreUI, diagnosticinconnu jamaisexposé. TestsEN/FR passent.
+
+Format2 bibliothèque :35contrôlesPASS,2823enregistrements/1127628octets, référencesuser/order/item/comment/post, tombstones d’entitéabsente, exclusionautresplugins, corruption/version/schéma/plugin/identités/doublons/objets/optionsnonautorisés refusés ; importincohérentrollbackzéro wallet etpausemaintenue ; importvalide donnéespropresidentiques, réglagesinchangés, metadata caches, reviewgate, retryrefusésansdoublon,invariants. SQLprivé supplémentaire avanttest ; aucunbackuporiginel écrasé. Preuveformat2-roundtrip.json. Reprise des points effectuée ensuite depuisleformulaireUIréel, recoveryresteunchecked.
+
+En cours : permissionsHTTPvraiesroutes URL/POST/AJAX/RESTet quatrepolitiques ; régressionsfinancièrescourtes ; resteconcurrence, UIresponsive/design complet, importformat2viaUIfinal, métadonnées4.8.6/ZIPinstall+fresh+upgradeofficiel+rapport/pushPR. AucunZIPfinal.

@@ -19,7 +19,7 @@ class Nodevora_Data {
 	}
 	private static function upload() {
 		$f=$_FILES['nodevora_backup']??null;
-		if(!is_array($f)||($f['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_OK||!is_string($f['tmp_name'])||!is_uploaded_file($f['tmp_name'])||filesize($f['tmp_name'])>Nodevora_Backup::MAX_BYTES){throw new Nodevora_Financial_Error(__('Choose a valid Nodevora backup smaller than 32 MiB.','nodevora-customer-rewards-for-woocommerce'));}
+		if(!is_array($f)||($f['error']??UPLOAD_ERR_NO_FILE)!==UPLOAD_ERR_OK||!is_string($f['tmp_name'])||!is_uploaded_file($f['tmp_name'])||filesize($f['tmp_name'])>Nodevora_Backup::MAX_BYTES){throw new Nodevora_User_Error(__('Choose a valid Nodevora backup smaller than 32 MiB.','nodevora-customer-rewards-for-woocommerce'));}
 		return$f['tmp_name'];
 	}
 	private static function token($hash){return hash_hmac('sha256',get_current_user_id().':'.$hash,wp_salt('nonce'));}
@@ -30,6 +30,7 @@ class Nodevora_Data {
 		self::guard(true);try{$result=Nodevora_Financial_Setup::synchronize(!empty($_POST['writers_confirmed']));wp_send_json_success($result);}catch(Throwable$e){wp_send_json_error(array('message'=>self::message($e)),409);}
 	}
 	private static function message($e){
+		if($e instanceof Nodevora_User_Error){return $e->getMessage();}
 		if($e instanceof Nodevora_Financial_Error){
 			$messages=array(
 				'Dry-run checksum changed.'=>__('Loyalty data changed during synchronization. Keep external loyalty tools stopped and ask your administrator to review the saved batch before retrying.','nodevora-customer-rewards-for-woocommerce'),
@@ -46,17 +47,15 @@ class Nodevora_Data {
 				'Backup row limit exceeded; request an operator-assisted export.'=>__('The backup exceeds 100,000 records. Ask your administrator for an assisted export.','nodevora-customer-rewards-for-woocommerce'),
 			);
 			if(isset($messages[$e->getMessage()])){return$messages[$e->getMessage()];}
-			// Existing translated, actionable workflow errors can pass through unchanged.
-			if($e->getMessage()!==translate($e->getMessage(),'nodevora-customer-rewards-for-woocommerce')){return translate($e->getMessage(),'nodevora-customer-rewards-for-woocommerce');}
 		}
 		return __('The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.','nodevora-customer-rewards-for-woocommerce');
 	}
 	public static function handle($action) {
 		self::guard();try{
 			if('export'===$action){$f=Nodevora_Backup::create();try{nocache_headers();header('Content-Type: application/x-ndjson; charset=utf-8');header('Content-Disposition: attachment; filename="nodevora-'.gmdate('Y-m-d-His').'.ndjson"');header('X-Content-Type-Options: nosniff');header('Content-Length: '.fstat($f)['size']);fpassthru($f);}finally{fclose($f);}exit;}
-			if('import'===$action){$hash=isset($_POST['expected_hash'])&&is_string($_POST['expected_hash'])?sanitize_text_field(wp_unslash($_POST['expected_hash'])):'';$token=isset($_POST['preview_token'])&&is_string($_POST['preview_token'])?sanitize_text_field(wp_unslash($_POST['preview_token'])):'';if(empty($_POST['import_confirmed'])||!preg_match('/^[a-f0-9]{64}$/D',$hash)||!hash_equals(self::token($hash),$token)){throw new Nodevora_Financial_Error(__('Preview and explicitly confirm the selected backup before importing.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Restore::apply(self::upload(),$hash);}
-			if('resume'===$action){if(empty($_POST['resume_confirmed'])){throw new Nodevora_Financial_Error(__('Review the restored data before enabling points.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Restore::resume_reviewed(!empty($_POST['recovery_confirmed']));}
-			if('recovery'===$action){if(empty($_POST['recovery_confirmed'])){throw new Nodevora_Financial_Error(__('Review pending effects before authorizing background recovery.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Financial_Setup::approve_recovery(isset($_POST['review_hash'])&&is_string($_POST['review_hash'])?sanitize_text_field(wp_unslash($_POST['review_hash'])):'');}
+			if('import'===$action){$hash=isset($_POST['expected_hash'])&&is_string($_POST['expected_hash'])?sanitize_text_field(wp_unslash($_POST['expected_hash'])):'';$token=isset($_POST['preview_token'])&&is_string($_POST['preview_token'])?sanitize_text_field(wp_unslash($_POST['preview_token'])):'';if(empty($_POST['import_confirmed'])||!preg_match('/^[a-f0-9]{64}$/D',$hash)||!hash_equals(self::token($hash),$token)){throw new Nodevora_User_Error(__('Preview and explicitly confirm the selected backup before importing.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Restore::apply(self::upload(),$hash);}
+			if('resume'===$action){if(empty($_POST['resume_confirmed'])){throw new Nodevora_User_Error(__('Review the restored data before enabling points.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Restore::resume_reviewed(!empty($_POST['recovery_confirmed']));}
+			if('recovery'===$action){if(empty($_POST['recovery_confirmed'])){throw new Nodevora_User_Error(__('Review pending effects before authorizing background recovery.','nodevora-customer-rewards-for-woocommerce'));}Nodevora_Financial_Setup::approve_recovery(isset($_POST['review_hash'])&&is_string($_POST['review_hash'])?sanitize_text_field(wp_unslash($_POST['review_hash'])):'');}
 			if('repair'===$action){Nodevora_Installation::activate();}
 			update_user_meta(get_current_user_id(),'nodevora_data_notice',__('Operation completed. Review the current status.','nodevora-customer-rewards-for-woocommerce'));delete_user_meta(get_current_user_id(),'nodevora_data_error');
 		}catch(Throwable$e){update_user_meta(get_current_user_id(),'nodevora_data_error',self::message($e));}

@@ -21,7 +21,7 @@ class Nodevora_Financial_Setup {
 	}
 	public static function integrated() { $s=self::state();return !is_multisite() && isset($s['phase']) && in_array($s['phase'],array('active','paused'),true) && 'wallet'===get_option('nodevora_financial_authority'); }
 	public static function permits($scope) { return self::$scope===$scope && current_user_can('manage_options') && !is_multisite(); }
-	private static function save($s) { update_option(self::OPTION,$s,false);if(get_option(self::OPTION)!==$s){throw new Nodevora_Financial_Error(__('Setup state was not persisted. Retry without enabling writes.','nodevora-customer-rewards-for-woocommerce'));} }
+	private static function save($s) { update_option(self::OPTION,$s,false);if(get_option(self::OPTION)!==$s){throw new Nodevora_User_Error(__('Setup state was not persisted. Retry without enabling writes.','nodevora-customer-rewards-for-woocommerce'));} }
 	public static function init() {
 
 		add_action('admin_post_nodevora_financial_setup',array(__CLASS__,'handle'));
@@ -37,39 +37,39 @@ class Nodevora_Financial_Setup {
 		check_admin_referer('nodevora_financial_setup');
 		$step=isset($_POST['setup_step'])&&is_string($_POST['setup_step'])?sanitize_key(wp_unslash($_POST['setup_step'])):'';
 		$lock=null;$locked=false;
-		try{$lock=new Nodevora_Financial_DB();$row=$lock->one('SELECT GET_LOCK(?,0) AS acquired',array('nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup'));$locked=1===(int)$row['acquired'];if(!$locked){throw new Nodevora_Financial_Error(__('Another setup operation is running. Retry while paused.','nodevora-customer-rewards-for-woocommerce'));}self::perform($step);delete_user_meta(get_current_user_id(),'_nodevora_setup_error');update_user_meta(get_current_user_id(),'_nodevora_setup_notice',true);}
+		try{$lock=new Nodevora_Financial_DB();$row=$lock->one('SELECT GET_LOCK(?,0) AS acquired',array('nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup'));$locked=1===(int)$row['acquired'];if(!$locked){throw new Nodevora_User_Error(__('Another setup operation is running. Retry while paused.','nodevora-customer-rewards-for-woocommerce'));}self::perform($step);delete_user_meta(get_current_user_id(),'_nodevora_setup_error');update_user_meta(get_current_user_id(),'_nodevora_setup_notice',true);}
 		catch(Throwable $e){delete_user_meta(get_current_user_id(),'_nodevora_setup_notice');update_user_meta(get_current_user_id(),'_nodevora_setup_error',$e instanceof Nodevora_Financial_Error?$e->getMessage():__('Setup failed. Writes remain paused. Check the backup and database permissions before retrying.','nodevora-customer-rewards-for-woocommerce'));}
 		finally{self::$scope='';if($locked){$lock->one('SELECT RELEASE_LOCK(?) AS released',array('nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup'));}if($lock){$lock->close();}}
 		wp_safe_redirect(admin_url('admin.php?page=rewardly-loyalty-settings&tab=data'));exit;
 	}
 	private static function perform($step) {
-		if(is_multisite()||!class_exists('WooCommerce')){throw new Nodevora_Financial_Error(__('Single-site WooCommerce is required.','nodevora-customer-rewards-for-woocommerce'));}
+		if(is_multisite()||!class_exists('WooCommerce')){throw new Nodevora_User_Error(__('Single-site WooCommerce is required.','nodevora-customer-rewards-for-woocommerce'));}
 		$s=self::state();
 		if('prepare'===$step){
 			$reference=isset($_POST['backup_reference'])&&is_string($_POST['backup_reference'])?sanitize_text_field(wp_unslash($_POST['backup_reference'])):'';
-			if(strlen($reference)<3||strlen($reference)>160||empty($_POST['backup_verified'])||empty($_POST['writers_drained'])){throw new Nodevora_Financial_Error(__('Confirm a tested database/files backup and stopped/drained legacy writers.','nodevora-customer-rewards-for-woocommerce'));}
+			if(strlen($reference)<3||strlen($reference)>160||empty($_POST['backup_verified'])||empty($_POST['writers_drained'])){throw new Nodevora_User_Error(__('Confirm a tested database/files backup and stopped/drained legacy writers.','nodevora-customer-rewards-for-woocommerce'));}
 			self::save(array('phase'=>'prepared','backup_reference'=>$reference,'operator'=>get_current_user_id(),'prepared_at'=>gmdate('c'),'cursor'=>0));return;
 		}
-		if('pause'===$step){if(!self::integrated()){throw new Nodevora_Financial_Error(__('No operator cutover exists.','nodevora-customer-rewards-for-woocommerce'));}$s['phase']='paused';self::save($s);return;}
+		if('pause'===$step){if(!self::integrated()){throw new Nodevora_User_Error(__('No operator cutover exists.','nodevora-customer-rewards-for-woocommerce'));}$s['phase']='paused';self::save($s);return;}
 		if('resolve_refund'===$step){
-			if(empty($_POST['review_confirmed'])){throw new Nodevora_Financial_Error(__('Confirm the external financial review before resolving a hold.','nodevora-customer-rewards-for-woocommerce'));}
+			if(empty($_POST['review_confirmed'])){throw new Nodevora_User_Error(__('Confirm the external financial review before resolving a hold.','nodevora-customer-rewards-for-woocommerce'));}
 			Nodevora_Financial_Lifecycle::resolve_refund(absint($_POST['order_id']??0),absint($_POST['refund_id']??0),isset($_POST['review_note'])&&is_string($_POST['review_note'])?sanitize_textarea_field(wp_unslash($_POST['review_note'])):'');return;
 		}
-		if(!isset($s['phase'])||!in_array($s['phase'],array('prepared','migrating','paused'),true)){throw new Nodevora_Financial_Error(__('Start with the backup and maintenance step.','nodevora-customer-rewards-for-woocommerce'));}
+		if(!isset($s['phase'])||!in_array($s['phase'],array('prepared','migrating','paused'),true)){throw new Nodevora_User_Error(__('Start with the backup and maintenance step.','nodevora-customer-rewards-for-woocommerce'));}
 		if('schema'===$step){self::$scope='schema';$db=new Nodevora_Financial_DB();try{Nodevora_Financial_Schema::install($db);}finally{$db->close();}$s['phase']='migrating';self::save($s);return;}
 		$db=new Nodevora_Financial_DB();try{Nodevora_Financial_Schema::verify($db);}finally{$db->close();}
 		if('inspect'===$step){
-			global $wpdb;$ids=$wpdb->get_col($wpdb->prepare('SELECT ID FROM %i WHERE ID>%d ORDER BY ID LIMIT 20',$wpdb->users,(int)$s['cursor']));if($wpdb->last_error){throw new Nodevora_Financial_Error(__('Account discovery failed; retry while paused.','nodevora-customer-rewards-for-woocommerce'));}
+			global $wpdb;$ids=$wpdb->get_col($wpdb->prepare('SELECT ID FROM %i WHERE ID>%d ORDER BY ID LIMIT 20',$wpdb->users,(int)$s['cursor']));if($wpdb->last_error){throw new Nodevora_User_Error(__('Account discovery failed; retry while paused.','nodevora-customer-rewards-for-woocommerce'));}
 			$batch=array();$m=new Nodevora_Financial_Migration();foreach($ids as$id){$batch[]=$m->inspect((int)$id);}$s['batch']=$batch;$s['scan_complete']=!$ids;self::save($s);return;
 		}
 		if('migrate'===$step){
-			if(!isset($s['batch'])||!$s['batch']){throw new Nodevora_Financial_Error(__('Inspect the next account batch first.','nodevora-customer-rewards-for-woocommerce'));}
+			if(!isset($s['batch'])||!$s['batch']){throw new Nodevora_User_Error(__('Inspect the next account batch first.','nodevora-customer-rewards-for-woocommerce'));}
 			self::$scope='migration';$m=new Nodevora_Financial_Migration();$quarantined=0;foreach($s['batch']as$row){$result=$m->migrate((int)$row['user_id'],$row['checksum']);if('needs_review'===$result['state']){$quarantined++;}}
 			$s['processed']=(int)($s['processed']??0)+count($s['batch']);$s['quarantined']=(int)($s['quarantined']??0)+$quarantined;
 			$s['cursor']=(int)end($s['batch'])['user_id'];$s['batch']=array();$s['scan_complete']=false;self::save($s);return;
 		}
 		if('activate'===$step){ self::activate_state($s,!empty($_POST['cutover_confirmed']),!empty($_POST['quarantine_confirmed']),!empty($_POST['recovery_reviewed']));return; }
-		throw new Nodevora_Financial_Error(__('Unknown setup action.','nodevora-customer-rewards-for-woocommerce'));
+		throw new Nodevora_User_Error(__('Unknown setup action.','nodevora-customer-rewards-for-woocommerce'));
 	}
 	/** Une requête traite au plus vingt comptes ; les preuves et le curseur sont persistants. */
 	public static function synchronize( $writers_confirmed = false ) {
@@ -82,14 +82,14 @@ class Nodevora_Financial_Setup {
 			$s = self::state();
 			if ( isset($s['phase']) && 'active' === $s['phase'] ) { Nodevora_Financial_Checkout::require_enabled();return array('complete'=>true); }
 			if ( ! isset($s['sync_authorized']) ) {
-				if ( ! $writers_confirmed ) { throw new Nodevora_Financial_Error( __('Stop any previous loyalty tools and external loyalty processing before confirming synchronization. Ordinary store settings will be retained.','nodevora-customer-rewards-for-woocommerce') ); }
+				if ( ! $writers_confirmed ) { throw new Nodevora_User_Error( __('Stop any previous loyalty tools and external loyalty processing before confirming synchronization. Ordinary store settings will be retained.','nodevora-customer-rewards-for-woocommerce') ); }
 				// Conserver les règles initiales ; les sources et historiques ne sont jamais supprimés.
 				add_option('nodevora_sync_source_settings',get_option('rewardly_loyalty_settings',array()),'',false);
 				$s=array('phase'=>'prepared','origin'=>'synchronized','cursor'=>0,'processed'=>0,'quarantined'=>0,'sync_authorized'=>get_current_user_id(),'prepared_at'=>gmdate('c'),'recovery_approved'=>false);
 				self::save($s);
 			}
 			if ( 'prepared' === $s['phase'] ) { self::perform('schema'); return array('complete'=>false,'processed'=>(int)($s['processed']??0)); }
-			if ( 'migrating' !== $s['phase'] ) { throw new Nodevora_Financial_Error( __('This store needs an administrator review before synchronization can continue.','nodevora-customer-rewards-for-woocommerce') ); }
+			if ( 'migrating' !== $s['phase'] ) { throw new Nodevora_User_Error( __('This store needs an administrator review before synchronization can continue.','nodevora-customer-rewards-for-woocommerce') ); }
 			if ( ! empty($s['batch']) ) { self::perform('migrate'); return array('complete'=>false,'processed'=>(int)(self::state()['processed']??0)); }
 			if ( empty($s['scan_complete']) ) { self::perform('inspect'); return array('complete'=>false,'processed'=>(int)($s['processed']??0)); }
 			// Une fin explicite, sans autoriser une file de récupération historique.
@@ -113,10 +113,10 @@ class Nodevora_Financial_Setup {
 
 	private static function activate_state($s,$cutover,$quarantine,$recovery) {
 		$verified_db=new Nodevora_Financial_DB();try{Nodevora_Financial_Schema::verify($verified_db);}finally{$verified_db->close();}
-			if(!$cutover||!$quarantine){throw new Nodevora_Financial_Error(__('Confirm cutover and that unreconciled accounts must remain blocked.','nodevora-customer-rewards-for-woocommerce'));}
-			if((defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&NODEVORA_FINANCIAL_WRITES_PAUSED)||(defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED)){throw new Nodevora_Financial_Error(__('A server safety override prevents activation. Ask the operator to review it; this page never changes server configuration.','nodevora-customer-rewards-for-woocommerce'));}
-			global $wpdb;$db=new Nodevora_Financial_DB();try{$missing=$db->one('SELECT COUNT(*) AS n FROM `'.$wpdb->users.'` u LEFT JOIN '.$db->table('wallet').' w ON w.user_id=u.ID WHERE w.user_id IS NULL');if((int)$missing['n']>0||empty($s['scan_complete'])){throw new Nodevora_Financial_Error(__('Inspect and migrate every account batch, including newly created accounts, before cutover.','nodevora-customer-rewards-for-woocommerce'));}}finally{$db->close();}
-			update_option('nodevora_financial_authority','wallet',false);if('wallet'!==get_option('nodevora_financial_authority')){throw new Nodevora_Financial_Error(__('Financial authority was not persisted.','nodevora-customer-rewards-for-woocommerce'));}
+			if(!$cutover||!$quarantine){throw new Nodevora_User_Error(__('Confirm cutover and that unreconciled accounts must remain blocked.','nodevora-customer-rewards-for-woocommerce'));}
+			if((defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&NODEVORA_FINANCIAL_WRITES_PAUSED)||(defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED)){throw new Nodevora_User_Error(__('A server safety override prevents activation. Ask the operator to review it; this page never changes server configuration.','nodevora-customer-rewards-for-woocommerce'));}
+			global $wpdb;$db=new Nodevora_Financial_DB();try{$missing=$db->one('SELECT COUNT(*) AS n FROM `'.$wpdb->users.'` u LEFT JOIN '.$db->table('wallet').' w ON w.user_id=u.ID WHERE w.user_id IS NULL');if((int)$missing['n']>0||empty($s['scan_complete'])){throw new Nodevora_User_Error(__('Inspect and migrate every account batch, including newly created accounts, before cutover.','nodevora-customer-rewards-for-woocommerce'));}}finally{$db->close();}
+			update_option('nodevora_financial_authority','wallet',false);if('wallet'!==get_option('nodevora_financial_authority')){throw new Nodevora_User_Error(__('Financial authority was not persisted.','nodevora-customer-rewards-for-woocommerce'));}
 			$s['recovery_approved']=$recovery;$s['phase']='active';$s['activated_at']=gmdate('c');$s['activated_by']=get_current_user_id();self::save($s);return;
 	}
 
