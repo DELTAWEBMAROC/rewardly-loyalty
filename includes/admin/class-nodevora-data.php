@@ -29,7 +29,28 @@ class Nodevora_Data {
 	public static function sync() {
 		self::guard(true);try{$result=Nodevora_Financial_Setup::synchronize(!empty($_POST['writers_confirmed']));wp_send_json_success($result);}catch(Throwable$e){wp_send_json_error(array('message'=>self::message($e)),409);}
 	}
-	private static function message($e){return$e instanceof Nodevora_Financial_Error?$e->getMessage():__('The operation could not finish. Your data is preserved. Retry or ask your administrator.','nodevora-customer-rewards-for-woocommerce');}
+	private static function message($e){
+		if($e instanceof Nodevora_Financial_Error){
+			$messages=array(
+				'Dry-run checksum changed.'=>__('Loyalty data changed during synchronization. Keep external loyalty tools stopped and ask your administrator to review the saved batch before retrying.','nodevora-customer-rewards-for-woocommerce'),
+				'Account or order identity does not match this store.'=>__('This backup refers to different accounts or orders. Use its matching site copy; no records were imported.','nodevora-customer-rewards-for-woocommerce'),
+				'Incompatible backup format, schema or plugin version.'=>__('This backup requires the same Nodevora version and supported backup format. Install the matching version on an empty test copy first.','nodevora-customer-rewards-for-woocommerce'),
+				'Backup integrity verification failed.'=>__('This backup is damaged or incomplete. Select a complete original export and preview it again.','nodevora-customer-rewards-for-woocommerce'),
+				'Incomplete backup refused.'=>__('This backup is damaged or incomplete. Select a complete original export and preview it again.','nodevora-customer-rewards-for-woocommerce'),
+				'Another synchronization is running.'=>__('Another data operation is running. Wait for it to finish, then resume.','nodevora-customer-rewards-for-woocommerce'),
+				'Another data operation is running.'=>__('Another data operation is running. Wait for it to finish, then resume.','nodevora-customer-rewards-for-woocommerce'),
+				'Pending effects changed. Review the list again.'=>__('Pending effects changed. Reload and review the current list before approving recovery.','nodevora-customer-rewards-for-woocommerce'),
+				'This store already contains loyalty activity. An older backup cannot replace it. Use an empty test copy or request reviewed reconciliation.'=>__('This store already contains loyalty activity. An older backup cannot replace it. Use an empty test copy or request reviewed reconciliation.','nodevora-customer-rewards-for-woocommerce'),
+				'Existing loyalty metadata conflicts with this restore.'=>__('This store still contains loyalty records. Import into an empty matching test copy; existing records are preserved.','nodevora-customer-rewards-for-woocommerce'),
+				'Backup exceeds the supported size or could not be written.'=>__('The backup exceeds 32 MiB or private temporary storage is unavailable. Ask your administrator for an assisted export.','nodevora-customer-rewards-for-woocommerce'),
+				'Backup row limit exceeded; request an operator-assisted export.'=>__('The backup exceeds 100,000 records. Ask your administrator for an assisted export.','nodevora-customer-rewards-for-woocommerce'),
+			);
+			if(isset($messages[$e->getMessage()])){return$messages[$e->getMessage()];}
+			// Existing translated, actionable workflow errors can pass through unchanged.
+			if($e->getMessage()!==translate($e->getMessage(),'nodevora-customer-rewards-for-woocommerce')){return translate($e->getMessage(),'nodevora-customer-rewards-for-woocommerce');}
+		}
+		return __('The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.','nodevora-customer-rewards-for-woocommerce');
+	}
 	public static function handle($action) {
 		self::guard();try{
 			if('export'===$action){$f=Nodevora_Backup::create();try{nocache_headers();header('Content-Type: application/x-ndjson; charset=utf-8');header('Content-Disposition: attachment; filename="nodevora-'.gmdate('Y-m-d-His').'.ndjson"');header('X-Content-Type-Options: nosniff');header('Content-Length: '.fstat($f)['size']);fpassthru($f);}finally{fclose($f);}exit;}

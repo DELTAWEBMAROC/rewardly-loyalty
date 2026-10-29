@@ -18,7 +18,7 @@ class Nodevora_Installation {
 		}
 		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->usermeta . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(rewardly_loyalty_|_rewardly_bonus_|_nodevora_)' ) ) ) { return 'existing'; }
 		foreach ( array( $wpdb->postmeta, $wpdb->prefix . 'wc_orders_meta', $wpdb->prefix . 'woocommerce_order_itemmeta' ) as $table ) {
-			if ( self::exists( $db, $table ) && $db->one( 'SELECT 1 AS found FROM `' . $table . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly|_nodevora_financial|_nodevora_refund|_nodevora_earning|_nodevora_wallet_fee)' ) ) ) { return 'existing'; }
+			if ( self::exists( $db, $table ) && $db->one( 'SELECT 1 AS found FROM `' . $table . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly|_nodevora)' ) ) ) { return 'existing'; }
 		}
 		if ( $db->one( 'SELECT 1 AS found FROM `' . $wpdb->commentmeta . '` WHERE meta_key REGEXP ? LIMIT 1', array( '^(_rewardly_bonus_|_nodevora_)' ) ) ) { return 'existing'; }
 		$legacy = $wpdb->prefix . 'rewardly_loyalty_log';

@@ -68,6 +68,9 @@ class Nodevora_Restore {
 		}
 		if ( $db->one( 'SELECT a.event_id FROM ' . $a . ' a LEFT JOIN ' . $e . ' e ON e.id=a.event_id LEFT JOIN ' . $l . ' l ON l.id=a.lot_id WHERE e.id IS NULL OR l.id IS NULL OR e.user_id<>l.user_id LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup contains an orphan allocation.' ); }
 		if ( $db->one( 'SELECT o.id FROM ' . $db->table('outbox') . ' o LEFT JOIN ' . $e . ' e ON e.id=o.event_id WHERE e.id IS NULL OR e.user_id<>o.user_id LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup contains an orphan effect.' ); }
+		if($db->one('SELECT 1 AS bad FROM '.$e.' e LEFT JOIN '.$w.' w ON w.user_id=e.user_id WHERE w.user_id IS NULL LIMIT 1')||$db->one('SELECT 1 AS bad FROM '.$s.' s LEFT JOIN '.$w.' w ON w.user_id=s.user_id WHERE w.user_id IS NULL LIMIT 1')){throw new Nodevora_Financial_Error('Backup contains an orphan account record.');}
+		if($db->one('SELECT 1 AS bad FROM '.$w.' w JOIN '.$s.' s ON s.user_id=w.user_id AND s.version=1 WHERE BINARY w.checksum<>BINARY s.checksum OR w.checksum IS NULL LIMIT 1')){throw new Nodevora_Financial_Error('Backup account checksum is inconsistent.');}
+		if($db->one('SELECT 1 AS bad FROM '.$db->table('order_state').' o LEFT JOIN '.$w.' w ON w.user_id=o.user_id LEFT JOIN '.$e.' e ON e.id=o.debit_event_id WHERE w.user_id IS NULL OR (o.debit_event_id IS NOT NULL AND (e.id IS NULL OR e.user_id<>o.user_id)) LIMIT 1')){throw new Nodevora_Financial_Error('Backup order funding reference is inconsistent.');}
 		if ( $db->one( 'SELECT w.user_id FROM ' . $w . ' w LEFT JOIN ' . $s . ' s ON s.user_id=w.user_id AND s.version=1 WHERE s.user_id IS NULL LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup account snapshot is missing.' ); }
 	}
 	public static function resume_reviewed( $recovery_approved = false ) {
