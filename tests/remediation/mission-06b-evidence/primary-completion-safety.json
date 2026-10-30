@@ -1,0 +1,34 @@
+{
+  "home": "http://localhost:10004",
+  "writes_paused": true,
+  "qa_enabled": false,
+  "cron_disabled": true,
+  "mode": "wallet",
+  "authority": "wallet",
+  "schema_gate": false,
+  "migration_gate": false,
+  "drained_gate": false,
+  "active_transactions": 0,
+  "mu_files": [
+    "nodevora-qa-safety.php"
+  ],
+  "qa_gateways": [],
+  "mail_block_installed": true,
+  "http_block_installed": true,
+  "original_ui_options_unchanged": true,
+  "hpos": true,
+  "outbox_states": [
+    {
+      "state": "dead",
+      "events": 25
+    },
+    {
+      "state": "delivered",
+      "events": 93
+    },
+    {
+      "state": "pending",
+      "events": 790
+    }
+  ]
+}

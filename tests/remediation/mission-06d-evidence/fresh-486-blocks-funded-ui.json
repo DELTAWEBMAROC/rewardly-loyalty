@@ -1,0 +1,33 @@
+{
+  "order": 289,
+  "status": "processing",
+  "total": "94.05",
+  "payment": "cod",
+  "fees": [
+    {
+      "total": "-5.95",
+      "owned": "v1"
+    }
+  ],
+  "wallet": {
+    "user_id": 1,
+    "balance": 381,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 4,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+    "available": 381
+  },
+  "financial_state": "dispatched",
+  "points": 119,
+  "discount_minor": 595,
+  "debit_event": {
+    "id": 4,
+    "kind": "debit",
+    "gross_points": 119,
+    "delta_balance": -119
+  },
+  "invariants": true
+}

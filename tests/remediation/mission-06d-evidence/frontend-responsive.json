@@ -1,0 +1,650 @@
+[
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 1265,
+        "width": 1250
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 415,
+        "right": 1265,
+        "width": 850
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "en-US",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 305,
+        "width": 290
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 320,
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "left": 15,
+        "right": 375,
+        "width": 360
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 390,
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/nodevora-qa-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 1265,
+        "width": 1250
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-cart/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/blocks-checkout/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-box nodevora-block-card",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/my-account/rewardly-points/",
+    "components": [
+      {
+        "class": "rewardly-loyalty-account",
+        "left": 415,
+        "right": 1265,
+        "width": 850
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "path": "/qa-shortcodes/",
+    "components": [
+      {
+        "class": "rewardly-shortcode-history",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-shortcode-account rewardly-loyalty-account",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-cart-points-notice",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      },
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "left": 15,
+        "right": 900,
+        "width": 885
+      }
+    ],
+    "language": "fr-FR",
+    "pageScroll": 1280,
+    "width": 1280
+  }
+]

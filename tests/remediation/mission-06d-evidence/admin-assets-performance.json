@@ -1,0 +1,52 @@
+{
+  "method": "Two local authenticated GETs per Nodevora tab; full WordPress/theme/plugin cost, not Core Web Vitals or a production benchmark",
+  "responses": [
+    {
+      "tab": "general",
+      "http": 200,
+      "html_bytes": 285574,
+      "local_response_ms": [
+        1011.9,
+        891.8
+      ],
+      "design_script": false,
+      "data_script": false,
+      "wp_color_picker": false
+    },
+    {
+      "tab": "design",
+      "http": 200,
+      "html_bytes": 325290,
+      "local_response_ms": [
+        848.3,
+        1347.5
+      ],
+      "design_script": true,
+      "data_script": false,
+      "wp_color_picker": true
+    },
+    {
+      "tab": "data",
+      "http": 200,
+      "html_bytes": 283247,
+      "local_response_ms": [
+        1336.5,
+        1114.8
+      ],
+      "design_script": false,
+      "data_script": true,
+      "wp_color_picker": false
+    }
+  ],
+  "uncompressed_asset_bytes": {
+    "assets/js/loyalty-product.js": 1838,
+    "assets/js/loyalty-blocks.js": 4495,
+    "assets/js/admin-pro.js": 4156,
+    "assets/js/admin-design.js": 8517,
+    "assets/js/admin-data.js": 2243,
+    "assets/css/admin-legacy.css": 4048,
+    "assets/css/admin.css": 4821,
+    "assets/css/loyalty.css": 26774
+  },
+  "palette_network_requests": "No fetch/AJAX in admin-design.js; local event-driven DOM preview only"
+}

@@ -1,0 +1,29 @@
+{
+  "wallet": {
+    "user_id": 1,
+    "balance": 300,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 1,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+    "available": 300
+  },
+  "events": [
+    {
+      "id": 1,
+      "kind": "credit",
+      "gross_points": 300,
+      "delta_balance": 300
+    }
+  ],
+  "wallet_count": 1,
+  "invariants": true,
+  "settings": {
+    "earn_points_per_dh": 2,
+    "redeem_points_per_dh": 20,
+    "email_notifications": "no"
+  },
+  "adjustment_via_supported_ui": true
+}

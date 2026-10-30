@@ -1,0 +1,280 @@
+{
+  "filename": "nodevora-customer-rewards-for-woocommerce-4.8.6-qa.zip",
+  "bytes": 182492,
+  "sha256": "11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496",
+  "source_commit": "93eb9f35bf23a74c953a8cecb11943a2186927aa",
+  "files": [
+    {
+      "path": "assets/css/admin-legacy.css",
+      "bytes": 4048,
+      "sha256": "530f18284b95d5bc7a6beac1d27651c6dc2958c9392f188deb7ec6fab0bf049d"
+    },
+    {
+      "path": "assets/css/admin.css",
+      "bytes": 4821,
+      "sha256": "edd8cfca53a68dde5ccef1c2194e9fccfafac172fd44ea075c9dd00b3b1b7ca4"
+    },
+    {
+      "path": "assets/css/loyalty.css",
+      "bytes": 26774,
+      "sha256": "6f72f738b06fbf143b27f69e07f263213619e237a6991d4cb37983eeb3626959"
+    },
+    {
+      "path": "assets/js/admin-data.js",
+      "bytes": 2243,
+      "sha256": "bde5f8ac680ddfe0a258b59c60d6bc614d9588c55ff59bdce5879875af1a9c89"
+    },
+    {
+      "path": "assets/js/admin-design.js",
+      "bytes": 8517,
+      "sha256": "065a09bae1ba78d16150436f303e5d4e79b3f3312900a938b7a682eda65e3f4f"
+    },
+    {
+      "path": "assets/js/admin-pro.js",
+      "bytes": 4156,
+      "sha256": "4840fc226029b05c4ebf378162bf7f66680e5be0adf608365458c9bac83c2485"
+    },
+    {
+      "path": "assets/js/loyalty-blocks.js",
+      "bytes": 4495,
+      "sha256": "fe83ba77d15bed408cb4d4e41d9dbd6587167b2f091e046153818a0d300e5f94"
+    },
+    {
+      "path": "assets/js/loyalty-product.js",
+      "bytes": 1838,
+      "sha256": "5b5ccba8a99b2b5bedde7d9aa7637441bd0fbdf901e44b053ec4911287c2122b"
+    },
+    {
+      "path": "includes/admin/class-nodevora-access.php",
+      "bytes": 6375,
+      "sha256": "1cf77dedc41f2b4384580d5daf82ac46c27970d360e714d411344b24726b59b0"
+    },
+    {
+      "path": "includes/admin/class-nodevora-data.php",
+      "bytes": 17123,
+      "sha256": "cbcd2f4324b605c298a907807f7d94d804f321a577371b3a6a747b6f7bab9683"
+    },
+    {
+      "path": "includes/admin/class-nodevora-design-admin.php",
+      "bytes": 10116,
+      "sha256": "88f2a5248725195799bd809bdf0d6166680cfd3ab90b63c4bbdc406e94a95bee"
+    },
+    {
+      "path": "includes/admin/class-rewardly-loyalty-admin-adjustments.php",
+      "bytes": 6695,
+      "sha256": "53b165af1705102b926fad1b7f16565923fc6998746d0d81c7e8d462069ddd56"
+    },
+    {
+      "path": "includes/admin/class-rewardly-loyalty-admin.php",
+      "bytes": 34570,
+      "sha256": "4892f9ad7b0f2e14358f2d0466ec68afb02143a560dc452497750ff74d271a19"
+    },
+    {
+      "path": "includes/admin/class-rewardly-loyalty-settings.php",
+      "bytes": 15977,
+      "sha256": "42413379ac98c7c6d70a193f9d73682300ef7e6bda559e34b2e28b80aaf249e7"
+    },
+    {
+      "path": "includes/core/class-rewardly-loyalty-emails.php",
+      "bytes": 3267,
+      "sha256": "fb9836d5071fe4bb894586d32abf37a4ab8179218136018d688aa7240ffe5934"
+    },
+    {
+      "path": "includes/core/class-rewardly-loyalty-helpers.php",
+      "bytes": 28522,
+      "sha256": "af2339684f38f664906665cb62b9fec1b4866272ec5326aec2901489c1ae209e"
+    },
+    {
+      "path": "includes/core/class-rewardly-loyalty-points.php",
+      "bytes": 5798,
+      "sha256": "bee7818a4b8046a21b57190db3608f0d73e3748e8aef0851bb3ddea4ea7c4dcb"
+    },
+    {
+      "path": "includes/core/class-rewardly-loyalty-pro.php",
+      "bytes": 3372,
+      "sha256": "2b4a088cd03fcd998d48d1fda214c08643744a1c891620638271c87ded3e29b2"
+    },
+    {
+      "path": "includes/core/class-rewardly-loyalty-redeem.php",
+      "bytes": 32047,
+      "sha256": "cde1120d32a3311cbac64328062c81cdcad8360f1bab4a6b4c2aff3ffd20bb0f"
+    },
+    {
+      "path": "includes/design/class-rewardly-loyalty-design.php",
+      "bytes": 4880,
+      "sha256": "d1d907bc241a394fe0fc017144d21fc184a82be2d23880b929ead0a5916b183e"
+    },
+    {
+      "path": "includes/financial/bootstrap.php",
+      "bytes": 981,
+      "sha256": "da1b70b35f2c7c28ca09b4c33bec20095ba7c3a70f97fcd3d76393108091ec70"
+    },
+    {
+      "path": "includes/financial/class-nodevora-backup.php",
+      "bytes": 12973,
+      "sha256": "63d59acc200c4ca8a25e08d71297f2a834978de7eb10362a2a2619589aacc727"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-checkout.php",
+      "bytes": 10968,
+      "sha256": "1f053423a2d69c61c6f4512bc039aaf31876630bdcd6bb66600aac01a7aba65c"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-compatibility.php",
+      "bytes": 7246,
+      "sha256": "12d580dccd717c735052ed7556d0c7c1baaaf19c84e06cc9ee74c8e55c82ab9b"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-db.php",
+      "bytes": 4037,
+      "sha256": "52c78926a2d7c3cbf10cff89f5927c8d03a0084182562cb0cdf41e87f2aa9840"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-lifecycle.php",
+      "bytes": 15494,
+      "sha256": "bb74253cad33f020a7020d884d7d5dbf115e0c5291e8c46d866424bd5b33ac1e"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-migration.php",
+      "bytes": 16641,
+      "sha256": "3e22bab52746a825b12575708d055f16d7a587182691db675f0dd6c2117055b5"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-money.php",
+      "bytes": 2094,
+      "sha256": "b229075b7d89d1763390ca8a64d401987cb124754bcc78f0bf46c415c04e146e"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-order.php",
+      "bytes": 6539,
+      "sha256": "f130aefeb4acba5de1d60f3205da418413abbbc26e0878a95758d0a84144b675"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-readiness.php",
+      "bytes": 1418,
+      "sha256": "9ca58969289683060361504ceee9fad854c8aa2ca890036ae1e4909609333d8b"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-recovery.php",
+      "bytes": 9662,
+      "sha256": "e3321d20d2f9e6160da6600e27ec6e350c6580716eeedfe41b613d404fa41f00"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-schema.php",
+      "bytes": 7140,
+      "sha256": "f64676c86cec9edfbda8cb2cd4ce652d876eb1dc4bede162b2632809428e6935"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-setup.php",
+      "bytes": 21061,
+      "sha256": "5d75226adc69df51d3843c514f89ccce997bfd9a2723a0d3e7e5b2464e414c02"
+    },
+    {
+      "path": "includes/financial/class-nodevora-financial-wallet.php",
+      "bytes": 16104,
+      "sha256": "231fbd82e04decdc62c889b3ef7ce832fc8a3ed5c2ab5c70bfda43ca5f5c8a9b"
+    },
+    {
+      "path": "includes/financial/class-nodevora-installation.php",
+      "bytes": 7590,
+      "sha256": "d9ffd9ad251affb885d956bb4f8c000f7a5159abe0d424ccd4defc14dfc31b6d"
+    },
+    {
+      "path": "includes/financial/class-nodevora-restore.php",
+      "bytes": 16693,
+      "sha256": "7e938510d3b2ce0adcc5e4a79cd337e9eea47cf2587195447cf62d9c7dfdeb56"
+    },
+    {
+      "path": "includes/front/class-nodevora-blocks-integration.php",
+      "bytes": 1137,
+      "sha256": "219dc723af0b87501952173f9ab2602a4885efdaf8db630afed142fdc100c691"
+    },
+    {
+      "path": "includes/front/class-nodevora-loyalty-blocks.php",
+      "bytes": 6582,
+      "sha256": "9f945ccd7da41bf99f0802e0258a2607fb6da315cfbf8d999c595797c89b2fac"
+    },
+    {
+      "path": "includes/front/class-rewardly-loyalty-account.php",
+      "bytes": 19244,
+      "sha256": "08bb08d80422153a740f130f1986eb57e311a8dae3a4bb472f2550b930320382"
+    },
+    {
+      "path": "includes/front/class-rewardly-loyalty-product.php",
+      "bytes": 3163,
+      "sha256": "e3464ab886ec3113513e4fc34d5f71c4979e26236c480b10edfd22c92e339906"
+    },
+    {
+      "path": "includes/shortcodes/class-rewardly-loyalty-shortcodes.php",
+      "bytes": 6807,
+      "sha256": "d337106f08f957424557d3be4ee250c3b4d1d7c96f1a11cbf007e40932622c91"
+    },
+    {
+      "path": "languages/nodevora-customer-rewards-for-woocommerce-fr_FR-f6fe6763af76152f751e1118c0afd727.json",
+      "bytes": 1099,
+      "sha256": "58df12a847ec1a0c7060834016d54836bd22732cd0d0c697e4ac12ca643b8dee"
+    },
+    {
+      "path": "languages/nodevora-customer-rewards-for-woocommerce-fr_FR.mo",
+      "bytes": 54775,
+      "sha256": "40175e4309c0adbb677c9ed55d485ff52dec77179fa8f19553b78a3e31393842"
+    },
+    {
+      "path": "languages/nodevora-customer-rewards-for-woocommerce-fr_FR.po",
+      "bytes": 86618,
+      "sha256": "d8412fd4de00eb469ac55afbfc06a7bf069d531131a18528db3d6bf9cc9f454b"
+    },
+    {
+      "path": "languages/nodevora-customer-rewards-for-woocommerce.pot",
+      "bytes": 58878,
+      "sha256": "40f0b778e9ea3936f2bd27ee4fd3d5fa85283f3acd82df2a2f8565a337bdb5f2"
+    },
+    {
+      "path": "nodevora-customer-rewards-for-woocommerce.php",
+      "bytes": 11877,
+      "sha256": "bddddc16f7f21534e44a7126e9b46a2deb6f8b2d050bd7c334d6ed684a7bd5c1"
+    },
+    {
+      "path": "readme.txt",
+      "bytes": 12976,
+      "sha256": "9ecbb0d8f89d51b4778a7f68c8098707d79e90b5b57d52f5046cd8f7d573c5c0"
+    },
+    {
+      "path": "uninstall.php",
+      "bytes": 617,
+      "sha256": "211da51e62bd79e414304f1cd952877feb2509e77161d97ee1f7e09830d9b610"
+    }
+  ],
+  "deltas_from_tested_variants": {
+    "1": [
+      "includes/admin/class-nodevora-data.php",
+      "includes/financial/class-nodevora-financial-setup.php"
+    ],
+    "2": [
+      "includes/admin/class-nodevora-data.php"
+    ],
+    "3": []
+  },
+  "targeted_syntax": [
+    {
+      "runtime": "php-8.2.29+0",
+      "file": "includes/admin/class-nodevora-data.php",
+      "status": "PASS"
+    },
+    {
+      "runtime": "php-8.2.29+0",
+      "file": "includes/financial/class-nodevora-financial-setup.php",
+      "status": "PASS"
+    },
+    {
+      "runtime": "php-8.3.30+1",
+      "file": "includes/admin/class-nodevora-data.php",
+      "status": "PASS"
+    },
+    {
+      "runtime": "php-8.3.30+1",
+      "file": "includes/financial/class-nodevora-financial-setup.php",
+      "status": "PASS"
+    }
+  ]
+}

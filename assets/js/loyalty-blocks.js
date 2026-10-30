@@ -1,131 +1,46 @@
 (function () {
-  var scheduled = false;
-
-  function hasHtml(value) {
-    return typeof value === 'string' && value.trim() !== '';
-  }
-
-  function createSlot(html, type) {
-    var wrapper = document.createElement('div');
-    wrapper.className = 'rewardly-block-slot rewardly-block-slot--' + type;
-    wrapper.setAttribute('data-rewardly-block-slot', type);
-    wrapper.innerHTML = html;
-    return wrapper;
-  }
-
-  function findFirst(selectors) {
-    for (var i = 0; i < selectors.length; i += 1) {
-      var node = document.querySelector(selectors[i]);
-      if (node) {
-        return node;
-      }
-    }
-    return null;
-  }
-
-  function findCartRoot() {
-    return findFirst([
-      '.wp-block-woocommerce-cart',
-      '.wc-block-cart'
-    ]);
-  }
-
-  function findCheckoutRoot() {
-    return findFirst([
-      '.wp-block-woocommerce-checkout',
-      '.wc-block-checkout'
-    ]);
-  }
-
-  function findLayoutChild(root) {
-    if (!root || typeof root.querySelector !== 'function') {
-      return null;
-    }
-
-    return root.querySelector(':scope > .wc-block-components-sidebar-layout') ||
-      root.querySelector(':scope > .wc-block-cart') ||
-      root.querySelector(':scope > .wc-block-checkout') ||
-      root.querySelector('.wc-block-components-sidebar-layout');
-  }
-
-  function getRoot(type) {
-    return type === 'checkout' ? findCheckoutRoot() : findCartRoot();
-  }
-
-  function getScopedExisting(root, type) {
-    if (!root || typeof root.querySelector !== 'function') {
-      return null;
-    }
-    return root.querySelector('[data-rewardly-block-slot="' + type + '"]');
-  }
-
-  function syncSlot(type, html) {
-    if (!hasHtml(html)) {
-      return;
-    }
-
-    var root = getRoot(type);
-    if (!root) {
-      return;
-    }
-
-    var existing = getScopedExisting(root, type);
-    var insertBefore = findLayoutChild(root);
-
-    if (existing) {
-      if (existing.getAttribute('data-rewardly-html') !== html) {
-        existing.innerHTML = html;
-        existing.setAttribute('data-rewardly-html', html);
-      }
-
-      if (existing.parentNode !== root) {
-        root.insertBefore(existing, insertBefore || root.firstChild || null);
-      }
-      return;
-    }
-
-    var slot = createSlot(html, type);
-    slot.setAttribute('data-rewardly-html', html);
-    root.insertBefore(slot, insertBefore || root.firstChild || null);
-  }
-
-  function renderRewardlyBlocks() {
-    scheduled = false;
-
-    if (typeof rewardlyBlocksData === 'undefined') {
-      return;
-    }
-
-    syncSlot('cart', rewardlyBlocksData.cartHtml);
-    syncSlot('checkout', rewardlyBlocksData.checkoutHtml);
-  }
-
-  function scheduleRender() {
-    if (scheduled) {
-      return;
-    }
-    scheduled = true;
-    window.requestAnimationFrame(renderRewardlyBlocks);
-  }
-
-  document.addEventListener('DOMContentLoaded', scheduleRender);
-  window.addEventListener('load', scheduleRender);
-
-  var observer = new MutationObserver(function (mutations) {
-    for (var i = 0; i < mutations.length; i += 1) {
-      var mutation = mutations[i];
-
-      if (mutation.target && mutation.target.closest && mutation.target.closest('.rewardly-block-slot')) {
-        continue;
-      }
-
-      scheduleRender();
-      break;
-    }
-  });
-
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
+	'use strict';
+	if (!window.wp?.element || !window.wc?.blocksCheckout) return;
+	const {createElement: el, useState, useEffect} = wp.element;
+	const {__, _n, sprintf} = wp.i18n;
+	const {registerCheckoutBlock, extensionCartUpdate} = wc.blocksCheckout;
+	if (!registerCheckoutBlock || !extensionCartUpdate || !wp.data) return;
+	function Loyalty({extensions, context}) {
+		const cartExtensions = wp.data.useSelect(function (select) { return select('wc/store/cart').getCartData()?.extensions; }, []);
+		const state = cartExtensions?.['nodevora-loyalty'] || extensions?.['nodevora-loyalty'];
+		const [value, setValue] = useState('');
+		const [busy, setBusy] = useState(false);
+		const [error, setError] = useState('');
+		useEffect(function () { if (state?.applied) setValue(String(state.applied)); }, [state?.applied]);
+		if (!state?.enabled || state.display === 'shortcode') return null;
+		const isCart = context === 'woocommerce/cart';
+		const card = state.display === 'both' || (isCart ? state.display === 'cart' : state.display === 'checkout');
+		const id = 'nodevora-points-' + (isCart ? 'cart' : 'checkout');
+		function update(action) {
+			setBusy(true); setError('');
+			extensionCartUpdate({namespace: 'nodevora-loyalty', data: {action, points: value}})
+				.then(function () { if (action === 'remove') setValue(''); })
+				.catch(function (response) { setError(response.message || __('Unable to update points. Please try again.', 'nodevora-customer-rewards-for-woocommerce')); })
+				.finally(function () { setBusy(false); });
+		}
+		return el('section', {className: 'rewardly-loyalty-box nodevora-block-card', 'data-nodevora-context': isCart ? 'cart' : 'checkout', 'aria-labelledby': id + '-title', 'aria-busy': busy},
+			el('h3', {id: id + '-title'}, __('Your loyalty rewards', 'nodevora-customer-rewards-for-woocommerce')),
+			el('p', {className: 'nodevora-earning', 'aria-live': 'polite'}, sprintf(_n('This order earns up to %s point.', 'This order earns up to %s points.', state.potential, 'nodevora-customer-rewards-for-woocommerce'), state.potential)),
+			state.logged_in && card ? el('div', null,
+				state.balance_known ? el('p', {'aria-live': 'polite'}, sprintf(__('Available balance: %s points', 'nodevora-customer-rewards-for-woocommerce'), state.balance)) : null,
+				state.message ? el('p', {role: 'status'}, state.message) : null,
+				state.ready ? el('form', {className: 'nodevora-redeem-form', onSubmit: function (event) {event.preventDefault(); update('apply');}},
+					el('label', {htmlFor: id}, __('Points to use', 'nodevora-customer-rewards-for-woocommerce')),
+					el('p', {id: id + '-help'}, sprintf(__('You can use up to %s points on this order.', 'nodevora-customer-rewards-for-woocommerce'), state.maximum)),
+					el('input', {id, type: 'number', min: 1, max: state.maximum, step: 1, inputMode: 'numeric', value, required: true, disabled: busy, 'aria-describedby': id + '-help ' + id + '-error', 'aria-invalid': !!error, onChange: function (event) {setValue(event.target.value);}}),
+					el('button', {type: 'submit', className: 'rewardly-loyalty-btn', disabled: busy}, busy ? __('Updating…', 'nodevora-customer-rewards-for-woocommerce') : __('Apply points', 'nodevora-customer-rewards-for-woocommerce'))) : null,
+				state.selected ? el('div', {className: 'nodevora-applied', 'aria-live': 'polite'},
+					state.applied > 0 ? el('p', null, sprintf(__('%1$s points applied · %2$s discount', 'nodevora-customer-rewards-for-woocommerce'), state.applied, state.discount)) : null,
+					el('button', {type: 'button', className: 'rewardly-loyalty-btn', disabled: busy, onClick: function () {update('remove');}}, __('Remove points', 'nodevora-customer-rewards-for-woocommerce'))) : null,
+				el('p', {id: id + '-error', role: 'alert'}, error)) : null,
+			!state.logged_in && card ? el('a', {href: state.login_url, className: 'rewardly-loyalty-btn'}, __('Log in to use your points', 'nodevora-customer-rewards-for-woocommerce')) : null);
+	}
+	const lock = {type: 'object', default: {remove: true, move: true}};
+	registerCheckoutBlock({metadata: {name: 'nodevora/cart-loyalty', parent: ['woocommerce/cart-totals-block'], attributes: {lock}}, component: function () {return el(Loyalty, {context: 'woocommerce/cart'});}});
+	registerCheckoutBlock({metadata: {name: 'nodevora/checkout-loyalty', parent: ['woocommerce/checkout-contact-information-block'], attributes: {lock}}, component: function () {return el(Loyalty, {context: 'woocommerce/checkout'});}});
 })();

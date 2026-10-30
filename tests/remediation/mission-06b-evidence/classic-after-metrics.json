@@ -1,0 +1,410 @@
+[
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 320,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 258,
+        "scroll": 258,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 218,
+        "scroll": 218,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 143,
+        "scroll": 143,
+        "text": "Utiliser mes points"
+      }
+    ],
+    "width": 320,
+    "locale": "fr_FR",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 320,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 258,
+        "scroll": 258,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 218,
+        "scroll": 218,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 143,
+        "scroll": 143,
+        "text": "Utiliser mes points"
+      }
+    ],
+    "width": 320,
+    "locale": "fr_FR",
+    "mode": "open"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 390,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 328,
+        "scroll": 328,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 288,
+        "scroll": 288,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 143,
+        "scroll": 143,
+        "text": "Utiliser mes points"
+      }
+    ],
+    "width": 390,
+    "locale": "fr_FR",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 390,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 328,
+        "scroll": 328,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 288,
+        "scroll": 288,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 143,
+        "scroll": 143,
+        "text": "Utiliser mes points"
+      }
+    ],
+    "width": 390,
+    "locale": "fr_FR",
+    "mode": "open"
+  },
+  {
+    "controls": [
+      {
+        "left": 107,
+        "right": 1025,
+        "tag": "INPUT"
+      },
+      {
+        "left": 456,
+        "right": 676,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 1280,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "client": 998,
+        "scroll": 998,
+        "text": null
+      }
+    ],
+    "width": 1280,
+    "locale": "fr_FR",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 107,
+        "right": 1025,
+        "tag": "INPUT"
+      },
+      {
+        "left": 456,
+        "right": 676,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 1280,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "client": 998,
+        "scroll": 998,
+        "text": null
+      }
+    ],
+    "width": 1280,
+    "locale": "fr_FR",
+    "mode": "open"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 320,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 258,
+        "scroll": 258,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 218,
+        "scroll": 218,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 112,
+        "scroll": 112,
+        "text": "Use My Points"
+      }
+    ],
+    "width": 320,
+    "locale": "en_US",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 255,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 320,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 258,
+        "scroll": 258,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 218,
+        "scroll": 218,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 112,
+        "scroll": 112,
+        "text": "Use My Points"
+      }
+    ],
+    "width": 320,
+    "locale": "en_US",
+    "mode": "open"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 390,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 328,
+        "scroll": 328,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 288,
+        "scroll": 288,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 112,
+        "scroll": 112,
+        "text": "Use My Points"
+      }
+    ],
+    "width": 390,
+    "locale": "en_US",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "INPUT"
+      },
+      {
+        "left": 65,
+        "right": 325,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 390,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--mobile-collapsible",
+        "client": 328,
+        "scroll": 328,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary",
+        "client": 288,
+        "scroll": 288,
+        "text": null
+      },
+      {
+        "class": "rewardly-loyalty-box__summary-hint",
+        "client": 112,
+        "scroll": 112,
+        "text": "Use My Points"
+      }
+    ],
+    "width": 390,
+    "locale": "en_US",
+    "mode": "open"
+  },
+  {
+    "controls": [
+      {
+        "left": 107,
+        "right": 1025,
+        "tag": "INPUT"
+      },
+      {
+        "left": 456,
+        "right": 676,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 1280,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "client": 998,
+        "scroll": 998,
+        "text": null
+      }
+    ],
+    "width": 1280,
+    "locale": "en_US",
+    "mode": "closed"
+  },
+  {
+    "controls": [
+      {
+        "left": 107,
+        "right": 1025,
+        "tag": "INPUT"
+      },
+      {
+        "left": 456,
+        "right": 676,
+        "tag": "BUTTON"
+      }
+    ],
+    "documentWidth": 1280,
+    "items": [
+      {
+        "class": "rewardly-loyalty-box rewardly-loyalty-box--connected rewardly-loyalty-box--desktop",
+        "client": 998,
+        "scroll": 998,
+        "text": null
+      }
+    ],
+    "width": 1280,
+    "locale": "en_US",
+    "mode": "open"
+  }
+]

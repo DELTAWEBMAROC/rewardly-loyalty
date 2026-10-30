@@ -3,34 +3,30 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Rewardly_Loyalty_Design {
 	public static function init() {}
 
+	public static function component_variables() { return array('button_background'=>'--rewardly-button-bg','button_text'=>'--rewardly-button-color','button_hover_background'=>'--rewardly-button-hover-bg','button_hover_text'=>'--rewardly-button-hover-color','card_background'=>'--rewardly-card-bg','card_border'=>'--rewardly-border','text_color'=>'--rewardly-black','info_background'=>'--rewardly-soft','info_text'=>'--rewardly-info-color'); }
+	public static function component_selectors() { return array('cart'=>':where([data-nodevora-context="cart"],.woocommerce-cart .rewardly-loyalty-box)','checkout'=>':where([data-nodevora-context="checkout"],.woocommerce-checkout .rewardly-loyalty-box)','account'=>':where(.rewardly-loyalty-account,.rewardly-shortcode-account)','history'=>':where(.rewardly-shortcode-history,.rewardly-loyalty-account .shop_table)','notice'=>':where(.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice)'); }
+	public static function presets(){return array('default'=>self::get_template_values('default'),'minimal'=>self::get_template_values('minimal'),'soft'=>self::get_template_values('soft'));}
+	public static function additional_colors() { static $keys=null;if(null!==$keys){return$keys;}$keys=array('text_color','info_background','info_text');foreach(array_keys(self::component_selectors())as$prefix){foreach(array_keys(self::component_variables())as$key){$keys[]=$prefix.'_'.$key;}}return$keys; }
+
 	public static function get_front_inline_css() {
 		$s = Rewardly_Loyalty_Helpers::get_settings();
-		if ( isset( $s['enable_front_styles'] ) && 'no' === $s['enable_front_styles'] ) { return ''; }
-
-		$template        = $s['design_template'] ?? 'default';
-		$icon_style      = $s['icon_style'] ?? 'default';
-		$button_style    = $s['button_style'] ?? 'rounded';
-		$card_style      = $s['card_style'] ?? 'soft';
-		$typography      = $s['typography_preset'] ?? 'default';
-		$preset = self::get_template_values( $template );
-
-		$p = sanitize_hex_color( $s['primary_color'] ?? $preset['primary_color'] ) ?: $preset['primary_color'];
-		$a = sanitize_hex_color( $s['accent_color'] ?? $preset['accent_color'] ) ?: $preset['accent_color'];
-		$r = isset( $s['border_radius'] ) ? max( 0, min( 30, (int) $s['border_radius'] ) ) : (int) $preset['radius'];
-		$soft = $preset['soft'];
-		$border = $preset['border'];
-		$font_size = 'default' === $typography ? '1rem' : ( 'compact' === $typography ? '.95rem' : '1.02rem' );
-		$heading_size = 'default' === $typography ? '28px' : ( 'compact' === $typography ? '25px' : '30px' );
-		$button_radius = 'rounded' === $button_style ? '999px' : ( 'solid' === $button_style ? '12px' : max( 4, $r ) . 'px' );
-		$button_bg = 'outline' === $button_style ? 'transparent' : 'var(--rewardly-primary)';
-		$button_color = 'outline' === $button_style ? 'var(--rewardly-primary)' : '#fff';
-		$button_border = 'outline' === $button_style ? '1px solid var(--rewardly-primary)' : 'none';
-		$icon_radius = 'circle' === $icon_style ? '999px' : ( 'minimal' === $icon_style ? '0' : '8px' );
-		$icon_bg = 'minimal' === $icon_style ? 'transparent' : 'rgba(244,185,63,.16)';
-		$card_background = 'filled' === $card_style ? 'var(--rewardly-soft)' : '#fff';
-		$card_shadow = 'outline' === $card_style ? 'none' : '0 4px 14px rgba(0,0,0,.03)';
-
-		return ":root{--rewardly-primary:{$p};--rewardly-accent:{$a};--rewardly-radius:{$r}px;--rewardly-orange:var(--rewardly-accent);--rewardly-black:var(--rewardly-primary);--rewardly-soft:{$soft};--rewardly-border:{$border};--rewardly-font-size:{$font_size};--rewardly-heading-size:{$heading_size};--rewardly-button-radius:{$button_radius};--rewardly-button-bg:{$button_bg};--rewardly-button-color:{$button_color};--rewardly-button-border:{$button_border};--rewardly-icon-radius:{$icon_radius};--rewardly-icon-bg:{$icon_bg};--rewardly-card-bg:{$card_background};--rewardly-card-shadow:{$card_shadow}}.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice{font-size:var(--rewardly-font-size)}.rewardly-loyalty-account h3{font-size:var(--rewardly-heading-size)!important}.rewardly-loyalty-card,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice,.rewardly-shortcode-account,.rewardly-shortcode-history{border-radius:var(--rewardly-radius)!important;background:var(--rewardly-card-bg)!important;box-shadow:var(--rewardly-card-shadow)!important}.rewardly-loyalty-btn,.button.rewardly-loyalty-btn{background:var(--rewardly-button-bg)!important;border:var(--rewardly-button-border)!important;border-color:var(--rewardly-primary)!important;color:var(--rewardly-button-color)!important;border-radius:var(--rewardly-button-radius)!important}.rewardly-product-points-notice__icon,.rewardly-cart-points-notice__icon,.rewardly-checkout-guest-notice__icon,.rewardly-loyalty-box__icon{color:var(--rewardly-accent)!important;background:var(--rewardly-icon-bg)!important;border-radius:var(--rewardly-icon-radius)!important;padding:" . ( 'minimal' === $icon_style ? '0' : '6px' ) . " !important}.rewardly-history-toggle,.rewardly-shortcode-account__title,.rewardly-product-points-notice__points,.rewardly-product-points-notice__amount,.rewardly-loyalty-account h3,.rewardly-loyalty-account h4{color:var(--rewardly-primary)!important}.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box--connected{border-color:var(--rewardly-border)!important}.rewardly-log-type--revoke,.rewardly-log-type--adjust,.rewardly-log-type--adjust_add{color:var(--rewardly-accent)!important}.rewardly-log-amount--revoke,.rewardly-log-amount--adjust,.rewardly-log-amount--adjust_add{color:var(--rewardly-accent)!important}";
+		if ( 'no' === $s['enable_front_styles'] ) { return ''; }
+		$preset = self::get_template_values( $s['design_template'] );
+		$color = static function( $key, $fallback ) use ( $s ) { return sanitize_hex_color( $s[$key] ?? '' ) ?: $fallback; };
+		$p = $color( 'primary_color', $preset['primary_color'] ); $body_text=$color('text_color',$p);$info_bg=$color('info_background',$preset['soft']);$info_text=$color('info_text',$body_text); $a = $color( 'accent_color', $preset['accent_color'] );
+		$r = max( 0, min( 30, (int) $s['border_radius'] ) );
+		$background = $color( 'button_background', 'outline' === $s['button_style'] ? '#ffffff' : $p );
+		$text = $color( 'button_text', 'outline' === $s['button_style'] ? $p : '#ffffff' );
+		$hover = $color( 'button_hover_background', '#243b53' ); $hover_text = $color( 'button_hover_text', '#ffffff' );
+		$card = $color( 'card_background', 'filled' === $s['card_style'] ? $preset['soft'] : '#ffffff' );
+		$border = $color( 'card_border', '#cbd5e1' );$shadow='outline'===$s['card_style']?'none':'0 4px 20px rgb(15 23 42 / 4%)';
+		$padding = 'compact' === ( $s['density'] ?? '' ) ? '12px' : '20px';
+		$font = 'compact' === $s['typography_preset'] ? '.9375rem' : '1rem';
+		$button_radius = 'rounded' === $s['button_style'] ? '999px' : $r . 'px';
+		$scope = ':where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-card,.rewardly-loyalty-box,.rewardly-product-points-notice,.rewardly-cart-points-notice,.rewardly-checkout-guest-notice)';
+		 $css = $scope . "{--rewardly-primary:{$p};--rewardly-accent:{$a};--rewardly-black:{$body_text};--rewardly-orange:{$a};--rewardly-soft:{$info_bg};--rewardly-info-color:{$info_text};--rewardly-border:{$border};--rewardly-radius:{$r}px;--rewardly-radius-sm:{$r}px;--rewardly-radius-md:{$r}px;--rewardly-radius-lg:{$r}px;--rewardly-button-bg:{$background};--rewardly-button-color:{$text};--rewardly-button-hover-bg:{$hover};--rewardly-button-hover-color:{$hover_text};--rewardly-button-radius:{$button_radius};--rewardly-card-bg:{$card};--rewardly-card-shadow:{$shadow};--rewardly-padding:{$padding};font-size:{$font};}";
+		foreach(self::component_selectors()as$prefix=>$selector){$values='';foreach(self::component_variables()as$key=>$variable){$override=sanitize_hex_color($s[$prefix.'_'.$key]??'');if($override){$values.=$variable.':'.$override.';';}}if($values){$css.=$selector.'{'.$values.'}';}}
+		return $css;
 	}
 
 	private static function get_template_values( $template ) {

@@ -164,10 +164,8 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_request_method() {
-		$method = filter_input( INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		$method = is_string( $method ) ? wp_unslash( $method ) : '';
-
-		return strtoupper( sanitize_text_field( $method ) );
+		$method = isset( $_SERVER['REQUEST_METHOD'] ) && is_string( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( $_SERVER['REQUEST_METHOD'] ) : '';
+		return in_array( $method, array( 'GET', 'POST' ), true ) ? $method : '';
 	}
 
 
@@ -177,8 +175,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_action() {
-		$action = filter_input( INPUT_POST, 'rewardly_loyalty_action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $action ) ? sanitize_text_field( wp_unslash( $action ) ) : '';
+		return isset( $_POST['rewardly_loyalty_action'] ) && is_string( $_POST['rewardly_loyalty_action'] ) ? sanitize_text_field( wp_unslash( $_POST['rewardly_loyalty_action'] ) ) : '';
 	}
 
 	/**
@@ -187,8 +184,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_nonce() {
-		$nonce = filter_input( INPUT_POST, '_rewardly_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $nonce ) ? sanitize_text_field( wp_unslash( $nonce ) ) : '';
+		return isset( $_POST['_rewardly_nonce'] ) && is_string( $_POST['_rewardly_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_rewardly_nonce'] ) ) : '';
 	}
 
 	/**
@@ -197,8 +193,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return string
 	 */
 	private static function get_posted_points_value() {
-		$value = filter_input( INPUT_POST, 'rewardly_points_to_use', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-		return is_string( $value ) ? wp_unslash( $value ) : '';
+		return isset( $_POST['rewardly_points_to_use'] ) && is_string( $_POST['rewardly_points_to_use'] ) ? wp_unslash( $_POST['rewardly_points_to_use'] ) : '';
 	}
 
 	private static function handle_apply_request() {
@@ -246,10 +241,10 @@ class Rewardly_Loyalty_Redeem {
 	 * @param int   $max_usable Maximum utilisable sur la commande.
 	 * @return int|WP_Error
 	 */
-	private static function validate_requested_points( $raw_value, $user_points, $max_usable ) {
+	public static function validate_requested_points( $raw_value, $user_points, $max_usable ) {
 		$value = is_scalar( $raw_value ) ? trim( (string) $raw_value ) : '';
 
-		if ( '' === $value || ! preg_match( '/^\d+$/', $value ) ) {
+		if ( '' === $value || ! preg_match( '/^[0-9]{1,18}$/D', $value ) || strlen( ltrim( $value, '0' ) ) > strlen( (string) PHP_INT_MAX ) || ( strlen( ltrim( $value, '0' ) ) === strlen( (string) PHP_INT_MAX ) && strcmp( ltrim( $value, '0' ), (string) PHP_INT_MAX ) > 0 ) ) {
 			return new WP_Error( 'rewardly_invalid_points', __( 'Please enter a valid number of points.', 'nodevora-customer-rewards-for-woocommerce' ) );
 		}
 
@@ -277,40 +272,12 @@ class Rewardly_Loyalty_Redeem {
 	 * @param WC_Cart|null $cart Panier courant.
 	 * @return int
 	 */
-	private static function get_max_redeemable_points_for_cart( $user_id, $cart = null ) {
-		if ( ! $cart instanceof WC_Cart ) {
-			return 0;
-		}
-
-		$user_points = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
-		if ( $user_points <= 0 ) {
-			return 0;
-		}
-
-		$settings = Rewardly_Loyalty_Helpers::get_settings();
-		$subtotal = (float) $cart->get_subtotal();
-
-		if ( $subtotal <= 0 ) {
-			return 0;
-		}
-
-		$max_discount_amount = $subtotal;
-
-		if ( isset( $settings['max_discount_per_order'] ) && (float) $settings['max_discount_per_order'] > 0 ) {
-			$max_discount_amount = min( $max_discount_amount, (float) $settings['max_discount_per_order'] );
-		}
-
-		if ( $max_discount_amount <= 0 ) {
-			return 0;
-		}
-
-		$max_points_by_order = Rewardly_Loyalty_Helpers::convert_amount_to_points( $max_discount_amount );
-
-		if ( $max_points_by_order <= 0 ) {
-			return 0;
-		}
-
-		return min( (int) $user_points, (int) $max_points_by_order );
+	public static function get_max_redeemable_points_for_cart( $user_id, $cart = null ) {
+		if ( ! $cart instanceof WC_Cart ) { return 0; }
+		$s = Rewardly_Loyalty_Helpers::get_settings(); $p = Nodevora_Financial_Checkout::policy();
+		$minor = Nodevora_Financial_Money::minor( wc_format_decimal( max( 0, $cart->get_cart_contents_total() ), $p['decimals'] ), $p['decimals'] );
+		if ( (float) $s['max_discount_per_order'] > 0 ) { $minor = min( $minor, Nodevora_Financial_Money::minor( wc_format_decimal( $s['max_discount_per_order'], $p['decimals'] ), $p['decimals'] ) ); }
+		return min( Rewardly_Loyalty_Helpers::get_user_points( $user_id ), Nodevora_Financial_Money::charge( $minor, $p['ratio'], $p['scale'] ) );
 	}
 
 	/**
@@ -318,11 +285,12 @@ class Rewardly_Loyalty_Redeem {
 	 *
 	 * @return void
 	 */
-	private static function clear_usage_session() {
+	public static function clear_usage_session() {
 		if ( ! function_exists( 'WC' ) || ! WC()->session ) {
 			return;
 		}
 
+		WC()->session->__unset('nodevora_financial_quote_error');
 		WC()->session->set( 'rewardly_use_points', 'no' );
 		WC()->session->__unset( 'rewardly_requested_points' );
 		WC()->session->__unset( 'rewardly_applied_points' );
@@ -464,7 +432,7 @@ class Rewardly_Loyalty_Redeem {
 		}
 
 		$potential_points = Rewardly_Loyalty_Helpers::calculate_cart_earned_points( WC()->cart );
-		if ( $potential_points <= 0 ) {
+		if ( $potential_points <= 0 && ! is_user_logged_in() ) {
 			return '';
 		}
 
@@ -476,7 +444,9 @@ class Rewardly_Loyalty_Redeem {
 			self::render_guest_loyalty_card( $potential_points, $context );
 		}
 
-		return trim( ob_get_clean() );
+		// Attribut purement visuel, partagé avec les cartes Blocks.
+		$html=trim(ob_get_clean());$context='cart'===$context?'cart':'checkout';
+		return preg_replace('/(class="rewardly-loyalty-box(?:[\s"]))/', 'data-nodevora-context="'.esc_attr($context).'" $1', $html);
 	}
 
 	/**
@@ -507,10 +477,19 @@ class Rewardly_Loyalty_Redeem {
 	 *
 	 * @return void
 	 */
+	private static function render_remove_selection() {
+		if ( 'yes' !== WC()->session->get( 'rewardly_use_points' ) ) { return; }
+		echo '<form method="post" class="rewardly-loyalty-box" action="' . esc_url( self::get_current_page_url() ) . '">';
+		wp_nonce_field( 'rewardly_loyalty_remove', '_rewardly_nonce' );
+		echo '<button type="submit" class="rewardly-loyalty-btn" name="rewardly_loyalty_action" value="remove">' . esc_html__( 'Remove My Points', 'nodevora-customer-rewards-for-woocommerce' ) . '</button></form>';
+	}
+
 	private static function render_loyalty_box() {
 		if ( ! is_user_logged_in() || ! Rewardly_Loyalty_Helpers::is_enabled() || ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
 			return;
 		}
+
+		try { Nodevora_Financial_Checkout::require_enabled(); } catch ( Nodevora_Financial_Error $error ) { echo '<div class="rewardly-loyalty-box" role="status">' . esc_html__( 'Your points are preserved. Redemption is temporarily unavailable while the store completes financial setup.', 'nodevora-customer-rewards-for-woocommerce' ) . '</div>'; self::render_remove_selection(); return; }
 
 		$user_id             = get_current_user_id();
 		$points              = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
@@ -697,76 +676,15 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function apply_discount( $cart ) {
-		if ( ! $cart instanceof WC_Cart ) {
+		if ( ! Rewardly_Loyalty_Helpers::is_enabled() ) { self::clear_usage_session(); return; }
+		if(!Nodevora_Financial_Compatibility::selected()){
+			if(function_exists('WC')&&WC()->session){WC()->session->set('rewardly_applied_points',0);WC()->session->set('rewardly_loyalty_discount_amount',0);if('yes'===WC()->session->get('rewardly_use_points')){WC()->session->set('nodevora_financial_quote_error','yes');wc_add_notice(__('Loyalty spending is unavailable until the store completes setup. Remove the points selection before payment.','nodevora-customer-rewards-for-woocommerce'),'error');}}
 			return;
 		}
-
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
-			return;
+		try{return Nodevora_Financial_Checkout::cart($cart);}catch(Nodevora_Financial_Error $e){
+			if(function_exists('WC')&&WC()->session){WC()->session->set('rewardly_applied_points',0);WC()->session->set('rewardly_loyalty_discount_amount',0);WC()->session->set('nodevora_financial_quote_error','yes');}
+			wc_add_notice(__('Loyalty spending is unavailable. Remove the points selection or contact the store before payment.','nodevora-customer-rewards-for-woocommerce'),'error');
 		}
-
-		if ( ! is_user_logged_in() || ! Rewardly_Loyalty_Helpers::is_enabled() || ! function_exists( 'WC' ) || ! WC()->session ) {
-			return;
-		}
-
-		WC()->session->set( 'rewardly_loyalty_discount_amount', 0 );
-		WC()->session->set( 'rewardly_applied_points', 0 );
-
-		if ( 'yes' !== WC()->session->get( 'rewardly_use_points' ) ) {
-			return;
-		}
-
-		$user_id          = get_current_user_id();
-		$user_points      = Rewardly_Loyalty_Helpers::get_user_points( $user_id );
-		$settings         = Rewardly_Loyalty_Helpers::get_settings();
-		$requested_points = (int) WC()->session->get( 'rewardly_requested_points' );
-		$min_points       = isset( $settings['min_points_to_redeem'] ) ? (int) $settings['min_points_to_redeem'] : 0;
-
-		if ( $user_points < $min_points ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		if ( $requested_points <= 0 ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		$max_usable_points = self::get_max_redeemable_points_for_cart( $user_id, $cart );
-
-		if ( $requested_points > $user_points || $requested_points > $max_usable_points ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		$amount = Rewardly_Loyalty_Helpers::convert_points_to_amount( $requested_points );
-
-		if ( $amount <= 0 ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		$subtotal = (float) $cart->get_subtotal();
-		if ( $subtotal <= 0 ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		$amount = min( $amount, $subtotal );
-
-		if ( isset( $settings['max_discount_per_order'] ) && (float) $settings['max_discount_per_order'] > 0 ) {
-			$amount = min( $amount, (float) $settings['max_discount_per_order'] );
-		}
-
-		if ( $amount <= 0 ) {
-			self::clear_usage_session();
-			return;
-		}
-
-		$cart->add_fee( __( 'Loyalty Discount', 'nodevora-customer-rewards-for-woocommerce' ), -$amount, false );
-
-		WC()->session->set( 'rewardly_applied_points', $requested_points );
-		WC()->session->set( 'rewardly_loyalty_discount_amount', $amount );
 	}
 
 	/**
@@ -777,19 +695,8 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function save_order_usage( $order, $data ) {
-		if ( ! function_exists( 'WC' ) || ! WC()->session ) {
-			return;
-		}
-
-		$discount        = (float) WC()->session->get( 'rewardly_loyalty_discount_amount' );
-		$points_to_spend = (int) WC()->session->get( 'rewardly_applied_points' );
-
-		if ( $discount <= 0 || $points_to_spend <= 0 || ! is_user_logged_in() ) {
-			return;
-		}
-
-		$order->update_meta_data( '_rewardly_loyalty_points_spent', $points_to_spend );
-		$order->update_meta_data( '_rewardly_loyalty_discount_amount', $discount );
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Checkout::project($order);}
+		if(function_exists('WC')&&WC()->session&&(int)WC()->session->get('rewardly_applied_points')>0){throw new Exception(__('Loyalty setup is required before this discount can be accepted.','nodevora-customer-rewards-for-woocommerce'));}
 	}
 
 
@@ -816,53 +723,7 @@ class Rewardly_Loyalty_Redeem {
 	 * @return void
 	 */
 	public static function consume_points_after_order( $order_id, $posted_data, $order ) {
-		if ( ! $order instanceof WC_Order ) {
-			return;
-		}
-
-		if ( 'yes' === $order->get_meta( '_rewardly_loyalty_spent_processed' ) ) {
-			return;
-		}
-
-		$points_to_spend = (int) $order->get_meta( '_rewardly_loyalty_points_spent' );
-		if ( $points_to_spend <= 0 ) {
-			return;
-		}
-
-		$user_id = (int) $order->get_user_id();
-		if ( $user_id <= 0 ) {
-			return;
-		}
-
-		$actual_spent = Rewardly_Loyalty_Helpers::subtract_points_exact(
-			$user_id,
-			$points_to_spend,
-			$order_id,
-			'spend',
-			__( 'Points used to get a discount on the order.', 'nodevora-customer-rewards-for-woocommerce' )
-		);
-
-		if ( $actual_spent !== $points_to_spend ) {
-			/* (FR) Signaler l'anomalie sans marquer la dépense comme traitée. */
-			$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'failed' );
-			$order->update_meta_data( '_rewardly_loyalty_spent_failed_points', $points_to_spend );
-			$order->add_order_note( __( 'Nodevora: an issue was detected while debiting loyalty points. Manual verification is required.', 'nodevora-customer-rewards-for-woocommerce' ) );
-			$order->save();
-
-			if ( function_exists( 'WC' ) && WC()->session ) {
-				self::clear_usage_session();
-			}
-
-			return;
-		}
-
-		$order->update_meta_data( '_rewardly_loyalty_spent_processed', 'yes' );
-		$order->delete_meta_data( '_rewardly_loyalty_spent_failed_points' );
-		$order->save();
-
-		if ( function_exists( 'WC' ) && WC()->session ) {
-			self::clear_usage_session();
-		}
+		// Le garde partagé vérifie le financement juste avant le paiement.
 	}
 
 

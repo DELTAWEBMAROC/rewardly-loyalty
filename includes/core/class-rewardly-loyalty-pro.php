@@ -64,6 +64,7 @@ class Rewardly_Loyalty_Pro {
 	}
 
 	public static function render_product_data_panel() {
+		if(!Nodevora_Access::can_edit()){return;}
 		global $post;
 		if ( ! $post ) {
 			return;
@@ -87,7 +88,7 @@ class Rewardly_Loyalty_Pro {
 	}
 
 	public static function save_product_data_panel( $product_id ) {
-		if ( ! current_user_can( 'edit_product', $product_id ) ) {
+		if ( ! Nodevora_Access::can_edit() || ! current_user_can( 'edit_product', $product_id ) ) {
 			return;
 		}
 

@@ -1,0 +1,16 @@
+[
+  {
+    "locale": "en_US",
+    "trusted_preserved": true,
+    "mapped": "Loyalty data changed during synchronization. Keep external loyalty tools stopped and ask your administrator to review the saved batch before retrying.",
+    "database_details_hidden": true,
+    "localized": true
+  },
+  {
+    "locale": "fr_FR",
+    "trusted_preserved": true,
+    "mapped": "Les données de fidélité ont changé pendant la synchronisation. Gardez les outils de fidélité externes arrêtés et demandez à votre administrateur de vérifier le lot enregistré avant de réessayer.",
+    "database_details_hidden": true,
+    "localized": true
+  }
+]

@@ -1,0 +1,387 @@
+{
+  "views": [
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Order ID",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Refund ID",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Authorized review decision and reference",
+          "left": 26,
+          "right": 292,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 266
+        },
+        {
+          "id": "",
+          "label": "I completed and authorize this external financial reconciliation.",
+          "left": 26,
+          "right": 51,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 25
+        },
+        {
+          "id": "",
+          "label": "Record refund resolution",
+          "left": 26,
+          "right": 215.484375,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 189.484375
+        }
+      ],
+      "form": {
+        "left": 26,
+        "right": 292,
+        "width": 266
+      },
+      "language": "en-US",
+      "pageWidth": 320,
+      "viewport": 320,
+      "pass": true
+    },
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Order ID",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Refund ID",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Authorized review decision and reference",
+          "left": 26,
+          "right": 362,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 336
+        },
+        {
+          "id": "",
+          "label": "I completed and authorize this external financial reconciliation.",
+          "left": 26,
+          "right": 51,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 25
+        },
+        {
+          "id": "",
+          "label": "Record refund resolution",
+          "left": 26,
+          "right": 215.484375,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 189.484375
+        }
+      ],
+      "form": {
+        "left": 26,
+        "right": 362,
+        "width": 336
+      },
+      "language": "en-US",
+      "pageWidth": 390,
+      "viewport": 390,
+      "pass": true
+    },
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Order ID",
+          "left": 206,
+          "right": 388,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 182
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Refund ID",
+          "left": 206,
+          "right": 388,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 182
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Authorized review decision and reference",
+          "left": 205,
+          "right": 397,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 192
+        },
+        {
+          "id": "",
+          "label": "I completed and authorize this external financial reconciliation.",
+          "left": 205,
+          "right": 221,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 16
+        },
+        {
+          "id": "",
+          "label": "Record refund resolution",
+          "left": 205,
+          "right": 384.3359375,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 179.3359375
+        }
+      ],
+      "form": {
+        "left": 205,
+        "right": 1237,
+        "width": 1032
+      },
+      "language": "en-US",
+      "pageWidth": 1280,
+      "viewport": 1280,
+      "pass": true
+    },
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Identifiant de commande",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Identifiant de remboursement",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Décision de vérification autorisée et référence",
+          "left": 26,
+          "right": 292,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 266
+        },
+        {
+          "id": "",
+          "label": "J’ai terminé et j’autorise ce rapprochement financier externe.",
+          "left": 26,
+          "right": 51,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 25
+        },
+        {
+          "id": "",
+          "label": "Enregistrer la résolution du remboursement",
+          "left": 26,
+          "right": 292,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 266
+        }
+      ],
+      "form": {
+        "left": 26,
+        "right": 292,
+        "width": 266
+      },
+      "language": "fr-FR",
+      "pageWidth": 320,
+      "viewport": 320,
+      "pass": true
+    },
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Identifiant de commande",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Identifiant de remboursement",
+          "left": 27,
+          "right": 230,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 203
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Décision de vérification autorisée et référence",
+          "left": 26,
+          "right": 362,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 336
+        },
+        {
+          "id": "",
+          "label": "J’ai terminé et j’autorise ce rapprochement financier externe.",
+          "left": 26,
+          "right": 51,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 25
+        },
+        {
+          "id": "",
+          "label": "Enregistrer la résolution du remboursement",
+          "left": 26,
+          "right": 338.65625,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 312.65625
+        }
+      ],
+      "form": {
+        "left": 26,
+        "right": 362,
+        "width": 336
+      },
+      "language": "fr-FR",
+      "pageWidth": 390,
+      "viewport": 390,
+      "pass": true
+    },
+    {
+      "controls": [
+        {
+          "id": "nodevora-data-order_id",
+          "label": "Identifiant de commande",
+          "left": 206,
+          "right": 388,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 182
+        },
+        {
+          "id": "nodevora-data-refund_id",
+          "label": "Identifiant de remboursement",
+          "left": 206,
+          "right": 388,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "number",
+          "width": 182
+        },
+        {
+          "id": "nodevora-refund-decision",
+          "label": "Décision de vérification autorisée et référence",
+          "left": 205,
+          "right": 397,
+          "tabIndex": 0,
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "width": 192
+        },
+        {
+          "id": "",
+          "label": "J’ai terminé et j’autorise ce rapprochement financier externe.",
+          "left": 205,
+          "right": 221,
+          "tabIndex": 0,
+          "tag": "INPUT",
+          "type": "checkbox",
+          "width": 16
+        },
+        {
+          "id": "",
+          "label": "Enregistrer la résolution du remboursement",
+          "left": 205,
+          "right": 499.84375,
+          "tabIndex": 0,
+          "tag": "BUTTON",
+          "type": "submit",
+          "width": 294.84375
+        }
+      ],
+      "form": {
+        "left": 205,
+        "right": 1237,
+        "width": 1032
+      },
+      "language": "fr-FR",
+      "pageWidth": 1280,
+      "viewport": 1280,
+      "pass": true
+    }
+  ],
+  "keyboard": {
+    "enNext": "nodevora-data-refund_id",
+    "frNext": "nodevora-data-refund_id"
+  },
+  "harnessCorrection": "Initial selector matched export form; corrected to form containing known Order ID control, no product change."
+}

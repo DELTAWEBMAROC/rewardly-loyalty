@@ -1,0 +1,18 @@
+{
+  "8.2": {
+    "files": 50,
+    "failures": []
+  },
+  "8.3": {
+    "files": 50,
+    "failures": []
+  },
+  "8.5": {
+    "files": 50,
+    "failures": []
+  },
+  "7.4": {
+    "runtime": "NOT AVAILABLE",
+    "fresh_PHPCompatibility": "NOT RUN: prior tool directory unavailable; no fresh static certification claimed"
+  }
+}

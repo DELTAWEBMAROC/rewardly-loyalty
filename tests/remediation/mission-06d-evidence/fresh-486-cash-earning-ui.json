@@ -1,0 +1,31 @@
+{
+  "order": 288,
+  "status": "completed",
+  "total": "100.00",
+  "payment": "cod",
+  "earned": 200,
+  "wallet": {
+    "user_id": 1,
+    "balance": 500,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 2,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+    "available": 500
+  },
+  "events": [
+    {
+      "kind": "credit",
+      "gross_points": 300,
+      "delta_balance": 300
+    },
+    {
+      "kind": "credit",
+      "gross_points": 200,
+      "delta_balance": 200
+    }
+  ],
+  "invariants": true
+}
