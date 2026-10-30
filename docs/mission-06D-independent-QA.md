@@ -2,6 +2,8 @@
 
 Cette liste prépare la QA suivante ; elle ne constitue pas une QA indépendante déjà exécutée. La candidate n’est pas une release et ne doit pas être installée en production. Utiliser un site WordPress/WooCommerce jetable avec sauvegarde DB et fichiers vérifiée, réseau/mail sortants maîtrisés et paiements hors ligne. Ne jamais remplacer une sauvegarde par une ancienne base après de nouvelles transactions.
 
+Candidate livrée : `nodevora-customer-rewards-for-woocommerce-4.8.6-qa.zip`, 182492 octets, SHA-256 `11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496`.
+
 Vérifier le SHA-256 du ZIP dans le rapport final, son unique dossier `nodevora-customer-rewards-for-woocommerce/` et sa version réelle4.8.6. Aucun compte, mot de passe, backup client ou outil QA ne doit être inclus dans l’archive.
 
 | Scénario | Manipulation indépendante | Résultat attendu |
@@ -13,6 +15,7 @@ Vérifier le SHA-256 du ZIP dans le rapport final, son unique dossier `nodevora-
 | Retour et reprise | Recharger, revenir, répéter une requête, tester deux dépenses simultanées | Pas de double crédit/débit ; une seule dépense si fonds insuffisants pour les deux |
 | Mise à jour officielle4.8.5 | Utiliser le vrai package485, conserver settings/soldes/lots/historiques ; installer486 | Détection historique, aucune migration silencieuse ; Synchronisation visible après activation/notice persistante |
 | Synchronisation interrompue | Arrêter le navigateur entre deux lots, relancer depuis le panneau | Reprise persistante ; checksum modifié refusé ; aucun second opening ; comptes ambigus isolés avec preuves |
+| Nouveau compte pendant la fin du scan | Créer un compte après le dernier lot vide, avant cutover | Nouvelle découverte bornée ; aucune activation prématurée ni bonus historique inventé |
 | Données ambiguës | Solde99 sans lots, ancienne commande ou claim incertain | Quarantaine conservatrice, pas d’invention de lots, de débits ou de bonus |
 | Export format2 | Télécharger via Données et sauvegardes | NDJSON version2, SHA/footer intègre, données Nodevora seulement ; aucun fichier public abandonné |
 | Import compatible | Copie identique pour utilisateurs/commandes, cible Nodevora vide et sauvegardée | Preview du fichier exact puis confirmation ; toutes les données financières identiques, état review avant reprise explicite |

@@ -1,0 +1,24 @@
+{
+  "identity": [
+    "http://localhost:10004",
+    "local",
+    "/Users/user/Local Sites/nodevora-plugin/app/public"
+  ],
+  "before_safety": {
+    "identity": [
+      "http://localhost:10004",
+      "local",
+      "/Users/user/Local Sites/nodevora-plugin/app/public"
+    ],
+    "phase": "paused",
+    "paused": true,
+    "qa": false,
+    "cron": true,
+    "transactions": 0
+  },
+  "backup_bytes": 3429835,
+  "backup_sha256": "dcb92cc4e2d92e57cd8182c24d810ccdb875b7ff19350e63ea3ae23d9c554303",
+  "archive_sha256": "11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496",
+  "only_authorized_demo_nodevora_reset": true,
+  "awaiting_real_wordpress_upload_install_activate": true
+}
