@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T19:58:08+00:00\n"
+"POT-Creation-Date: 2026-11-03T20:12:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -170,7 +170,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/admin/class-nodevora-data.php:71
-#: includes/financial/class-nodevora-restore.php:103
+#: includes/financial/class-nodevora-restore.php:105
 msgid "This restore cannot safely enable points because its original validated wallet state is not established. Keep it paused and use the original backup from a completed active or paused wallet, or request administrator reconciliation. Do not edit the backup provenance."
 msgstr ""
 

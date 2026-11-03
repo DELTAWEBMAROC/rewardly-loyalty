@@ -1,13 +1,44 @@
-# Mission08A — checkpoint d’implémentation
+# Mission 08A — validation finale et point de livraison
 
-3 novembre2026. Branche feat/nodevora-4.8.6-financial-foundation, base et dernier commit avant ce checkpoint 8e795f58fcdcf54bcd8124a120d39dfcb79ffdd8. **WIP : pas de livraison annoncée.**
+**3 novembre 2026 — Les deux corrections Developer sont vérifiées.** La candidate corrective est construite et a été installée réellement. Mission 08B indépendante non lancée.
 
-Deux findings reproduits avant toute modification : NV07-03 (perte de provenance lors du réexport restore_review, données préservées) et NV07-02 (vrai trigger SQL, anciennes valeurs conservées mais aucun message). Preuves avant dans audit-reports/mission-08A/evidence/nv07-0*-before.json.
+- Base : 8e795f58fcdcf54bcd8124a120d39dfcb79ffdd8.
+- Branche : feat/nodevora-4.8.6-financial-foundation.
+- Checkpoint d’implémentation : 3c137ed.
+- Le commit contenant ce rapport sauvegarde les changements et preuves finaux. Son SHA exact et le reçu de push sont ajoutés au rapport local après création.
 
-Corrections limitées à quatre classes PHP : Restore préserve une racine active/paused et l’autorité documentée, vérifie cohérence et migration terminée ; Data n’affiche plus une action de reprise impossible. Settings conserve options.php/nonce/capacités/sanitization, puis lit la vraie option SQL au redirect et rend un résultat localisé signé pour la session ; Admin affiche cette notice. Pas de taux, calcul ou politique financière modifiés. Cinq messages traduits EN/FR ;443 traductions compilées.
+## Terminé
 
-PASS déjà acquis :52 contrôles permanents de provenance (revues imbriquées, états incomplets, autorités, quarantaine, outbox pending/inconnue, corruption, vrai rollbackSQL et retry),35 contrôles Format2, gate opérateur, lint7fichiersPHP sur8.2/8.3. Tests HTTP Settings et smoke financier en cours ; ne pas les présenter comme PASS avant leurs preuves finales. Erreurs de harness documentées séparément, aucune sécurité produit contournée.
+1. Références Mission 07/06D et preuves consultées ; deux anomalies reproduites avant modification.
+2. NV07-03 : racine et autorité conservées pour les nouvelles revues, sans ouvrir les états incomplets. Anciennes provenances perdues maintenues bloquées avec message et sans bouton trompeur.
+3. NV07-02 : comparaison de l’option réellement stockée ; résultats saved/unchanged/failed/invalid ; messages EN/FR sans diagnostic SQL.
+4. Tests retenus : **52 contrôles de provenance, 35 Format 2, 55 HTTP Settings, 11 smoke PASS**. UI réelle de réexport/import/reprise et refus SQL EN/FR vérifiée.
+5. Lint final : 7 fichiers PHP sur 8.2/8.3, 2 Python, 443 traductions compilées. Aucun JS modifié.
+6. ZIP corrective réellement téléversée/installée/activée. 48 fichiers égaux source/install/archive, 7 modifiés seulement.
+7. Rapport, matrice et preuves produits. Copies sauvegardées et sécurisées ; serveurs arrêtés.
 
-Environnements : **nouvelles copies uniquement**, bases nodevora_m08a_restore/nodevora_m08a_settings, ports18201/18202, WordPress7.1.4/Woo11.2.1/PHP8.3.30 et8.2.29. Sources et SQL initiaux sous .private/mission-08A/, sauvegardés horsGit0700/0600. Primaire10004 contrôlé en lecture seule, pauses et empreintes initiales enregistrées ; aucune modification de ses réglages, données ou fichiers. L’ancien dossier privé /private/tmp/nodevora-m07-n4s5q4qv n’existe plus au début08A ; les preuves publiques et la ZIP07/06D sont intactes. Aucune ancienne copie QA modifiée.
+## Candidate
 
-Travail restant : terminer tests Settings EN/FR/droits et smoke ; preuves UI de reprise et de refusSQL ; construire ZIP corrective distincte, installation/activation réelle, manifeste/diff exact ; rapports/matrice, sécurité des nouvelles copies, commits/pushdev/PRDraft et vérificationmain. Ne pas lancer08B, ne pas touchermain/SVN/release.
+/Users/user/Desktop/work/nodevora-plugin/artifacts/nodevora-customer-rewards-for-woocommerce-4.8.6-qa-m08a.zip
+
+**185392 octets / 48 fichiers.**
+SHA-256 : 526f8b53d5185d81baa64fed4fa099447267b68f21763159937c1b24a476a5a8.
+
+Ancienne ZIP 06D inchangée : 11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496.
+
+## Sécurité exacte
+
+- Primaire10004 : aucune modification par 08A ; mêmes état, réglages, empreintes financières et 48 fichiers runtime. Paused, 300 points, 2 pending/attempts0, zéro transaction.
+- Nouvelles copies uniquement sous .private/mission-08A/ : restore18201, settings18202, package18203 ; bases séparées nodevora_m08a_*.
+- Toutes paused : écritures/recovery/QA suspendues, integrationfalse, cron désactivé, mail/HTTP bloqués, zéro transaction, aucun trigger. Sessions révoquées et serveurs arrêtés.
+- Restore : 3 wallets ready / 602 points ; 23 pending/attempts0 conservés. Settings : 3 wallets de zéro point / outbox vide. Package : zéro wallet/outbox.
+- Snapshots SQL privés restore-final-paused.sql, settings-final-paused.sql, package-final-paused.sql conservés. Tailles et SHA dans evidence/final-safety.json. Aucun SQL/config/auth/NDJSON dans Git.
+- Le dossier privé temporaire de Mission07 était déjà absent au démarrage08A ; ses preuves publiques et sa ZIP sont conservées. Aucune ancienne copie QA touchée.
+
+## Limites et suite exacte
+
+Voir mission-08A-remediation-report.md et mission-08A-regression-matrix.md. Un ancien review perdu n’est pas réparé en fabriquant une provenance : original valide ou réconciliation nécessaire. Le SHA Format2 est un contrôle d’intégrité, pas une authentification d’auteur.
+
+Les réserves07 (10 NOT TESTED / CWV BLOCKED), PHP7.4 et les nouveaux tests de pile minimale08A restent non certifiés. Aucune fonctionnalité nouvelle ; NV07-01 INFO hors périmètre.
+
+Reste au moment de cette écriture : commit final de livraison, push de la seule branche dev, PR #2 actualisée en Draft, SHA distant/main vérifiés et reçu final. **Puis STOP. Attendre une instruction explicite pour 08B.** Aucun merge, tag, SVN, publication ou production.

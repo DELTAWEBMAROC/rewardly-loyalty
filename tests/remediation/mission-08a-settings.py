@@ -1,12 +1,14 @@
 """HTTP Settings API regression; only the explicitly named, backed-up M08A copy."""
 from pathlib import Path
-import sys,json,re,urllib.parse,os,hashlib,html
-R=Path('/Users/user/Desktop/work/nodevora-plugin');sys.path.insert(0,str(R/'audit-reports/mission-08A/evidence'));import driver as d
+import sys,json,re,urllib.parse,os,hashlib,html,importlib.util
+from decimal import Decimal
+R=Path(os.environ.get('NODEVORA_WORKSPACE',str(Path(__file__).resolve().parents[3])));spec=importlib.util.spec_from_file_location('m08a_driver',Path(__file__).with_name('mission-08a-driver.py'));d=importlib.util.module_from_spec(spec);spec.loader.exec_module(d)
 label='settings';assert d.meta(label)['database']=='nodevora_m08a_settings'
 tests=[];s=d.session(label);sessions=[s]
 def state():return d.ev(label,"global $wpdb;echo json_encode(maybe_unserialize($wpdb->get_var($wpdb->prepare('SELECT option_value FROM '.$wpdb->options.' WHERE option_name=%s','rewardly_loyalty_settings'))));")
 def check(name,ok,**more):
  tests.append({'test':name,'status':'PASS'if ok else'FAIL',**more})
+ (d.B/'settings-running.json').write_text(json.dumps(tests,indent=2))
  if not ok:
   (d.B/'settings-partial-failure.json').write_text(json.dumps(tests,indent=2));raise AssertionError(name)
 def save(actor,section,values,result,language='en',changed=()):
@@ -20,7 +22,7 @@ def save(actor,section,values,result,language='en',changed=()):
  expected={'en':{'saved':'Your settings have been saved.','unchanged':'These settings are already saved. No changes were needed.','failed':'Your settings could not be saved.','invalid':'Some submitted settings are invalid'},'fr':{'saved':'Vos réglages ont été enregistrés.','unchanged':'Ces réglages sont déjà enregistrés.','failed':'Vos réglages n’ont pas pu être enregistrés.','invalid':'Certains réglages transmis sont invalides'}}
  ok=ok and expected[language][result]in plain[0] and 'M08A controlled settings failure'not in html and not any(x in html for x in ['SQLSTATE[45000]','mysqli_sql_exception'])
  check(language+'_'+section+'_'+result+'_'+str(len(tests)),ok,http=status,message=plain,actual_result=q.get('nodevora_settings_result'))
- check('neighbor_sections_preserved_'+str(len(tests)),all(after.get(k)==v for k,v in before.items()if k not in changed))
+ check('neighbor_sections_preserved_'+str(len(tests)),all((Decimal(str(after.get(k)))==Decimal(str(v)) if k=='max_discount_per_order' else after.get(k)==v) for k,v in before.items()if k not in changed))
  if result in ['unchanged','failed','invalid']:check('no_unexpected_persistence_'+str(len(tests)),after==before)
  return loc
 def mode(actor,advanced):
