@@ -77,13 +77,32 @@ class Nodevora_Restore {
 		if($db->one('SELECT 1 AS bad FROM '.$db->table('order_state').' o LEFT JOIN '.$w.' w ON w.user_id=o.user_id LEFT JOIN '.$e.' e ON e.id=o.debit_event_id WHERE w.user_id IS NULL OR (o.debit_event_id IS NOT NULL AND (e.id IS NULL OR e.user_id<>o.user_id)) LIMIT 1')){throw new Nodevora_Financial_Error('Backup order funding reference is inconsistent.');}
 		if ( $db->one( 'SELECT w.user_id FROM ' . $w . ' w LEFT JOIN ' . $s . ' s ON s.user_id=w.user_id AND s.version=1 WHERE s.user_id IS NULL LIMIT 1' ) ) { throw new Nodevora_Financial_Error( 'Backup account snapshot is missing.' ); }
 	}
+	/** Une revue ne prouve pas un cutover : conserver seulement la racine et l’autorité établies. */
+	private static function source_phase( $state, $authority ) {
+		if ( 'wallet' !== $authority || ! in_array( $state['origin'] ?? '', array( 'fresh', 'synchronized' ), true ) ) { return ''; }
+		if ( ! empty( $state['batch'] ) || ( isset( $state['scan_complete'] ) && true !== $state['scan_complete'] ) || ( 'synchronized' === $state['origin'] && empty( $state['scan_complete'] ) ) ) { return ''; }
+		$phase = $state['phase'] ?? '';
+		$restored = isset( $state['restore_previous_phase'] ) || isset( $state['restore_previous_authority'] ) || isset( $state['restore_hash'] ) || isset( $state['restored_at'] );
+		if ( $restored ) {
+			if ( 'wallet' !== ( $state['restore_previous_authority'] ?? '' )
+				|| ! is_string( $state['restore_hash'] ?? null ) || ! preg_match( '/^[a-f0-9]{64}$/D', $state['restore_hash'] )
+				|| ! is_string( $state['restored_at'] ?? null ) || ! preg_match( '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+00:00$/D', $state['restored_at'] )
+				|| ! in_array( $state['restore_previous_phase'] ?? '', array( 'active', 'paused' ), true ) ) { return ''; }
+			if ( 'restore_review' === $phase ) { return $state['restore_previous_phase']; }
+		}
+		return in_array( $phase, array( 'active', 'paused' ), true ) ? $phase : '';
+	}
+	public static function can_resume_review() {
+		$state = Nodevora_Financial_Setup::state();
+		return 'restore_review' === ( $state['phase'] ?? '' ) && '' !== self::source_phase( $state, get_option( 'nodevora_financial_authority' ) );
+	}
 	public static function resume_reviewed( $recovery_approved = false ) {
 		self::permission();$db=new Nodevora_Financial_DB();$locked=false;
 		try{
 			$key='nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup';$locked=1===(int)$db->one('SELECT GET_LOCK(?,0) AS acquired',array($key))['acquired'];
 			if(!$locked){throw new Nodevora_Financial_Error('Another data operation is running.');}
 			wp_cache_delete(Nodevora_Financial_Setup::OPTION,'options');$state=Nodevora_Financial_Setup::state();
-			if(($state['phase']??'')!=='restore_review'||!in_array($state['restore_previous_phase']??'',array('active','paused'),true)){throw new Nodevora_Financial_Error('Complete synchronization before enabling restored accounts.');}
+			if(!self::can_resume_review()){throw new Nodevora_User_Error( __( 'This restore cannot safely enable points because its original validated wallet state is not established. Keep it paused and use the original backup from a completed active or paused wallet, or request administrator reconciliation. Do not edit the backup provenance.', 'nodevora-customer-rewards-for-woocommerce' ) );}
 			if((defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&NODEVORA_FINANCIAL_WRITES_PAUSED)||(defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED)){throw new Nodevora_Financial_Error('An operator safety override prevents activation.');}
 			Nodevora_Financial_Schema::verify($db);self::verify_rows($db);
 			$state['phase']='active';$state['recovery_approved']=(bool)$recovery_approved;update_option(Nodevora_Financial_Setup::OPTION,$state,false);
@@ -114,7 +133,12 @@ class Nodevora_Restore {
 			self::verify_rows( $db );
 			global $wpdb;
 			$state = isset( $options[Nodevora_Financial_Setup::OPTION] ) ? unserialize( $options[Nodevora_Financial_Setup::OPTION], array( 'allowed_classes' => false ) ) : array();
-			$state['restore_previous_phase'] = $state['phase'] ?? ''; $state['phase'] = 'restore_review'; $state['recovery_approved'] = false; $state['restore_hash'] = $expected_hash; $state['restored_at'] = gmdate( 'c' );
+			$source_authority = $options['nodevora_financial_authority'] ?? '';
+			$previous_authority = 'restore_review' === ( $state['phase'] ?? '' ) ? ( $state['restore_previous_authority'] ?? '' ) : $source_authority;
+			$source_phase = self::source_phase( $state, $source_authority );
+			$state['restore_previous_phase'] = $source_phase;
+			$state['restore_previous_authority'] = $previous_authority;
+			$state['phase'] = 'restore_review'; $state['recovery_approved'] = false; $state['restore_hash'] = $expected_hash; $state['restored_at'] = gmdate( 'c' );
 			$options[Nodevora_Financial_Setup::OPTION] = serialize( $state );
 			// L’autorité Wallet ne revient jamais à l’ancien moteur après restauration.
 			$options['nodevora_financial_authority'] = 'wallet';

@@ -1,8 +1,12 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Rewardly_Loyalty_Settings {
+	private static $save_expected = null;
+	private static $save_before = null;
+	private static $save_invalid = false;
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+		add_filter( 'wp_redirect', array( __CLASS__, 'verified_save_redirect' ), 10, 2 );
 		add_filter( 'option_page_capability_rewardly_loyalty_group', function() { return 'nodevora_edit'; } );
 	}
 
@@ -10,9 +14,52 @@ class Rewardly_Loyalty_Settings {
 		register_setting( 'rewardly_loyalty_group', 'rewardly_loyalty_settings', array( 'type' => 'array', 'sanitize_callback' => array( __CLASS__, 'sanitize_settings' ), 'default' => Rewardly_Loyalty_Helpers::get_default_settings() ) );
 	}
 
+	private static function settings_post() {
+		global $pagenow;
+		return 'options.php' === $pagenow && 'POST' === ( $_SERVER['REQUEST_METHOD'] ?? '' )
+			&& 'rewardly_loyalty_group' === ( $_POST['option_page'] ?? '' ) && 'update' === ( $_POST['action'] ?? '' )
+			&& current_user_can( 'nodevora_edit' ) && is_string( $_POST['_wpnonce'] ?? null )
+			&& wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'rewardly_loyalty_group-options' );
+	}
+	private static function stored_settings() {
+		global $wpdb;
+		// Le cache d’option ne constitue pas une preuve de persistance après un refus SQL.
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM {$wpdb->options} WHERE option_name=%s", 'rewardly_loyalty_settings' ), ARRAY_A );
+		return $row ? $row['option_value'] : null;
+	}
+	private static function sanitized_result( $value, $invalid = false ) {
+		if ( self::settings_post() ) {
+			self::$save_expected = maybe_serialize( $value );
+			self::$save_invalid = self::$save_invalid || $invalid;
+		}
+		return $value;
+	}
+	public static function verified_save_redirect( $location, $status ) {
+		if ( null === self::$save_expected || ! self::settings_post() ) { return $location; }
+		$stored = self::stored_settings();
+		$result = $stored !== self::$save_expected ? 'failed' : ( self::$save_invalid ? 'invalid' : ( self::$save_before === $stored ? 'unchanged' : 'saved' ) );
+		// Aucun réglage ni diagnostic dans l’URL ; le résultat est lié à cette session.
+		return add_query_arg( array( 'nodevora_settings_result' => $result, 'nodevora_settings_nonce' => wp_create_nonce( 'nodevora-settings-' . $result ) ), remove_query_arg( 'settings-updated', $location ) );
+	}
+	public static function render_save_notice() {
+		$result = $_GET['nodevora_settings_result'] ?? '';
+		$nonce = $_GET['nodevora_settings_nonce'] ?? '';
+		if ( ! is_string( $result ) || ! is_string( $nonce ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $nonce ) ), 'nodevora-settings-' . $result ) ) { return; }
+		$messages = array(
+			'saved' => __( 'Your settings have been saved.', 'nodevora-customer-rewards-for-woocommerce' ),
+			'unchanged' => __( 'These settings are already saved. No changes were needed.', 'nodevora-customer-rewards-for-woocommerce' ),
+			'failed' => __( 'Your settings could not be saved. Reload this page and try again, or contact your site administrator.', 'nodevora-customer-rewards-for-woocommerce' ),
+			'invalid' => __( 'Some submitted settings are invalid and were not saved. Check the values and try again.', 'nodevora-customer-rewards-for-woocommerce' ),
+		);
+		if ( ! isset( $messages[$result] ) ) { return; }
+		$error = in_array( $result, array( 'failed', 'invalid' ), true );
+		echo '<div class="notice ' . ( $error ? 'notice-error' : 'notice-success' ) . ' nodevora-settings-notice" role="' . ( $error ? 'alert' : 'status' ) . '"><p>' . esc_html( $messages[$result] ) . '</p></div>';
+	}
+
 	public static function sanitize_settings( $input ) {
+		if ( self::settings_post() && null === self::$save_expected ) { self::$save_before = self::stored_settings(); }
 		$d = wp_parse_args( get_option( 'rewardly_loyalty_settings', array() ), Rewardly_Loyalty_Helpers::get_default_settings() );
-		if ( ! is_array( $input ) ) { return $d; }
+		if ( ! is_array( $input ) ) { return self::sanitized_result( $d, true ); }
 		$sections = array(
 			'general' => array( 'enabled', 'earn_points_per_dh', 'redeem_points_per_dh', 'min_points_to_redeem', 'max_discount_per_order', 'order_status_trigger', 'points_expiration_days', 'email_notifications', 'notice_display_mode', 'delete_data_on_uninstall' ),
 			'design' => array( 'primary_color', 'accent_color', 'border_radius', 'enable_front_styles', 'design_template', 'icon_style', 'button_style', 'card_style', 'typography_preset', 'button_background', 'button_text', 'button_hover_background', 'button_hover_text', 'card_background', 'card_border', 'density' ),
@@ -25,7 +72,7 @@ class Rewardly_Loyalty_Settings {
 		$reset_design=!empty($input['_reset_design']);
 		$scope = isset( $input['_section'] ) && is_string( $input['_section'] ) ? $input['_section'] : '';
 		if('design'===$scope&&$reset_design){$defaults=Rewardly_Loyalty_Helpers::get_default_settings();foreach($sections['design']as$field){$d[$field]=$defaults[$field];}}
-		if ( isset( $input['_section'] ) && ! isset( $sections[$scope] ) ) { return $d; }
+		if ( isset( $input['_section'] ) && ! isset( $sections[$scope] ) ) { return self::sanitized_result( $d, true ); }
 		if ( $scope ) { $input = array_intersect_key( $input, array_flip( $sections[$scope] ) ); }
 		/* Les listes vides sont intentionnelles uniquement dans leur formulaire propriétaire. */
 		foreach ( array( 'rules' => array( 'pro_excluded_product_ids', 'pro_excluded_category_ids', 'pro_category_rule_term_id', 'pro_category_rule_rate' ), 'pending' => array( 'pro_pending_points_statuses' ) ) as $owner => $fields ) {
@@ -41,6 +88,7 @@ class Rewardly_Loyalty_Settings {
 		$integer = array( 'earn_points_per_dh', 'redeem_points_per_dh', 'min_points_to_redeem', 'points_expiration_days', 'border_radius', 'pro_points_registration', 'pro_points_first_order', 'pro_points_review', 'pro_points_birthday', 'pro_referral_points', 'pro_level_bronze_threshold', 'pro_level_silver_threshold', 'pro_level_gold_threshold' );
 		$colors = array( 'primary_color', 'accent_color', 'button_background', 'button_text', 'button_hover_background', 'button_hover_text', 'card_background', 'card_border' );
 		$colors=array_merge($colors,Rewardly_Loyalty_Design::additional_colors());
+		$invalid = false;
 		foreach ( $input as $key => $value ) {
 			if ( in_array( $key, $booleans, true ) && in_array( $value, array( 'yes', 'no' ), true ) ) { $d[$key] = $value; }
 			elseif ( isset( $enums[$key] ) && in_array( $value, $enums[$key], true ) ) { $d[$key] = $value; }
@@ -50,12 +98,13 @@ class Rewardly_Loyalty_Settings {
 			elseif ( 'pro_pending_points_notice_text' === $key && is_string( $value ) ) { $d[$key] = sanitize_textarea_field( $value ); }
 			elseif ( in_array( $key, array( 'pro_excluded_product_ids', 'pro_excluded_category_ids' ), true ) && is_array( $value ) ) {
 				$valid = true; foreach ( $value as $id ) { if ( ! self::valid_integer( $id, 1, PHP_INT_MAX ) ) { $valid = false; } }
-				if ( $valid ) { $d[$key] = array_values( array_unique( array_map( 'intval', $value ) ) ); }
+				if ( $valid ) { $d[$key] = array_values( array_unique( array_map( 'intval', $value ) ) ); } else { $invalid = true; }
 			}
 			elseif ( 'pro_pending_points_statuses' === $key && is_array( $value ) ) {
 				$allowed = array_keys( wc_get_order_statuses() ); $allowed = array_map( function( $status ) { return substr( $status, 3 ); }, $allowed );
-				if ( count( array_filter( $value, 'is_string' ) ) === count( $value ) && ! array_diff( $value, $allowed ) ) { $d[$key] = array_values( array_unique( $value ) ); }
+				if ( count( array_filter( $value, 'is_string' ) ) === count( $value ) && ! array_diff( $value, $allowed ) ) { $d[$key] = array_values( array_unique( $value ) ); } else { $invalid = true; }
 			}
+			elseif ( isset( $enums[$key] ) || in_array( $key, array_merge( $booleans, $integer, $colors, array( 'max_discount_per_order', 'pro_pending_points_notice_text', 'pro_excluded_product_ids', 'pro_excluded_category_ids', 'pro_pending_points_statuses' ) ), true ) ) { $invalid = true; }
 		}
 		if ( isset( $input['pro_category_rule_term_id'], $input['pro_category_rule_rate'] ) && is_array( $input['pro_category_rule_term_id'] ) && is_array( $input['pro_category_rule_rate'] ) ) {
 			$ids = array_values( $input['pro_category_rule_term_id'] ); $rates = array_values( $input['pro_category_rule_rate'] ); $rules = array(); $valid = count( $ids ) === count( $rates );
@@ -64,9 +113,9 @@ class Rewardly_Loyalty_Settings {
 				if ( ! self::valid_integer( $id, 1, PHP_INT_MAX ) || ! self::valid_integer( $rates[$i] ?? null, 0, 1000000000 ) ) { $valid = false; break; }
 				$rules[] = array( 'term_id' => (int) $id, 'rate' => (int) $rates[$i] );
 			}
-			if ( $valid ) { $d['pro_category_rules'] = $rules; }
+			if ( $valid ) { $d['pro_category_rules'] = $rules; } else { $invalid = true; }
 		}
-		return $d;
+		return self::sanitized_result( $d, $invalid );
 	}
 
 	private static function valid_integer( $value, $min, $max ) {

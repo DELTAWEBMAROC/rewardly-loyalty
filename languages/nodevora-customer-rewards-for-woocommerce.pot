@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-29T19:11:45+00:00\n"
+"POT-Creation-Date: 2026-11-03T19:58:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -170,131 +170,136 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/admin/class-nodevora-data.php:71
+#: includes/financial/class-nodevora-restore.php:103
+msgid "This restore cannot safely enable points because its original validated wallet state is not established. Keep it paused and use the original backup from a completed active or paused wallet, or request administrator reconciliation. Do not edit the backup provenance."
+msgstr ""
+
+#: includes/admin/class-nodevora-data.php:72
 msgid "I reviewed the restored data and authorize new points operations."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:72
 msgid "I reviewed all pending effects and authorize background recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:71
+#: includes/admin/class-nodevora-data.php:72
 msgid "Enable reviewed points"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:73
 msgid "Existing loyalty records will be preserved. Consistent accounts will be synchronized; ambiguous accounts remain protected for review. Previously imported balances cannot be credited twice. Checkout is temporarily protected during this process; finish or resume synchronization before reopening purchases."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:73
 msgid "I stopped previous loyalty tools and external loyalty processing."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:73
 msgid "Resume synchronization"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:73
 msgid "Synchronize my data"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:74
 msgid "Export your data"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:74
 msgid "This Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:74
 msgid "Export a backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "Import a backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "Imports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "Nodevora backup file"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "Preview import"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:75
 msgid "Import reviewed backup"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:76
 msgid "Retry preparation"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:81
+#: includes/admin/class-nodevora-data.php:82
 msgid "Background recovery review"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:81
+#: includes/admin/class-nodevora-data.php:82
 msgid "Background recovery is paused after synchronization. Review pending effects before authorizing scheduled retries and notifications. This does not resolve quarantined accounts or refund holds."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:83
+#: includes/admin/class-nodevora-data.php:84
 msgid "Too many pending effects for this review. Keep recovery paused and request an operator review."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:85
 msgid "No pending effects. Approval enables future scheduled recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:85
 msgid "I reviewed these effects and authorize background recovery."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:85
 msgid "Authorize reviewed recovery"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:86
 msgid "Pending effects could not be read. Recovery remains paused."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:88
+#: includes/admin/class-nodevora-data.php:89
 msgid "Review a partial refund"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:88
+#: includes/admin/class-nodevora-data.php:89
 msgid "Administrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:89
-#: includes/financial/class-nodevora-financial-setup.php:143
+#: includes/admin/class-nodevora-data.php:90
+#: includes/financial/class-nodevora-financial-setup.php:146
 msgid "Order ID"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:89
-#: includes/financial/class-nodevora-financial-setup.php:143
+#: includes/admin/class-nodevora-data.php:90
+#: includes/financial/class-nodevora-financial-setup.php:146
 msgid "Refund ID"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:90
-#: includes/financial/class-nodevora-financial-setup.php:144
+#: includes/admin/class-nodevora-data.php:91
+#: includes/financial/class-nodevora-financial-setup.php:147
 msgid "Authorized review decision and reference"
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:90
-#: includes/financial/class-nodevora-financial-setup.php:144
+#: includes/admin/class-nodevora-data.php:91
+#: includes/financial/class-nodevora-financial-setup.php:147
 msgid "I completed and authorize this external financial reconciliation."
 msgstr ""
 
-#: includes/admin/class-nodevora-data.php:90
-#: includes/financial/class-nodevora-financial-setup.php:144
+#: includes/admin/class-nodevora-data.php:91
+#: includes/financial/class-nodevora-financial-setup.php:147
 msgid "Record refund resolution"
 msgstr ""
 
@@ -460,9 +465,9 @@ msgstr ""
 #: includes/admin/class-rewardly-loyalty-admin.php:403
 #: includes/admin/class-rewardly-loyalty-admin.php:405
 #: includes/admin/class-rewardly-loyalty-admin.php:410
-#: includes/admin/class-rewardly-loyalty-settings.php:87
-#: includes/admin/class-rewardly-loyalty-settings.php:109
-#: includes/admin/class-rewardly-loyalty-settings.php:111
+#: includes/admin/class-rewardly-loyalty-settings.php:136
+#: includes/admin/class-rewardly-loyalty-settings.php:158
+#: includes/admin/class-rewardly-loyalty-settings.php:160
 #: includes/core/class-rewardly-loyalty-points.php:111
 #: includes/core/class-rewardly-loyalty-points.php:112
 msgid "Yes"
@@ -475,9 +480,9 @@ msgstr ""
 #: includes/admin/class-rewardly-loyalty-admin.php:403
 #: includes/admin/class-rewardly-loyalty-admin.php:405
 #: includes/admin/class-rewardly-loyalty-admin.php:410
-#: includes/admin/class-rewardly-loyalty-settings.php:87
-#: includes/admin/class-rewardly-loyalty-settings.php:109
-#: includes/admin/class-rewardly-loyalty-settings.php:111
+#: includes/admin/class-rewardly-loyalty-settings.php:136
+#: includes/admin/class-rewardly-loyalty-settings.php:158
+#: includes/admin/class-rewardly-loyalty-settings.php:160
 #: includes/core/class-rewardly-loyalty-points.php:111
 #: includes/core/class-rewardly-loyalty-points.php:112
 msgid "No"
@@ -909,7 +914,7 @@ msgid "On hold"
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin.php:338
-#: includes/admin/class-rewardly-loyalty-settings.php:107
+#: includes/admin/class-rewardly-loyalty-settings.php:156
 msgid "Processing"
 msgstr ""
 
@@ -1037,105 +1042,121 @@ msgstr ""
 msgid "Available shortcodes"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:87
+#: includes/admin/class-rewardly-loyalty-settings.php:49
+msgid "Your settings have been saved."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:50
+msgid "These settings are already saved. No changes were needed."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:51
+msgid "Your settings could not be saved. Reload this page and try again, or contact your site administrator."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:52
+msgid "Some submitted settings are invalid and were not saved. Check the values and try again."
+msgstr ""
+
+#: includes/admin/class-rewardly-loyalty-settings.php:136
 msgid "Enable program"
 msgstr ""
 
 #. translators: %s: store currency code.
-#: includes/admin/class-rewardly-loyalty-settings.php:90
+#: includes/admin/class-rewardly-loyalty-settings.php:139
 #, php-format
 msgid "1 %s = X point(s)"
 msgstr ""
 
 #. translators: %s: store currency code.
-#: includes/admin/class-rewardly-loyalty-settings.php:93
+#: includes/admin/class-rewardly-loyalty-settings.php:142
 #, php-format
 msgid "Define how many points are earned for each 1 %s spent."
 msgstr ""
 
 #. translators: %s: store currency code.
-#: includes/admin/class-rewardly-loyalty-settings.php:97
+#: includes/admin/class-rewardly-loyalty-settings.php:146
 #, php-format
 msgid "X point(s) = 1 %s"
 msgstr ""
 
 #. translators: %s: store currency code.
-#: includes/admin/class-rewardly-loyalty-settings.php:100
+#: includes/admin/class-rewardly-loyalty-settings.php:149
 #, php-format
 msgid "Define how many points are required to unlock 1 %s of discount."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:102
+#: includes/admin/class-rewardly-loyalty-settings.php:151
 msgid "Minimum points to redeem"
 msgstr ""
 
 #. translators: %s: store currency code.
-#: includes/admin/class-rewardly-loyalty-settings.php:105
+#: includes/admin/class-rewardly-loyalty-settings.php:154
 #, php-format
 msgid "Maximum discount per order (%s)"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:106
+#: includes/admin/class-rewardly-loyalty-settings.php:155
 msgid "Set 0 for no limit."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:107
+#: includes/admin/class-rewardly-loyalty-settings.php:156
 msgid "Trigger order status"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:107
+#: includes/admin/class-rewardly-loyalty-settings.php:156
 msgid "Completed"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:108
+#: includes/admin/class-rewardly-loyalty-settings.php:157
 msgid "Points expiration (days)"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:108
+#: includes/admin/class-rewardly-loyalty-settings.php:157
 msgid "Set 0 to disable automatic expiration."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:109
+#: includes/admin/class-rewardly-loyalty-settings.php:158
 msgid "Email notifications"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Loyalty card display"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Cart and checkout"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Cart only"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Checkout only"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Shortcode only"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Choose where the loyalty card should appear automatically. The informational notice will be shown on the opposite page when only one card location is selected."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Use this shortcode:"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:110
+#: includes/admin/class-rewardly-loyalty-settings.php:159
 msgid "Informational notice shortcodes:"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:111
+#: includes/admin/class-rewardly-loyalty-settings.php:160
 msgid "Delete plugin data on uninstall"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-settings.php:111
+#: includes/admin/class-rewardly-loyalty-settings.php:160
 msgid "If enabled, plugin preferences are removed on uninstall. Customer balances, history and financial evidence are always preserved."
 msgstr ""
 
@@ -1511,136 +1532,136 @@ msgstr ""
 msgid "This store needs an administrator review before synchronization can continue."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:116
+#: includes/financial/class-nodevora-financial-setup.php:119
 msgid "Confirm cutover and that unreconciled accounts must remain blocked."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:117
+#: includes/financial/class-nodevora-financial-setup.php:120
 msgid "A server safety override prevents activation. Ask the operator to review it; this page never changes server configuration."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:118
+#: includes/financial/class-nodevora-financial-setup.php:121
 msgid "Inspect and migrate every account batch, including newly created accounts, before cutover."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:119
+#: includes/financial/class-nodevora-financial-setup.php:122
 msgid "Financial authority was not persisted."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:127
+#: includes/financial/class-nodevora-financial-setup.php:130
 msgid "Financial setup"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:129
+#: includes/financial/class-nodevora-financial-setup.php:132
 msgid "Operation completed. Review the current state before the next step."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:130
+#: includes/financial/class-nodevora-financial-setup.php:133
 #, php-format
 msgid "Reviewed through account #%d."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:130
+#: includes/financial/class-nodevora-financial-setup.php:133
 msgid "Account discovery is complete. Review quarantine before explicit cutover."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:130
+#: includes/financial/class-nodevora-financial-setup.php:133
 msgid "Inspect the next batch; an empty batch confirms account discovery is complete."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:131
+#: includes/financial/class-nodevora-financial-setup.php:134
 msgid "No account is migrated and no financial writes are enabled automatically. Keep checkout, payment callbacks and legacy workers stopped until setup is complete."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:132
+#: includes/financial/class-nodevora-financial-setup.php:135
 msgid "Current state:"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:132
+#: includes/financial/class-nodevora-financial-setup.php:135
 msgid "Not configured"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:132
+#: includes/financial/class-nodevora-financial-setup.php:135
 msgid "Writes paused"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Export the full database and plugin files outside the web root. Test restoring the backup on an isolated snapshot. Never enter credentials or backup contents here."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Enable store maintenance, stop external payment callbacks and all previous loyalty writers, then wait for in-flight work to finish. The confirmations below are operator attestations, not a mutex."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Prepare setup, install/verify the schema, inspect each batch, then explicitly migrate that reviewed batch. Retry interrupted batches with the same evidence; opening balances cannot be imported twice."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Accounts needing review retain their raw snapshots and remain unable to spend. Review the displayed reasons against the backup; never invent missing lots, dates or historical debits. An approved reconciliation plan is required before changing their financial value."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "After the final empty inspection batch, explicitly activate eligible wallets. Keep unreconciled accounts blocked. Restore maintenance/callbacks deliberately and verify a supported offline checkout."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:134
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid "Before cutover, rollback requires stopped writers and a complete consistent restore. After committed wallet transactions, keep wallet authority and journal: do not downgrade PHP or restore a pre-cutover database. Pause and reconcile instead."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:139
 msgid "Backup reference (no secrets)"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:139
 msgid "I verified a restorable database and files backup."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:139
 msgid "Maintenance is enabled and legacy writers and callbacks are stopped and drained."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:137
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "Prepare and pause"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:137
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "Install / verify schema"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:137
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "Inspect next 20 accounts"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:137
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "Migrate reviewed batch"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:139
+#: includes/financial/class-nodevora-financial-setup.php:142
 msgid "Unreconciled accounts must remain blocked."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:139
+#: includes/financial/class-nodevora-financial-setup.php:142
 msgid "I authorize wallet cutover and new financial writes for ready accounts."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:140
+#: includes/financial/class-nodevora-financial-setup.php:143
 msgid "I reviewed pending effects and authorize background recovery. Leave unchecked to keep recovery manual."
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:141
+#: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Activate reviewed wallets"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:141
+#: includes/financial/class-nodevora-financial-setup.php:144
 msgid "Pause new financial writes"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:142
+#: includes/financial/class-nodevora-financial-setup.php:145
 msgid "Resolve a reviewed partial refund"
 msgstr ""
 
-#: includes/financial/class-nodevora-financial-setup.php:142
+#: includes/financial/class-nodevora-financial-setup.php:145
 msgid "No proportional refund policy is applied. Record the authorized external reconciliation decision. This clears only the selected refund hold; it does not move points or advance the order status. A later refund requires a new review."
 msgstr ""
 

@@ -139,7 +139,7 @@ class Rewardly_Loyalty_Admin {
 		<div class="wrap nodevora-admin <?php echo Nodevora_Access::advanced() ? 'is-advanced' : 'is-simple'; ?>">
 			<h1><?php esc_html_e( 'Nodevora Customer Rewards for WooCommerce', 'nodevora-customer-rewards-for-woocommerce' ); ?></h1>
 			<p class="rewardly-admin-description"><?php esc_html_e( 'Configure the loyalty program, adjust customer balances, place shortcodes and manage all loyalty tools from a single place.', 'nodevora-customer-rewards-for-woocommerce' ); ?></p>
-			<?php Nodevora_Access::mode_control(); ?>
+			<?php Rewardly_Loyalty_Settings::render_save_notice(); Nodevora_Access::mode_control(); ?>
 			<nav class="rewardly-admin-tabs"><?php foreach ( $tabs as $tab_key => $tab_data ) { self::render_tab_link( $tab_key, $tab_data, $current_tab ); } ?></nav>
 			<?php
 			$readonly=!Nodevora_Access::can_edit();if($readonly){echo '<p class="nodevora-readonly-note">'.esc_html__('Read-only access. Ask an authorized manager to change settings or points.','nodevora-customer-rewards-for-woocommerce').'</p><fieldset disabled class="nodevora-readonly">';}
