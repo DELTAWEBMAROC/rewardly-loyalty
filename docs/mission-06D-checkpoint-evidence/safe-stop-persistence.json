@@ -1,0 +1,13 @@
+{
+  "durable_private_backup_created": true,
+  "temporary_original_retained": true,
+  "original_sql_sha256_verified": true,
+  "safe_stop_sql_bytes": 3342889,
+  "safe_stop_sql_sha256": "19ae0f0082fca6bc865c6619a5940ba05c4923d9c1be7a7609d2fa556fc24946",
+  "source_not_deployed_files": [
+    "includes/admin/class-nodevora-data.php",
+    "languages/nodevora-customer-rewards-for-woocommerce.pot",
+    "languages/nodevora-customer-rewards-for-woocommerce-fr_FR.po",
+    "languages/nodevora-customer-rewards-for-woocommerce-fr_FR.mo"
+  ]
+}

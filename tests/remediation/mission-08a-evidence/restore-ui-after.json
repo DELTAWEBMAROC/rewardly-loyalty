@@ -1,0 +1,31 @@
+{
+  "state": {
+    "phase": "active",
+    "origin": "fresh",
+    "activated_at": "2026-11-03T19:50:58+00:00",
+    "recovery_approved": false,
+    "restore_previous_phase": "paused",
+    "restore_previous_authority": "wallet",
+    "restore_hash": "2156923d50a8952281117de0b0662965f6ff1eab512412d8dd466d1ef38cf6a6",
+    "restored_at": "2026-11-03T20:16:02+00:00"
+  },
+  "financial_hashes": {
+    "wallet": "0c60c70f02246a75e57f641cf0217330b05ef0be503cd417c228915318d28404",
+    "event": "9f44dab6b887ba75567095281586009e982b5c94c02949cff20e6edad1bf0d4c",
+    "lot": "014aba8f347bb4a55fc2e0005ede60695258dc5c0cf6da27c36f1793a449f2a8",
+    "allocation": "ea5df944c50864531eb74f2631dca088628790eddb20c29af388493f07f2451d",
+    "order_state": "eb415343e5f95d00c63a249dabe9146781ae786a5788d277e6fc46f163a26b8a",
+    "outbox": "6f92327407c522790cd379d1a47996b7cdff2bdfb35cbc1da750e502ae779de7",
+    "snapshot": "174b0606bd82712c9001018eb11dd2f851d2ac7eccdfa551af538d7ae2583316",
+    "history": "29ed934d6c987cd46bd55aa0ef12ea5c9b669c455dbab0fc2221fca55c3d554c"
+  },
+  "all_owned_records_references_options_unchanged": true,
+  "ready_wallet_invariants": true,
+  "outbox": [
+    {
+      "state": "pending",
+      "n": 23,
+      "attempts": "0"
+    }
+  ]
+}

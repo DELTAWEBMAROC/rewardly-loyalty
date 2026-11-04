@@ -1,77 +1,32 @@
 jQuery(function ($) {
 	'use strict';
-
-	const $notice = $('.rewardly-product-points-notice');
-	if (!$notice.length) {
-		return;
+	const notice = document.querySelector('.rewardly-product-points-notice');
+	if (!notice) return;
+	const data = window.rewardlyProductData || {};
+	const initialRate = Number(notice.dataset.pointsRate) || 0;
+	const initialPrice = Number(notice.dataset.defaultPrice) || 0;
+	const ratio = Math.max(1, Number(notice.dataset.redeemPointsPerDh) || 20);
+	const decimals = Number.isInteger(Number(data.decimals)) ? Number(data.decimals) : 2;
+	const scale = Math.pow(10, decimals);
+	let rate = initialRate;
+	let price = initialPrice;
+	const form = notice.closest('.summary, .product')?.querySelector('form.cart') || document.querySelector('form.cart');
+	function update() {
+		const quantity = Math.max(1, Number(form?.querySelector('input.qty')?.value) || 1);
+		const points = Math.floor(price * rate * quantity);
+		notice.hidden = points <= 0;
+		notice.querySelector('.rewardly-product-points-notice__points').textContent = points;
+		const amount = Math.floor(points * scale / ratio) / scale;
+		let formatted;
+		try { formatted = new Intl.NumberFormat(data.locale || 'en', {style: 'currency', currency: data.currency || 'USD', minimumFractionDigits: decimals, maximumFractionDigits: decimals}).format(amount); }
+		catch (error) { formatted = amount.toFixed(decimals) + ' ' + (data.currency || 'USD'); }
+		notice.querySelector('.rewardly-product-points-notice__amount').textContent = '(' + formatted + ')';
 	}
-
-	const pointsPerDh = parseInt($notice.data('points-rate'), 10) || 1;
-	const redeemPointsPerDh = parseInt($notice.data('redeem-points-per-dh'), 10) || 20;
-	const defaultPrice = parseFloat($notice.data('default-price')) || 0;
-	const $pointsNode = $notice.find('.rewardly-product-points-notice__points');
-	const $amountNode = $notice.find('.rewardly-product-points-notice__amount');
-	const rewardlyLocale = window.rewardlyProductData && window.rewardlyProductData.locale ? window.rewardlyProductData.locale : 'en-US';
-	const rewardlyCurrency = window.rewardlyProductData && window.rewardlyProductData.currency ? window.rewardlyProductData.currency : 'USD';
-
-	function formatMoney(amount) {
-		try {
-			return new Intl.NumberFormat(rewardlyLocale, {
-				style: 'currency',
-				currency: rewardlyCurrency,
-				minimumFractionDigits: 0,
-				maximumFractionDigits: 2
-			}).format(amount);
-		} catch (e) {
-			return amount + ' ' + rewardlyCurrency;
-		}
-	}
-
-	function calculatePoints(price) {
-		if (!price || price <= 0) {
-			return 0;
-		}
-		return Math.floor(price * pointsPerDh);
-	}
-
-	function calculateAmount(points) {
-		if (!points || points <= 0) {
-			return 0;
-		}
-		return Math.floor(points / redeemPointsPerDh);
-	}
-
-	function updateNotice(price) {
-		const points = calculatePoints(price);
-		const amount = calculateAmount(points);
-		if (points <= 0) {
-			return;
-		}
-		$pointsNode.text(points);
-		$amountNode.text('(' + formatMoney(amount) + ')');
-	}
-
-	function moveNotice() {
-		const $summary = $('.single-product .summary, .woocommerce div.product .summary').first();
-		const $targetForm = $summary.find('form.variations_form, form.cart').first();
-		if ($summary.length && $targetForm.length) {
-			$notice.insertBefore($targetForm);
-		}
-	}
-
-	updateNotice(defaultPrice);
-	moveNotice();
-
-	$('form.variations_form').on('found_variation', function (event, variation) {
-		if (variation && variation.display_price) {
-			updateNotice(parseFloat(variation.display_price));
-		}
-	});
-
-	$('form.variations_form').on('reset_data hide_variation', function () {
-		updateNotice(defaultPrice);
-	});
-
-	setTimeout(moveNotice, 150);
-	setTimeout(moveNotice, 500);
+	$('form.variations_form').on('found_variation.nodevora', function (event, variation) {
+		rate = Number(variation.nodevora_points_rate) || 0;
+		price = Number(variation.nodevora_earning_price) || 0;
+		update();
+	}).on('reset_data.nodevora hide_variation.nodevora', function () { rate = initialRate; price = initialPrice; update(); });
+	if (form) form.addEventListener('input', update);
+	update();
 });

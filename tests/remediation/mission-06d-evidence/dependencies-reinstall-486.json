@@ -1,0 +1,29 @@
+[
+  {
+    "test": "woocommerce_inactive_bootstrap_callbacks",
+    "status": "PASS"
+  },
+  {
+    "test": "inactive_http_/",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "inactive_http_/blocks-cart/",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "inactive_http_/my-account/",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "woocommerce_restored_normal_initialization",
+    "status": "PASS"
+  },
+  {
+    "test": "real_uninstall_reinstall_preserves_all_financial_tables_and_preferences",
+    "status": "PASS"
+  }
+]

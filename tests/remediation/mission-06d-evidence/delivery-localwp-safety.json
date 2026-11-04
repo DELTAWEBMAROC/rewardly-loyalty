@@ -1,0 +1,82 @@
+{
+  "identity": [
+    "http://localhost:10004",
+    "local",
+    "/Users/user/Local Sites/nodevora-plugin/app/public"
+  ],
+  "wp": "7.1.4",
+  "woo": "11.2.1",
+  "php": "8.3.30",
+  "plugin": "4.8.6",
+  "setup": {
+    "phase": "paused",
+    "origin": "fresh",
+    "activated_at": "2026-10-30T00:31:20+00:00",
+    "recovery_approved": false,
+    "safe_pause_mission": "06D",
+    "safe_pause_checkpoint": "delivery",
+    "safe_pause_at": "2026-10-30T00:33:48+00:00"
+  },
+  "authority": "wallet",
+  "installation_status": "ready",
+  "writes_paused": true,
+  "integration_allowed": false,
+  "qa": false,
+  "cron_disabled": true,
+  "schema_allowed": false,
+  "migration_allowed": false,
+  "writers_drained": false,
+  "qa_gateways": [],
+  "mail_blocked": true,
+  "http_blocked": true,
+  "transactions": 0,
+  "wallets": [
+    {
+      "state": "ready",
+      "n": 1,
+      "balance": "300"
+    }
+  ],
+  "outbox": [
+    {
+      "state": "pending",
+      "n": 2,
+      "attempts": "0"
+    }
+  ],
+  "orders": [
+    {
+      "id": 288,
+      "status": "on-hold"
+    },
+    {
+      "id": 289,
+      "status": "on-hold"
+    }
+  ],
+  "financial_tables_unchanged": true,
+  "financial_hashes": {
+    "wallet": "933a47db4336784fedf5fe4a98a98da3c7a06a7ed72afeb95c7a04a2d9e45ef6",
+    "event": "d3b23be37f547305c45a2724c8e67eb5dd893af6b0b28069d34ce7d7a436cf7b",
+    "lot": "32430d77a73ca4c248e1a8094fe9c5db726454020645ea9054491735e817fc05",
+    "allocation": "0099c953d3ca64ee3a47494f9639e52be488fa82957d73ff8ad2847c877d3e02",
+    "order_state": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outbox": "47c0992619dc4caf20acb2fc7607a1a772705876ba1531143609caefeb9d00b1",
+    "snapshot": "a23f6215332f8567f71455cc9fe2b8b505fd2600a4a364d4a88e98d3bc759788",
+    "history": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "settings_unchanged": true,
+  "settings_hash": "ffc5174361df27b1102e3fb1353ad5be0a9ea5e2e9d9862c10907a4e94464395",
+  "pre_commerce_options_restored": [
+    "woocommerce_cart_page_id",
+    "woocommerce_checkout_page_id",
+    "woocommerce_cod_settings",
+    "WPLANG"
+  ],
+  "operator_locale_restored": true,
+  "backup": {
+    "bytes": 2743058,
+    "sha256": "78154b52f08198cb116fe559e96d598a0971b2ccdaa2f54491e06cfcf7057571",
+    "private_outside_git": true
+  }
+}

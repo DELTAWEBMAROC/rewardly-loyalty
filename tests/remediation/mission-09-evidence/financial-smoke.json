@@ -1,0 +1,64 @@
+{
+    "tests": [
+        {
+            "test": "credit300_and_replay_once",
+            "status": "PASS"
+        },
+        {
+            "test": "debit119_available181",
+            "status": "PASS"
+        },
+        {
+            "test": "classic_funded20_dispatched",
+            "status": "PASS"
+        },
+        {
+            "test": "classic_paid_retry_no_debit",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_funded20_dispatched",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_paid_retry_no_debit",
+            "status": "PASS"
+        },
+        {
+            "test": "partial_refund_hold",
+            "status": "PASS"
+        },
+        {
+            "test": "disabled_program_delayed_callback_keeps_hold",
+            "status": "PASS"
+        },
+        {
+            "test": "wallet_journal_invariants",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_registered",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_reads_current_authoritative_balance",
+            "status": "PASS"
+        }
+    ],
+    "wallet": {
+        "user_id": 2,
+        "balance": 141,
+        "reserved": 0,
+        "debt": 0,
+        "revision": 9,
+        "state": "ready",
+        "migration_version": 1,
+        "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+        "available": 141
+    },
+    "order_ids": [
+        13,
+        14
+    ],
+    "no_gateway_invoked": true
+}

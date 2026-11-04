@@ -1,0 +1,16 @@
+{
+  "format": 2,
+  "plugin": "4.8.6",
+  "rows": 2960,
+  "bytes": 1204089,
+  "sha256": "eb6a2e783e23fae55a371074e68d5a2e022e287952a3e6445089b1d95f1ffc10",
+  "phase": "active",
+  "recovery_approved": false,
+  "wallet_balance": 300,
+  "invariants": true,
+  "http": 200,
+  "content_type": "application/x-ndjson; charset=utf-8",
+  "attachment": "attachment; filename=\"nodevora-2026-10-29-191749.ndjson\"",
+  "browser_preview_import_resume_verified": true,
+  "browser_download_event": "timeout; HTTP endpoint verified separately"
+}

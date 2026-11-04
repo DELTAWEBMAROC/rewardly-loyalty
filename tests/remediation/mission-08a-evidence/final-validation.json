@@ -1,0 +1,44 @@
+[
+  {
+    "check": "PHP syntax",
+    "version": "8.3.30",
+    "files": 7,
+    "status": "PASS"
+  },
+  {
+    "check": "PHP syntax",
+    "version": "8.2.29",
+    "files": 7,
+    "status": "PASS"
+  },
+  {
+    "check": "Python harness syntax",
+    "files": 2,
+    "status": "PASS"
+  },
+  {
+    "check": "gettext",
+    "result": "443 translated messages.",
+    "status": "PASS"
+  },
+  {
+    "check": "test server stopped",
+    "port": 18201,
+    "status": "PASS"
+  },
+  {
+    "check": "test server stopped",
+    "port": 18202,
+    "status": "PASS"
+  },
+  {
+    "check": "test server stopped",
+    "port": 18203,
+    "status": "PASS"
+  },
+  {
+    "check": "primary runtime byte-identical to original archive",
+    "files": 48,
+    "status": "PASS"
+  }
+]

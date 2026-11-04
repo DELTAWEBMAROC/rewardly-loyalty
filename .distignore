@@ -1,0 +1,11 @@
+.git
+.github
+.gitignore
+.distignore
+.DS_Store
+README.md
+docs
+tests
+tools
+audit-reports
+wordpress-org-assets

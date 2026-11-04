@@ -1,0 +1,54 @@
+{
+  "url": "http://localhost:10004",
+  "database": "local",
+  "root": "/Users/user/Local Sites/nodevora-plugin/app/public",
+  "wp": "7.1.4",
+  "woo": "11.2.1",
+  "php": "8.3.30",
+  "plugin": "4.8.6",
+  "setup": {
+    "phase": "paused",
+    "origin": "synchronized",
+    "cursor": 332,
+    "processed": 332,
+    "quarantined": 2,
+    "sync_authorized": 1,
+    "prepared_at": "2026-10-29T19:56:18+00:00",
+    "recovery_approved": false,
+    "batch": [],
+    "scan_complete": true,
+    "activated_at": "2026-10-29T19:59:34+00:00",
+    "activated_by": 1,
+    "recovery_approved_by": 1,
+    "recovery_approved_at": "2026-10-29T20:04:34+00:00",
+    "safe_pause_mission": "06D",
+    "safe_pause_checkpoint": "02",
+    "safe_pause_at": "2026-10-29T20:08:30+00:00"
+  },
+  "writes_paused": true,
+  "integration_allowed": false,
+  "qa": false,
+  "cron_disabled": true,
+  "transactions": {
+    "n": 0
+  },
+  "wallets": [
+    {
+      "state": "ready",
+      "n": 330,
+      "balance": "1123"
+    },
+    {
+      "state": "needs_review",
+      "n": 2,
+      "balance": "0"
+    }
+  ],
+  "outbox": [
+    {
+      "state": "pending",
+      "n": 1,
+      "attempts": "0"
+    }
+  ]
+}

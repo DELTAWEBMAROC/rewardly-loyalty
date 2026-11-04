@@ -1,0 +1,297 @@
+[
+  {
+    "locale": "fr_FR",
+    "tab": "general",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "design",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "adjustments",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "shortcodes",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "pro_features",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "help",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "data",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320,
+    "before_fix_scroll": 360
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "general",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "design",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "adjustments",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "shortcodes",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "pro_features",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "help",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "data",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "general",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "design",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "adjustments",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "shortcodes",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "pro_features",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "help",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "fr_FR",
+    "tab": "data",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "general",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "design",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "adjustments",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "shortcodes",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "pro_features",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "help",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "data",
+    "scroll": 320,
+    "unlabelled": [],
+    "width": 320
+  },
+  {
+    "locale": "en_US",
+    "tab": "general",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "design",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "adjustments",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "shortcodes",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "pro_features",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "help",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "data",
+    "scroll": 390,
+    "unlabelled": [],
+    "width": 390
+  },
+  {
+    "locale": "en_US",
+    "tab": "general",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "design",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "adjustments",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "shortcodes",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "pro_features",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "help",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  },
+  {
+    "locale": "en_US",
+    "tab": "data",
+    "scroll": 1280,
+    "unlabelled": [],
+    "width": 1280
+  }
+]

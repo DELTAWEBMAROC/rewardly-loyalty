@@ -1,0 +1,21 @@
+{
+  "scope": "Mission06B targeted checks only; prior 363 assertions not replayed",
+  "financial_hold": {
+    "current": 18,
+    "core714": 18
+  },
+  "offline_checkout_and_store_api_smoke": {
+    "current": 10,
+    "core714": 10
+  },
+  "onboarding_persistent_checks": 12,
+  "setup_authorization_denials_and_state": 4,
+  "later_refund_checks": 5,
+  "http_dependency_cases": 9,
+  "admin_responsive_cases": 6,
+  "classic_closed_open_cases": 12,
+  "actual_history_views": 4,
+  "translations": 348,
+  "release_ready": false,
+  "primary_changed": false
+}

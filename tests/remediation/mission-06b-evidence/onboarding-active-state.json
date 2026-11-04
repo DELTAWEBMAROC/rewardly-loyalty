@@ -1,0 +1,63 @@
+{
+    "setup": {
+        "phase": "active",
+        "backup_reference": "Mission06B verified isolated backup and restore",
+        "operator": 1,
+        "prepared_at": "2026-10-28T20:56:31+00:00",
+        "cursor": 3,
+        "batch": [],
+        "scan_complete": true,
+        "recovery_approved": false,
+        "activated_at": "2026-10-28T20:58:19+00:00",
+        "activated_by": 1
+    },
+    "wallets": [
+        {
+            "user_id": 1,
+            "state": "ready",
+            "balance": 0,
+            "reserved": 0,
+            "debt": 0
+        },
+        {
+            "user_id": 2,
+            "state": "ready",
+            "balance": 123,
+            "reserved": 0,
+            "debt": 0
+        },
+        {
+            "user_id": 3,
+            "state": "needs_review",
+            "balance": 0,
+            "reserved": 0,
+            "debt": 0
+        }
+    ],
+    "openings": [
+        {
+            "user_id": 1,
+            "operation_key": "migration:v1:user:1",
+            "gross_points": 0
+        },
+        {
+            "user_id": 2,
+            "operation_key": "migration:v1:user:2",
+            "gross_points": 123
+        }
+    ],
+    "checks": {
+        "active_after_ui": true,
+        "production_environment": true,
+        "no_cli_integration_override": true,
+        "wallet_authority": true,
+        "zero_account_ready": true,
+        "consistent_123_ready": true,
+        "inconsistent_99_quarantined": true,
+        "idempotent_batch_retry": true,
+        "snapshots_retained": true,
+        "manual_recovery_default": true,
+        "raw_99_preserved": true,
+        "quarantined_spend_denied": true
+    }
+}

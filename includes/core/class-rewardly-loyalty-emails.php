@@ -10,21 +10,22 @@ class Rewardly_Loyalty_Emails {
 		// Réservé pour extensions futures.
 	}
 
-	public static function maybe_send_points_notification( $user_id, $type, $points, $amount, $note ) {
+	public static function maybe_send_points_notification( $user_id, $type, $points, $amount, $note, $identity = '' ) {
 		if ( ! Rewardly_Loyalty_Helpers::email_notifications_enabled() ) {
-			return;
+			return true;
 		}
 
 		$user = get_user_by( 'id', $user_id );
 		if ( ! $user || empty( $user->user_email ) ) {
-			return;
+			return false;
 		}
 
 		$subject = self::get_subject( $type );
 		$message = self::get_message( $user, $type, $points, $amount, $note );
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-		wp_mail( $user->user_email, $subject, $message, $headers );
+		if (preg_match('/^nodevora-event-[0-9]+$/D',$identity)) { $headers[] = 'X-Nodevora-Event: '.$identity; }
+		return wp_mail( $user->user_email, $subject, $message, $headers );
 	}
 
 	private static function get_subject( $type ) {

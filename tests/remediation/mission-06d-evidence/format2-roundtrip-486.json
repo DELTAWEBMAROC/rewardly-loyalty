@@ -1,0 +1,153 @@
+{
+  "run": "1a04521d42",
+  "fixture_user": 257,
+  "order_id": 283,
+  "backup_filename": "format2-1a04521d42.ndjson",
+  "format": 2,
+  "plugin_version": "4.8.6",
+  "rows": 2960,
+  "bytes": 1204089,
+  "sha256": "272fce2de5ab8e0ff50afd11e079b809373c827b323a9b7fae7c71f1f5462836",
+  "tests": [
+    {
+      "test": "format2_header",
+      "status": "PASS"
+    },
+    {
+      "test": "deleted_entity_tombstone_exported",
+      "status": "PASS"
+    },
+    {
+      "test": "unrelated_metadata_excluded",
+      "status": "PASS"
+    },
+    {
+      "test": "export_wallet",
+      "status": "PASS"
+    },
+    {
+      "test": "export_event",
+      "status": "PASS"
+    },
+    {
+      "test": "export_lot",
+      "status": "PASS"
+    },
+    {
+      "test": "export_allocation",
+      "status": "PASS"
+    },
+    {
+      "test": "export_snapshot",
+      "status": "PASS"
+    },
+    {
+      "test": "export_user_meta",
+      "status": "PASS"
+    },
+    {
+      "test": "export_post_meta",
+      "status": "PASS"
+    },
+    {
+      "test": "export_comment_meta",
+      "status": "PASS"
+    },
+    {
+      "test": "export_order_meta",
+      "status": "PASS"
+    },
+    {
+      "test": "export_item_meta",
+      "status": "PASS"
+    },
+    {
+      "test": "active_target_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "incompatible_version_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "incompatible_schema_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "incompatible_plugin_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "user_identity_mismatch_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "order_identity_mismatch_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "duplicate_record_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "unrelated_option_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "serialized_object_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "corruption_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "truncated_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "valid_preview_matches_file",
+      "status": "PASS"
+    },
+    {
+      "test": "inconsistent_totals_rolled_back",
+      "status": "PASS"
+    },
+    {
+      "test": "rollback_leaves_zero_wallets",
+      "status": "PASS"
+    },
+    {
+      "test": "failure_remains_paused",
+      "status": "PASS"
+    },
+    {
+      "test": "all_owned_records_identical",
+      "status": "PASS"
+    },
+    {
+      "test": "business_settings_identical",
+      "status": "PASS"
+    },
+    {
+      "test": "unrelated_canary_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "metadata_cache_reloaded",
+      "status": "PASS"
+    },
+    {
+      "test": "review_gate_retained",
+      "status": "PASS"
+    },
+    {
+      "test": "retry_cannot_duplicate_restored_records",
+      "status": "PASS"
+    },
+    {
+      "test": "wallet_invariants",
+      "status": "PASS"
+    }
+  ]
+}

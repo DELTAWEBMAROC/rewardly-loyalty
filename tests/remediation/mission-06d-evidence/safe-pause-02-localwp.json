@@ -1,0 +1,92 @@
+{
+  "site": "nodevora-plugin",
+  "url": "http://localhost:10004",
+  "database": "local",
+  "wp": "7.1.4",
+  "woo": "11.2.1",
+  "php": "8.3.30",
+  "plugin": "4.8.6",
+  "setup": {
+    "phase": "paused",
+    "origin": "synchronized",
+    "cursor": 332,
+    "processed": 332,
+    "quarantined": 2,
+    "sync_authorized": 1,
+    "prepared_at": "2026-10-29T19:56:18+00:00",
+    "recovery_approved": false,
+    "batch": [],
+    "scan_complete": true,
+    "activated_at": "2026-10-29T19:59:34+00:00",
+    "activated_by": 1,
+    "recovery_approved_by": 1,
+    "recovery_approved_at": "2026-10-29T20:04:34+00:00",
+    "safe_pause_mission": "06D",
+    "safe_pause_checkpoint": "02",
+    "safe_pause_at": "2026-10-29T20:08:30+00:00"
+  },
+  "authority": "wallet",
+  "installation_status": "ready",
+  "writes_paused": true,
+  "integration_allowed": false,
+  "recovery_approved": false,
+  "qa": false,
+  "cron_disabled": true,
+  "schema_allowed": false,
+  "migration_allowed": false,
+  "writers_drained": false,
+  "qa_gateways": [],
+  "mail_block_installed": true,
+  "http_block_installed": true,
+  "transactions": 0,
+  "wallets": [
+    {
+      "state": "ready",
+      "n": 330,
+      "balance": "1123"
+    },
+    {
+      "state": "needs_review",
+      "n": 2,
+      "balance": "0"
+    }
+  ],
+  "outbox": [
+    {
+      "state": "pending",
+      "n": 1,
+      "attempts": "0"
+    }
+  ],
+  "known_qa_orders": [
+    {
+      "id": 288,
+      "before": "pending",
+      "after": "on-hold",
+      "total": "95.00"
+    },
+    {
+      "id": 289,
+      "before": "processing",
+      "after": "on-hold",
+      "total": "94.05"
+    }
+  ],
+  "financial_tables_unchanged": true,
+  "financial_hashes": {
+    "wallet": "ebed48c417083ab58a47aefe69ed6b2f05646b46a16033fbc47997acb8dcf905",
+    "event": "4718cac10a829a896d5132a34a7081ec95b4860f85da0ee40fa0bce62adddd89",
+    "lot": "050d29af4125c034321a4000a09ecd2d3ebc9027bfe7833d77ffeeb1260ae799",
+    "allocation": "f731f412c5db4b418fae06d2f1648d3d5023d8159cb5be512137ec0da1a6581b",
+    "order_state": "55ed83a703f1a23cd2b2379d926cab23c11ef1b011f1801ddd13dec541fd3983",
+    "outbox": "66084257777868061951503d63b8e8b43f2af311226df1d87e4458812fd35266",
+    "snapshot": "7ca3c46dbea857530cb5dada9485eb97f7e60041174b25d02052a08c862db17e",
+    "history": "b89352777c41d0e527f242f895fc999f449be8fcb4dc0da9551e5d7392d8ae39"
+  },
+  "settings_unchanged": true,
+  "settings_hash": "fe2d91c31a037b4ab8e3371a1488a89f3e46a799cc564485a85ad36f9ddfc72c",
+  "mu_files": [
+    "nodevora-m06d-safety.php",
+    "nodevora-qa-safety.php"
+  ]
+}

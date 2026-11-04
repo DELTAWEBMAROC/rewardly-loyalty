@@ -1,0 +1,15 @@
+{
+  "error": "Complete synchronization before enabling restored accounts.",
+  "state": {
+    "phase": "restore_review",
+    "origin": "fresh",
+    "activated_at": "2026-11-03T19:50:58+00:00",
+    "recovery_approved": false,
+    "restore_previous_phase": "restore_review",
+    "restore_hash": "00a1d067a63bfaf64164d1593738819d859a1421f32a63a9fb219f6057f252a8",
+    "restored_at": "2026-11-03T19:52:43+00:00"
+  },
+  "financial_hashes_unchanged": true,
+  "balance": 300,
+  "invariants": true
+}

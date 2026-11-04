@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Rewardly_Loyalty_Helpers {
 
 	public static function get_default_settings() {
-		return array(
+		$defaults = array(
 			'enabled'                      => 'yes',
 			'earn_points_per_dh'           => 1,
 			'redeem_points_per_dh'         => 20,
@@ -20,6 +20,8 @@ class Rewardly_Loyalty_Helpers {
 			'primary_color'                => '#0b1638',
 			'accent_color'                 => '#12b8a6',
 			'border_radius'                => 12,
+			'button_background' => '', 'button_text' => '', 'button_hover_background' => '', 'button_hover_text' => '',
+			'card_background' => '', 'card_border' => '', 'density' => 'comfortable',
 			'enable_front_styles'          => 'yes',
 			'delete_data_on_uninstall'     => 'no',
 			'design_template'              => 'default',
@@ -52,6 +54,8 @@ class Rewardly_Loyalty_Helpers {
 			'pro_level_silver_threshold'   => 500,
 			'pro_level_gold_threshold'     => 1000,
 		);
+		foreach(Rewardly_Loyalty_Design::additional_colors()as$key){$defaults[$key]='';}
+		return $defaults;
 	}
 
 	/**
@@ -213,9 +217,11 @@ class Rewardly_Loyalty_Helpers {
 			}
 
 			$term_id = absint( $rule['term_id'] ?? 0 );
-			$rate    = max( 1, absint( $rule['rate'] ?? 0 ) );
+			$raw_rate = $rule['rate'] ?? '';
+			if ( ! is_scalar( $raw_rate ) || ! preg_match( '/^[0-9]{1,9}$/D', (string) $raw_rate ) ) { continue; }
+			$rate = (int) $raw_rate;
 
-			if ( $term_id <= 0 || $rate <= 0 ) {
+			if ( $term_id <= 0 ) {
 				continue;
 			}
 
@@ -247,7 +253,7 @@ class Rewardly_Loyalty_Helpers {
 
 		$statuses = array_values( array_intersect( array_map( 'sanitize_key', $statuses ), $allowed ) );
 
-		return ! empty( $statuses ) ? $statuses : array( 'pending', 'on-hold', 'processing' );
+		return $statuses;
 	}
 
 	/**
@@ -323,46 +329,64 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_points( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view($user_id, 'balance'); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_balance' );
 	}
 
 	public static function set_user_points( $user_id, $points ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		self::update_user_meta_value( $user_id, 'rewardly_loyalty_points_balance', max( 0, (int) $points ) );
 	}
 
 	public static function get_total_earned( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view($user_id, 'earned'); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_earned_total' );
 	}
 
 	public static function get_total_spent( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view($user_id, 'spent'); }
 		return (int) self::get_user_meta_value( $user_id, 'rewardly_loyalty_points_spent_total' );
 	}
 
-	public static function get_user_logs( $user_id, $limit = 20 ) {
+	public static function get_user_logs( $user_id, $limit = 20, $before = null ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view( $user_id, 'logs', $limit, $before ); }
 		global $wpdb;
+		/* La lecture bornée évite toute dépendance à flush_group et aux anciens caches périmés. */
+		return $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE user_id=%d AND id<%d ORDER BY id DESC LIMIT %d', self::get_log_table_name(), $user_id, is_array( $before ) ? max( 1, (int) $before[0] ) : PHP_INT_MAX, min( 1000, max( 1, (int) $limit ) ) ) );
+	}
 
-		$table_name = self::get_log_table_name();
-		$limit      = max( 1, (int) $limit );
-		$cache_key  = 'rewardly_user_logs_' . (int) $user_id . '_' . $limit;
-		$cached     = wp_cache_get( $cache_key, 'rewardly_loyalty' );
+	public static function format_log_date( $log ) {
+		try {
+			$utc = isset( $log->created_at_utc );
+			$date = new DateTimeImmutable( $utc ? $log->created_at_utc : $log->created_at, $utc ? new DateTimeZone( 'UTC' ) : wp_timezone() );
+			return wp_date( 'd/m/Y H:i', $date->getTimestamp(), wp_timezone() );
+		} catch ( Exception $e ) { return ''; }
+	}
 
-		if ( false !== $cached ) {
-			return $cached;
-		}
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Prepared query against the plugin's custom log table; results are cached below.
-		$logs = $wpdb->get_results(
-			$wpdb->prepare(
-				'SELECT * FROM %i WHERE user_id = %d ORDER BY id DESC LIMIT %d',
-				$table_name,
-				$user_id,
-				$limit
-			)
+	public static function log_note( $log ) {
+		$notes = array(
+			'Review reward withdrawn after moderation.' => __( 'Review reward withdrawn after moderation.', 'nodevora-customer-rewards-for-woocommerce' ),
+			'Partial refund requires reconciliation; no proportional points adjustment was applied.' => __( 'Partial refund requires reconciliation; no proportional points adjustment was applied.', 'nodevora-customer-rewards-for-woocommerce' ),
 		);
+		return $notes[$log->note] ?? $log->note;
+	}
 
-		wp_cache_set( $cache_key, $logs, 'rewardly_loyalty', MINUTE_IN_SECONDS );
+	/** Les événements de coordination gardent une description lisible sans effacer le journal. */
+	public static function coordination_label( $type ) {
+		$labels = array(
+			'dispatch' => __( 'Payment submitted', 'nodevora-customer-rewards-for-woocommerce' ),
+			'paid' => __( 'Payment confirmed', 'nodevora-customer-rewards-for-woocommerce' ),
+			'close' => __( 'Order closed', 'nodevora-customer-rewards-for-woocommerce' ),
+			'control' => __( 'Financial review', 'nodevora-customer-rewards-for-woocommerce' ),
+			'refund_review' => __( 'Refund under review', 'nodevora-customer-rewards-for-woocommerce' ),
+			'refund_resolution' => __( 'Refund review completed', 'nodevora-customer-rewards-for-woocommerce' ),
+		);
+		return isset( $labels[$type] ) ? $labels[$type] : null;
+	}
 
-		return $logs;
+	public static function log_sign( $log ) {
+		if ( 0 === (int) $log->points ) { return ''; }
+		return in_array( $log->type, array( 'spend', 'debit', 'commit', 'adjust_remove', 'expire', 'revoke', 'reverse' ), true ) ? '-' : '+';
 	}
 
 	/**
@@ -382,31 +406,14 @@ class Rewardly_Loyalty_Helpers {
 	 * @return bool
 	 */
 	public static function is_product_excluded_from_earning( $product ) {
-		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) {
-			return false;
-		}
-
+		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) { return false; }
 		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
-		if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-			return false;
-		}
-
-		$settings   = self::get_settings();
-		$product_id = $product->get_id();
-
-		if ( in_array( $product_id, $settings['pro_excluded_product_ids'], true ) ) {
-			return true;
-		}
-
-		if ( 'yes' === ( $settings['pro_exclude_sale_products'] ?? 'no' ) && $product->is_on_sale() ) {
-			return true;
-		}
-
-		$product_categories = wc_get_product_term_ids( $product_id, 'product_cat' );
-		if ( ! empty( $product_categories ) && array_intersect( $product_categories, $settings['pro_excluded_category_ids'] ) ) {
-			return true;
-		}
-
+		if ( ! $product instanceof WC_Product ) { return false; }
+		$s = self::get_settings(); $ids = array( $product->get_id() );
+		if ( $product->get_parent_id() ) { $ids[] = $product->get_parent_id(); }
+		if ( array_intersect( $ids, $s['pro_excluded_product_ids'] ) ) { return true; }
+		if ( 'yes' === $s['pro_exclude_sale_products'] && $product->is_on_sale() ) { return true; }
+		foreach ( $ids as $id ) { if ( array_intersect( wc_get_product_term_ids( $id, 'product_cat' ), $s['pro_excluded_category_ids'] ) ) { return true; } }
 		return false;
 	}
 
@@ -418,49 +425,24 @@ class Rewardly_Loyalty_Helpers {
 	 */
 	public static function get_effective_product_earning_rate( $product ) {
 		$product = is_numeric( $product ) ? wc_get_product( $product ) : $product;
-		$rate    = self::get_global_earning_rate();
-
-		if ( ! $product || ! is_a( $product, 'WC_Product' ) ) {
-			return $rate;
-		}
-
-		if ( self::is_product_excluded_from_earning( $product ) ) {
-			return 0;
-		}
-
-		if ( class_exists( 'Rewardly_Loyalty_Pro' ) && Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) {
-			$product_id       = $product->get_id();
-			$product_override = get_post_meta( $product_id, '_rewardly_loyalty_product_points_rate', true );
-
-			/* An explicit product value, including zero, overrides the global rate. */
-			if ( '' !== $product_override ) {
-				return max( 0, absint( $product_override ) );
-			}
-
-			/* Backward compatibility for early internal product-rule metadata. */
-			$legacy_override_on  = 'yes' === get_post_meta( $product_id, '_rewardly_pro_enable_product_rule', true );
-			$legacy_override_raw = absint( get_post_meta( $product_id, '_rewardly_pro_product_rate', true ) );
-			if ( $legacy_override_on && $legacy_override_raw > 0 ) {
-				return $legacy_override_raw;
-			}
-
-			$product_categories = wc_get_product_term_ids( $product_id, 'product_cat' );
-			$settings           = self::get_settings();
-			$category_rules     = $settings['pro_category_rules'];
-			$matched_rate       = 0;
-
-			foreach ( $category_rules as $rule ) {
-				if ( in_array( (int) $rule['term_id'], $product_categories, true ) ) {
-					$matched_rate = max( $matched_rate, (int) $rule['rate'] );
-				}
-			}
-
-			if ( $matched_rate > 0 ) {
-				return $matched_rate;
+		$rate = self::get_global_earning_rate();
+		if ( ! $product instanceof WC_Product ) { return $rate; }
+		if ( self::is_product_excluded_from_earning( $product ) ) { return 0; }
+		if ( ! class_exists( 'Rewardly_Loyalty_Pro' ) || ! Rewardly_Loyalty_Pro::can_use_feature( 'advanced_rules' ) ) { return $rate; }
+		$ids = array( $product->get_id() ); if ( $product->get_parent_id() ) { $ids[] = $product->get_parent_id(); }
+		/* Une valeur explicite nulle reste prioritaire, y compris sur le parent. */
+		foreach ( $ids as $id ) {
+			$raw = get_post_meta( $id, '_rewardly_loyalty_product_points_rate', true );
+			if ( '' !== $raw && is_scalar( $raw ) && preg_match( '/^[0-9]{1,9}$/D', (string) $raw ) ) { return (int) $raw; }
+			if ( 'yes' === get_post_meta( $id, '_rewardly_pro_enable_product_rule', true ) ) {
+				$raw = get_post_meta( $id, '_rewardly_pro_product_rate', true );
+				if ( is_scalar( $raw ) && preg_match( '/^[0-9]{1,9}$/D', (string) $raw ) ) { return (int) $raw; }
 			}
 		}
-
-		return $rate;
+		$categories = array(); foreach ( $ids as $id ) { $categories = array_merge( $categories, wc_get_product_term_ids( $id, 'product_cat' ) ); }
+		$matched = null; $s = self::get_settings();
+		foreach ( $s['pro_category_rules'] as $rule ) { if ( in_array( (int) $rule['term_id'], $categories, true ) ) { $matched = max( $matched ?? 0, (int) $rule['rate'] ); } }
+		return null === $matched ? $rate : $matched;
 	}
 
 	/**
@@ -533,6 +515,7 @@ class Rewardly_Loyalty_Helpers {
 	public static function convert_points_to_amount( $points ) {
 		$settings = self::get_settings();
 		$ratio    = max( 1, (int) $settings['redeem_points_per_dh'] );
+		if(Nodevora_Financial_Compatibility::selected()){ $d=(int)wc_get_price_decimals();return (float)Nodevora_Financial_Money::decimal(Nodevora_Financial_Money::discount((int)$points,$ratio,Nodevora_Financial_Money::scale($d)),$d); }
 
 		return (float) floor( (int) $points / $ratio );
 	}
@@ -606,6 +589,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function get_user_point_lots( $user_id ) {
+		if ( Nodevora_Financial_Compatibility::selected() ) { return Nodevora_Financial_Compatibility::view($user_id, 'lots'); }
 		$lots = self::get_user_meta_value( $user_id, 'rewardly_loyalty_point_lots' );
 		if ( ! is_array( $lots ) ) {
 			$lots = array();
@@ -614,6 +598,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function set_user_point_lots( $user_id, $lots ) {
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		self::update_user_meta_value( $user_id, 'rewardly_loyalty_point_lots', array_values( $lots ) );
 	}
 
@@ -657,7 +642,9 @@ class Rewardly_Loyalty_Helpers {
 		return in_array( $type, $allowed, true ) ? $type : 'earn';
 	}
 
-	public static function add_points( $user_id, $points, $order_id = 0, $type = 'earn', $note = '' ) {
+	public static function add_points( $user_id, $points, $order_id = 0, $type = 'earn', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$old=Nodevora_Financial_Lifecycle::event($operation_key);$d=$old&&$old['payload']?json_decode($old['payload'],true,512,JSON_THROW_ON_ERROR)['details']:Nodevora_Financial_Lifecycle::credit_details($type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'credit',(int)$points,$d);return $r['amount'];}
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -694,7 +681,9 @@ class Rewardly_Loyalty_Helpers {
 		return $points;
 	}
 
-	public static function subtract_points( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+	public static function subtract_points( $user_id, $points, $order_id = 0, $type = 'spend', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$d=array('type'=>$type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'debit',(int)$points,$d);return $r['amount'];}
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -719,7 +708,9 @@ class Rewardly_Loyalty_Helpers {
 		return $removed;
 	}
 
-	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '' ) {
+	public static function subtract_points_exact( $user_id, $points, $order_id = 0, $type = 'spend', $note = '', $operation_key = '' ) {
+		if(Nodevora_Financial_Compatibility::selected() && $operation_key){Nodevora_Financial_Checkout::require_enabled();if($order_id || !in_array($type,array('adjust_add','adjust_remove'),true)){throw new Nodevora_Financial_Error('Order/bonus writes require their entitlement controller.');}$d=array('type'=>$type);$d['note']=(string)$note;$r=(new Nodevora_Financial_Wallet())->apply((int)$user_id,(string)$operation_key,'debit',(int)$points,$d);return $r['amount'];}
+		Nodevora_Financial_Compatibility::legacy_write_guard();
 		$points = (int) $points;
 		if ( $points <= 0 ) {
 			return 0;
@@ -788,9 +779,7 @@ class Rewardly_Loyalty_Helpers {
 			return;
 		}
 
-		if ( function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_group' ) ) {
-			wp_cache_flush_group( 'rewardly_loyalty' );
-		}
+		wp_cache_delete( 'rewardly_user_logs_' . (int) $user_id . '_20', 'rewardly_loyalty' );
 
 		if ( class_exists( 'Rewardly_Loyalty_Emails' ) ) {
 			Rewardly_Loyalty_Emails::maybe_send_points_notification( $user_id, $type, $points, $amount, $note );
@@ -798,76 +787,7 @@ class Rewardly_Loyalty_Helpers {
 	}
 
 	public static function run_daily_points_expiration() {
-		$settings        = self::get_settings();
-		$expiration_days = isset( $settings['points_expiration_days'] ) ? (int) $settings['points_expiration_days'] : 0;
-
-		if ( $expiration_days <= 0 ) {
-			return;
-		}
-
-		// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_key,WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Daily scheduled lookup limited to users with a positive loyalty balance.
-		$users = get_users(
-			array(
-				'fields'       => 'ids',
-				'meta_key'     => 'rewardly_loyalty_points_balance',
-				'meta_value'   => 0,
-				'meta_compare' => '>',
-				'meta_type'    => 'NUMERIC',
-			)
-		);
-		// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_key,WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-
-		if ( empty( $users ) ) {
-			return;
-		}
-
-		$now_timestamp = current_time( 'timestamp' );
-
-		foreach ( $users as $user_id ) {
-			$lots        = self::get_user_point_lots( $user_id );
-			$new_lots    = array();
-			$expired_sum = 0;
-
-			foreach ( $lots as $lot ) {
-				$remaining = isset( $lot['points_remaining'] ) ? (int) $lot['points_remaining'] : 0;
-				if ( $remaining <= 0 ) {
-					$new_lots[] = $lot;
-					continue;
-				}
-
-				$earned_at_raw = isset( $lot['earned_at'] ) ? (string) $lot['earned_at'] : '';
-				$earned_at_ts  = $earned_at_raw ? strtotime( $earned_at_raw ) : false;
-				if ( ! $earned_at_ts ) {
-					$new_lots[] = $lot;
-					continue;
-				}
-
-				$age_in_days = (int) floor( ( $now_timestamp - $earned_at_ts ) / DAY_IN_SECONDS );
-				if ( $age_in_days < $expiration_days ) {
-					$new_lots[] = $lot;
-					continue;
-				}
-
-				$expired_sum += $remaining;
-				$lot['points_remaining'] = 0;
-				$new_lots[] = $lot;
-			}
-
-			if ( $expired_sum <= 0 ) {
-				continue;
-			}
-
-			$current_balance = self::get_user_points( $user_id );
-			self::set_user_points( $user_id, max( 0, $current_balance - $expired_sum ) );
-			self::set_user_point_lots( $user_id, $new_lots );
-			self::insert_log(
-				$user_id,
-				0,
-				'expire',
-				$expired_sum,
-				self::convert_points_to_amount( $expired_sum ),
-				__( 'Points expired automatically.', 'nodevora-customer-rewards-for-woocommerce' )
-			);
-		}
+		if(Nodevora_Financial_Compatibility::selected()){return Nodevora_Financial_Recovery::run();}
+		// Une installation non migrée conserve ses fonds et attend une décision explicite.
 	}
 }

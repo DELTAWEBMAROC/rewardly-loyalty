@@ -1,0 +1,74 @@
+{
+  "site": "nodevora-plugin",
+  "identity_verified": [
+    "http://localhost:10004",
+    "local",
+    "/Users/user/Local Sites/nodevora-plugin/app/public"
+  ],
+  "before": {
+    "phase": "active",
+    "origin": "synchronized",
+    "recovery_approved": false,
+    "settings_hash": "fe2d91c31a037b4ab8e3371a1488a89f3e46a799cc564485a85ad36f9ddfc72c",
+    "wallets": [
+      {
+        "state": "ready",
+        "n": 241,
+        "balance": "1123"
+      },
+      {
+        "state": "needs_review",
+        "n": 1,
+        "balance": "0"
+      }
+    ],
+    "outbox": [],
+    "transactions": 0
+  },
+  "after": {
+    "phase": "paused",
+    "origin": "synchronized",
+    "recovery_approved": false,
+    "settings_hash": "fe2d91c31a037b4ab8e3371a1488a89f3e46a799cc564485a85ad36f9ddfc72c",
+    "wallets": [
+      {
+        "state": "ready",
+        "n": 241,
+        "balance": "1123"
+      },
+      {
+        "state": "needs_review",
+        "n": 1,
+        "balance": "0"
+      }
+    ],
+    "outbox": [],
+    "transactions": 0
+  },
+  "safety": {
+    "home": "http://localhost:10004",
+    "db": "local",
+    "writes_paused": true,
+    "integration_allowed": false,
+    "qa_testing": false,
+    "cron_disabled": true,
+    "schema_allowed": false,
+    "migration_allowed": false,
+    "writers_drained": false,
+    "qa_gateways": [],
+    "mu_files": [
+      "nodevora-m06d-safety.php",
+      "nodevora-qa-safety.php"
+    ],
+    "mail_block": true,
+    "http_block": true,
+    "installation": "ready",
+    "authority": "wallet",
+    "wp": "7.1.4",
+    "woo": "11.2.1",
+    "php": "8.3.30"
+  },
+  "settings_wallets_outbox_preserved": true,
+  "other_sites_touched": false,
+  "backups_retained": true
+}

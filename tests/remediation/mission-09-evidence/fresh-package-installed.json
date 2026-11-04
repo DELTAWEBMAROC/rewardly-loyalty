@@ -1,0 +1,11 @@
+{
+  "version": "4.8.6",
+  "state": {
+    "phase": "active",
+    "origin": "fresh",
+    "activated_at": "2026-11-04T18:40:02+00:00",
+    "recovery_approved": true
+  },
+  "status": "ready",
+  "wallets": 0
+}

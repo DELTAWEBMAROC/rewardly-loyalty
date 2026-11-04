@@ -1,0 +1,363 @@
+{
+  "tests": [
+    {
+      "test": "en_general_saved_0",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings have been saved."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_1",
+      "status": "PASS"
+    },
+    {
+      "test": "en_general_unchanged_2",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "These settings are already saved. No changes were needed."
+      ],
+      "actual_result": [
+        "unchanged"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_3",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_4",
+      "status": "PASS"
+    },
+    {
+      "test": "en_general_failed_5",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings could not be saved. Reload this page and try again, or contact your site administrator."
+      ],
+      "actual_result": [
+        "failed"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_6",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_7",
+      "status": "PASS"
+    },
+    {
+      "test": "en_general_unchanged_8",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "These settings are already saved. No changes were needed."
+      ],
+      "actual_result": [
+        "unchanged"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_9",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_10",
+      "status": "PASS"
+    },
+    {
+      "test": "en_design_saved_11",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings have been saved."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_12",
+      "status": "PASS"
+    },
+    {
+      "test": "en_design_failed_13",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings could not be saved. Reload this page and try again, or contact your site administrator."
+      ],
+      "actual_result": [
+        "failed"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_14",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_15",
+      "status": "PASS"
+    },
+    {
+      "test": "en_general_saved_16",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings have been saved."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_17",
+      "status": "PASS"
+    },
+    {
+      "test": "en_design_invalid_18",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Some submitted settings are invalid and were not saved. Check the values and try again."
+      ],
+      "actual_result": [
+        "invalid"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_19",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_20",
+      "status": "PASS"
+    },
+    {
+      "test": "en_not-a-section_invalid_21",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Some submitted settings are invalid and were not saved. Check the values and try again."
+      ],
+      "actual_result": [
+        "invalid"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_22",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_23",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_general_saved_24",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Vos r\u00e9glages ont \u00e9t\u00e9 enregistr\u00e9s."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_25",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_general_unchanged_26",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Ces r\u00e9glages sont d\u00e9j\u00e0 enregistr\u00e9s. Aucune modification n\u2019\u00e9tait n\u00e9cessaire."
+      ],
+      "actual_result": [
+        "unchanged"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_27",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_28",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_general_failed_29",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Vos r\u00e9glages n\u2019ont pas pu \u00eatre enregistr\u00e9s. Rechargez cette page et r\u00e9essayez, ou contactez l\u2019administrateur du site."
+      ],
+      "actual_result": [
+        "failed"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_30",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_31",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_general_unchanged_32",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Ces r\u00e9glages sont d\u00e9j\u00e0 enregistr\u00e9s. Aucune modification n\u2019\u00e9tait n\u00e9cessaire."
+      ],
+      "actual_result": [
+        "unchanged"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_33",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_34",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_design_saved_35",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Vos r\u00e9glages ont \u00e9t\u00e9 enregistr\u00e9s."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_36",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_design_failed_37",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Vos r\u00e9glages n\u2019ont pas pu \u00eatre enregistr\u00e9s. Rechargez cette page et r\u00e9essayez, ou contactez l\u2019administrateur du site."
+      ],
+      "actual_result": [
+        "failed"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_38",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_39",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_general_saved_40",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Vos r\u00e9glages ont \u00e9t\u00e9 enregistr\u00e9s."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_41",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_design_invalid_42",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Certains r\u00e9glages transmis sont invalides et n\u2019ont pas \u00e9t\u00e9 enregistr\u00e9s. V\u00e9rifiez les valeurs et r\u00e9essayez."
+      ],
+      "actual_result": [
+        "invalid"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_43",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_44",
+      "status": "PASS"
+    },
+    {
+      "test": "fr_not-a-section_invalid_45",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Certains r\u00e9glages transmis sont invalides et n\u2019ont pas \u00e9t\u00e9 enregistr\u00e9s. V\u00e9rifiez les valeurs et r\u00e9essayez."
+      ],
+      "actual_result": [
+        "invalid"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_46",
+      "status": "PASS"
+    },
+    {
+      "test": "no_unexpected_persistence_47",
+      "status": "PASS"
+    },
+    {
+      "test": "invalid_nonce_refused",
+      "status": "PASS",
+      "http": 403
+    },
+    {
+      "test": "forged_result_not_displayed",
+      "status": "PASS"
+    },
+    {
+      "test": "en_general_saved_50",
+      "status": "PASS",
+      "http": 302,
+      "message": [
+        "Your settings have been saved."
+      ],
+      "actual_result": [
+        "saved"
+      ]
+    },
+    {
+      "test": "neighbor_sections_preserved_51",
+      "status": "PASS"
+    },
+    {
+      "test": "editor_valid_nonce_still_forbidden",
+      "status": "PASS",
+      "http": 403
+    },
+    {
+      "test": "customer_valid_nonce_still_forbidden",
+      "status": "PASS",
+      "http": 302
+    },
+    {
+      "test": "restricted_manager_refused",
+      "status": "PASS",
+      "http": 403
+    }
+  ],
+  "original_hash": "110d89195fb2737a17ef76bd2e63598ea5859595b899c32a40e9bf3ce1f552f0",
+  "final_settings_recorded_privately": true
+}

@@ -1,0 +1,227 @@
+{
+  "metrics": [
+    {
+      "documentWidth": 320,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 43,
+          "name": "adjustment_action",
+          "right": 277,
+          "width": 234
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 43,
+          "name": "points",
+          "right": 246,
+          "width": 203
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 42,
+          "name": "note",
+          "right": 276,
+          "width": 234
+        }
+      ],
+      "width": 320,
+      "locale": "en_US"
+    },
+    {
+      "documentWidth": 390,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 43,
+          "name": "adjustment_action",
+          "right": 347,
+          "width": 304
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 43,
+          "name": "points",
+          "right": 246,
+          "width": 203
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 42,
+          "name": "note",
+          "right": 346,
+          "width": 304
+        }
+      ],
+      "width": 390,
+      "locale": "en_US"
+    },
+    {
+      "documentWidth": 1280,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 441,
+          "name": "adjustment_action",
+          "right": 574.5,
+          "width": 133.5
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 441,
+          "name": "points",
+          "right": 623,
+          "width": 182
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 440,
+          "name": "note",
+          "right": 857,
+          "width": 417
+        }
+      ],
+      "width": 1280,
+      "locale": "en_US"
+    },
+    {
+      "documentWidth": 320,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 43,
+          "name": "adjustment_action",
+          "right": 277
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 43,
+          "name": "points",
+          "right": 246
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 42,
+          "name": "note",
+          "right": 276
+        }
+      ],
+      "width": 320,
+      "locale": "fr_FR"
+    },
+    {
+      "documentWidth": 390,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 43,
+          "name": "adjustment_action",
+          "right": 347
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 43,
+          "name": "points",
+          "right": 246
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 42,
+          "name": "note",
+          "right": 346
+        }
+      ],
+      "width": 390,
+      "locale": "fr_FR"
+    },
+    {
+      "documentWidth": 1280,
+      "fields": [
+        {
+          "id": "nodevora-adjustment-adjustment_action",
+          "labels": [
+            "Action"
+          ],
+          "left": 441,
+          "name": "adjustment_action",
+          "right": 596.5
+        },
+        {
+          "id": "nodevora-adjustment-points",
+          "labels": [
+            "Points"
+          ],
+          "left": 441,
+          "name": "points",
+          "right": 623
+        },
+        {
+          "id": "nodevora-adjustment-note",
+          "labels": [
+            "Note"
+          ],
+          "left": 440,
+          "name": "note",
+          "right": 857
+        }
+      ],
+      "width": 1280,
+      "locale": "fr_FR"
+    }
+  ],
+  "keyboard": {
+    "en": [
+      "points",
+      "note"
+    ],
+    "fr": [
+      "points",
+      "note"
+    ]
+  }
+}

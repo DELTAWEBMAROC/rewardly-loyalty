@@ -1,0 +1,13 @@
+<?php
+if(!defined('WP_CLI')||!WP_CLI||home_url()!=='http://localhost:10004'){throw new RuntimeException('Dedicated test site required.');}
+require_once getenv('NODEVORA_TEST_SOURCE').'/nodevora-customer-rewards-for-woocommerce.php';Rewardly_Loyalty_Settings::init();
+$tests=array();$check=static function($id,$ok)use(&$tests){$tests[]=array('test'=>$id,'status'=>$ok?'PASS':'FAIL');};
+class Nodevora_QA_Denial extends RuntimeException{}
+add_filter('wp_die_handler',static function(){return static function($message,$title='',$args=array()){throw new Nodevora_QA_Denial('Denied',is_array($args)&&isset($args['response'])?(int)$args['response']:500);};},999);
+$fixture=get_option('nodevora_qa_fixtures');
+foreach(array('administrator'=>1,'shop_manager'=>2,'customer'=>3,'subscriber'=>8) as $role=>$id){wp_set_current_user($id);$allowed=in_array($role,array('administrator','shop_manager'),true);$cap=apply_filters('option_page_capability_rewardly_loyalty_group','manage_options');$check('settings_authority_'.$role,current_user_can($cap)===$allowed);if(!$allowed){try{Rewardly_Loyalty_Admin_Adjustments::handle_form();$check('adjustment_denied_'.$role,false);}catch(Nodevora_QA_Denial $e){$check('adjustment_denied_'.$role,$e->getCode()===403);}try{Rewardly_Loyalty_Admin::render_page();$check('admin_direct_denied_'.$role,false);}catch(Nodevora_QA_Denial $e){$check('admin_direct_denied_'.$role,$e->getCode()===403);}}}
+add_role('qa_nodevora_manager','QA scoped manager',array('read'=>true,'manage_woocommerce'=>true));$u=wp_insert_user(array('user_login'=>'qa_m05_role_'.bin2hex(random_bytes(4)),'user_pass'=>wp_generate_password(32),'role'=>'qa_nodevora_manager'));wp_set_current_user($u);$check('custom_manage_woocommerce_policy',current_user_can(apply_filters('option_page_capability_rewardly_loyalty_group','manage_options')));
+$_SERVER['REQUEST_METHOD']='GET';try{Rewardly_Loyalty_Admin_Adjustments::handle_form();$check('adjustment_get_refused',false);}catch(Nodevora_QA_Denial $e){$check('adjustment_get_refused',$e->getCode()===405);}
+$_SERVER['REQUEST_METHOD']='POST';$_REQUEST['_wpnonce']='invalid';try{Rewardly_Loyalty_Admin_Adjustments::handle_form();$check('adjustment_csrf_refused',false);}catch(Nodevora_QA_Denial $e){$check('adjustment_csrf_refused',$e->getCode()===403);}
+$_REQUEST['_wpnonce']=wp_create_nonce('rewardly_loyalty_adjust_points');$_POST=array('user_id'=>3,'points'=>'-10','adjustment_action'=>'add');try{Rewardly_Loyalty_Admin_Adjustments::handle_form();$check('adjustment_negative_refused',false);}catch(Nodevora_QA_Denial $e){$check('adjustment_negative_refused',$e->getCode()===400);}
+remove_role('qa_nodevora_manager');echo json_encode(array('tests'=>$tests),JSON_PRETTY_PRINT);

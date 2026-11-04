@@ -1,0 +1,642 @@
+[
+  {
+    "test": "default_admin_policy_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_administrator_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "default_administrator_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_administrator_sensitive_ajax",
+    "status": "PASS",
+    "http": 409
+  },
+  {
+    "test": "default_administrator_sensitive_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_administrator_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "default_shop_manager_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "default_shop_manager_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_shop_manager_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_shop_manager_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_shop_manager_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "default_editor_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_editor_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_editor_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_editor_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_editor_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_customer_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_customer_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_customer_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_customer_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_customer_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_subscriber_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_subscriber_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_subscriber_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_subscriber_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_subscriber_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "default_guest_direct_url",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_guest_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "default_guest_sensitive_ajax",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "default_guest_sensitive_post",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "default_guest_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_admin_policy_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_administrator_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "editor_allowed_administrator_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_administrator_sensitive_ajax",
+    "status": "PASS",
+    "http": 409
+  },
+  {
+    "test": "editor_allowed_administrator_sensitive_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_administrator_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "editor_allowed_shop_manager_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "editor_allowed_shop_manager_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_shop_manager_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_shop_manager_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_shop_manager_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "editor_allowed_editor_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "editor_allowed_editor_readonly",
+    "status": "PASS",
+    "http": null
+  },
+  {
+    "test": "editor_allowed_editor_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_editor_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_editor_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_editor_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_customer_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_customer_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_customer_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_customer_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_customer_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_subscriber_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_subscriber_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_subscriber_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_subscriber_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_subscriber_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "editor_allowed_guest_direct_url",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_guest_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "editor_allowed_guest_sensitive_ajax",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "editor_allowed_guest_sensitive_post",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "editor_allowed_guest_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_admin_policy_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_administrator_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "restricted_administrator_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_administrator_sensitive_ajax",
+    "status": "PASS",
+    "http": 409
+  },
+  {
+    "test": "restricted_administrator_sensitive_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_administrator_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "restricted_shop_manager_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_shop_manager_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_shop_manager_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_shop_manager_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_shop_manager_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_editor_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_editor_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_editor_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_editor_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_editor_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_customer_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_customer_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_customer_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_customer_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_customer_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_subscriber_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_subscriber_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_subscriber_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_subscriber_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_subscriber_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "restricted_guest_direct_url",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_guest_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "restricted_guest_sensitive_ajax",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "restricted_guest_sensitive_post",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "restricted_guest_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_admin_policy_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_administrator_direct_url",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "roles_removed_administrator_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_administrator_sensitive_ajax",
+    "status": "PASS",
+    "http": 409
+  },
+  {
+    "test": "roles_removed_administrator_sensitive_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_administrator_product_rest",
+    "status": "PASS",
+    "http": 200
+  },
+  {
+    "test": "roles_removed_shop_manager_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_shop_manager_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_shop_manager_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_shop_manager_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_shop_manager_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_editor_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_editor_settings_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_editor_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_editor_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_editor_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_customer_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_customer_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_customer_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_customer_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_customer_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_subscriber_direct_url",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_subscriber_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_subscriber_sensitive_ajax",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_subscriber_sensitive_post",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_subscriber_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "roles_removed_guest_direct_url",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_guest_settings_post",
+    "status": "PASS",
+    "http": 302
+  },
+  {
+    "test": "roles_removed_guest_sensitive_ajax",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "roles_removed_guest_sensitive_post",
+    "status": "PASS",
+    "http": 400
+  },
+  {
+    "test": "roles_removed_guest_product_rest",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "manager_cannot_change_access_policy",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "admin_bad_nonce_refused",
+    "status": "PASS",
+    "http": 403
+  },
+  {
+    "test": "no_unauthorized_business_change",
+    "status": "PASS",
+    "http": null
+  }
+]

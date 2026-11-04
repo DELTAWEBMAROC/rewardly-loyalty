@@ -1,0 +1,32 @@
+{
+    "order_status": "on-hold",
+    "hold_required": false,
+    "wallet": {
+        "user_id": 2,
+        "balance": 223,
+        "reserved": 0,
+        "debt": 0,
+        "revision": 3,
+        "state": "ready",
+        "migration_version": 1,
+        "checksum": "9da7c31a3f88796f348baa4f43798c3adb2567775985829a9fc8dce76723c390",
+        "available": 223
+    },
+    "resolution_id": 5,
+    "details": {
+        "note": "Synthetic authorized review M06B-12: retain current points; no proportional policy or provider action.",
+        "order_id": 12,
+        "refund_id": 13,
+        "review_event_id": 4,
+        "reviewer": 1,
+        "type": "refund_resolution"
+    },
+    "resolution_count": 1,
+    "invariants": {
+        "user_id": 2,
+        "state": "ready",
+        "verified": true,
+        "errors": [],
+        "snapshot_checksum": "9da7c31a3f88796f348baa4f43798c3adb2567775985829a9fc8dce76723c390"
+    }
+}

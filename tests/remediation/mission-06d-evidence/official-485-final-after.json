@@ -1,0 +1,219 @@
+{
+  "state": {
+    "phase": "active",
+    "origin": "synchronized",
+    "cursor": 332,
+    "processed": 332,
+    "quarantined": 2,
+    "sync_authorized": 1,
+    "prepared_at": "2026-10-29T19:56:18+00:00",
+    "recovery_approved": false,
+    "batch": [],
+    "scan_complete": true,
+    "activated_at": "2026-10-29T19:59:34+00:00",
+    "activated_by": 1
+  },
+  "authority": "wallet",
+  "valid": {
+    "user_id": 259,
+    "balance": 123,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 0,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "c6d447e5f0efe89daa20d5edf850be244a49dcf7ee8558906cc86538ee7bfbb5",
+    "available": 123
+  },
+  "review": {
+    "state": "needs_review",
+    "balance": 0
+  },
+  "raw_review_balance": "99",
+  "valid_meta": {
+    "nickname": [
+      "m06d_valid_e9b80431"
+    ],
+    "first_name": [
+      ""
+    ],
+    "last_name": [
+      ""
+    ],
+    "description": [
+      ""
+    ],
+    "rich_editing": [
+      "true"
+    ],
+    "syntax_highlighting": [
+      "true"
+    ],
+    "infinite_scrolling": [
+      "true"
+    ],
+    "comment_shortcuts": [
+      "false"
+    ],
+    "admin_color": [
+      "modern"
+    ],
+    "use_ssl": [
+      "0"
+    ],
+    "show_admin_bar_front": [
+      "true"
+    ],
+    "locale": [
+      ""
+    ],
+    "wp_capabilities": [
+      "a:1:{s:8:\"customer\";b:1;}"
+    ],
+    "wp_user_level": [
+      "0"
+    ],
+    "dismissed_wp_pointers": [
+      ""
+    ],
+    "rewardly_loyalty_points_balance": [
+      "123"
+    ],
+    "rewardly_loyalty_point_lots": [
+      "a:1:{i:0;a:7:{s:2:\"id\";s:27:\"lot_6ae3a43ed962e5.63369763\";s:12:\"points_total\";i:123;s:16:\"points_remaining\";i:123;s:9:\"earned_at\";s:19:\"2026-10-29 20:53:34\";s:11:\"source_type\";s:10:\"adjust_add\";s:8:\"order_id\";i:0;s:4:\"note\";s:33:\"Mission06D authentic4.8.5 fixture\";}}"
+    ],
+    "_rewardly_bonus_registration_awarded": [
+      "yes"
+    ]
+  },
+  "review_meta": {
+    "nickname": [
+      "m06d_review_acb5af08"
+    ],
+    "first_name": [
+      ""
+    ],
+    "last_name": [
+      ""
+    ],
+    "description": [
+      ""
+    ],
+    "rich_editing": [
+      "true"
+    ],
+    "syntax_highlighting": [
+      "true"
+    ],
+    "infinite_scrolling": [
+      "true"
+    ],
+    "comment_shortcuts": [
+      "false"
+    ],
+    "admin_color": [
+      "modern"
+    ],
+    "use_ssl": [
+      "0"
+    ],
+    "show_admin_bar_front": [
+      "true"
+    ],
+    "locale": [
+      ""
+    ],
+    "wp_capabilities": [
+      "a:1:{s:8:\"customer\";b:1;}"
+    ],
+    "wp_user_level": [
+      "0"
+    ],
+    "dismissed_wp_pointers": [
+      ""
+    ],
+    "rewardly_loyalty_points_balance": [
+      "99"
+    ],
+    "wc_last_active": [
+      "1793303615"
+    ]
+  },
+  "bulk_lots_hash": "ffedb4ed18a8021f75a72fe5f2a0964350b6b0702fac4e86f1cd8aec6f0d9ac3",
+  "settings": {
+    "enabled": "yes",
+    "earn_points_per_dh": 3,
+    "redeem_points_per_dh": 20,
+    "min_points_to_redeem": 100,
+    "max_discount_per_order": 0,
+    "order_status_trigger": "completed",
+    "points_expiration_days": 365,
+    "email_notifications": "no",
+    "notice_display_mode": "both",
+    "primary_color": "#123456",
+    "accent_color": "#12b8a6",
+    "border_radius": 12,
+    "enable_front_styles": "yes",
+    "delete_data_on_uninstall": "no",
+    "design_template": "default",
+    "icon_style": "default",
+    "button_style": "rounded",
+    "card_style": "soft",
+    "typography_preset": "default",
+    "license_key": "",
+    "license_status": "inactive",
+    "license_plan": "free",
+    "license_instance_id": "",
+    "license_last_check": "",
+    "license_expires_at": "",
+    "license_grace_until": "",
+    "license_activated_domain": "",
+    "pro_exclude_sale_products": "no",
+    "pro_excluded_product_ids": [],
+    "pro_excluded_category_ids": [],
+    "pro_category_rules": [],
+    "pro_points_registration": 0,
+    "pro_points_first_order": 0,
+    "pro_points_review": 0,
+    "pro_points_birthday": 0,
+    "pro_referral_points": 0,
+    "pro_pending_points_notice_enabled": "no",
+    "pro_pending_points_notice_text": "You will earn {points} point(s) from your order for {product_name} once {order_link} is completed.",
+    "pro_pending_points_statuses": [
+      "pending",
+      "on-hold",
+      "processing"
+    ],
+    "pro_levels_enabled": "no",
+    "pro_level_bronze_threshold": 100,
+    "pro_level_silver_threshold": 500,
+    "pro_level_gold_threshold": 1000
+  },
+  "bulk": {
+    "n": 1000,
+    "total": "1000",
+    "expires": "2027-10-29 19:53:35"
+  },
+  "opening_count": 1,
+  "order_spent": "100",
+  "order_customer": 260,
+  "invariants": true,
+  "bulk_invariants": true,
+  "checks": {
+    "ui_sync_active": true,
+    "wallet_authority": true,
+    "valid_123": true,
+    "one_opening": true,
+    "quarantine_99": true,
+    "settings_exact": true,
+    "raw_valid_exact": true,
+    "raw_review_exact": true,
+    "raw_bulk_lots_exact": true,
+    "bulk_1000_lots": true,
+    "expiry_retained": true,
+    "order_reference_retained": true,
+    "valid_invariants": true,
+    "bulk_invariants": true,
+    "unknown_recovery_not_enabled": true
+  }
+}

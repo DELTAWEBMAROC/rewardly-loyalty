@@ -1,0 +1,27 @@
+{
+  "url": "http://localhost:10004",
+  "db": "local",
+  "phase": {
+    "phase": "paused",
+    "origin": "fresh",
+    "activated_at": "2026-10-30T00:31:20+00:00",
+    "recovery_approved": false,
+    "safe_pause_mission": "06D",
+    "safe_pause_checkpoint": "delivery",
+    "safe_pause_at": "2026-10-30T00:33:48+00:00"
+  },
+  "settings_hash": "c077ae3a600cb989b3675d4a3e1b1d1754bb6f31fc4bd3c00e767ddf4aa972af",
+  "financial_hashes": {
+    "wallet": "933a47db4336784fedf5fe4a98a98da3c7a06a7ed72afeb95c7a04a2d9e45ef6",
+    "event": "d3b23be37f547305c45a2724c8e67eb5dd893af6b0b28069d34ce7d7a436cf7b",
+    "lot": "32430d77a73ca4c248e1a8094fe9c5db726454020645ea9054491735e817fc05",
+    "allocation": "0099c953d3ca64ee3a47494f9639e52be488fa82957d73ff8ad2847c877d3e02",
+    "order_state": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outbox": "47c0992619dc4caf20acb2fc7607a1a772705876ba1531143609caefeb9d00b1",
+    "snapshot": "a23f6215332f8567f71455cc9fe2b8b505fd2600a4a364d4a88e98d3bc759788",
+    "history": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "qa": false,
+  "cron": true,
+  "tx": 0
+}

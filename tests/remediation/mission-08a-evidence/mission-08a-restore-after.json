@@ -1,0 +1,216 @@
+{
+  "run": "60fa4c8a",
+  "tests": [
+    {
+      "test": "source_is_genuine_fresh_active",
+      "status": "PASS"
+    },
+    {
+      "test": "active_import_preserves_records",
+      "status": "PASS"
+    },
+    {
+      "test": "active_requires_new_review",
+      "status": "PASS"
+    },
+    {
+      "test": "active_explicit_resume",
+      "status": "PASS"
+    },
+    {
+      "test": "active_records_unchanged_after_resume",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_import_preserves_records",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_requires_new_review",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_explicit_resume",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_records_unchanged_after_resume",
+      "status": "PASS"
+    },
+    {
+      "test": "review_1_root_retained",
+      "status": "PASS"
+    },
+    {
+      "test": "review_1_records_identical",
+      "status": "PASS"
+    },
+    {
+      "test": "review_1_duplicate_import_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "review_2_root_retained",
+      "status": "PASS"
+    },
+    {
+      "test": "review_2_records_identical",
+      "status": "PASS"
+    },
+    {
+      "test": "review_2_duplicate_import_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "review_3_root_retained",
+      "status": "PASS"
+    },
+    {
+      "test": "review_3_records_identical",
+      "status": "PASS"
+    },
+    {
+      "test": "review_3_duplicate_import_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "nested_review_resumes_explicitly",
+      "status": "PASS"
+    },
+    {
+      "test": "nested_review_preserves_invariants",
+      "status": "PASS"
+    },
+    {
+      "test": "quarantined_wallet_stays_blocked",
+      "status": "PASS"
+    },
+    {
+      "test": "quarantine_unchanged",
+      "status": "PASS"
+    },
+    {
+      "test": "pending_unknown_outbox_not_executed",
+      "status": "PASS"
+    },
+    {
+      "test": "active_wallet_with_new_activity_refuses_restore",
+      "status": "PASS"
+    },
+    {
+      "test": "dangerous_import_has_no_mutation",
+      "status": "PASS"
+    },
+    {
+      "test": "incomplete_migration_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "incomplete_migration_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_incomplete_migration_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_incomplete_migration_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "false_review_root_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "false_review_root_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "lost_legacy_provenance_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "lost_legacy_provenance_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "unprovable_nested_legacy_review_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "unprovable_nested_legacy_review_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "unknown_origin_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "unknown_origin_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_disguised_review_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "paused_disguised_review_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "active_unverified_review_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "active_unverified_review_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "invalid_review_marker_resume_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "invalid_review_marker_safe_and_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "unvalidated_source_authority_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "changed_target_authority_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "corrupt_file_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "preview_hash_mismatch_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "real_sql_failure_refused",
+      "status": "PASS"
+    },
+    {
+      "test": "real_sql_failure_rolls_back_all_rows",
+      "status": "PASS"
+    },
+    {
+      "test": "real_sql_failure_keeps_pause",
+      "status": "PASS"
+    },
+    {
+      "test": "retry_after_sql_failure_preserves_all_records",
+      "status": "PASS"
+    },
+    {
+      "test": "business_settings_unchanged",
+      "status": "PASS"
+    }
+  ],
+  "final_phase": "paused",
+  "original_balance": 181,
+  "outbox_preserved": true
+}

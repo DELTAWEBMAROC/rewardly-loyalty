@@ -1,0 +1,78 @@
+{
+  "servers_stopped": 2,
+  "ports_closed": {
+    "18088": true,
+    "18089": true,
+    "18090": true,
+    "18091": true,
+    "18092": true
+  },
+  "fixtures": {
+    "current": {
+      "database": "nodevora_m06b_current_04846qnf",
+      "paused": true,
+      "integration": false,
+      "qa": false,
+      "cron_disabled": true,
+      "transactions": 0,
+      "setup": [],
+      "mail_block": true,
+      "http_block": true
+    },
+    "minimum": {
+      "database": "nodevora_m06b_minimum_04846qnf",
+      "paused": true,
+      "integration": false,
+      "qa": false,
+      "cron_disabled": true,
+      "transactions": 0,
+      "setup": [],
+      "mail_block": true,
+      "http_block": true
+    },
+    "core714": {
+      "database": "nodevora_m06b_core714_04846qnf",
+      "paused": true,
+      "integration": false,
+      "qa": false,
+      "cron_disabled": true,
+      "transactions": 0,
+      "setup": [],
+      "mail_block": true,
+      "http_block": true
+    },
+    "onboarding": {
+      "database": "nodevora_m06b_onboarding_04846qnf",
+      "paused": true,
+      "integration": false,
+      "qa": false,
+      "cron_disabled": true,
+      "transactions": 0,
+      "setup": {
+        "phase": "paused",
+        "backup_reference": "Mission06B verified isolated backup and restore",
+        "operator": 1,
+        "prepared_at": "2026-10-28T20:56:31+00:00",
+        "cursor": 3,
+        "batch": [],
+        "scan_complete": true,
+        "recovery_approved": false,
+        "activated_at": "2026-10-28T20:59:30+00:00",
+        "activated_by": 1
+      },
+      "mail_block": true,
+      "http_block": true
+    },
+    "onboarding_restore": {
+      "database": "nodevora_m06b_onboarding_restore_04846qnf",
+      "paused": true,
+      "integration": false,
+      "qa": false,
+      "cron_disabled": true,
+      "transactions": 0,
+      "setup": [],
+      "mail_block": true,
+      "http_block": true
+    }
+  }
+}

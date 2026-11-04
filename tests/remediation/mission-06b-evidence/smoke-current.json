@@ -1,0 +1,47 @@
+{
+    "wp": "7.1.3",
+    "woo": "11.2.1",
+    "php": "8.3.30",
+    "tests": [
+        {
+            "test": "bacs_funded_dispatched",
+            "status": "PASS"
+        },
+        {
+            "test": "bacs_paid_idempotent",
+            "status": "PASS"
+        },
+        {
+            "test": "cod_funded_dispatched",
+            "status": "PASS"
+        },
+        {
+            "test": "cod_paid_idempotent",
+            "status": "PASS"
+        },
+        {
+            "test": "zero_funded_dispatched",
+            "status": "PASS"
+        },
+        {
+            "test": "zero_paid_idempotent",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_authoritative_balance",
+            "status": "PASS"
+        },
+        {
+            "test": "blocks_registered",
+            "status": "PASS"
+        },
+        {
+            "test": "store_api_extension_present",
+            "status": "PASS"
+        },
+        {
+            "test": "journal_invariants",
+            "status": "PASS"
+        }
+    ]
+}

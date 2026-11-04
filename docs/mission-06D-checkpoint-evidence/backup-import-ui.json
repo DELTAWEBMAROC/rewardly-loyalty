@@ -1,0 +1,10 @@
+{
+  "browser_download_valid": true,
+  "download_bytes": 5888,
+  "download_sha256": "cd069c86eb8bde6803a09fb479a5aa9bc18893915820287befe1958e4d9b1f85",
+  "download_rows": 7,
+  "ui_restore_balance": 300,
+  "ui_restore_phase": "active",
+  "recovery_approved": false,
+  "invariants": true
+}

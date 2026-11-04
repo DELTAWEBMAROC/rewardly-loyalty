@@ -1,0 +1,119 @@
+{
+  "fixture_user": 253,
+  "order_id": 241,
+  "refund_id": 242,
+  "before": {
+    "user_id": 253,
+    "balance": 2000,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 4,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": null,
+    "available": 2000
+  },
+  "after": {
+    "user_id": 253,
+    "balance": 2000,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 5,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": null,
+    "available": 2000
+  },
+  "tests": [
+    {
+      "test": "initial_partial_hold",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "refund_identity_once",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_completed_yes_processing",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_completed_yes_completed",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_completed_no_processing",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_completed_no_completed",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_processing_yes_processing",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_processing_yes_completed",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_processing_no_processing",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "hold_processing_no_completed",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "stale_object_cannot_clear_hold",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "payment_complete_retains_hold",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "targeted_recovery_retains_hold",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "journal_blocks_direct_progress",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "customer_resolution_denied",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "callbacks_preserve_wallet_value",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "callbacks_do_not_create_financial_events",
+      "status": "PASS",
+      "actual": null
+    },
+    {
+      "test": "journal_snapshot_invariants",
+      "status": "PASS",
+      "actual": null
+    }
+  ]
+}

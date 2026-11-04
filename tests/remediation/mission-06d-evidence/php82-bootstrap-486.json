@@ -1,0 +1,8 @@
+{
+  "php": "8.2.29",
+  "wp": "7.1.4",
+  "woo": "11.2.1",
+  "plugin": "4.8.6",
+  "schema_verified": true,
+  "wallet_ready": true
+}

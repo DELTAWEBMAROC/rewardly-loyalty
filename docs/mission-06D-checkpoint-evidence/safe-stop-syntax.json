@@ -1,0 +1,25 @@
+[
+  {
+    "check": "PHP8.2 syntax",
+    "files": 35,
+    "errors": [],
+    "status": "PASS"
+  },
+  {
+    "check": "PHP8.3 syntax",
+    "files": 35,
+    "errors": [],
+    "status": "PASS"
+  },
+  {
+    "check": "JavaScript syntax",
+    "files": 5,
+    "errors": [],
+    "status": "PASS"
+  },
+  {
+    "check": "French catalog",
+    "status": "PASS",
+    "summary": "438 translated messages."
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "locale": "en_US",
+    "view": "account",
+    "paymentLabel": true,
+    "rawDispatch": false
+  },
+  {
+    "locale": "en_US",
+    "view": "shortcode",
+    "paymentLabel": true,
+    "rawDispatch": false
+  },
+  {
+    "locale": "fr_FR",
+    "view": "shortcode",
+    "expected": "Paiement transmis",
+    "paymentLabel": true,
+    "rawDispatch": false
+  },
+  {
+    "locale": "fr_FR",
+    "view": "account",
+    "expected": "Paiement transmis",
+    "paymentLabel": true,
+    "rawDispatch": false
+  }
+]

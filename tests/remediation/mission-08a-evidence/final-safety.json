@@ -1,0 +1,179 @@
+{
+  "restore": {
+    "url": "http://127.0.0.1:18201",
+    "db": "nodevora_m08a_restore",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-03T19:50:58+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "paused",
+      "restore_previous_authority": "wallet",
+      "restore_hash": "2156923d50a8952281117de0b0662965f6ff1eab512412d8dd466d1ef38cf6a6",
+      "restored_at": "2026-11-03T20:16:02+00:00",
+      "safe_pause_mission": "08A"
+    },
+    "authority": "wallet",
+    "writes_paused": true,
+    "integration_allowed": false,
+    "qa": false,
+    "cron_disabled": true,
+    "mail_blocked": true,
+    "http_blocked": true,
+    "financial_tables_unchanged": true,
+    "wallets": [
+      {
+        "state": "ready",
+        "n": 3,
+        "balance": "602"
+      }
+    ],
+    "outbox": [
+      {
+        "effect": "project",
+        "state": "pending",
+        "n": 15,
+        "attempts": "0"
+      },
+      {
+        "effect": "notify",
+        "state": "pending",
+        "n": 8,
+        "attempts": "0"
+      }
+    ],
+    "transactions": 0,
+    "triggers": [],
+    "orders": [
+      {
+        "id": 14,
+        "status": "on-hold"
+      },
+      {
+        "id": 15,
+        "status": "on-hold"
+      },
+      {
+        "id": 12,
+        "status": "on-hold"
+      },
+      {
+        "id": 10,
+        "status": "on-hold"
+      }
+    ],
+    "mu_files": [
+      "mission08a-isolation.php"
+    ],
+    "ready_invariants": true,
+    "backup": {
+      "filename": "restore-final-paused.sql",
+      "bytes": 276013,
+      "sha256": "162d91d019e9b351ceb6748cfbe9eb8a3daf3c4e7d13603c3a3523f0584a82c5"
+    },
+    "server_stop_requested": true
+  },
+  "settings": {
+    "url": "http://127.0.0.1:18202",
+    "db": "nodevora_m08a_settings",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-03T19:51:35+00:00",
+      "recovery_approved": false,
+      "safe_pause_mission": "08A"
+    },
+    "authority": "wallet",
+    "writes_paused": true,
+    "integration_allowed": false,
+    "qa": false,
+    "cron_disabled": true,
+    "mail_blocked": true,
+    "http_blocked": true,
+    "financial_tables_unchanged": true,
+    "wallets": [
+      {
+        "state": "ready",
+        "n": 3,
+        "balance": "0"
+      }
+    ],
+    "outbox": [],
+    "transactions": 0,
+    "triggers": [],
+    "orders": [],
+    "mu_files": [
+      "mission08a-isolation.php"
+    ],
+    "ready_invariants": true,
+    "backup": {
+      "filename": "settings-final-paused.sql",
+      "bytes": 235837,
+      "sha256": "2b1c70f19b1103c032c7844941ba0de1abcb22d396ae5cf6d3f10aa61db9985f"
+    },
+    "server_stop_requested": true
+  },
+  "package": {
+    "url": "http://127.0.0.1:18203",
+    "db": "nodevora_m08a_package",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-03T20:23:48+00:00",
+      "recovery_approved": false,
+      "safe_pause_mission": "08A"
+    },
+    "authority": "wallet",
+    "writes_paused": true,
+    "integration_allowed": false,
+    "qa": false,
+    "cron_disabled": true,
+    "mail_blocked": true,
+    "http_blocked": true,
+    "financial_tables_unchanged": true,
+    "wallets": [],
+    "outbox": [],
+    "transactions": 0,
+    "triggers": [],
+    "orders": [],
+    "mu_files": [
+      "mission08a-isolation.php"
+    ],
+    "ready_invariants": true,
+    "backup": {
+      "filename": "package-final-paused.sql",
+      "bytes": 227907,
+      "sha256": "0ae216ca46cde89e43e10c58f0878cd727899ab3148b326d9937614bb1510bb5"
+    },
+    "server_stop_requested": true
+  },
+  "primary_identical_read_only": true,
+  "primary": {
+    "url": "http://localhost:10004",
+    "db": "local",
+    "phase": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-10-30T00:31:20+00:00",
+      "recovery_approved": false,
+      "safe_pause_mission": "06D",
+      "safe_pause_checkpoint": "delivery",
+      "safe_pause_at": "2026-10-30T00:33:48+00:00"
+    },
+    "settings_hash": "c077ae3a600cb989b3675d4a3e1b1d1754bb6f31fc4bd3c00e767ddf4aa972af",
+    "financial_hashes": {
+      "wallet": "933a47db4336784fedf5fe4a98a98da3c7a06a7ed72afeb95c7a04a2d9e45ef6",
+      "event": "d3b23be37f547305c45a2724c8e67eb5dd893af6b0b28069d34ce7d7a436cf7b",
+      "lot": "32430d77a73ca4c248e1a8094fe9c5db726454020645ea9054491735e817fc05",
+      "allocation": "0099c953d3ca64ee3a47494f9639e52be488fa82957d73ff8ad2847c877d3e02",
+      "order_state": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outbox": "47c0992619dc4caf20acb2fc7607a1a772705876ba1531143609caefeb9d00b1",
+      "snapshot": "a23f6215332f8567f71455cc9fe2b8b505fd2600a4a364d4a88e98d3bc759788",
+      "history": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "qa": false,
+    "cron": true,
+    "tx": 0
+  },
+  "original_zip_unchanged": true
+}

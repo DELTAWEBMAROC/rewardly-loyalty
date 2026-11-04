@@ -1,0 +1,14 @@
+{
+  "version": "4.8.6",
+  "method": "Supported authenticated AJAX endpoint stepped to the final empty scan; a newly registered test account then appears; final merchant cutover left to the visible panel",
+  "requests_before_cutover": 36,
+  "old_cursor": 331,
+  "late_user": 332,
+  "new_batch_ids": [
+    332
+  ],
+  "scan_complete": false,
+  "phase": "migrating",
+  "authority": false,
+  "status": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "fixture_user": 243,
+  "checksum_is_null": true,
+  "snapshot_checksum_valid": true,
+  "wallet_matches_snapshot": false,
+  "format2_validation_error": "Backup account checksum is inconsistent."
+}

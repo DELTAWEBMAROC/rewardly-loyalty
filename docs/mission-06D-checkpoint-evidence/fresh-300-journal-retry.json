@@ -1,0 +1,35 @@
+{
+  "initialization": "ready",
+  "origin": "fresh",
+  "before": {
+    "user_id": 1,
+    "balance": 300,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 1,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+    "available": 300
+  },
+  "after": {
+    "user_id": 1,
+    "balance": 300,
+    "reserved": 0,
+    "debt": 0,
+    "revision": 1,
+    "state": "ready",
+    "migration_version": 1,
+    "checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742",
+    "available": 300
+  },
+  "event_count": 1,
+  "wallet_count": 1,
+  "invariants": {
+    "user_id": 1,
+    "state": "ready",
+    "verified": true,
+    "errors": [],
+    "snapshot_checksum": "e7063edbd62e8064507733305a92e19ef828e62909de93bf7159a932b6dd5742"
+  }
+}

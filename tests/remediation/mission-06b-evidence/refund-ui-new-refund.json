@@ -1,0 +1,10 @@
+{
+    "refund_id": 14,
+    "checks": {
+        "resolved_can_advance": true,
+        "later_refund_new_hold": true,
+        "later_callbacks_held": true,
+        "no_extra_earning": true,
+        "invariants": true
+    }
+}

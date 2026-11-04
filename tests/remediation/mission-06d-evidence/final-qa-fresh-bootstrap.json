@@ -1,0 +1,23 @@
+{
+  "version": "4.8.6",
+  "url": "http://localhost:10004",
+  "installation": "ready",
+  "authority": "wallet",
+  "setup": {
+    "phase": "active",
+    "origin": "fresh",
+    "activated_at": "2026-10-30T00:31:20+00:00",
+    "recovery_approved": true
+  },
+  "wallet_count": 0,
+  "users": 332,
+  "operator_flags": false,
+  "qa": false,
+  "cron_disabled": true,
+  "network_blocked": true,
+  "mail_blocked": true,
+  "files": 48,
+  "source_installed_archive_equal": true,
+  "archive_sha256": "11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496",
+  "real_wordpress_upload_install_activate": true
+}
