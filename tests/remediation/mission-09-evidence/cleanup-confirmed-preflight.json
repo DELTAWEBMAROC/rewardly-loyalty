@@ -1,0 +1,870 @@
+{
+  "authorization": "Explicit user chat confirmation after automatic review rejection; only cleanup-plan inventory",
+  "copies": [
+    {
+      "label": "fresh",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh",
+      "database": "nodevora_m08b_fresh",
+      "port": 18301,
+      "verified": {
+        "db": "nodevora_m08b_fresh",
+        "url": "http://127.0.0.1:18301",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T18:40:02+00:00",
+          "recovery_approved": false
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 258849,
+      "backup_sha256": "b2248ea6a0ec45a5f13fef4225be1d584e4939772f696714f3219c1c76a97c5f"
+    },
+    {
+      "label": "target1",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target1",
+      "database": "nodevora_m08b_target1",
+      "port": 18302,
+      "verified": {
+        "db": "nodevora_m08b_target1",
+        "url": "http://127.0.0.1:18302",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false,
+          "restore_previous_phase": "active",
+          "restore_previous_authority": "wallet",
+          "restore_hash": "5865adc8e7cbdd837d119164e0f923f71ab7ab0bca7716fbaac72aaf6934458d",
+          "restored_at": "2026-11-04T11:23:08+00:00"
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 275488,
+      "backup_sha256": "a58034d12d1b30f736b03d42aa857b15ecb5f866f3693afed5dffe1df53418cf"
+    },
+    {
+      "label": "target2",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target2",
+      "database": "nodevora_m08b_target2",
+      "port": 18303,
+      "verified": {
+        "db": "nodevora_m08b_target2",
+        "url": "http://127.0.0.1:18303",
+        "state": {
+          "phase": "restore_review",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false,
+          "restore_previous_phase": "",
+          "restore_hash": "d36b858fa536aa7637bc922d34d7a8c3f11c28ea53f3e36f268923a0ba668380",
+          "restored_at": "2026-11-04T11:29:12+00:00",
+          "restore_previous_authority": ""
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 291542,
+      "backup_sha256": "104a636cdde44b9359268a84596bbb8e43f8639fcabc43c2f73d113a07a61710"
+    },
+    {
+      "label": "work",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work",
+      "database": "nodevora_m08b_work",
+      "port": 18304,
+      "verified": {
+        "db": "nodevora_m08b_work",
+        "url": "http://127.0.0.1:18304",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 505141,
+      "backup_sha256": "810bd63d25bbab6209f8524325deac787e1eb6e880e952305b6154d68ceb56ba"
+    },
+    {
+      "label": "legacy",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacy",
+      "database": "nodevora_m08b_legacy",
+      "port": 18305,
+      "verified": {
+        "db": "nodevora_m08b_legacy",
+        "url": "http://127.0.0.1:18305",
+        "state": {
+          "phase": "paused",
+          "origin": "synchronized",
+          "cursor": 1,
+          "processed": 1,
+          "quarantined": 0,
+          "sync_authorized": 1,
+          "prepared_at": "2026-11-04T11:56:53+00:00",
+          "recovery_approved": false,
+          "batch": [],
+          "scan_complete": true,
+          "activated_at": "2026-11-04T11:56:54+00:00",
+          "activated_by": 1
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 245307,
+      "backup_sha256": "7910778c836b2f77f88e78ae38095231fa13056c34b4e3efef1f041eaa84b74f"
+    },
+    {
+      "label": "ui",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui",
+      "database": "nodevora_m08b_ui",
+      "port": 18306,
+      "verified": {
+        "db": "nodevora_m08b_ui",
+        "url": "http://127.0.0.1:18306",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false,
+          "restore_previous_phase": "active",
+          "restore_previous_authority": "wallet",
+          "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+          "restored_at": "2026-11-04T11:55:43+00:00"
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 306620,
+      "backup_sha256": "c31eefe7292f21c90f31cf66ead1d00a5626df498bd640645eec4af708fe60d6"
+    },
+    {
+      "label": "capacity",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity",
+      "database": "nodevora_m08b_capacity",
+      "port": 18307,
+      "verified": {
+        "db": "nodevora_m08b_capacity",
+        "url": "http://127.0.0.1:18307",
+        "state": {
+          "phase": "restore_review",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false,
+          "restore_previous_phase": "active",
+          "restore_previous_authority": "wallet",
+          "restore_hash": "038d321b221c8382cc6c0b39ab49994e994ef6382d99046ab7e524f38fa65463",
+          "restored_at": "2026-11-04T12:07:41+00:00"
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 30464846,
+      "backup_sha256": "6615a318fe961396b3a4c24c70fa022b3241eb4021c90fb36d9a67e5701665dd"
+    },
+    {
+      "label": "legacyorder",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacyorder",
+      "database": "nodevora_m08b_legacyorder",
+      "port": 18308,
+      "verified": {
+        "db": "nodevora_m08b_legacyorder",
+        "url": "http://127.0.0.1:18308",
+        "state": {
+          "phase": "paused",
+          "origin": "synchronized",
+          "cursor": 2,
+          "processed": 2,
+          "quarantined": 1,
+          "sync_authorized": 1,
+          "prepared_at": "2026-11-04T11:57:21+00:00",
+          "recovery_approved": false,
+          "batch": [],
+          "scan_complete": true,
+          "activated_at": "2026-11-04T11:57:22+00:00",
+          "activated_by": 1
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 281460,
+      "backup_sha256": "54dacc92ef0ae71958c5efd9335ffaeefb7e9bf60786118542e52f9e3a75f035"
+    },
+    {
+      "label": "emptyupgrade",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/emptyupgrade",
+      "database": "nodevora_m08b_emptyupgrade",
+      "port": 18309,
+      "verified": {
+        "db": "nodevora_m08b_emptyupgrade",
+        "url": "http://127.0.0.1:18309",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:59:28+00:00",
+          "recovery_approved": false
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 275580,
+      "backup_sha256": "7708622e20458c74581be4b9aeb0f952101ecabf7ff9c27ca94009f837a8ca76"
+    },
+    {
+      "label": "orderupgrade",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/orderupgrade",
+      "database": "nodevora_m08b_orderupgrade",
+      "port": 18310,
+      "verified": {
+        "db": "nodevora_m08b_orderupgrade",
+        "url": "http://127.0.0.1:18310",
+        "state": {
+          "phase": "paused",
+          "origin": "synchronized",
+          "cursor": 2,
+          "processed": 2,
+          "quarantined": 1,
+          "sync_authorized": 1,
+          "prepared_at": "2026-11-04T12:01:19+00:00",
+          "recovery_approved": false,
+          "batch": [],
+          "scan_complete": true,
+          "activated_at": "2026-11-04T12:01:20+00:00",
+          "activated_by": 1
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 314395,
+      "backup_sha256": "06bd1062842b301dc11555bca7c1186aeb96ce3e2a784ab47a4e67cf8b4ae7e6"
+    },
+    {
+      "label": "restoreextra",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/restoreextra",
+      "database": "nodevora_m08b_restoreextra",
+      "port": 18311,
+      "verified": {
+        "db": "nodevora_m08b_restoreextra",
+        "url": "http://127.0.0.1:18311",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T11:20:15+00:00",
+          "recovery_approved": false,
+          "restore_previous_phase": "active",
+          "restore_previous_authority": "wallet",
+          "restore_hash": "0d6acc376b42435ba0e32283bb31ab1fb9575f97abbf62fc799a0eb832fb30e6",
+          "restored_at": "2026-11-04T12:03:05+00:00"
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 513732,
+      "backup_sha256": "b89b3db85d6d70fa82715a18a6feb08e3dd6c3c8ed98a4c345cd3905cdeb54e5"
+    },
+    {
+      "label": "volume",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/volume",
+      "database": "nodevora_m08b_volume",
+      "port": 18313,
+      "verified": {
+        "db": "nodevora_m08b_volume",
+        "url": "http://127.0.0.1:18313",
+        "state": {
+          "phase": "paused",
+          "origin": "synchronized",
+          "cursor": 130,
+          "processed": 130,
+          "quarantined": 1,
+          "sync_authorized": 1,
+          "prepared_at": "2026-11-04T12:12:26+00:00",
+          "recovery_approved": false,
+          "batch": [],
+          "scan_complete": true,
+          "activated_at": "2026-11-04T12:12:36+00:00",
+          "activated_by": 1
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 477783,
+      "backup_sha256": "fd8e4c1cb6ba371118ab7d89f3863fb4388b8281516babab231c0e5ffb1d8390"
+    },
+    {
+      "label": "minimum",
+      "site": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/minimum",
+      "database": "nodevora_m08b_minimum",
+      "port": 18312,
+      "verified": {
+        "db": "nodevora_m08b_minimum",
+        "url": "http://127.0.0.1:18312",
+        "state": {
+          "phase": "paused",
+          "origin": "fresh",
+          "activated_at": "2026-11-04T12:12:16+00:00",
+          "recovery_approved": false
+        },
+        "paused": true,
+        "qa": false,
+        "integration": false,
+        "cron": true,
+        "tx": 0,
+        "triggers": []
+      },
+      "backup_bytes": 220458,
+      "backup_sha256": "4dd3e922545bce1be2095500e59a5aaf28831e72bf4aecb907693b17f7d31191"
+    }
+  ],
+  "associated_payloads": [
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/after-commit.marker",
+      "kind": "file",
+      "bytes": 9,
+      "sha256": "cc962289af2873dd6dad32931554372a7d2d2de5bd5859c8265eb58b5197a88e"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/authority_legacy.ndjson",
+      "kind": "file",
+      "bytes": 9548,
+      "sha256": "3e2f3d366594ab7aacca1e56bb5d25f71f157b9c6022c35f0df7e64388a11a8a"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity-before-large.sql",
+      "kind": "file",
+      "bytes": 279477,
+      "sha256": "eb1a14ac9afc0c9052a05288b7670fe00cebbba25aed9d9888b3e4e007087e00"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity-final-paused.sql",
+      "kind": "file",
+      "bytes": 30464846,
+      "sha256": "6615a318fe961396b3a4c24c70fa022b3241eb4021c90fb36d9a67e5701665dd"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity-http.log",
+      "kind": "file",
+      "bytes": 8386,
+      "sha256": "e6c5a1ead2d263da712513322a81ec46a4bcac8a7bd1bd08955ebbaa076fb41f"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity-initial.sql",
+      "kind": "file",
+      "bytes": 263466,
+      "sha256": "0d0844c33dec4a6bae53c771ac3a4bc7a7d474a2a00aad1ab4d236866095f2ea"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/capacity-valid.ndjson",
+      "kind": "file",
+      "bytes": 30283485,
+      "sha256": "038d321b221c8382cc6c0b39ab49994e994ef6382d99046ab7e524f38fa65463"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/classic-bacs-100-drainTrue-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "6b02c66c2648b1bb4c8d08c118f28a12fe229e61950f5c4b97144589b7ae8906"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/classic-bacs-119-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "657700f458fa59f1ac0fb015c297c9b1dcd8db95a5f88fd8c73beb3cc0e88337"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/classic-bacs-2000-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "ea8d7e187ffb3ce84c02501232b0fd1f23201f803fa5d79c6131d5f8a19ad088"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/classic-bacs-2000-drainFalse-couponTrue.json",
+      "kind": "file",
+      "bytes": 96,
+      "sha256": "96d2ada7289ab3f777b379c7231eb41ad4de3a850f85fa4bef6f35f7f0e7efc4"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/classic-cod-100-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "727fcb8fce2ebe9e67739805c8c3bdb3a3520a1125f6f209241219393cd3f796"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/commit-child.php",
+      "kind": "file",
+      "bytes": 283,
+      "sha256": "b7ffb973156c711f8eae86f06519d1a3166d44ad76f9d8ce7f27f6a575c69770"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/emptyupgrade-final-paused.sql",
+      "kind": "file",
+      "bytes": 275580,
+      "sha256": "7708622e20458c74581be4b9aeb0f952101ecabf7ff9c27ca94009f837a8ca76"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson",
+      "kind": "file",
+      "bytes": 171997,
+      "sha256": "0d6acc376b42435ba0e32283bb31ab1fb9575f97abbf62fc799a0eb832fb30e6"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.badwallet",
+      "kind": "file",
+      "bytes": 171997,
+      "sha256": "0196adabb69daf98666ae2c1e12e5e079d19c2fb8d6b0bb44618854836b8d36c"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.corrupt",
+      "kind": "file",
+      "bytes": 171998,
+      "sha256": "80cae077c644290d30aecc2f010242c06097d2ac1964a5a52a63c4c7f295810e"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.duplicate",
+      "kind": "file",
+      "bytes": 172320,
+      "sha256": "8e5ff9e1790d86886c3163243cb1e2652d2f93a93a0c49336ea83214d50ef041"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.object",
+      "kind": "file",
+      "bytes": 172081,
+      "sha256": "564e959627f6031e02e5b0cedc4a545bdcd4edc457da4c9f127c10ce129b51a0"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.plugin",
+      "kind": "file",
+      "bytes": 172004,
+      "sha256": "d05080fc97787f9b67612d51525fe2a1f8915fa38d3e969ebbdcfc66c929a519"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.reference",
+      "kind": "file",
+      "bytes": 171997,
+      "sha256": "8f391fd8af72d3601fd261c4dadc5d9b638d173450795abbad8c87d39a7a83ab"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.schema",
+      "kind": "file",
+      "bytes": 172010,
+      "sha256": "39c7f683509b89c2e5a3656aac2e37d1200be50e0a62ca86083739fa8b2ade6b"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.short",
+      "kind": "file",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/extra-hold-quarantine.ndjson.version",
+      "kind": "file",
+      "bytes": 172010,
+      "sha256": "720fb3e2a9226371c718dce1613c736591e061dc77d718f92b889c8e0ec59a92"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fixtures.json",
+      "kind": "file",
+      "bytes": 3601,
+      "sha256": "256afcdd93d6c3bd5849a8f44af93a44707cac9143eb0fc10c650aab92839be4"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/forged_phase.ndjson",
+      "kind": "file",
+      "bytes": 9551,
+      "sha256": "c6bbfef63d5a17752615d4051f32201f1f4a47a12b11dd3c2a5778eab2e7e1ef"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-auth.json",
+      "kind": "file",
+      "bytes": 90,
+      "sha256": "3f5f31e9782552660e5ee62ea9a13f024aa01e9ac8e499b0bbfac9eda5a58be8"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-baseline.sql",
+      "kind": "file",
+      "bytes": 192244,
+      "sha256": "f43de5dbf799972800277cc1dbea38e6ef868e4f1ae73d8385b01c865c991e20"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-checkpoint-paused.sql",
+      "kind": "file",
+      "bytes": 237208,
+      "sha256": "7376191b6e514dadc51d3dbbb3cf04308f63409e96694c02a6478b826098bc7d"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-final-paused.sql",
+      "kind": "file",
+      "bytes": 237208,
+      "sha256": "3b060f9f2204219505547a07cca334f7c462c5e1062c0906818756fbdb966203"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-http.log",
+      "kind": "file",
+      "bytes": 167059,
+      "sha256": "34433aad8e4e70ce4bd1e54489d2ab6b2fa4fc5ac9896118c9d7575cd8794b57"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/fresh-installed-empty.sql",
+      "kind": "file",
+      "bytes": 227232,
+      "sha256": "b89f350ee5b989b7fef56ccfe5fb6d559c5c923a3db8069023f5f2ed9e5f67f5"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/incomplete.ndjson",
+      "kind": "file",
+      "bytes": 9239,
+      "sha256": "aeac86adfcde4b2a0b7fd1fd6242ecd07e5fb810538b8c2c23de7e145b49824b"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacy-final-paused.sql",
+      "kind": "file",
+      "bytes": 245307,
+      "sha256": "7910778c836b2f77f88e78ae38095231fa13056c34b4e3efef1f041eaa84b74f"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacy-initial.sql",
+      "kind": "file",
+      "bytes": 228780,
+      "sha256": "99786da70906f8cf5f44ed558f1491137a513c4e73edea87672d33cd1015ab49"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacy-official485-empty.sql",
+      "kind": "file",
+      "bytes": 233169,
+      "sha256": "12a5a5477b7220c737839d23fd8c2dcc6d0a8d38acc9af60f354b2594a9871d2"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacyorder-final-paused.sql",
+      "kind": "file",
+      "bytes": 281460,
+      "sha256": "54dacc92ef0ae71958c5efd9335ffaeefb7e9bf60786118542e52f9e3a75f035"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/legacyorder-official485.sql",
+      "kind": "file",
+      "bytes": 268267,
+      "sha256": "9644ff418a7a0db1b1d9434bf3d3c9b44987f9a86fdfd4441b5233aee73abeb1"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/m09-fresh-before-reset.sql",
+      "kind": "file",
+      "bytes": 237324,
+      "sha256": "a4f180aa65de6e29b2ac778b125e5a2fede32581bc950ed6d38d0564ea6ac6f6"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/minimum-auth.json",
+      "kind": "file",
+      "bytes": 89,
+      "sha256": "46c6e13a448bf4508824f4a6d2403212cb4effba5066a731f609e7a1d416333a"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/minimum-before-candidate.sql",
+      "kind": "file",
+      "bytes": 126571,
+      "sha256": "97e953f83bb0062de55636d9277b8def0c975b591362bde33f8e17dacfd28020"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/minimum-final-paused.sql",
+      "kind": "file",
+      "bytes": 220458,
+      "sha256": "4dd3e922545bce1be2095500e59a5aaf28831e72bf4aecb907693b17f7d31191"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/minimum-unpack",
+      "kind": "directory",
+      "files": 0,
+      "purpose": "Mission08B private extraction/cache payload"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/old_noauthority.ndjson",
+      "kind": "file",
+      "bytes": 9497,
+      "sha256": "d36b858fa536aa7637bc922d34d7a8c3f11c28ea53f3e36f268923a0ba668380"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/operator-pause.php",
+      "kind": "file",
+      "bytes": 54,
+      "sha256": "dea514cd40e1d242eb263fca62ecbd2cac6774fe8c215c171f2635f100adc258"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/orderupgrade-final-paused.sql",
+      "kind": "file",
+      "bytes": 314395,
+      "sha256": "06bd1062842b301dc11555bca7c1186aeb96ce3e2a784ab47a4e67cf8b4ae7e6"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/primary-read-query.txt",
+      "kind": "file",
+      "bytes": 638,
+      "sha256": "5b31ac56d3e3857df91b03e70682fbc5e996524f08508d0006aba861cead0e5c"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/restoreextra-final-paused.sql",
+      "kind": "file",
+      "bytes": 513732,
+      "sha256": "b89b3db85d6d70fa82715a18a6feb08e3dd6c3c8ed98a4c345cd3905cdeb54e5"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/review1.ndjson",
+      "kind": "file",
+      "bytes": 9548,
+      "sha256": "074b82b7a1e96ca666497827c0266318b2a61975a439ec575e1bb6d9290edcaa"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/review2.ndjson",
+      "kind": "file",
+      "bytes": 9548,
+      "sha256": "5865adc8e7cbdd837d119164e0f923f71ab7ab0bca7716fbaac72aaf6934458d"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/review3.ndjson",
+      "kind": "file",
+      "bytes": 9548,
+      "sha256": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/router.php",
+      "kind": "file",
+      "bytes": 166,
+      "sha256": "8f1e6bb08418f53d64e0f035bae5671fe2f3299fd0a2fd1b5a4533a1a704c2f5"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/source-active.ndjson",
+      "kind": "file",
+      "bytes": 9289,
+      "sha256": "f26b200beca33021fbe213ec0ae3ab0c927d53135ef1a5463ca03b04e2a0593e"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/source-paused.ndjson",
+      "kind": "file",
+      "bytes": 9289,
+      "sha256": "c686272aaf06765211ec392f225a3ab734dba1fb491b7e7f9cbe61bd2ae02e06"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/store-bacs-100-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "343f7986973601f9ea302cb3352627466292dcd2d241007d4b85f315ef1d836e"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/store-bacs-100-drainTrue-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "57763bdcd0da35de5d62dadb31d117daf3ecc7981da9cbb1a3a6562651a934bb"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/store-bacs-2000-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "3fd4ca5eb106aed57d52bfa03841546394c08a410eaa0bd68b00ed49ad80c048"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/store-bacs-2000-drainFalse-couponTrue.json",
+      "kind": "file",
+      "bytes": 96,
+      "sha256": "3249b0c696b03ef3f10a364b682a74fbf828e89cc416b3771047b01c548ca409"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/store-cod-100-drainFalse-couponFalse.json",
+      "kind": "file",
+      "bytes": 95,
+      "sha256": "aee1e138ec1f487fe62b5c41f4a1ef1f25d5d41496a73b3c7ef7b1db99ead7bb"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target1-checkpoint-paused.sql",
+      "kind": "file",
+      "bytes": 275488,
+      "sha256": "007fd8e81fabc620e03218ed0b4eb2fb8369461a423172f0650083eecb97b3d5"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target1-empty-before-tests.sql",
+      "kind": "file",
+      "bytes": 263471,
+      "sha256": "67efdb8bb57e0267e6713ff567637ac637740900d44f07a229fe0bb8f0121c5d"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target1-final-paused.sql",
+      "kind": "file",
+      "bytes": 275488,
+      "sha256": "a58034d12d1b30f736b03d42aa857b15ecb5f866f3693afed5dffe1df53418cf"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target2-checkpoint-paused.sql",
+      "kind": "file",
+      "bytes": 291542,
+      "sha256": "b9a84d31a839ac8bd14879cf2bf37ad3c1f236880d9dd845d347abb1aacff6e3"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target2-empty-before-tests.sql",
+      "kind": "file",
+      "bytes": 263471,
+      "sha256": "910d94b2faae14988b461624596d0ca590f8ba6dc47dca1bffc91f672cc1ef49"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target2-final-paused.sql",
+      "kind": "file",
+      "bytes": 291542,
+      "sha256": "104a636cdde44b9359268a84596bbb8e43f8639fcabc43c2f73d113a07a61710"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/target2-http.log",
+      "kind": "file",
+      "bytes": 60345,
+      "sha256": "c0e6378bf100f4fbc793ceec7ba6225343014ac8ba3b84d63b7b3a35bbc56606"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui-final-paused.sql",
+      "kind": "file",
+      "bytes": 267414,
+      "sha256": "fb817ae7342951ec518eb1d0d378e9cc9f91136033248dfd075e34540cec19a8"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui-http.log",
+      "kind": "file",
+      "bytes": 732651,
+      "sha256": "dbb1be2c03fd429c4ce0c52f1aa95e9beafa1ee9afb6392e9ee892403625a30d"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui-initial.sql",
+      "kind": "file",
+      "bytes": 263454,
+      "sha256": "ccee58aa3c3b165aaf07e76bbfe2001d269f554bcd477be49475fa093728cd53"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui-post-gate-final-paused.sql",
+      "kind": "file",
+      "bytes": 269562,
+      "sha256": "8de27baf5e2d11c4ba2743a736fa373e82fb30ebfd9f313883c906fe44eb11b0"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/ui300-operation.json",
+      "kind": "file",
+      "bytes": 28,
+      "sha256": "188d76cdd72c52fd83cc423ddeff015e85c3069d18045337b2adf14ba4278bbd"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/volume-before-candidate.sql",
+      "kind": "file",
+      "bytes": 385128,
+      "sha256": "65250d4f80a941009bb1e137ecfa15f0906eb6c55d6d528cc31e0342f18a8137"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/volume-final-paused.sql",
+      "kind": "file",
+      "bytes": 477783,
+      "sha256": "fd8e4c1cb6ba371118ab7d89f3863fb4388b8281516babab231c0e5ffb1d8390"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/woocommerce.8.2.0.zip",
+      "kind": "file",
+      "bytes": 19066692,
+      "sha256": "5ba2e132d0d341ef9b91755ac53e055ea7ffff01dc80040ce421c5853016104b"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/wordpress-6.4.tar.gz",
+      "kind": "file",
+      "bytes": 24480560,
+      "sha256": "d72cbe8de74a8e93d24530a6831e19cf4e5f5c334f99151325fda0308718f137"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work-before-lifecycle.sql",
+      "kind": "file",
+      "bytes": 494842,
+      "sha256": "3b9a23aa39b745ef4575c81bca935f8723a19c7a2ce2dd1f13edc8e622eff6cd"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work-before-restoreextra.sql",
+      "kind": "file",
+      "bytes": 479891,
+      "sha256": "210015b33a434580ce955554b21e0bf57e7b4e057d434a67d304de529caee37c"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work-final-paused.sql",
+      "kind": "file",
+      "bytes": 505141,
+      "sha256": "810bd63d25bbab6209f8524325deac787e1eb6e880e952305b6154d68ceb56ba"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work-http.log",
+      "kind": "file",
+      "bytes": 170552,
+      "sha256": "6e365608b126cecbbf19d1d59a4b53de6876c258ea387c1002b981df80654315"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-08B/work-initial.sql",
+      "kind": "file",
+      "bytes": 263458,
+      "sha256": "6a79493df7a70d06efc903a0b0951ccb8293f47a46b8d2e908a08f2ff75440ec"
+    }
+  ],
+  "obsolete_zips": [
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/artifacts/nodevora-customer-rewards-for-woocommerce-4.8.6-qa.zip",
+      "bytes": 182492,
+      "sha256": "11047f9f72a787e751975307f5c8872343275c7b2225ec2766a98aaeafb46496"
+    },
+    {
+      "path": "/Users/user/Desktop/work/nodevora-plugin/artifacts/nodevora-customer-rewards-for-woocommerce-4.8.6-qa-m08a.zip",
+      "bytes": 185392,
+      "sha256": "526f8b53d5185d81baa64fed4fa099447267b68f21763159937c1b24a476a5a8"
+    }
+  ],
+  "retained_backup_archive": {
+    "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-09-cleanup-backups/qa-final-snapshots.tar.gz",
+    "bytes": 740632,
+    "sha256": "bd07b45c658dd6eda673a95b09402f60bb518e426ea75354d638a804a4d8f990",
+    "all_13_sql_verified": true
+  },
+  "deleted": 0
+}

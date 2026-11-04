@@ -1,0 +1,30 @@
+{
+  "deleted_copies": 13,
+  "deleted_databases": 13,
+  "all_13_ports_closed": true,
+  "other_database_set_exactly_preserved": true,
+  "primary_exactly_unchanged": true,
+  "primary_original_48_files_unchanged": true,
+  "previous_private_archives_06D_08A_unchanged": true,
+  "svn_asset_hashes_unchanged": true,
+  "qa_active_transactions": 0,
+  "runtime_source_zip_48_equal": true,
+  "candidate_sha256": "59efe948230675ab668d1f84dcb39da037bd25531dc1509a62456522db9b1c26",
+  "cold_backup": {
+    "path": "/Users/user/Desktop/work/nodevora-plugin/.private/mission-09-cleanup-backups/qa-final-snapshots.tar.gz",
+    "bytes": 740632,
+    "sha256": "bd07b45c658dd6eda673a95b09402f60bb518e426ea75354d638a804a4d8f990",
+    "all_13_sql_verified": true
+  },
+  "remaining_artifacts": [
+    "nodevora-customer-rewards-for-woocommerce-4.8.6-release-candidate.zip",
+    "nodevora-customer-rewards-for-woocommerce-4.8.6-release-candidate.zip.sha256",
+    "release-candidate-manifest.json"
+  ],
+  "remaining_private_roots": [
+    "mission-06D",
+    "mission-08A",
+    "mission-09-cleanup-backups"
+  ],
+  "mission10_started": false
+}

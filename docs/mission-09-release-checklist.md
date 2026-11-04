@@ -10,8 +10,10 @@
 - [x] ZIP installable, activé,48fichiers égaux et SHA/manifeste.
 - [x] Smoke11, ajustement UI300, modes/design, paniers Classic/Blocks et historique.
 - [x] Primaire strictement inchangé ;13copies sécurisées et inventoriées.
-- [ ] Autorisation chat imposée par le contrôle automatique pour suppression définitive.
-- [ ] Suppression vérifiée des13sites/bases/payloads et nettoyage obsolètes.
-- [ ] Commit final/push dev/SHA distant/PR2Draft vérifiés.
-- [ ] Reçu final et structure workspace après nettoyage.
+- [x] Autorisation chat imposée par le contrôle automatique pour suppression définitive.
+- [x] Suppression vérifiée des13sites/bases/payloads et nettoyage obsolètes.
+- [x] Commit final/push dev/SHA distant/PR2Draft vérifiés.
+- [x] Reçu final et structure workspace après nettoyage.
 - [x] Mission10 préparée, non lancée ; aucune publication.
+
+Preuves : cleanup-ledger.json, cleanup-final-verification.json et reçu final de livraison pour commit/SHA distant/PRDraft. Les réserves PluginCheck30ERROR/84WARNING, PHP7.4 non certifié et CWV restent explicites ; cases cochées ne valent pas approbation de publication.

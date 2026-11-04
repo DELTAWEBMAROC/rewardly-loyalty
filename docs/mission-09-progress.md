@@ -1,26 +1,29 @@
-# Mission 09 — en cours
+# Mission09 — terminée côté Developer
 
-Base 0282e17b0797c50707e9037fe83f1ca6a4c9a509 ; branche feat/nodevora-4.8.6-financial-foundation.
-Références 06D/07/08A/08B consultées. Correction UI NV08B-01 en cours. PHP 7.4 conservé.
-Aucune suppression effectuée. Les 13 copies 08B sont inventoriées dans .private/mission-08B/fixtures.json. Aucun accès modifiant le primaire, main ou SVN.
-Prochaines actions : tests ciblés UI/gate, textes/traductions/readme, Plugin Check, package et tests, puis nettoyage vérifié et livraison.
+## État de livraison
+Candidate : artifacts/nodevora-customer-rewards-for-woocommerce-4.8.6-release-candidate.zip ;184238octets /48fichiers. SHA256 **59efe948230675ab668d1f84dcb39da037bd25531dc1509a62456522db9b1c26**. Aucun changement du runtime depuis le checkpoint6998c014a21995346d4875cbeadb21c4427f7e1c ; cette clôture change uniquement rapports et preuves de nettoyage.
 
-## Checkpoint implémentation
-NV08B-01 : quatre combinaisons de protections EN/FR PASS ; serveur refusé et empreintes des sept tables financières conservées. UI réelle à 320/390/1280 EN/FR, refus et action disponible : aucun débordement.
-README commercial simplifié, métadonnées cohérentes, PHP 7.4 inchangé. Catalogue 446 messages FR compilés. Commentaires traducteur/échappement attributs fixes et préfixe variable uninstall corrigés après Plugin Check. Pas de changement du calcul financier.
-RC provisoire construite : a7d1c35d0a0e7372dbdf4ec4dcea3b2ad50451cc7751f2dd51e65b2942e08f0c ; 184155 octets / 48 fichiers. Installation/activation réelle via WP-CLI dans fresh : ready/fresh/active, zéro wallet initial. Aucune certification finale avant tous les contrôles.
-Plugin Check : initial 35 ERROR/85 WARNING, après corrections 30 ERROR/84 WARNING ; triage détaillé à terminer, ne pas déclarer un scan sans erreurs.
-Copie ui temporairement autorisée (aucune reprise soumise), fresh smoke en cours ; cron et communications externes bloqués. Primaire inchangé. 13 copies vérifiées ; AUCUNE suppression encore.
-Reste : fin smoke/design/modes/configuration, assets, vérification finale package/syntaxe, triage Plugin Check, sécurité/cleanup 13 bases+sites, rapports finaux, commit/push/PR Draft.
+Base0282e17 ; checkpoint implémentationdea01b8 ; checkpoint candidate6998c01. Commit final : commit contenant cette version du rapport ; SHA exact enregistré dans evidence/final-delivery-receipt.json après commit/push. Branchefeat/nodevora-4.8.6-financial-foundation ; PR2 doit rester Draft ; main inchangéeca72d6c08184ed5dd7e28b4e52abc98ebf342ef.
 
-## Validation finale avant nettoyage
-Correctif complémentaire concret découvert en Classic : formulaire à largeur pleine écrasant le résumé à quelques pixels. Grille limitée au bureau, aucune règle de points modifiée. Vérifié EN/FR à 320/390/1280 ; les mesures FR prises avant stabilisation ont été conservées puis remplacées comme preuve par classic-responsive-fr-stable.json (aucun overflow après stabilisation).
-Help : retrait d’un doublon et de la consigne obsolète de template gratuit ; deux phrases EN/FR clarifiées. Catalogue final : 445 traductions.
-RC finale 184238 octets / 48 fichiers, SHA256 59efe948230675ab668d1f84dcb39da037bd25531dc1509a62456522db9b1c26. Réinstallation et activation réelle de cette variante dans fresh. Source/install/ZIP identiques ; 37 PHP sur 8.2 et 8.3 PASS. JS inchangé ; binaire node absent, aucun nouveau lint JS revendiqué.
-11 smoke PASS, ajustement UI300 / wallet et invariants PASS ; Classic→Blocks conserve119 /5,95MAD /94,05MAD, sans nouvelle commande navigateur. Modes et preset/HEX sauvegardés. Captures actuelles dans github/wordpress-org-assets/, séparées du runtime.
-Plugin Check2.1.0, statique et runtime officiels : 30ERROR /84WARNING ; aucun masquage de code. Rapport de triage à finaliser. Le site principal correspond exactement à primary-before08B et à ses48fichiers d’origine. Serveur QA18306 arrêté.
-Sécurisation pré-nettoyage des13copies en cours, preuves enregistrées progressivement dans pre-clean-safety.json. Aucune suppression encore à ce checkpoint.
+## Réalisé
+- NV08B-01 : action masquée sous pause connue, instructionEN/FR ; quatre combinaisons, refusserveur et reprise autoriséeUI vérifiés.
+- CSSClassic corrigé après défaut concret observé ; EN/FR320/390/1280 lisibles sans overflow après stabilisation.
+- Textes/Aide/README/métadonnées finalisés ;445traductionsFR compilées ; PHP7.4 déclaré inchangé.
+- ZIP installé et activé,48fichiers égaux source/install/archive ;37PHP PASS sur8.2/8.3. JS inchangé, nouveau lintJS non revendiqué.
+-11smokePASS ; ajustementUI300 avec journal/invariants ; modes/preset/HEX ; paniersClassic→Blocks119 /5,95MAD /94,05MAD ; compte fictif et historique. Aucun nouveau paiement externe ni achat navigateur final revendiqué.
+- PluginCheck2.1.0 statique/runtime :30ERROR/84WARNING triés et conservés, aucun résultat masqué.
+- Assets actuels préparés dans github/wordpress-org-assets/, exclus du runtime.
 
-## Checkpoint contrôle automatique
-Nettoyage refusé AVANT création/lancement du script : il exige une autorisation explicite dans le chat pour ces13copies. Aucun dossier/base supprimé. Toutes13copies sécurisées ;18306 arrêté. Rapports/liste de ressources et candidate finale prêts.
-Prochaine action précise : obtenir confirmation chat pour les13noms du plan, puis seulement supprimer leurs bases/dossiers/payloads et anciens ZIPQA inventoriés ; vérifier absence et primaire inchangé ; compléter rapports, commit final/push/PRDraft.
+## Nettoyage confirmé et terminé
+Le refus initial du contrôle automatique a été respecté. Après autorisation explicite du propriétaire dans le chat : revérification des13identités et sauvegardes, zérotransaction, portsfermés. Les13sites/bases08B,80éléments privés associés inventoriés et2anciensZIPQA ont été supprimés. La liste exacte est dans mission-09-cleanup-plan.md ; toutes opérations dans evidence/cleanup-ledger.json.
+Une archive froide privée vérifiée des13SQL est conservée : .private/mission-09-cleanup-backups/qa-final-snapshots.tar.gz,740632octets,SHAbd07b45c658dd6eda673a95b09402f60bb518e426ea75354d638a804a4d8f990. Les exportsfresh/ui sont à jour09 ; les11autres SQL correspondent aux sauvegardes08B inchangées.
+
+## État exact après nettoyage
+-13bases et13répertoires QA absents ;13ports fermés ; zérotransactionQA. Toutes les autres bases exactement conservées.
+- LocalWPprincipal10004 strictement inchangé : état/réglages/empreintes financières et48fichiers d’origine. Aucune écriture de cette mission sur le primaire.
+- Archivesprivées06D/08A, rapports, preuves historiques, Git et SVN conservés. Aucun merge/tag/publication/production.
+- Artifacts contient uniquement ZIPRC, SHA256 et manifeste. ArchivesSQL09 protégées, sans serveur actif.
+
+## Limites et suite
+PHP7.4 fonctionnel non certifié ; PluginCheck30ERROR/84WARNING documentés, pas de scan sans réserve ; CWV/capacité/gateways/SMTP/multisite/provenanceancienne et politique de remboursement restent dans les bornes du rapport final.
+Mission09 est terminée. **Aucune reprise automatique à effectuer.** Attendre une instruction pour Mission10, préparée dans mission-10-acceptance-checklist.md mais non lancée. Prendre la RC de ce SHA ; ne pas relancer les anciens drivers de copies08B supprimées ni les audits terminés.

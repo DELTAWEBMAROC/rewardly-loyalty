@@ -1,6 +1,6 @@
 # Mission10 — acceptation indépendante de la candidate finale
 
-Ne pas lancer depuis Mission09. Vérifier d’abord le reçu final et le nettoyage ; créer ses propres copies jetables isolées, le primaire10004 est exclu.
+Ne pas lancer depuis Mission09. Le nettoyage09 est terminé : les13anciennes copies/bases08B n’existent plus. Vérifier le reçu final puis créer ses propres copies jetables isolées ; le primaire10004 et les archives privées précédentes sont exclus. Les vieux drivers08B ne peuvent plus reprendre directement leurs copies supprimées.
 
 Artefact : artifacts/nodevora-customer-rewards-for-woocommerce-4.8.6-release-candidate.zip ; SHA25659efe948230675ab668d1f84dcb39da037bd25531dc1509a62456522db9b1c26,184238octets/48fichiers. Ne pas utiliser les anciennes QA ou la variante provisoire09.
 
