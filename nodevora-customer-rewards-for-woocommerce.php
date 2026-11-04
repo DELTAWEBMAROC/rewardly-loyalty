@@ -1,7 +1,8 @@
 <?php
 /**
  * Plugin Name: Nodevora Customer Rewards for WooCommerce
- * Description: WooCommerce loyalty points with discounts, expiration, customer history, emails, shortcodes, and Cart & Checkout Blocks support.
+ * Description: Reward repeat purchases with points customers can use for WooCommerce discounts.
+ * Plugin URI: https://wordpress.org/plugins/nodevora-customer-rewards-for-woocommerce/
  * Version: 4.8.6
  * Author: Ahmed Ghanem
  * Author URI: https://profiles.wordpress.org/ahmedxy/

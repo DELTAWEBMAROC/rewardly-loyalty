@@ -14,6 +14,7 @@ class Nodevora_Financial_Compatibility {
 		catch(Nodevora_Financial_Error $e){
 			if(defined('WP_CLI')&&WP_CLI){throw $e;}
 			static $shown=array();if(!isset($shown[$user])){$shown[$user]=true;$message=__('Loyalty spending is unavailable while this account is reconciled. Existing points are preserved.','nodevora-customer-rewards-for-woocommerce');
+				/* translators: %s: preserved number of points. */
 				$db=null;try{$db=new Nodevora_Financial_DB();$row=$db->one('SELECT payload FROM '.$db->table('snapshot').' WHERE user_id=? AND version=1',array((int)$user));if($row){$p=json_decode($row['payload'],true,512,JSON_THROW_ON_ERROR);foreach($p['rows'] as $meta){if('rewardly_loyalty_points_balance'===$meta['meta_key']&&preg_match('/^[0-9]{1,19}$/D',$meta['meta_value'])){$message.=' '.sprintf(__('Preserved opening balance: %s points.','nodevora-customer-rewards-for-woocommerce'),$meta['meta_value']);break;}}}}catch(Throwable $ignored){}finally{if($db){$db->close();}}
 				add_action('wp_footer',static function()use($message){echo '<div class="woocommerce-info" role="status">'.esc_html($message).'</div>';});
 			}

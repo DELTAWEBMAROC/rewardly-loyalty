@@ -92,6 +92,9 @@ class Nodevora_Restore {
 		}
 		return in_array( $phase, array( 'active', 'paused' ), true ) ? $phase : '';
 	}
+	public static function operator_paused() {
+		return ( defined( 'NODEVORA_FINANCIAL_WRITES_PAUSED' ) && NODEVORA_FINANCIAL_WRITES_PAUSED ) || ( defined( 'NODEVORA_FINANCIAL_INTEGRATION_ALLOWED' ) && ! NODEVORA_FINANCIAL_INTEGRATION_ALLOWED );
+	}
 	public static function can_resume_review() {
 		$state = Nodevora_Financial_Setup::state();
 		return 'restore_review' === ( $state['phase'] ?? '' ) && '' !== self::source_phase( $state, get_option( 'nodevora_financial_authority' ) );
@@ -102,7 +105,7 @@ class Nodevora_Restore {
 			$key='nodevora:'.substr(hash('sha256',DB_NAME),0,32).':setup';$locked=1===(int)$db->one('SELECT GET_LOCK(?,0) AS acquired',array($key))['acquired'];
 			if(!$locked){throw new Nodevora_Financial_Error('Another data operation is running.');}
 			wp_cache_delete(Nodevora_Financial_Setup::OPTION,'options');$state=Nodevora_Financial_Setup::state();
-			if(!self::can_resume_review()){throw new Nodevora_User_Error( __( 'This restore cannot safely enable points because its original validated wallet state is not established. Keep it paused and use the original backup from a completed active or paused wallet, or request administrator reconciliation. Do not edit the backup provenance.', 'nodevora-customer-rewards-for-woocommerce' ) );}
+			if(!self::can_resume_review()){throw new Nodevora_User_Error( __( 'We cannot verify that this backup is ready to use. Keep points paused. Use the original backup taken after setup was completed, or ask your administrator to review the records. Do not edit the backup.', 'nodevora-customer-rewards-for-woocommerce' ) );}
 			if((defined('NODEVORA_FINANCIAL_WRITES_PAUSED')&&NODEVORA_FINANCIAL_WRITES_PAUSED)||(defined('NODEVORA_FINANCIAL_INTEGRATION_ALLOWED')&&!NODEVORA_FINANCIAL_INTEGRATION_ALLOWED)){throw new Nodevora_Financial_Error('An operator safety override prevents activation.');}
 			Nodevora_Financial_Schema::verify($db);self::verify_rows($db);
 			$state['phase']='active';$state['recovery_approved']=(bool)$recovery_approved;update_option(Nodevora_Financial_Setup::OPTION,$state,false);

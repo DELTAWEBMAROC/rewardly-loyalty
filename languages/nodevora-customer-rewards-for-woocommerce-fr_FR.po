@@ -2,9 +2,10 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.5\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/github\n"
-"POT-Creation-Date: 2026-11-03T20:12:16+00:00\n"
+"Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nodevora-customer-"
+"rewards-for-woocommerce\n"
+"POT-Creation-Date: 2026-11-04T18:39:04+00:00\n"
 "PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "Last-Translator: Nodevora Project\n"
 "Language-Team: French\n"
@@ -23,15 +24,21 @@ msgstr ""
 msgid "Nodevora Customer Rewards for WooCommerce"
 msgstr "Nodevora Customer Rewards for WooCommerce"
 
+#. Plugin URI of the plugin
+#: nodevora-customer-rewards-for-woocommerce.php
+msgid ""
+"https://wordpress.org/plugins/nodevora-customer-rewards-for-woocommerce/"
+msgstr ""
+"https://wordpress.org/plugins/nodevora-customer-rewards-for-woocommerce/"
+
 #. Description of the plugin
 #: nodevora-customer-rewards-for-woocommerce.php
 msgid ""
-"WooCommerce loyalty points with discounts, expiration, customer history, "
-"emails, shortcodes, and Cart & Checkout Blocks support."
+"Reward repeat purchases with points customers can use for WooCommerce "
+"discounts."
 msgstr ""
-"Programme de fidélité WooCommerce avec remises, expiration, historique "
-"client, e-mails, codes courts et prise en charge des blocs Panier et "
-"Commande."
+"Fidélisez vos clients avec des points à utiliser pour obtenir des remises "
+"WooCommerce."
 
 #. Author of the plugin
 #: nodevora-customer-rewards-for-woocommerce.php
@@ -183,13 +190,13 @@ msgstr ""
 
 #: includes/admin/class-nodevora-data.php:51
 msgid ""
-"The operation could not finish. Your data is preserved. Check the selected "
-"file, database access and any active safety pause, then ask your "
-"administrator before retrying."
+"We could not complete this operation. Your data is preserved. Ask your "
+"administrator to check the selected file and any safety pause before "
+"retrying."
 msgstr ""
-"L’opération n’a pas pu aboutir. Vos données sont conservées. Vérifiez le "
-"fichier sélectionné, l’accès à la base de données et toute suspension de "
-"sécurité active, puis contactez votre administrateur avant de réessayer."
+"Impossible de terminer cette opération. Vos données sont conservées. Avant "
+"de réessayer, demandez à votre administrateur de vérifier le fichier "
+"sélectionné et toute pause de sécurité."
 
 #: includes/admin/class-nodevora-data.php:56
 msgid "Preview and explicitly confirm the selected backup before importing."
@@ -217,6 +224,10 @@ msgstr ""
 "Demandez à un administrateur de gérer la synchronisation et les sauvegardes."
 
 #: includes/admin/class-nodevora-data.php:68
+msgid "The points program is temporarily paused."
+msgstr "Le programme de points est temporairement en pause."
+
+#: includes/admin/class-nodevora-data.php:68
 msgid "Your loyalty data is ready."
 msgstr "Vos données de fidélité sont prêtes."
 
@@ -228,7 +239,8 @@ msgstr ""
 "Vos données sont conservées. Une synchronisation ou une vérification par un "
 "administrateur est nécessaire avant d’activer les points."
 
-#: includes/admin/class-nodevora-data.php:70
+#. translators: %d: number of accounts awaiting review.
+#: includes/admin/class-nodevora-data.php:71
 msgid ""
 "Consistent accounts are available. Accounts requiring review remain "
 "protected; their original records are retained."
@@ -236,45 +248,51 @@ msgstr ""
 "Les comptes cohérents sont disponibles. Les comptes nécessitant une "
 "vérification restent protégés et leurs données d’origine sont conservées."
 
-#: includes/admin/class-nodevora-data.php:70
+#. translators: %d: number of accounts awaiting review.
+#: includes/admin/class-nodevora-data.php:71
 #, php-format
 msgid "%d account requires review."
 msgid_plural "%d accounts require review."
 msgstr[0] "%d compte nécessite une vérification."
 msgstr[1] "%d comptes nécessitent une vérification."
 
-#: includes/admin/class-nodevora-data.php:71
-#: includes/financial/class-nodevora-restore.php:105
-msgid ""
-"This restore cannot safely enable points because its original validated "
-"wallet state is not established. Keep it paused and use the original backup "
-"from a completed active or paused wallet, or request administrator "
-"reconciliation. Do not edit the backup provenance."
-msgstr ""
-"Cette restauration ne peut pas réactiver les points en toute sécurité : "
-"l’état initial d’un portefeuille validé n’est pas établi. Laissez-la "
-"suspendue et utilisez la sauvegarde d’origine d’un portefeuille dont "
-"l’initialisation ou la synchronisation est terminée (actif ou suspendu), ou "
-"demandez une réconciliation à votre administrateur. Ne modifiez pas la "
-"provenance de la sauvegarde."
-
 #: includes/admin/class-nodevora-data.php:72
+msgid ""
+"The points program is paused by your site administrator. Ask them to lift "
+"the safety pause before enabling restored points."
+msgstr ""
+"Votre administrateur a mis le programme de points en pause. Demandez-lui de "
+"lever la pause de sécurité avant d’activer les points restaurés."
+
+#: includes/admin/class-nodevora-data.php:73
+#: includes/financial/class-nodevora-restore.php:108
+msgid ""
+"We cannot verify that this backup is ready to use. Keep points paused. Use "
+"the original backup taken after setup was completed, or ask your "
+"administrator to review the records. Do not edit the backup."
+msgstr ""
+"Nous ne pouvons pas confirmer que cette sauvegarde est prête à être "
+"utilisée. Gardez les points en pause. Utilisez la sauvegarde originale créée "
+"après la configuration ou demandez à votre administrateur de vérifier les "
+"données. Ne modifiez pas la sauvegarde."
+
+#: includes/admin/class-nodevora-data.php:74
 msgid "I reviewed the restored data and authorize new points operations."
 msgstr ""
 "J’ai vérifié les données restaurées et j’autorise de nouvelles opérations de "
 "points."
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:74
 msgid "I reviewed all pending effects and authorize background recovery."
 msgstr ""
 "J’ai vérifié toutes les actions en attente et j’autorise leur reprise en "
 "arrière-plan."
 
-#: includes/admin/class-nodevora-data.php:72
+#: includes/admin/class-nodevora-data.php:74
 msgid "Enable reviewed points"
 msgstr "Activer les points vérifiés"
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:75
 msgid ""
 "Existing loyalty records will be preserved. Consistent accounts will be "
 "synchronized; ambiguous accounts remain protected for review. Previously "
@@ -289,25 +307,25 @@ msgstr ""
 "processus ; terminez ou reprenez la synchronisation avant de rouvrir les "
 "achats."
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:75
 msgid "I stopped previous loyalty tools and external loyalty processing."
 msgstr ""
 "J’ai arrêté les anciens outils de fidélité et les traitements de fidélité "
 "externes."
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:75
 msgid "Resume synchronization"
 msgstr "Reprendre la synchronisation"
 
-#: includes/admin/class-nodevora-data.php:73
+#: includes/admin/class-nodevora-data.php:75
 msgid "Synchronize my data"
 msgstr "Synchroniser mes données"
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:76
 msgid "Export your data"
 msgstr "Exporter vos données"
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:76
 msgid ""
 "This Nodevora-only file may contain personal data. Store it privately. It "
 "does not back up WordPress or other plugins."
@@ -316,15 +334,15 @@ msgstr ""
 "Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les "
 "autres extensions."
 
-#: includes/admin/class-nodevora-data.php:74
+#: includes/admin/class-nodevora-data.php:76
 msgid "Export a backup"
 msgstr "Exporter une sauvegarde"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid "Import a backup"
 msgstr "Importer une sauvegarde"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid ""
 "Imports require an empty loyalty target with matching accounts and orders. "
 "Existing activity is never overwritten. Preview the same file and confirm "
@@ -334,15 +352,15 @@ msgstr ""
 "commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même "
 "fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements."
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid "Nodevora backup file"
 msgstr "Fichier de sauvegarde Nodevora"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid "Preview import"
 msgstr "Prévisualiser l’import"
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid ""
 "I stopped previous loyalty tools and external callbacks and confirm this "
 "import into the verified empty target."
@@ -350,19 +368,19 @@ msgstr ""
 "J’ai arrêté les anciens outils de fidélité et les rappels externes et je "
 "confirme cet import dans la cible vide vérifiée."
 
-#: includes/admin/class-nodevora-data.php:75
+#: includes/admin/class-nodevora-data.php:77
 msgid "Import reviewed backup"
 msgstr "Importer la sauvegarde vérifiée"
 
-#: includes/admin/class-nodevora-data.php:76
+#: includes/admin/class-nodevora-data.php:78
 msgid "Retry preparation"
 msgstr "Réessayer la préparation"
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:84
 msgid "Background recovery review"
 msgstr "Vérification de la reprise en arrière-plan"
 
-#: includes/admin/class-nodevora-data.php:82
+#: includes/admin/class-nodevora-data.php:84
 msgid ""
 "Background recovery is paused after synchronization. Review pending effects "
 "before authorizing scheduled retries and notifications. This does not "
@@ -373,7 +391,7 @@ msgstr ""
 "les notifications. Cela ne résout ni les comptes isolés ni les blocages de "
 "remboursement."
 
-#: includes/admin/class-nodevora-data.php:84
+#: includes/admin/class-nodevora-data.php:86
 msgid ""
 "Too many pending effects for this review. Keep recovery paused and request "
 "an operator review."
@@ -381,30 +399,30 @@ msgstr ""
 "Trop d’actions en attente pour cette vérification. Laissez la reprise "
 "suspendue et demandez une vérification à l’opérateur."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:87
 msgid "No pending effects. Approval enables future scheduled recovery."
 msgstr ""
 "Aucune action en attente. L’approbation permet la reprise planifiée des "
 "actions futures."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:87
 msgid "I reviewed these effects and authorize background recovery."
 msgstr "J’ai vérifié ces actions et j’autorise leur reprise en arrière-plan."
 
-#: includes/admin/class-nodevora-data.php:85
+#: includes/admin/class-nodevora-data.php:87
 msgid "Authorize reviewed recovery"
 msgstr "Autoriser la reprise vérifiée"
 
-#: includes/admin/class-nodevora-data.php:86
+#: includes/admin/class-nodevora-data.php:88
 msgid "Pending effects could not be read. Recovery remains paused."
 msgstr ""
 "Les actions en attente n’ont pas pu être lues. La reprise reste suspendue."
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:91
 msgid "Review a partial refund"
 msgstr "Vérifier un remboursement partiel"
 
-#: includes/admin/class-nodevora-data.php:89
+#: includes/admin/class-nodevora-data.php:91
 msgid ""
 "Administrator-only external reconciliation. Recording a review does not "
 "adjust points or advance fulfillment. A later refund requires another review."
@@ -413,28 +431,28 @@ msgstr ""
 "vérification ne modifie pas les points et ne fait pas avancer la commande. "
 "Tout remboursement ultérieur nécessite une nouvelle vérification."
 
-#: includes/admin/class-nodevora-data.php:90
-#: includes/financial/class-nodevora-financial-setup.php:146
+#: includes/admin/class-nodevora-data.php:92
+#: includes/financial/class-nodevora-financial-setup.php:147
 msgid "Order ID"
 msgstr "Identifiant de commande"
 
-#: includes/admin/class-nodevora-data.php:90
-#: includes/financial/class-nodevora-financial-setup.php:146
+#: includes/admin/class-nodevora-data.php:92
+#: includes/financial/class-nodevora-financial-setup.php:147
 msgid "Refund ID"
 msgstr "Identifiant de remboursement"
 
-#: includes/admin/class-nodevora-data.php:91
-#: includes/financial/class-nodevora-financial-setup.php:147
+#: includes/admin/class-nodevora-data.php:93
+#: includes/financial/class-nodevora-financial-setup.php:148
 msgid "Authorized review decision and reference"
 msgstr "Décision de vérification autorisée et référence"
 
-#: includes/admin/class-nodevora-data.php:91
-#: includes/financial/class-nodevora-financial-setup.php:147
+#: includes/admin/class-nodevora-data.php:93
+#: includes/financial/class-nodevora-financial-setup.php:148
 msgid "I completed and authorize this external financial reconciliation."
 msgstr "J’ai terminé et j’autorise ce rapprochement financier externe."
 
-#: includes/admin/class-nodevora-data.php:91
-#: includes/financial/class-nodevora-financial-setup.php:147
+#: includes/admin/class-nodevora-data.php:93
+#: includes/financial/class-nodevora-financial-setup.php:148
 msgid "Record refund resolution"
 msgstr "Enregistrer la résolution du remboursement"
 
@@ -1769,7 +1787,8 @@ msgstr ""
 "L’utilisation des points est indisponible pendant la vérification de ce "
 "compte. Les points existants sont conservés."
 
-#: includes/financial/class-nodevora-financial-compatibility.php:17
+#. translators: %s: preserved number of points.
+#: includes/financial/class-nodevora-financial-compatibility.php:18
 #, php-format
 msgid "Preserved opening balance: %s points."
 msgstr "Solde initial conservé : %s points."
@@ -1916,19 +1935,22 @@ msgstr "Configuration financière"
 msgid "Operation completed. Review the current state before the next step."
 msgstr "Opération terminée. Vérifiez l’état actuel avant l’étape suivante."
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#. translators: %d: last reviewed account ID.
+#: includes/financial/class-nodevora-financial-setup.php:134
 #, php-format
 msgid "Reviewed through account #%d."
 msgstr "Comptes examinés jusqu’au compte nº %d."
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#. translators: %d: last reviewed account ID.
+#: includes/financial/class-nodevora-financial-setup.php:134
 msgid ""
 "Account discovery is complete. Review quarantine before explicit cutover."
 msgstr ""
 "La recherche des comptes est terminée. Vérifiez les comptes bloqués avant la "
 "bascule explicite."
 
-#: includes/financial/class-nodevora-financial-setup.php:133
+#. translators: %d: last reviewed account ID.
+#: includes/financial/class-nodevora-financial-setup.php:134
 msgid ""
 "Inspect the next batch; an empty batch confirms account discovery is "
 "complete."
@@ -1936,7 +1958,7 @@ msgstr ""
 "Examinez le lot suivant ; un lot vide confirme la fin de la recherche des "
 "comptes."
 
-#: includes/financial/class-nodevora-financial-setup.php:134
+#: includes/financial/class-nodevora-financial-setup.php:135
 msgid ""
 "No account is migrated and no financial writes are enabled automatically. "
 "Keep checkout, payment callbacks and legacy workers stopped until setup is "
@@ -1947,19 +1969,19 @@ msgstr ""
 "paiement et les anciens traitements à l’arrêt jusqu’à la fin de la "
 "configuration."
 
-#: includes/financial/class-nodevora-financial-setup.php:135
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Current state:"
 msgstr "État actuel :"
 
-#: includes/financial/class-nodevora-financial-setup.php:135
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Not configured"
 msgstr "Non configuré"
 
-#: includes/financial/class-nodevora-financial-setup.php:135
+#: includes/financial/class-nodevora-financial-setup.php:136
 msgid "Writes paused"
 msgstr "Écritures suspendues"
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid ""
 "Export the full database and plugin files outside the web root. Test "
 "restoring the backup on an isolated snapshot. Never enter credentials or "
@@ -1969,7 +1991,7 @@ msgstr ""
 "Testez leur restauration sur une copie isolée. Ne saisissez ici ni "
 "identifiants ni contenu de sauvegarde."
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid ""
 "Enable store maintenance, stop external payment callbacks and all previous "
 "loyalty writers, then wait for in-flight work to finish. The confirmations "
@@ -1980,7 +2002,7 @@ msgstr ""
 "cours. Les confirmations ci-dessous sont des attestations de l’opérateur, "
 "pas un verrou technique."
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid ""
 "Prepare setup, install/verify the schema, inspect each batch, then "
 "explicitly migrate that reviewed batch. Retry interrupted batches with the "
@@ -1991,7 +2013,7 @@ msgstr ""
 "avec les mêmes données ; les soldes initiaux ne peuvent pas être importés "
 "deux fois."
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid ""
 "Accounts needing review retain their raw snapshots and remain unable to "
 "spend. Review the displayed reasons against the backup; never invent missing "
@@ -2003,7 +2025,7 @@ msgstr ""
 "n’inventez aucun lot, date ou débit manquant. Un plan de rapprochement "
 "approuvé est nécessaire avant de modifier leur valeur financière."
 
-#: includes/financial/class-nodevora-financial-setup.php:136
+#: includes/financial/class-nodevora-financial-setup.php:137
 msgid ""
 "After the final empty inspection batch, explicitly activate eligible "
 "wallets. Keep unreconciled accounts blocked. Restore maintenance/callbacks "
@@ -2014,7 +2036,7 @@ msgstr ""
 "Rétablissez les commandes et les rappels de manière contrôlée, puis vérifiez "
 "un paiement hors ligne pris en charge."
 
-#: includes/financial/class-nodevora-financial-setup.php:137
+#: includes/financial/class-nodevora-financial-setup.php:138
 msgid ""
 "Before cutover, rollback requires stopped writers and a complete consistent "
 "restore. After committed wallet transactions, keep wallet authority and "
@@ -2027,15 +2049,15 @@ msgstr ""
 "l’ancien code ni à une base antérieure. Suspendez les écritures et effectuez "
 "un rapprochement."
 
-#: includes/financial/class-nodevora-financial-setup.php:139
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "Backup reference (no secrets)"
 msgstr "Référence de sauvegarde (sans données secrètes)"
 
-#: includes/financial/class-nodevora-financial-setup.php:139
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid "I verified a restorable database and files backup."
 msgstr "J’ai vérifié une sauvegarde restaurable de la base et des fichiers."
 
-#: includes/financial/class-nodevora-financial-setup.php:139
+#: includes/financial/class-nodevora-financial-setup.php:140
 msgid ""
 "Maintenance is enabled and legacy writers and callbacks are stopped and "
 "drained."
@@ -2043,33 +2065,33 @@ msgstr ""
 "La maintenance est active et les anciens traitements et rappels sont "
 "arrêtés, sans opération en cours."
 
-#: includes/financial/class-nodevora-financial-setup.php:140
+#: includes/financial/class-nodevora-financial-setup.php:141
 msgid "Prepare and pause"
 msgstr "Préparer et suspendre"
 
-#: includes/financial/class-nodevora-financial-setup.php:140
+#: includes/financial/class-nodevora-financial-setup.php:141
 msgid "Install / verify schema"
 msgstr "Installer / vérifier le schéma"
 
-#: includes/financial/class-nodevora-financial-setup.php:140
+#: includes/financial/class-nodevora-financial-setup.php:141
 msgid "Inspect next 20 accounts"
 msgstr "Inspecter les 20 comptes suivants"
 
-#: includes/financial/class-nodevora-financial-setup.php:140
+#: includes/financial/class-nodevora-financial-setup.php:141
 msgid "Migrate reviewed batch"
 msgstr "Migrer le lot vérifié"
 
-#: includes/financial/class-nodevora-financial-setup.php:142
+#: includes/financial/class-nodevora-financial-setup.php:143
 msgid "Unreconciled accounts must remain blocked."
 msgstr "Les comptes non rapprochés doivent rester bloqués."
 
-#: includes/financial/class-nodevora-financial-setup.php:142
+#: includes/financial/class-nodevora-financial-setup.php:143
 msgid "I authorize wallet cutover and new financial writes for ready accounts."
 msgstr ""
 "J’autorise la bascule des portefeuilles et les nouvelles écritures pour les "
 "comptes prêts."
 
-#: includes/financial/class-nodevora-financial-setup.php:143
+#: includes/financial/class-nodevora-financial-setup.php:144
 msgid ""
 "I reviewed pending effects and authorize background recovery. Leave "
 "unchecked to keep recovery manual."
@@ -2077,19 +2099,19 @@ msgstr ""
 "J’ai vérifié les effets en attente et j’autorise leur reprise en arrière-"
 "plan. Laissez cette case décochée pour conserver une reprise manuelle."
 
-#: includes/financial/class-nodevora-financial-setup.php:144
+#: includes/financial/class-nodevora-financial-setup.php:145
 msgid "Activate reviewed wallets"
 msgstr "Activer les portefeuilles vérifiés"
 
-#: includes/financial/class-nodevora-financial-setup.php:144
+#: includes/financial/class-nodevora-financial-setup.php:145
 msgid "Pause new financial writes"
 msgstr "Suspendre les nouvelles écritures financières"
 
-#: includes/financial/class-nodevora-financial-setup.php:145
+#: includes/financial/class-nodevora-financial-setup.php:146
 msgid "Resolve a reviewed partial refund"
 msgstr "Résoudre un remboursement partiel vérifié"
 
-#: includes/financial/class-nodevora-financial-setup.php:145
+#: includes/financial/class-nodevora-financial-setup.php:146
 msgid ""
 "No proportional refund policy is applied. Record the authorized external "
 "reconciliation decision. This clears only the selected refund hold; it does "
@@ -2312,7 +2334,7 @@ msgstr "Connectez-vous pour consulter vos informations de fidélité."
 msgid "My Points History"
 msgstr "Historique de mes points"
 
-#: nodevora-customer-rewards-for-woocommerce.php:27
+#: nodevora-customer-rewards-for-woocommerce.php:28
 msgid ""
 "Another Rewardly or Nodevora installation is active. Back up your data, "
 "deactivate the previous package, then activate the official Nodevora "
@@ -2322,14 +2344,14 @@ msgstr ""
 "données, désactivez l’ancien paquet, puis activez le paquet officiel "
 "Nodevora. Les données financières doivent être conservées."
 
-#: nodevora-customer-rewards-for-woocommerce.php:76
+#: nodevora-customer-rewards-for-woocommerce.php:77
 msgid ""
 "Nodevora financial operations currently support single-site WordPress only."
 msgstr ""
 "Les opérations financières Nodevora prennent actuellement en charge "
 "uniquement WordPress à site unique."
 
-#: nodevora-customer-rewards-for-woocommerce.php:177
+#: nodevora-customer-rewards-for-woocommerce.php:178
 msgid ""
 "Nodevora Customer Rewards for WooCommerce requires WooCommerce to work "
 "correctly."
@@ -2337,8 +2359,8 @@ msgstr ""
 "Nodevora Customer Rewards for WooCommerce nécessite WooCommerce pour "
 "fonctionner correctement."
 
-#: nodevora-customer-rewards-for-woocommerce.php:179
-#: nodevora-customer-rewards-for-woocommerce.php:190
+#: nodevora-customer-rewards-for-woocommerce.php:180
+#: nodevora-customer-rewards-for-woocommerce.php:191
 msgid "Install or activate WooCommerce"
 msgstr "Installer ou activer WooCommerce"
 
@@ -2383,6 +2405,36 @@ msgstr "%1$s points appliqués · %2$s de remise"
 #: assets/js/loyalty-blocks.js:41
 msgid "Log in to use your points"
 msgstr "Connectez-vous pour utiliser vos points"
+
+#~ msgid ""
+#~ "WooCommerce loyalty points with discounts, expiration, customer history, "
+#~ "emails, shortcodes, and Cart & Checkout Blocks support."
+#~ msgstr ""
+#~ "Programme de fidélité WooCommerce avec remises, expiration, historique "
+#~ "client, e-mails, codes courts et prise en charge des blocs Panier et "
+#~ "Commande."
+
+#~ msgid ""
+#~ "The operation could not finish. Your data is preserved. Check the "
+#~ "selected file, database access and any active safety pause, then ask your "
+#~ "administrator before retrying."
+#~ msgstr ""
+#~ "L’opération n’a pas pu aboutir. Vos données sont conservées. Vérifiez le "
+#~ "fichier sélectionné, l’accès à la base de données et toute suspension de "
+#~ "sécurité active, puis contactez votre administrateur avant de réessayer."
+
+#~ msgid ""
+#~ "This restore cannot safely enable points because its original validated "
+#~ "wallet state is not established. Keep it paused and use the original "
+#~ "backup from a completed active or paused wallet, or request administrator "
+#~ "reconciliation. Do not edit the backup provenance."
+#~ msgstr ""
+#~ "Cette restauration ne peut pas réactiver les points en toute sécurité : "
+#~ "l’état initial d’un portefeuille validé n’est pas établi. Laissez-la "
+#~ "suspendue et utilisez la sauvegarde d’origine d’un portefeuille dont "
+#~ "l’initialisation ou la synchronisation est terminée (actif ou suspendu), "
+#~ "ou demandez une réconciliation à votre administrateur. Ne modifiez pas la "
+#~ "provenance de la sauvegarde."
 
 #~ msgid "Design settings"
 #~ msgstr "Réglages de présentation"
