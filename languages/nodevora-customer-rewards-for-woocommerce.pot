@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-04T18:39:04+00:00\n"
+"POT-Creation-Date: 2026-11-04T18:51:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: nodevora-customer-rewards-for-woocommerce\n"
@@ -477,9 +477,9 @@ msgstr ""
 #: includes/admin/class-rewardly-loyalty-admin.php:251
 #: includes/admin/class-rewardly-loyalty-admin.php:333
 #: includes/admin/class-rewardly-loyalty-admin.php:355
-#: includes/admin/class-rewardly-loyalty-admin.php:403
-#: includes/admin/class-rewardly-loyalty-admin.php:405
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 #: includes/admin/class-rewardly-loyalty-settings.php:136
 #: includes/admin/class-rewardly-loyalty-settings.php:158
 #: includes/admin/class-rewardly-loyalty-settings.php:160
@@ -492,9 +492,9 @@ msgstr ""
 #: includes/admin/class-rewardly-loyalty-admin.php:251
 #: includes/admin/class-rewardly-loyalty-admin.php:333
 #: includes/admin/class-rewardly-loyalty-admin.php:355
-#: includes/admin/class-rewardly-loyalty-admin.php:403
-#: includes/admin/class-rewardly-loyalty-admin.php:405
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 #: includes/admin/class-rewardly-loyalty-settings.php:136
 #: includes/admin/class-rewardly-loyalty-settings.php:158
 #: includes/admin/class-rewardly-loyalty-settings.php:160
@@ -839,7 +839,7 @@ msgid "Each rule defines how many points are earned for each 1 unit of store cur
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin.php:271
-#: includes/admin/class-rewardly-loyalty-admin.php:408
+#: includes/admin/class-rewardly-loyalty-admin.php:407
 msgid "Excluded products"
 msgstr ""
 
@@ -852,7 +852,7 @@ msgid "You can also type raw product IDs manually inside the selector field if n
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin.php:287
-#: includes/admin/class-rewardly-loyalty-admin.php:409
+#: includes/admin/class-rewardly-loyalty-admin.php:408
 msgid "Excluded categories"
 msgstr ""
 
@@ -974,86 +974,82 @@ msgid "Help and quick notes"
 msgstr ""
 
 #: includes/admin/class-rewardly-loyalty-admin.php:374
-msgid "Use the general tab for the core loyalty conversion settings."
-msgstr ""
-
-#: includes/admin/class-rewardly-loyalty-admin.php:375
 msgid "Use General for loyalty rules and Design for appearance."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:376
-msgid "Use Advanced Features to manage advanced rules, bonuses, campaigns and levels."
+#: includes/admin/class-rewardly-loyalty-admin.php:375
+msgid "Use Advanced Features for detailed rules, exclusions and staff access."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:377
+#: includes/admin/class-rewardly-loyalty-admin.php:376
 msgid "Shortcodes can be inserted in builders, custom pages and account dashboards."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:379
+#: includes/admin/class-rewardly-loyalty-admin.php:378
 msgid "Display mode"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:382
+#: includes/admin/class-rewardly-loyalty-admin.php:381
 msgid "Launch checklist"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:384
+#: includes/admin/class-rewardly-loyalty-admin.php:383
 msgid "Confirm the earning and redeem conversion values in the main settings tab."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:385
+#: includes/admin/class-rewardly-loyalty-admin.php:384
 msgid "Choose where the loyalty card should appear automatically."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:386
-msgid "Select a free template and verify the store front result on desktop and mobile."
+#: includes/admin/class-rewardly-loyalty-admin.php:385
+msgid "Choose your colors in Design, then check your store on desktop and mobile."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:387
+#: includes/admin/class-rewardly-loyalty-admin.php:386
 msgid "Review the advanced features tab and enable the options you need for your store."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:388
+#: includes/admin/class-rewardly-loyalty-admin.php:387
 msgid "Verify an isolated test order and refund or cancellation before release. Never use a real payment for testing."
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:400
+#: includes/admin/class-rewardly-loyalty-admin.php:399
 msgid "Debug information"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:401
 msgid "Plugin version"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:403
+#: includes/admin/class-rewardly-loyalty-admin.php:402
 msgid "WooCommerce active"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:403
 msgid "Store currency"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:405
+#: includes/admin/class-rewardly-loyalty-admin.php:404
 msgid "Program enabled"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:406
+#: includes/admin/class-rewardly-loyalty-admin.php:405
 msgid "Selected template"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:407
+#: includes/admin/class-rewardly-loyalty-admin.php:406
 msgid "Category rules"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 msgid "Levels enabled"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:411
+#: includes/admin/class-rewardly-loyalty-admin.php:410
 msgid "Display mode summary"
 msgstr ""
 
-#: includes/admin/class-rewardly-loyalty-admin.php:411
+#: includes/admin/class-rewardly-loyalty-admin.php:410
 msgid "Available shortcodes"
 msgstr ""
 

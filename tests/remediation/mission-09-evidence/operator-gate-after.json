@@ -1,0 +1,126 @@
+[
+  {
+    "writes_paused": true,
+    "integration_allowed": false,
+    "result": {
+      "paused": true,
+      "views": {
+        "en_US": {
+          "resume": false,
+          "alert": true,
+          "text": "Data &amp; BackupsThe points program is temporarily paused.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.The points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.Export your dataThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.Export a backupImport a backupImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.Nodevora backup filePreview import I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.Import reviewed backupReview a partial refundAdministrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review.Order IDRefund IDAuthorized review decision and reference I completed and authorize this external financial reconciliation.Record refund resolution"
+        },
+        "fr_FR": {
+          "resume": false,
+          "alert": true,
+          "text": "Données et sauvegardesLe programme de points est temporairement en pause.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.Votre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.Exporter vos donnéesCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.Exporter une sauvegardeImporter une sauvegardeL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.Fichier de sauvegarde NodevoraPrévisualiser l’import J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.Importer la sauvegarde vérifiéeVérifier un remboursement partielRapprochement externe réservé aux administrateurs. L’enregistrement d’une vérification ne modifie pas les points et ne fait pas avancer la commande. Tout remboursement ultérieur nécessite une nouvelle vérification.Identifiant de commandeIdentifiant de remboursementDécision de vérification autorisée et référence J’ai terminé et j’autorise ce rapprochement financier externe.Enregistrer la résolution du remboursement"
+        }
+      },
+      "server_refused": true,
+      "financial_unchanged": true,
+      "state": {
+        "phase": "restore_review",
+        "origin": "fresh",
+        "activated_at": "2026-11-04T11:20:15+00:00",
+        "recovery_approved": false,
+        "restore_previous_phase": "active",
+        "restore_previous_authority": "wallet",
+        "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+        "restored_at": "2026-11-04T11:55:43+00:00"
+      }
+    }
+  },
+  {
+    "writes_paused": true,
+    "integration_allowed": true,
+    "result": {
+      "paused": true,
+      "views": {
+        "en_US": {
+          "resume": false,
+          "alert": true,
+          "text": "Data &amp; BackupsThe points program is temporarily paused.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.The points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.Export your dataThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.Export a backupImport a backupImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.Nodevora backup filePreview import I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.Import reviewed backupReview a partial refundAdministrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review.Order IDRefund IDAuthorized review decision and reference I completed and authorize this external financial reconciliation.Record refund resolution"
+        },
+        "fr_FR": {
+          "resume": false,
+          "alert": true,
+          "text": "Données et sauvegardesLe programme de points est temporairement en pause.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.Votre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.Exporter vos donnéesCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.Exporter une sauvegardeImporter une sauvegardeL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.Fichier de sauvegarde NodevoraPrévisualiser l’import J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.Importer la sauvegarde vérifiéeVérifier un remboursement partielRapprochement externe réservé aux administrateurs. L’enregistrement d’une vérification ne modifie pas les points et ne fait pas avancer la commande. Tout remboursement ultérieur nécessite une nouvelle vérification.Identifiant de commandeIdentifiant de remboursementDécision de vérification autorisée et référence J’ai terminé et j’autorise ce rapprochement financier externe.Enregistrer la résolution du remboursement"
+        }
+      },
+      "server_refused": true,
+      "financial_unchanged": true,
+      "state": {
+        "phase": "restore_review",
+        "origin": "fresh",
+        "activated_at": "2026-11-04T11:20:15+00:00",
+        "recovery_approved": false,
+        "restore_previous_phase": "active",
+        "restore_previous_authority": "wallet",
+        "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+        "restored_at": "2026-11-04T11:55:43+00:00"
+      }
+    }
+  },
+  {
+    "writes_paused": false,
+    "integration_allowed": false,
+    "result": {
+      "paused": true,
+      "views": {
+        "en_US": {
+          "resume": false,
+          "alert": true,
+          "text": "Data &amp; BackupsThe points program is temporarily paused.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.The points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.Export your dataThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.Export a backupImport a backupImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.Nodevora backup filePreview import I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.Import reviewed backupReview a partial refundAdministrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review.Order IDRefund IDAuthorized review decision and reference I completed and authorize this external financial reconciliation.Record refund resolution"
+        },
+        "fr_FR": {
+          "resume": false,
+          "alert": true,
+          "text": "Données et sauvegardesLe programme de points est temporairement en pause.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying.Votre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.Exporter vos donnéesCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.Exporter une sauvegardeImporter une sauvegardeL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.Fichier de sauvegarde NodevoraPrévisualiser l’import J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.Importer la sauvegarde vérifiéeVérifier un remboursement partielRapprochement externe réservé aux administrateurs. L’enregistrement d’une vérification ne modifie pas les points et ne fait pas avancer la commande. Tout remboursement ultérieur nécessite une nouvelle vérification.Identifiant de commandeIdentifiant de remboursementDécision de vérification autorisée et référence J’ai terminé et j’autorise ce rapprochement financier externe.Enregistrer la résolution du remboursement"
+        }
+      },
+      "server_refused": true,
+      "financial_unchanged": true,
+      "state": {
+        "phase": "restore_review",
+        "origin": "fresh",
+        "activated_at": "2026-11-04T11:20:15+00:00",
+        "recovery_approved": false,
+        "restore_previous_phase": "active",
+        "restore_previous_authority": "wallet",
+        "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+        "restored_at": "2026-11-04T11:55:43+00:00"
+      }
+    }
+  },
+  {
+    "writes_paused": false,
+    "integration_allowed": true,
+    "result": {
+      "paused": false,
+      "views": {
+        "en_US": {
+          "resume": true,
+          "alert": false,
+          "text": "Data &amp; BackupsYour data is preserved. Synchronization or administrator review is required before enabling points.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying. I reviewed the restored data and authorize new points operations. I reviewed all pending effects and authorize background recovery.Enable reviewed pointsExport your dataThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.Export a backupImport a backupImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.Nodevora backup filePreview import I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.Import reviewed backupReview a partial refundAdministrator-only external reconciliation. Recording a review does not adjust points or advance fulfillment. A later refund requires another review.Order IDRefund IDAuthorized review decision and reference I completed and authorize this external financial reconciliation.Record refund resolution"
+        },
+        "fr_FR": {
+          "resume": true,
+          "alert": false,
+          "text": "Données et sauvegardesVos données sont conservées. Une synchronisation ou une vérification par un administrateur est nécessaire avant d’activer les points.The operation could not finish. Your data is preserved. Check the selected file, database access and any active safety pause, then ask your administrator before retrying. J’ai vérifié les données restaurées et j’autorise de nouvelles opérations de points. J’ai vérifié toutes les actions en attente et j’autorise leur reprise en arrière-plan.Activer les points vérifiésExporter vos donnéesCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.Exporter une sauvegardeImporter une sauvegardeL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.Fichier de sauvegarde NodevoraPrévisualiser l’import J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.Importer la sauvegarde vérifiéeVérifier un remboursement partielRapprochement externe réservé aux administrateurs. L’enregistrement d’une vérification ne modifie pas les points et ne fait pas avancer la commande. Tout remboursement ultérieur nécessite une nouvelle vérification.Identifiant de commandeIdentifiant de remboursementDécision de vérification autorisée et référence J’ai terminé et j’autorise ce rapprochement financier externe.Enregistrer la résolution du remboursement"
+        }
+      },
+      "server_refused": false,
+      "financial_unchanged": true,
+      "state": {
+        "phase": "restore_review",
+        "origin": "fresh",
+        "activated_at": "2026-11-04T11:20:15+00:00",
+        "recovery_approved": false,
+        "restore_previous_phase": "active",
+        "restore_previous_authority": "wallet",
+        "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+        "restored_at": "2026-11-04T11:55:43+00:00"
+      }
+    }
+  }
+]

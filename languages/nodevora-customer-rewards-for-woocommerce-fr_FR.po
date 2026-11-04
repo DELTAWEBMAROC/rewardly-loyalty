@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Nodevora Customer Rewards for WooCommerce 4.8.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/nodevora-customer-"
 "rewards-for-woocommerce\n"
-"POT-Creation-Date: 2026-11-04T18:39:04+00:00\n"
+"POT-Creation-Date: 2026-11-04T18:51:18+00:00\n"
 "PO-Revision-Date: 2026-10-27 23:00+0000\n"
 "Last-Translator: Nodevora Project\n"
 "Language-Team: French\n"
@@ -620,9 +620,9 @@ msgstr "Activer les styles Nodevora sur la boutique"
 #: includes/admin/class-rewardly-loyalty-admin.php:251
 #: includes/admin/class-rewardly-loyalty-admin.php:333
 #: includes/admin/class-rewardly-loyalty-admin.php:355
-#: includes/admin/class-rewardly-loyalty-admin.php:403
-#: includes/admin/class-rewardly-loyalty-admin.php:405
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 #: includes/admin/class-rewardly-loyalty-settings.php:136
 #: includes/admin/class-rewardly-loyalty-settings.php:158
 #: includes/admin/class-rewardly-loyalty-settings.php:160
@@ -635,9 +635,9 @@ msgstr "Oui"
 #: includes/admin/class-rewardly-loyalty-admin.php:251
 #: includes/admin/class-rewardly-loyalty-admin.php:333
 #: includes/admin/class-rewardly-loyalty-admin.php:355
-#: includes/admin/class-rewardly-loyalty-admin.php:403
-#: includes/admin/class-rewardly-loyalty-admin.php:405
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 #: includes/admin/class-rewardly-loyalty-settings.php:136
 #: includes/admin/class-rewardly-loyalty-settings.php:158
 #: includes/admin/class-rewardly-loyalty-settings.php:160
@@ -1041,7 +1041,7 @@ msgstr ""
 "pour les produits de cette catégorie."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:271
-#: includes/admin/class-rewardly-loyalty-admin.php:408
+#: includes/admin/class-rewardly-loyalty-admin.php:407
 msgid "Excluded products"
 msgstr "Produits exclus"
 
@@ -1058,7 +1058,7 @@ msgstr ""
 "le sélecteur."
 
 #: includes/admin/class-rewardly-loyalty-admin.php:287
-#: includes/admin/class-rewardly-loyalty-admin.php:409
+#: includes/admin/class-rewardly-loyalty-admin.php:408
 msgid "Excluded categories"
 msgstr "Catégories exclues"
 
@@ -1209,58 +1209,47 @@ msgid "Help and quick notes"
 msgstr "Aide et conseils"
 
 #: includes/admin/class-rewardly-loyalty-admin.php:374
-msgid "Use the general tab for the core loyalty conversion settings."
-msgstr "Utilisez l’onglet Général pour les réglages de conversion des points."
-
-#: includes/admin/class-rewardly-loyalty-admin.php:375
 msgid "Use General for loyalty rules and Design for appearance."
 msgstr ""
 "Utilisez Général pour les règles de fidélité et Présentation pour "
 "l’apparence."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:376
-msgid ""
-"Use Advanced Features to manage advanced rules, bonuses, campaigns and "
-"levels."
-msgstr ""
-"Utilisez Fonctions avancées pour gérer les règles, les bonus, les messages "
-"et les niveaux."
+#: includes/admin/class-rewardly-loyalty-admin.php:375
+msgid "Use Advanced Features for detailed rules, exclusions and staff access."
+msgstr "Utilisez Fonctions avancées pour les règles détaillées, les exclusions et les accès de votre équipe."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:377
+#: includes/admin/class-rewardly-loyalty-admin.php:376
 msgid ""
 "Shortcodes can be inserted in builders, custom pages and account dashboards."
 msgstr ""
 "Les codes courts peuvent être insérés dans les outils de création de pages, "
 "les pages personnalisées et les tableaux de bord clients."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:379
+#: includes/admin/class-rewardly-loyalty-admin.php:378
 msgid "Display mode"
 msgstr "Mode d’affichage"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:382
+#: includes/admin/class-rewardly-loyalty-admin.php:381
 msgid "Launch checklist"
 msgstr "Liste de contrôle avant lancement"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:384
+#: includes/admin/class-rewardly-loyalty-admin.php:383
 msgid ""
 "Confirm the earning and redeem conversion values in the main settings tab."
 msgstr ""
 "Vérifiez les taux de gain et de conversion des points dans les réglages "
 "principaux."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:385
+#: includes/admin/class-rewardly-loyalty-admin.php:384
 msgid "Choose where the loyalty card should appear automatically."
 msgstr "Choisissez les pages où afficher automatiquement la carte de fidélité."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:386
+#: includes/admin/class-rewardly-loyalty-admin.php:385
 msgid ""
-"Select a free template and verify the store front result on desktop and "
-"mobile."
-msgstr ""
-"Choisissez un modèle gratuit et vérifiez le résultat sur ordinateur et "
-"mobile."
+"Choose your colors in Design, then check your store on desktop and mobile."
+msgstr "Choisissez vos couleurs dans Design, puis vérifiez votre boutique sur ordinateur et mobile."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:387
+#: includes/admin/class-rewardly-loyalty-admin.php:386
 msgid ""
 "Review the advanced features tab and enable the options you need for your "
 "store."
@@ -1268,7 +1257,7 @@ msgstr ""
 "Consultez les fonctions avancées et activez les options utiles à votre "
 "boutique."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:388
+#: includes/admin/class-rewardly-loyalty-admin.php:387
 msgid ""
 "Verify an isolated test order and refund or cancellation before release. "
 "Never use a real payment for testing."
@@ -1276,43 +1265,43 @@ msgstr ""
 "Vérifiez une commande de test isolée et son remboursement ou son annulation "
 "avant publication. N’utilisez jamais un paiement réel pour les tests."
 
-#: includes/admin/class-rewardly-loyalty-admin.php:400
+#: includes/admin/class-rewardly-loyalty-admin.php:399
 msgid "Debug information"
 msgstr "Informations de diagnostic"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:402
+#: includes/admin/class-rewardly-loyalty-admin.php:401
 msgid "Plugin version"
 msgstr "Version de l’extension"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:403
+#: includes/admin/class-rewardly-loyalty-admin.php:402
 msgid "WooCommerce active"
 msgstr "WooCommerce actif"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:404
+#: includes/admin/class-rewardly-loyalty-admin.php:403
 msgid "Store currency"
 msgstr "Devise de la boutique"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:405
+#: includes/admin/class-rewardly-loyalty-admin.php:404
 msgid "Program enabled"
 msgstr "Programme activé"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:406
+#: includes/admin/class-rewardly-loyalty-admin.php:405
 msgid "Selected template"
 msgstr "Modèle sélectionné"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:407
+#: includes/admin/class-rewardly-loyalty-admin.php:406
 msgid "Category rules"
 msgstr "Règles de catégorie"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:410
+#: includes/admin/class-rewardly-loyalty-admin.php:409
 msgid "Levels enabled"
 msgstr "Niveaux activés"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:411
+#: includes/admin/class-rewardly-loyalty-admin.php:410
 msgid "Display mode summary"
 msgstr "Résumé du mode d’affichage"
 
-#: includes/admin/class-rewardly-loyalty-admin.php:411
+#: includes/admin/class-rewardly-loyalty-admin.php:410
 msgid "Available shortcodes"
 msgstr "Codes courts disponibles"
 
@@ -2405,6 +2394,24 @@ msgstr "%1$s points appliqués · %2$s de remise"
 #: assets/js/loyalty-blocks.js:41
 msgid "Log in to use your points"
 msgstr "Connectez-vous pour utiliser vos points"
+
+#~ msgid "Use the general tab for the core loyalty conversion settings."
+#~ msgstr ""
+#~ "Utilisez l’onglet Général pour les réglages de conversion des points."
+
+#~ msgid ""
+#~ "Use Advanced Features to manage advanced rules, bonuses, campaigns and "
+#~ "levels."
+#~ msgstr ""
+#~ "Utilisez Fonctions avancées pour gérer les règles, les bonus, les "
+#~ "messages et les niveaux."
+
+#~ msgid ""
+#~ "Select a free template and verify the store front result on desktop and "
+#~ "mobile."
+#~ msgstr ""
+#~ "Choisissez un modèle gratuit et vérifiez le résultat sur ordinateur et "
+#~ "mobile."
 
 #~ msgid ""
 #~ "WooCommerce loyalty points with discounts, expiration, customer history, "

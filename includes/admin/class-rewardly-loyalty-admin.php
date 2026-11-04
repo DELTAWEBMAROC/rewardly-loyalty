@@ -371,9 +371,8 @@ class Rewardly_Loyalty_Admin {
 			<div class="rewardly-admin-card">
 				<h2><?php esc_html_e( 'Help and quick notes', 'nodevora-customer-rewards-for-woocommerce' ); ?></h2>
 				<ul class="rewardly-admin-list">
-					<li><?php esc_html_e( 'Use the general tab for the core loyalty conversion settings.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
-					<li><?php esc_html_e( 'Use General for loyalty rules and Design for appearance.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
-					<li><?php esc_html_e( 'Use Advanced Features to manage advanced rules, bonuses, campaigns and levels.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
+							<li><?php esc_html_e( 'Use General for loyalty rules and Design for appearance.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
+					<li><?php esc_html_e( 'Use Advanced Features for detailed rules, exclusions and staff access.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 					<li><?php esc_html_e( 'Shortcodes can be inserted in builders, custom pages and account dashboards.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 				</ul>
 				<div class="rewardly-admin-note"><p><strong><?php esc_html_e( 'Display mode', 'nodevora-customer-rewards-for-woocommerce' ); ?>:</strong> <?php echo esc_html( self::get_notice_display_mode_summary( $settings['notice_display_mode'] ?? 'both' ) ); ?></p></div>
@@ -383,7 +382,7 @@ class Rewardly_Loyalty_Admin {
 				<ol class="rewardly-admin-panel-list">
 					<li><?php esc_html_e( 'Confirm the earning and redeem conversion values in the main settings tab.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 					<li><?php esc_html_e( 'Choose where the loyalty card should appear automatically.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
-					<li><?php esc_html_e( 'Select a free template and verify the store front result on desktop and mobile.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
+					<li><?php esc_html_e( 'Choose your colors in Design, then check your store on desktop and mobile.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 					<li><?php esc_html_e( 'Review the advanced features tab and enable the options you need for your store.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 					<li><?php esc_html_e( 'Verify an isolated test order and refund or cancellation before release. Never use a real payment for testing.', 'nodevora-customer-rewards-for-woocommerce' ); ?></li>
 				</ol>

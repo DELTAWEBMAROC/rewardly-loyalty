@@ -1,0 +1,42 @@
+{
+  "en": [
+    {
+      "resume": 0,
+      "scroll": 320,
+      "text": "Data & Backups\n\nThe points program is temporarily paused.\n\nThe points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.\n\nExport your data\n\nThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.\n\nExport a backup\nImport a backup\n\nImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.\n\nNodevora backup file\nPreview import\n\n I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.\nImport reviewed backup",
+      "width": 320
+    },
+    {
+      "resume": 0,
+      "scroll": 390,
+      "text": "Data & Backups\n\nThe points program is temporarily paused.\n\nThe points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.\n\nExport your data\n\nThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.\n\nExport a backup\nImport a backup\n\nImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.\n\nNodevora backup file\nPreview import\n\n I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.\nImport reviewed backup",
+      "width": 390
+    },
+    {
+      "resume": 0,
+      "scroll": 1280,
+      "text": "Data & Backups\n\nThe points program is temporarily paused.\n\nThe points program is paused by your site administrator. Ask them to lift the safety pause before enabling restored points.\n\nExport your data\n\nThis Nodevora-only file may contain personal data. Store it privately. It does not back up WordPress or other plugins.\n\nExport a backup\nImport a backup\n\nImports require an empty loyalty target with matching accounts and orders. Existing activity is never overwritten. Preview the same file and confirm before importing. Limits: 32 MiB and 100,000 records.\n\nNodevora backup file\nPreview import\n\n I stopped previous loyalty tools and external callbacks and confirm this import into the verified empty target.\nImport reviewed backup",
+      "width": 1280
+    }
+  ],
+  "fr": [
+    {
+      "resume": 0,
+      "scroll": 320,
+      "text": "Données et sauvegardes\n\nLe programme de points est temporairement en pause.\n\nVotre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.\n\nExporter vos données\n\nCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.\n\nExporter une sauvegarde\nImporter une sauvegarde\n\nL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.\n\nFichier de sauvegarde Nodevora\nPrévisualiser l’import\n\n J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.\nImporter la sauvegarde vérifiée",
+      "width": 320
+    },
+    {
+      "resume": 0,
+      "scroll": 390,
+      "text": "Données et sauvegardes\n\nLe programme de points est temporairement en pause.\n\nVotre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.\n\nExporter vos données\n\nCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.\n\nExporter une sauvegarde\nImporter une sauvegarde\n\nL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.\n\nFichier de sauvegarde Nodevora\nPrévisualiser l’import\n\n J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.\nImporter la sauvegarde vérifiée",
+      "width": 390
+    },
+    {
+      "resume": 0,
+      "scroll": 1280,
+      "text": "Données et sauvegardes\n\nLe programme de points est temporairement en pause.\n\nVotre administrateur a mis le programme de points en pause. Demandez-lui de lever la pause de sécurité avant d’activer les points restaurés.\n\nExporter vos données\n\nCe fichier limité à Nodevora peut contenir des données personnelles. Conservez-le dans un endroit privé. Il ne sauvegarde ni WordPress ni les autres extensions.\n\nExporter une sauvegarde\nImporter une sauvegarde\n\nL’import nécessite une cible de fidélité vide avec les mêmes comptes et commandes. L’activité existante n’est jamais écrasée. Prévisualisez le même fichier et confirmez l’import. Limites : 32 Mio et 100 000 enregistrements.\n\nFichier de sauvegarde Nodevora\nPrévisualiser l’import\n\n J’ai arrêté les anciens outils de fidélité et les rappels externes et je confirme cet import dans la cible vide vérifiée.\nImporter la sauvegarde vérifiée",
+      "width": 1280
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "icon-256x256.png",
+    "width": 256,
+    "height": 256,
+    "bytes": 64850,
+    "sha256": "2a18d1adc1bc8a50a90849cfa09311675a3dfbbe1c4d6f5040cb76e1dd8d2d91"
+  },
+  {
+    "name": "banner-1544x500.png",
+    "width": 1544,
+    "height": 500,
+    "bytes": 792554,
+    "sha256": "fb382ca448e23f3e5c33f8790859749c2b991613aa0b7e637567fe7dbddbea6e"
+  },
+  {
+    "name": "screenshot-4.jpg",
+    "width": 1280,
+    "height": 993,
+    "bytes": 74179,
+    "sha256": "a907ef47df6816e3a1f90c9a29aad7b6cf07919389b62ab07faed4a20d6fafe5"
+  },
+  {
+    "name": "banner-772x250.png",
+    "width": 772,
+    "height": 250,
+    "bytes": 249978,
+    "sha256": "eb93547f39b40d8baf55d03d2637303320c5d08c58d7fb67ad6469bb4cd8ce8e"
+  },
+  {
+    "name": "screenshot-5.jpg",
+    "width": 1280,
+    "height": 1819,
+    "bytes": 105200,
+    "sha256": "06711e65a2f3e6420900ad032e309331d9ab06031bb287dd321ddf8e38c616c2"
+  },
+  {
+    "name": "screenshot-6.jpg",
+    "width": 1280,
+    "height": 1597,
+    "bytes": 84023,
+    "sha256": "4b4def118f3f6f9c38c583e29a1dc1be567dbae17c43c67c939650c11e41a122"
+  },
+  {
+    "name": "screenshot-2.jpg",
+    "width": 1280,
+    "height": 1159,
+    "bytes": 120401,
+    "sha256": "9be1aec3f1a2e29244888790bbe249c5de40c3607684545bb3d54baa41dd7eda"
+  },
+  {
+    "name": "screenshot-3.jpg",
+    "width": 1280,
+    "height": 1383,
+    "bytes": 75792,
+    "sha256": "b97958773744a6a5b2d6f65cef0ce56e90b12b851bd5a8c8a5a5f44d0140d8a8"
+  },
+  {
+    "name": "screenshot-1.jpg",
+    "width": 1280,
+    "height": 960,
+    "bytes": 88725,
+    "sha256": "98bd7298fb3f83f5411fa2091597c3923f050f5362eafdb39c40717f7d4d0ded"
+  },
+  {
+    "name": "icon-128x128.png",
+    "width": 128,
+    "height": 128,
+    "bytes": 25584,
+    "sha256": "db4f04f77dbb1b90aeda48075bfb49ea5a588bc83456d5dc2392aaf5102ae51d"
+  }
+]

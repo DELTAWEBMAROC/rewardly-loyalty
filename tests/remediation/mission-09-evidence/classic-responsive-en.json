@@ -1,0 +1,35 @@
+[
+  {
+    "scroll": 320,
+    "summaries": [
+      {
+        "h": 198.375,
+        "text": "You have 300 points, which equals د.م.15.00 available discount.\nYou can use up to 300 points on this order, which equals د.م.15.00.\nCurrently applied points: 119 (د.م.5.95).",
+        "w": 190
+      }
+    ],
+    "width": 320
+  },
+  {
+    "scroll": 390,
+    "summaries": [
+      {
+        "h": 148.78125,
+        "text": "You have 300 points, which equals د.م.15.00 available discount.\nYou can use up to 300 points on this order, which equals د.م.15.00.\nCurrently applied points: 119 (د.م.5.95).",
+        "w": 260
+      }
+    ],
+    "width": 390
+  },
+  {
+    "scroll": 1280,
+    "summaries": [
+      {
+        "h": 123.984375,
+        "text": "You have 300 points, which equals د.م.15.00 available discount.\nYou can use up to 300 points on this order, which equals د.م.15.00.\nCurrently applied points: 119 (د.م.5.95).",
+        "w": 375.828125
+      }
+    ],
+    "width": 1280
+  }
+]

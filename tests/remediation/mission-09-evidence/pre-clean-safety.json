@@ -1,0 +1,3843 @@
+{
+  "fresh": {
+    "database": "nodevora_m08b_fresh",
+    "url": "http://127.0.0.1:18301",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T18:40:02+00:00",
+      "recovery_approved": false
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 2,
+        "balance": 141,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      }
+    ]
+  },
+  "target1": {
+    "database": "nodevora_m08b_target1",
+    "url": "http://127.0.0.1:18302",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "active",
+      "restore_previous_authority": "wallet",
+      "restore_hash": "5865adc8e7cbdd837d119164e0f923f71ab7ab0bca7716fbaac72aaf6934458d",
+      "restored_at": "2026-11-04T11:23:08+00:00"
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 188,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "unknown_m08b",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  },
+  "target2": {
+    "database": "nodevora_m08b_target2",
+    "url": "http://127.0.0.1:18303",
+    "state": {
+      "phase": "restore_review",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "",
+      "restore_hash": "d36b858fa536aa7637bc922d34d7a8c3f11c28ea53f3e36f268923a0ba668380",
+      "restored_at": "2026-11-04T11:29:12+00:00",
+      "restore_previous_authority": ""
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 181,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "unknown_m08b",
+        "attempts": 0
+      }
+    ]
+  },
+  "work": {
+    "database": "nodevora_m08b_work",
+    "url": "http://127.0.0.1:18304",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 2,
+        "balance": 4881,
+        "state": "ready"
+      },
+      {
+        "user_id": 3,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 4,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 5,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 6,
+        "balance": 3000,
+        "state": "ready"
+      },
+      {
+        "user_id": 7,
+        "balance": 3000,
+        "state": "ready"
+      },
+      {
+        "user_id": 8,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 9,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 10,
+        "balance": 4800,
+        "state": "ready"
+      },
+      {
+        "user_id": 11,
+        "balance": 4800,
+        "state": "ready"
+      },
+      {
+        "user_id": 12,
+        "balance": 20,
+        "state": "ready"
+      },
+      {
+        "user_id": 13,
+        "balance": 100,
+        "state": "ready"
+      },
+      {
+        "user_id": 14,
+        "balance": 10,
+        "state": "ready"
+      },
+      {
+        "user_id": 15,
+        "balance": 2100,
+        "state": "ready"
+      },
+      {
+        "user_id": 16,
+        "balance": 7960,
+        "state": "ready"
+      },
+      {
+        "user_id": 17,
+        "balance": 4881,
+        "state": "ready"
+      },
+      {
+        "user_id": 18,
+        "balance": 300,
+        "state": "ready"
+      },
+      {
+        "user_id": 19,
+        "balance": 300,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  },
+  "legacy": {
+    "database": "nodevora_m08b_legacy",
+    "url": "http://127.0.0.1:18305",
+    "state": {
+      "phase": "paused",
+      "origin": "synchronized",
+      "cursor": 1,
+      "processed": 1,
+      "quarantined": 0,
+      "sync_authorized": 1,
+      "prepared_at": "2026-11-04T11:56:53+00:00",
+      "recovery_approved": false,
+      "batch": [],
+      "scan_complete": true,
+      "activated_at": "2026-11-04T11:56:54+00:00",
+      "activated_by": 1
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 0,
+        "state": "ready"
+      }
+    ],
+    "outbox": []
+  },
+  "ui": {
+    "database": "nodevora_m08b_ui",
+    "url": "http://127.0.0.1:18306",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "active",
+      "restore_previous_authority": "wallet",
+      "restore_hash": "f42e5be4821d37fdbb81cb0f9c0248765cb0ccf468b3eb7e8512078454ccff59",
+      "restored_at": "2026-11-04T11:55:43+00:00"
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 181,
+        "state": "ready"
+      },
+      {
+        "user_id": 2,
+        "balance": 300,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "unknown_m08b",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  },
+  "capacity": {
+    "database": "nodevora_m08b_capacity",
+    "url": "http://127.0.0.1:18307",
+    "state": {
+      "phase": "restore_review",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "active",
+      "restore_previous_authority": "wallet",
+      "restore_hash": "038d321b221c8382cc6c0b39ab49994e994ef6382d99046ab7e524f38fa65463",
+      "restored_at": "2026-11-04T12:07:41+00:00"
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 2,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 3,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 4,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 5,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 6,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 7,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 8,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 9,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 10,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 11,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 12,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 13,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 14,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 15,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 16,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 17,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 18,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 19,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 20,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 21,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 22,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 23,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 24,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 25,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 26,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 27,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 28,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 29,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 30,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 31,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 32,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 33,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 34,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 35,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 36,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 37,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 38,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 39,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 40,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 41,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 42,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 43,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 44,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 45,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 46,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 47,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 48,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 49,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 50,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 51,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 52,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 53,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 54,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 55,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 56,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 57,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 58,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 59,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 60,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 61,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 62,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 63,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 64,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 65,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 66,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 67,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 68,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 69,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 70,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 71,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 72,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 73,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 74,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 75,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 76,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 77,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 78,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 79,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 80,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 81,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 82,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 83,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 84,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 85,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 86,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 87,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 88,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 89,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 90,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 91,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 92,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 93,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 94,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 95,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 96,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 97,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 98,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 99,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 100,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 101,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 102,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 103,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 104,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 105,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 106,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 107,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 108,
+        "balance": 3,
+        "state": "ready"
+      },
+      {
+        "user_id": 109,
+        "balance": 3,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  },
+  "legacyorder": {
+    "database": "nodevora_m08b_legacyorder",
+    "url": "http://127.0.0.1:18308",
+    "state": {
+      "phase": "paused",
+      "origin": "synchronized",
+      "cursor": 2,
+      "processed": 2,
+      "quarantined": 1,
+      "sync_authorized": 1,
+      "prepared_at": "2026-11-04T11:57:21+00:00",
+      "recovery_approved": false,
+      "batch": [],
+      "scan_complete": true,
+      "activated_at": "2026-11-04T11:57:22+00:00",
+      "activated_by": 1
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 2,
+        "balance": 0,
+        "state": "needs_review"
+      }
+    ],
+    "outbox": []
+  },
+  "emptyupgrade": {
+    "database": "nodevora_m08b_emptyupgrade",
+    "url": "http://127.0.0.1:18309",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:59:28+00:00",
+      "recovery_approved": false
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [],
+    "outbox": []
+  },
+  "orderupgrade": {
+    "database": "nodevora_m08b_orderupgrade",
+    "url": "http://127.0.0.1:18310",
+    "state": {
+      "phase": "paused",
+      "origin": "synchronized",
+      "cursor": 2,
+      "processed": 2,
+      "quarantined": 1,
+      "sync_authorized": 1,
+      "prepared_at": "2026-11-04T12:01:19+00:00",
+      "recovery_approved": false,
+      "batch": [],
+      "scan_complete": true,
+      "activated_at": "2026-11-04T12:01:20+00:00",
+      "activated_by": 1
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 2,
+        "balance": 0,
+        "state": "needs_review"
+      }
+    ],
+    "outbox": []
+  },
+  "restoreextra": {
+    "database": "nodevora_m08b_restoreextra",
+    "url": "http://127.0.0.1:18311",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T11:20:15+00:00",
+      "recovery_approved": false,
+      "restore_previous_phase": "active",
+      "restore_previous_authority": "wallet",
+      "restore_hash": "0d6acc376b42435ba0e32283bb31ab1fb9575f97abbf62fc799a0eb832fb30e6",
+      "restored_at": "2026-11-04T12:03:05+00:00"
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 2,
+        "balance": 4881,
+        "state": "ready"
+      },
+      {
+        "user_id": 3,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 4,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 5,
+        "balance": 4900,
+        "state": "ready"
+      },
+      {
+        "user_id": 6,
+        "balance": 3000,
+        "state": "ready"
+      },
+      {
+        "user_id": 7,
+        "balance": 3000,
+        "state": "ready"
+      },
+      {
+        "user_id": 8,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 9,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 10,
+        "balance": 4800,
+        "state": "ready"
+      },
+      {
+        "user_id": 11,
+        "balance": 4800,
+        "state": "ready"
+      },
+      {
+        "user_id": 12,
+        "balance": 20,
+        "state": "ready"
+      },
+      {
+        "user_id": 13,
+        "balance": 100,
+        "state": "ready"
+      },
+      {
+        "user_id": 14,
+        "balance": 10,
+        "state": "ready"
+      },
+      {
+        "user_id": 15,
+        "balance": 2100,
+        "state": "ready"
+      },
+      {
+        "user_id": 16,
+        "balance": 7960,
+        "state": "ready"
+      },
+      {
+        "user_id": 17,
+        "balance": 5000,
+        "state": "ready"
+      },
+      {
+        "user_id": 18,
+        "balance": 0,
+        "state": "needs_review"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  },
+  "volume": {
+    "database": "nodevora_m08b_volume",
+    "url": "http://127.0.0.1:18313",
+    "state": {
+      "phase": "paused",
+      "origin": "synchronized",
+      "cursor": 130,
+      "processed": 130,
+      "quarantined": 1,
+      "sync_authorized": 1,
+      "prepared_at": "2026-11-04T12:12:26+00:00",
+      "recovery_approved": false,
+      "batch": [],
+      "scan_complete": true,
+      "activated_at": "2026-11-04T12:12:36+00:00",
+      "activated_by": 1
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 1,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 2,
+        "balance": 0,
+        "state": "needs_review"
+      },
+      {
+        "user_id": 3,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 4,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 5,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 6,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 7,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 8,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 9,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 10,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 11,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 12,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 13,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 14,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 15,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 16,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 17,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 18,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 19,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 20,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 21,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 22,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 23,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 24,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 25,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 26,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 27,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 28,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 29,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 30,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 31,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 32,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 33,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 34,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 35,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 36,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 37,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 38,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 39,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 40,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 41,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 42,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 43,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 44,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 45,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 46,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 47,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 48,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 49,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 50,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 51,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 52,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 53,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 54,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 55,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 56,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 57,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 58,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 59,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 60,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 61,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 62,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 63,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 64,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 65,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 66,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 67,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 68,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 69,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 70,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 71,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 72,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 73,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 74,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 75,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 76,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 77,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 78,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 79,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 80,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 81,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 82,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 83,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 84,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 85,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 86,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 87,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 88,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 89,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 90,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 91,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 92,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 93,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 94,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 95,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 96,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 97,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 98,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 99,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 100,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 101,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 102,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 103,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 104,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 105,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 106,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 107,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 108,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 109,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 110,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 111,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 112,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 113,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 114,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 115,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 116,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 117,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 118,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 119,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 120,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 121,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 122,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 123,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 124,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 125,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 126,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 127,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 128,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 129,
+        "balance": 0,
+        "state": "ready"
+      },
+      {
+        "user_id": 130,
+        "balance": 0,
+        "state": "ready"
+      }
+    ],
+    "outbox": []
+  },
+  "minimum": {
+    "database": "nodevora_m08b_minimum",
+    "url": "http://127.0.0.1:18312",
+    "state": {
+      "phase": "paused",
+      "origin": "fresh",
+      "activated_at": "2026-11-04T12:12:16+00:00",
+      "recovery_approved": false
+    },
+    "paused": true,
+    "qa": false,
+    "integration": false,
+    "cron": true,
+    "tx": 0,
+    "triggers": [],
+    "wallets": [
+      {
+        "user_id": 2,
+        "balance": 281,
+        "state": "ready"
+      }
+    ],
+    "outbox": [
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "project",
+        "attempts": 0
+      },
+      {
+        "state": "pending",
+        "effect": "notify",
+        "attempts": 0
+      }
+    ]
+  }
+}

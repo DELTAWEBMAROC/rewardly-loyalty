@@ -923,3 +923,8 @@
 :where(.rewardly-loyalty-account,.rewardly-shortcode-account,.rewardly-shortcode-history,.rewardly-loyalty-box){color:var(--rewardly-black,#0b1638)}
 .rewardly-loyalty-box h3,.rewardly-shortcode-account h3,.rewardly-shortcode-history h3{color:var(--rewardly-black,#0b1638)}
 .rewardly-loyalty-account .shop_table .rewardly-log-row,.rewardly-shortcode-history .rewardly-log-row{background:var(--rewardly-card-bg,#fff);border-color:var(--rewardly-border,#cbd5e1)}
+
+/* Keep the Classic summary readable beside the full-width redemption form. */
+@media (min-width:768px){
+  .rewardly-loyalty-box__row--bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr)}
+}
