@@ -1,71 +1,21 @@
-# Nodevora Customer Rewards for WooCommerce
+# Nodevora Customer Rewards for WooCommerce 4.8.6
 
-Nodevora Customer Rewards is a free WooCommerce loyalty points plugin that helps store owners reward customers with points, redeem discounts, and a cleaner loyalty experience across cart, checkout, and My Account.
+WordPress-native loyalty points for WooCommerce. PHP 7.4, WordPress 6.4 and WooCommerce 8.2 minimums. One transactional points engine, WooCommerce CRUD/HPOS and native coupons serve Classic and Blocks checkout.
 
-## What the plugin includes
+## Installation archive
 
-- Earn points based on customer purchases
-- Redeem points for discounts
-- Manual points adjustments from the admin area
-- Points history in My Account
-- Points expiration support
-- Loyalty card and notice display options
-- Shortcodes for manual placement
-- WooCommerce classic and blocks support
-- Design options for the loyalty box
+Use `dist/nodevora-customer-rewards-for-woocommerce-4.8.6.zip`. It contains the official `nodevora-customer-rewards-for-woocommerce/` root. GitHub’s automatically generated repository source archives have a repository wrapper and are not the WordPress installation artifact.
 
-## Main admin sections
+## Existing stores: publication gate
 
-- General
-- Points Adjustments
-- Shortcodes
-- Pro Features
-- Help
+This release uses new financial tables and is intended for fresh installations. It does not migrate earlier Nodevora balances, history or backups. Do not enable automatic updates from an earlier financial architecture. Existing storage remains unchanged; activation refuses legacy storage and uninitialized upgrades do not register loyalty mutations. Retain the matching earlier plugin for existing stores until a separately reviewed rollout is available.
 
-## Shortcodes
+## Validation
 
-- `[rewardly_loyalty_card]`
-- `[rewardly_loyalty_card context="cart"]`
-- `[rewardly_loyalty_card context="checkout"]`
-- `[rewardly_loyalty_notice]`
-- `[rewardly_loyalty_notice context="cart"]`
-- `[rewardly_loyalty_notice context="checkout"]`
+Plugin Check 2.1.0 completes with zero errors and warnings using documented, narrowly scoped PHPCS exceptions for fresh financial SQL and pending-award metadata lookups. The raw corrected pre-annotation scan contains 73 warnings and zero errors; exceptions do not change transaction behavior. Integration validation uses WordPress 7.1.4, PHP 8.3.36, WooCommerce 11.2.1 and HPOS. The minimum-version combination, persistent cache services and additional payment gateways require separate validation.
 
-## Installation
+My Account, six historical shortcodes, design presets, customer adjustments, notifications, backup preview/confirmation and native WooCommerce coupon flows are retained. Partial refunds require an explicit administrator decision. Backups cover Nodevora only and require matching site/account/order state.
 
-1. Upload the `nodevora-customer-rewards-for-woocommerce` folder to `/wp-content/plugins/`.
-2. Activate the plugin from the WordPress admin area.
-3. Go to **Nodevora Customer Rewards** and configure your loyalty settings.
-4. Test earn points, redeem points, and your preferred display mode.
+## Repository and distribution
 
-## Recommended screenshots for the repository
-
-Use these screenshots in your repository or plugin page:
-
-1. General settings screen
-2. Loyalty box on cart or checkout
-3. Customer points history in My Account
-
-## Repository assets
-
-This package includes a dedicated folder for repository and marketplace images:
-
-`wordpress-org-assets/`
-
-Expected image filenames:
-
-- `icon-128x128.png`
-- `icon-256x256.png`
-- `banner-772x250.png`
-- `banner-1544x500.png`
-- `screenshot-1.png`
-- `screenshot-2.png`
-- `screenshot-3.png`
-
-## Version
-
-Current version: **4.8.5**
-
-## Notes
-
-This release is prepared as a fully free version.
+Runtime is at the repository root. Translation PO/POT sources are retained for maintainers; the installation ZIP includes compiled MO/JSON only. Marketing artwork belongs in WordPress.org SVN’s separate assets directory. No WordPress.org SVN deployment is performed by this repository update.

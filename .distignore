@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+.distignore
+README.md
+dist
+release
+languages/*.po
+languages/*.pot

@@ -1,0 +1,44 @@
+name: Prepare Nodevora 4.8.6 draft release
+on:
+  push:
+    tags:
+      - '4.8.6'
+permissions:
+  contents: read
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Verify installation archive
+        working-directory: dist
+        run: |
+          sha256sum -c nodevora-customer-rewards-for-woocommerce-4.8.6.zip.sha256
+          python3 - <<'PYVERIFY'
+          import zipfile
+          with zipfile.ZipFile('nodevora-customer-rewards-for-woocommerce-4.8.6.zip') as archive:
+              assert archive.testzip() is None
+              assert all(name.startswith('nodevora-customer-rewards-for-woocommerce/') for name in archive.namelist())
+          PYVERIFY
+      - name: Create draft release without overwriting an existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo 'An existing release will not be overwritten.' >&2
+            exit 1
+          fi
+          gh release create "$TAG" \
+            dist/nodevora-customer-rewards-for-woocommerce-4.8.6.zip \
+            dist/nodevora-customer-rewards-for-woocommerce-4.8.6.zip.sha256 \
+            --verify-tag --draft --latest=false \
+            --title 'Nodevora 4.8.6' --notes-file release/4.8.6.md
+          gh release view "$TAG" --json url,isDraft,tagName,assets > release-result.json
+          cat release-result.json
+          echo '### Draft release prepared' >> "$GITHUB_STEP_SUMMARY"
+          gh release view "$TAG" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"

@@ -24,8 +24,8 @@ jQuery(function ($) {
 	function addCategoryRuleRow() {
 		const html = '<div class="rewardly-rule-row rewardly-category-rule-row">' +
 			'<input type="text" class="regular-text rewardly-category-search" list="rewardly-category-options" placeholder="' + (data.i18n && data.i18n.selectCategory ? data.i18n.selectCategory : 'Start typing a category name…') + '">' +
-			'<input type="hidden" name="rewardly_loyalty_settings[pro_category_rule_term_id][]" class="rewardly-category-id" value="">' +
-			'<input type="number" min="1" name="rewardly_loyalty_settings[pro_category_rule_rate][]" value="" placeholder="5">' +
+			'<input type="hidden" name="nodevora_v2_preferences[pro_category_rule_term_id][]" class="rewardly-category-id" value="">' +
+			'<input type="number" min="1" name="nodevora_v2_preferences[pro_category_rule_rate][]" value="" placeholder="5">' +
 			'<button type="button" class="button button-secondary rewardly-remove-row">×</button>' +
 		'</div>';
 		$('#rewardly-category-rules-wrap').append(html);
@@ -35,7 +35,7 @@ jQuery(function ($) {
 	function addExcludedProductRow() {
 		const html = '<div class="rewardly-selector-row rewardly-product-selector-row">' +
 			'<input type="text" class="regular-text rewardly-product-search" list="rewardly-product-options" placeholder="' + (data.i18n && data.i18n.selectProduct ? data.i18n.selectProduct : 'Start typing a product name…') + '">' +
-			'<input type="hidden" name="rewardly_loyalty_settings[pro_excluded_product_ids][]" class="rewardly-product-id" value="">' +
+			'<input type="hidden" name="nodevora_v2_preferences[pro_excluded_product_ids][]" class="rewardly-product-id" value="">' +
 			'<button type="button" class="button button-secondary rewardly-remove-row">×</button>' +
 		'</div>';
 		$('#rewardly-excluded-products-wrap').append(html);
@@ -45,7 +45,7 @@ jQuery(function ($) {
 	function addExcludedCategoryRow() {
 		const html = '<div class="rewardly-selector-row rewardly-category-selector-row">' +
 			'<input type="text" class="regular-text rewardly-category-search" list="rewardly-category-options" placeholder="' + (data.i18n && data.i18n.selectCategory ? data.i18n.selectCategory : 'Start typing a category name…') + '">' +
-			'<input type="hidden" name="rewardly_loyalty_settings[pro_excluded_category_ids][]" class="rewardly-category-id" value="">' +
+			'<input type="hidden" name="nodevora_v2_preferences[pro_excluded_category_ids][]" class="rewardly-category-id" value="">' +
 			'<button type="button" class="button button-secondary rewardly-remove-row">×</button>' +
 		'</div>';
 		$('#rewardly-excluded-categories-wrap').append(html);
