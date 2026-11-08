@@ -8,45 +8,203 @@ Stable tag: 4.8.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Reward repeat purchases with points customers can use for WooCommerce discounts.
+Create a WooCommerce loyalty program with reward points, redeemable discounts, expiration, customer history, emails, and Blocks support.
 
 == Description ==
-Nodevora lets customers earn points on eligible WooCommerce purchases, use available points for discounts, and view their wallet and history in My Account.
 
-Configure earning and redemption rates, minimum points, a discount cap, expiration, product/category rules, registration/first-order/review bonuses, notifications, access permissions and appearance. Classic cart/checkout and Cart/Checkout Blocks use one points engine and native WooCommerce coupons. Six shortcodes provide flexible placement.
+Nodevora Customer Rewards is a free WooCommerce loyalty points and rewards plugin built around the core workflow stores actually need: customers earn points from purchases, redeem points for discounts, and track their loyalty balance and history.
 
-IMPORTANT: This release uses new financial tables and requires a fresh installation. It does not migrate balances, history or financial backups from earlier Nodevora versions. Do not enable automatic updates from an earlier financial architecture. Existing stores must retain their matching earlier version until a separately reviewed deployment plan is available. Loyalty operations remain disabled when the new store has not been initialized; activation refuses detected legacy storage. Earlier records are never converted or deleted.
+Run a focused WooCommerce loyalty program with points expiration, redemption controls, manual points adjustments, email notifications, shortcodes, and support for both classic WooCommerce cart and checkout and modern Cart and Checkout Blocks.
 
-Failed payments retain the points reservation for a retry of the same order. Cancel the order to release it. Cancelled rewards orders cannot be reopened for payment. Partial refunds require an administrator points decision. Expired points are not revived on cancellation. Reversed rewards already spent create a visible debt settled by future earnings.
+No complicated loyalty campaign builder is required. Configure your reward rules, start rewarding purchases, and let customers use their available points directly in the shopping flow.
 
-Backups contain personal financial history. Store them privately. Limits: 8 MiB and 20,000 rows per table. Restore requires empty Nodevora financial tables on the same site, matching customers and the same WooCommerce order state. Pause checkout and order changes during backup/restore. The backup is not a complete WordPress or WooCommerce backup. Only the current nodevora-v2-2 archive with presentation preferences is accepted.
+= Why Choose Nodevora Customer Rewards? =
 
-Logged-in pages, My Account, cart and checkout must be excluded from full-page caches at the cache layer. Nodevora emits no-cache headers and DONOTCACHEPAGE for logged-in frontend responses. Display caching never authorizes a debit.
+Nodevora Customer Rewards focuses on the essential purchase-to-reward workflow instead of turning a simple loyalty program into a complex marketing platform.
 
-The shared WordPress database connection must be idle with autocommit enabled. Nodevora refuses pre-existing transactions. Multisite and custom database-routing drop-ins are not supported. Uninstall preserves customer points and financial evidence; optional cleanup removes preferences only.
+* Reward customers with points from eligible WooCommerce purchases
+* Let customers redeem points for discounts
+* Points expiration included
+* Minimum redemption and maximum discount controls
+* Customer points balance and history in My Account
+* Manual points adjustments from the WordPress admin area
+* Email notifications for loyalty activity
+* Classic WooCommerce cart and checkout support
+* WooCommerce Cart and Checkout Blocks support
+* Shortcodes for flexible placement
+* Clean and focused configuration
+
+= WooCommerce Loyalty Points and Rewards =
+
+Reward customers when they purchase from your WooCommerce store. Customers can collect loyalty points over time and redeem their available reward points for discounts on future orders.
+
+The workflow stays focused:
+
+1. A customer places an eligible WooCommerce order.
+2. The customer earns reward points according to your configured rules.
+3. Their points are added to their loyalty balance.
+4. The customer can view their balance and points history.
+5. Available points can be redeemed for discounts according to your redemption settings.
+
+= Earn Reward Points from WooCommerce Orders =
+
+Customers can earn loyalty points from eligible WooCommerce purchases.
+
+Store owners can configure how points are earned and control when points are credited to the customer's balance.
+
+= Redeem Points for WooCommerce Discounts =
+
+Customers can use available loyalty points as discounts during the shopping flow.
+
+Store owners can configure redemption rules including minimum points required before redemption and maximum discount limits.
+
+This gives merchants control over how reward points affect order totals while keeping redemption simple for customers.
+
+= Points Expiration =
+
+Set an expiration period for loyalty points to encourage customers to return and use their available rewards.
+
+Points expiration is included in Nodevora Customer Rewards and can be configured from the loyalty settings.
+
+= Customer Points Balance and History =
+
+Customers can view their current loyalty balance and points activity from their WooCommerce My Account area.
+
+This gives customers a clear view of how their reward balance changes over time.
+
+= Manual Points Adjustments =
+
+Store administrators can manually add or remove customer points when needed.
+
+Manual adjustments are useful for customer service, corrections, promotional rewards, or other store-specific situations.
+
+= Email Notifications =
+
+Keep customers informed when loyalty activity affects their points balance.
+
+Email notifications help customers stay aware of their rewards and loyalty activity.
+
+= WooCommerce Cart and Checkout Blocks Support =
+
+Nodevora Customer Rewards supports modern WooCommerce Cart and Checkout Blocks as well as classic WooCommerce cart and checkout templates.
+
+Customers can interact with their loyalty rewards without requiring stores to stay on legacy checkout layouts.
+
+= Shortcodes =
+
+The plugin includes shortcodes for displaying loyalty information manually in pages, templates, and compatible page builders.
+
+This gives store owners additional flexibility when placing customer rewards information.
 
 == Installation ==
-1. Back up the site and confirm it is a fresh Nodevora installation with no earlier loyalty data.
-2. Install this archive and activate with WooCommerce active.
-3. Open Nodevora Rewards and configure points and appearance.
-4. Open My Account > My Points to review the wallet.
+
+1. Install Nodevora Customer Rewards for WooCommerce through the WordPress Plugins screen, or upload the `nodevora-customer-rewards-for-woocommerce` folder to the `/wp-content/plugins/` directory.
+2. Activate Nodevora Customer Rewards for WooCommerce.
+3. Make sure WooCommerce is installed and active.
+4. Open Nodevora Customer Rewards from the WordPress admin area.
+5. Configure your earning, redemption, expiration, notification, and display settings.
+6. Test the earning and redemption workflow before using the loyalty program on a production store.
 
 == Frequently Asked Questions ==
-= Which shortcodes are available? =
-[rewardly_points_balance], [rewardly_points_value], [rewardly_points_history], [rewardly_account_block], [rewardly_loyalty_notice], [rewardly_loyalty_card].
 
-= Which versions are required? =
-WordPress 6.4, PHP 7.4 and WooCommerce 8.2. Integration validation was performed on WordPress 7.1.4, PHP 8.3.36 and WooCommerce 11.2.1. Other combinations require independent validation.
+= Does Nodevora Customer Rewards require WooCommerce? =
 
-== Upgrade Notice ==
-= 4.8.6 =
-Fresh installations only. New financial storage does not migrate earlier balances or history. Do not automatically update an existing loyalty store; retain its matching plugin and data.
+Yes. Nodevora Customer Rewards requires WooCommerce to provide its loyalty points and rewards functionality.
+
+= Is Nodevora Customer Rewards free? =
+
+Yes. Nodevora Customer Rewards is free software released under the GPLv2 or later license.
+
+= How do customers earn reward points? =
+
+Customers earn loyalty points from eligible WooCommerce purchases according to the earning rules configured by the store administrator.
+
+= Can customers redeem points for WooCommerce discounts? =
+
+Yes. Customers can redeem available loyalty points for discounts according to the redemption rules configured by the store owner.
+
+= Can I set a minimum number of points before customers can redeem them? =
+
+Yes. Nodevora Customer Rewards includes controls for the minimum points required before redemption.
+
+= Can I limit the maximum discount from loyalty points? =
+
+Yes. Store owners can configure a maximum discount limit for points redemption.
+
+= Does Nodevora Customer Rewards support points expiration? =
+
+Yes. Store owners can configure an expiration period for customer loyalty points.
+
+= Can administrators manually adjust customer points? =
+
+Yes. Administrators can manually add or remove points from a customer's loyalty balance.
+
+= Can customers see their points balance and history? =
+
+Yes. Customers can view their loyalty balance and points activity from their WooCommerce My Account area.
+
+= Does Nodevora Customer Rewards support WooCommerce Blocks? =
+
+Yes. Nodevora Customer Rewards supports WooCommerce block-based Cart and Checkout flows as well as classic WooCommerce cart and checkout templates.
+
+= Does the plugin include email notifications? =
+
+Yes. The plugin can notify customers about loyalty activity that affects their points balance.
+
+= Can I display loyalty information manually? =
+
+Yes. Nodevora Customer Rewards includes shortcodes that can be used for flexible placement in pages, templates, and compatible page builders.
+
+== Screenshots ==
+
+1. Configure earning, redemption, expiration and notification settings.
+2. Redeem loyalty points directly in cart or checkout.
+3. Customer points balance and loyalty history in My Account.
+4. Manual customer points adjustments from the WordPress admin area.
+5. Points expiration and automatic email notifications.
+6. WooCommerce classic and Cart/Checkout Blocks support.
+7. Design controls and loyalty shortcodes.
 
 == Changelog ==
+
 = 4.8.6 =
-* Native WordPress database access with a shared transactional points engine and idempotent journal.
-* WooCommerce coupons, HPOS, Classic and Blocks checkout support.
-* Restored Nodevora administration, frontend, notifications and appearance controls.
-* Verified cache invalidation, backup preview/confirmation and English/French translations.
-* Preserve the original database isolation default after COMMIT and refuse uninitialized legacy cutovers.
-* Notify confirmed durable points events even when the COMMIT acknowledgement is lost.
+* Improved frontend and admin interface design.
+* Enhanced design customization and styling options.
+* Added new features, including Advanced Mode enhancements and improved developer options.
+* Strengthened security and protection of loyalty operations.
+* Improved compatibility with the latest WordPress and WooCommerce versions.
+* Fixed bugs and improved overall stability and performance.
+
+= 4.8.5 =
+
+* Added official WooCommerce dependency and compatibility metadata for the 11.0 release line.
+* Added HPOS and Cart/Checkout Blocks compatibility declarations for validation in QA.
+* Fixed product-specific earning-rate overrides so the product setting is actually respected.
+* Fixed loyalty email notifications so points activity can trigger customer emails when enabled.
+* Improved points-history cache invalidation after balance changes.
+* Reduced daily expiration work to customers with a positive loyalty balance.
+* Updated visible Rewardly branding to Nodevora while preserving legacy internal identifiers for upgrade safety.
+* Updated the default visual identity to Nodevora navy, teal and gold while preserving custom merchant colors.
+* Improved refund/cancellation restoration log semantics and admin order notes.
+* General compatibility and release hardening for WordPress 7.0 and WooCommerce 11.0.
+
+= 4.8.4 =
+
+* Production-ready free release
+* WooCommerce Cart and Checkout Blocks support
+* Points expiration support
+* Customer points balance and history
+* Manual points adjustments
+* Email notifications
+* Loyalty display controls and shortcodes
+* General stability and compatibility improvements
+
+== Upgrade Notice ==
+
+= 4.8.5 =
+
+Compatibility, reliability, branding and WooCommerce integration hardening. Test on a staging site before production deployment.
+
+= 4.8.4 =
+
+Maintenance, stability, and public release preparation update.

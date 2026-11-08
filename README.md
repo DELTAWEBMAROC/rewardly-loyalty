@@ -1,21 +1,33 @@
-# Nodevora Customer Rewards for WooCommerce 4.8.6
+# Nodevora Customer Rewards for WooCommerce
 
-WordPress-native loyalty points for WooCommerce. PHP 7.4, WordPress 6.4 and WooCommerce 8.2 minimums. One transactional points engine, WooCommerce CRUD/HPOS and native coupons serve Classic and Blocks checkout.
+Reward repeat purchases with loyalty points customers can use for WooCommerce discounts. Nodevora helps customers earn rewards, redeem available points and track their balance and points history in My Account.
 
-## Installation archive
+## Features
 
-Use `dist/nodevora-customer-rewards-for-woocommerce-4.8.6.zip`. It contains the official `nodevora-customer-rewards-for-woocommerce/` root. GitHub’s automatically generated repository source archives have a repository wrapper and are not the WordPress installation artifact.
+- Configurable loyalty points earning and redemption, minimums and discount limits.
+- Classic WooCommerce cart/checkout and modern Cart and Checkout Blocks support.
+- HPOS compatibility.
+- Advanced Mode for detailed rules, exclusions, staff access and developer-focused diagnostics.
+- Design presets, colors, button styles, hover effects and component customization.
+- Registration, first-order and approved-review bonuses, plus points expiration.
+- Manual customer points adjustments and loyalty history.
+- Email notifications, six shortcodes and backup export, preview and import.
 
-## Existing stores: publication gate
+## Shortcodes
 
-This release uses new financial tables and is intended for fresh installations. It does not migrate earlier Nodevora balances, history or backups. Do not enable automatic updates from an earlier financial architecture. Existing storage remains unchanged; activation refuses legacy storage and uninitialized upgrades do not register loyalty mutations. Retain the matching earlier plugin for existing stores until a separately reviewed rollout is available.
+`[rewardly_points_balance]`, `[rewardly_points_value]`, `[rewardly_points_history]`, `[rewardly_account_block]`, `[rewardly_loyalty_notice]`, `[rewardly_loyalty_card]`.
 
-## Validation
+## Getting started
 
-Plugin Check 2.1.0 completes with zero errors and warnings using documented, narrowly scoped PHPCS exceptions for fresh financial SQL and pending-award metadata lookups. The raw corrected pre-annotation scan contains 73 warnings and zero errors; exceptions do not change transaction behavior. Integration validation uses WordPress 7.1.4, PHP 8.3.36, WooCommerce 11.2.1 and HPOS. The minimum-version combination, persistent cache services and additional payment gateways require separate validation.
+Install Nodevora Customer Rewards for WooCommerce, activate it with WooCommerce, and configure your earning, redemption and appearance settings from Nodevora Rewards in the WordPress administration area.
 
-My Account, six historical shortcodes, design presets, customer adjustments, notifications, backup preview/confirmation and native WooCommerce coupon flows are retained. Partial refunds require an explicit administrator decision. Backups cover Nodevora only and require matching site/account/order state.
+Requirements: WordPress 6.4 or later, PHP 7.4 or later, and WooCommerce 8.2 or later.
 
-## Repository and distribution
+## What's New in 4.8.6
 
-Runtime is at the repository root. Translation PO/POT sources are retained for maintainers; the installation ZIP includes compiled MO/JSON only. Marketing artwork belongs in WordPress.org SVN’s separate assets directory. No WordPress.org SVN deployment is performed by this repository update.
+* Improved frontend and admin interface design.
+* Enhanced design customization and styling options.
+* Added new features, including Advanced Mode enhancements and improved developer options.
+* Strengthened security and protection of loyalty operations.
+* Improved compatibility with the latest WordPress and WooCommerce versions.
+* Fixed bugs and improved overall stability and performance.
